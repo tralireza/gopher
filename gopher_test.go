@@ -14,5 +14,6 @@ func TestByteCounter(t *testing.T) {
 		t.Fail()
 	}
 
-	log.Printf(" -> %d", v)
+	var _ fmt.Stringer = &v
+	log.Printf(" -> %v", v)
 }
