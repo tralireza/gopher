@@ -30,9 +30,9 @@ func TestInterface(t *testing.T) {
 	log.Printf("fmt.Stringer -> Dynamic Type: %T    Dynamic Value: %[1]v", v)
 
 	// v.Write([]byte{}) -> compile error
-	if w, ok := v.(io.Writer); ok {
+	if v, ok := v.(io.Writer); ok {
 		log.Print("👍")
-		w.Write([]byte("Hello Gopher!"))
-		log.Printf("io.Writer -> %T %[1]v", w)
+		v.Write([]byte("Hello Gopher!"))
+		log.Printf("io.Writer -> %T %[1]v", v)
 	}
 }
