@@ -36,3 +36,7 @@ func TestInterface(t *testing.T) {
 		log.Printf("io.Writer -> %T %[1]v", v)
 	}
 }
+
+func TestSolarySystem(t *testing.T) {
+	PrintPlanets()
+}
