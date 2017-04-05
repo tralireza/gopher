@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"strconv"
 	"text/tabwriter"
 )
@@ -43,12 +44,20 @@ var (
 	}
 )
 
+type ByMass []*Planet
+
+func (o ByMass) Len() int           { return len(o) }
+func (o ByMass) Less(i, j int) bool { return o[i].Mass < o[j].Mass }
+func (o ByMass) Swap(i, j int)      { o[i], o[j] = o[j], o[i] }
+
 func PrintPlanets() {
 	w := new(tabwriter.Writer).Init(os.Stdout, 0, 8, 2, ' ', 0)
 	const format = "%v\t%v\t%v\t%v\t%v\n"
 	fmt.Fprintf(w, format, "Planet", "Position", "Distance", "Mass", "Radius")
 	fmt.Fprintf(w, format, "======", "--------", "--------", "----", "------")
-	for _, p := range SolarSystem {
+	Planets := ByMass(SolarSystem)
+	sort.Sort(Planets)
+	for _, p := range Planets {
 		fmt.Fprintf(w, format, p.Name, p.Order, p.Distance, p.Mass, p.Radius)
 	}
 	w.Flush()
