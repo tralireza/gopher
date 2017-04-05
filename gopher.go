@@ -33,9 +33,9 @@ type Planet struct {
 
 var (
 	SolarSystem = []*Planet{
-		{"Mercury", 1, nil, 58, .055, .3829},
+		{"Mercury", 1, nil, 58, .055, .3830},
 		{"Venus", 2, nil, 108, .815, .9499},
-		{"Earth", 3, []string{"Moon"}, 149, 1, 1},
+		{"Earth", 3, []string{"Moon"}, 150, 1, 1},
 		{"Mars", 4, []string{"Phobos", "Deimos"}, 228, .107, .532},
 		{"Jupiter", 5, []string{"Io", "Europa", "Ganymede", "Callisto"}, 778, 318, 10.8},
 		{"Saturn", 6, []string{"Mimas", "Enceladus", "Tethys", "Dione", "Rhea", "Titan"}, 1433, 95, 8.9},
@@ -55,9 +55,8 @@ func PrintPlanets() {
 	const format = "%v\t%v\t%v\t%v\t%v\n"
 	fmt.Fprintf(w, format, "Planet", "Position", "Distance", "Mass", "Radius")
 	fmt.Fprintf(w, format, "======", "--------", "--------", "----", "------")
-	Planets := ByMass(SolarSystem)
-	sort.Sort(Planets)
-	for _, p := range Planets {
+	sort.Sort(ByMass(SolarSystem))
+	for _, p := range SolarSystem {
 		fmt.Fprintf(w, format, p.Name, p.Order, p.Distance, p.Mass, p.Radius)
 	}
 	w.Flush()
