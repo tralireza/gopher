@@ -55,7 +55,7 @@ func PrintPlanets() {
 	const format = "%v\t%v\t%v\t%v\t%v\n"
 	fmt.Fprintf(w, format, "Planet", "Position", "Distance", "Mass", "Radius")
 	fmt.Fprintf(w, format, "======", "--------", "--------", "----", "------")
-	sort.Sort(ByMass(SolarSystem))
+	sort.Sort(sort.Reverse(ByMass(SolarSystem)))
 	for _, p := range SolarSystem {
 		fmt.Fprintf(w, format, p.Name, p.Order, p.Distance, p.Mass, p.Radius)
 	}
