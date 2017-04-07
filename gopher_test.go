@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -39,4 +40,14 @@ func TestInterface(t *testing.T) {
 
 func TestSolarySystem(t *testing.T) {
 	PrintPlanets()
+}
+
+func TestErrors(t *testing.T) {
+	log.Print("? ", errors.New("UserError") == errors.New("UserError"))
+
+	type UserError struct{ msg string }
+	e1, e2 := UserError{"Msg"}, UserError{"Msg"}
+
+	log.Print("? ", e1 == e2)
+	log.Print("? ", &e1 == &e2)
 }
