@@ -52,4 +52,13 @@ func TestErrors(t *testing.T) {
 	log.Print("? ", &e1 == &e2)
 
 	log.Printf(" -> %T", fmt.Errorf("%s", "UserError"))
+
+	var errors = [...]string{
+		1: "error 1",
+		3: "error 3",
+		4: "error 4",
+		9: "error 9",
+	}
+	log.Printf("%T -> %[1]q", errors)
+	log.Print("? ", errors[2])
 }
