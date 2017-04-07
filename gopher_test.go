@@ -50,4 +50,6 @@ func TestErrors(t *testing.T) {
 
 	log.Print("? ", e1 == e2)
 	log.Print("? ", &e1 == &e2)
+
+	log.Printf(" -> %T", fmt.Errorf("%s", "UserError"))
 }
