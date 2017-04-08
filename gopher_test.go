@@ -61,4 +61,8 @@ func TestErrors(t *testing.T) {
 	}
 	log.Printf("%T -> %[1]q", errors)
 	log.Print("? ", errors[2])
+
+	_, err := os.Open("/fs/dir/file")
+	log.Printf("%T -> %#[1]v", err)
+	log.Printf("-> %T", err.(*fs.PathError))
 }
