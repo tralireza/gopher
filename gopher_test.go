@@ -45,7 +45,7 @@ func TestSortInterface(t *testing.T) {
 }
 
 func TestTypeSwitch(t *testing.T) {
-	for _, x := range []interface{}{nil, uint(5), true, float64(2.7182818), "ID-X10X", [2]int{0, 0}} {
+	for _, x := range []interface{}{nil, uint(5), 0, true, float64(2.7182818), "ID-X10X", [2]int{0, 0}} {
 		log.Printf("%T: %[1]v -> %s", x, SqlQuote(x))
 	}
 }
