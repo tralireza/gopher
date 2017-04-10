@@ -61,3 +61,23 @@ func PrintPlanets() {
 	}
 	w.Flush()
 }
+
+func SqlQuote(x interface{}) string {
+	switch x := x.(type) {
+	case nil:
+		return "NULL"
+	case int, uint:
+		return fmt.Sprintf("%d", x)
+	case float32, float64:
+		return fmt.Sprintf("%g", x)
+	case bool:
+		if x {
+			return "TRUE"
+		}
+		return "FALSE"
+	case string:
+		return fmt.Sprintf("'%s'", x)
+	default:
+		return fmt.Sprintf("'%v'", x)
+	}
+}
