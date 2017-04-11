@@ -76,5 +76,6 @@ func TestErrors(t *testing.T) {
 }
 
 func TestClosure(t *testing.T) {
-	log.Print(Fib(9))
+	log.Print("+ ", Fib(9))
+	log.Print("+ ", Fib(45))
 }

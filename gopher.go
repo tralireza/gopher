@@ -85,14 +85,14 @@ func SqlQuote(x interface{}) string {
 
 func Fib(n int) int {
 	Mem := map[int]int{0: 0, 1: 1}
-	var f func(int) int
-	f = func(n int) int {
+	var fib func(int) int
+	fib = func(n int) int {
 		if v, ok := Mem[n]; ok {
 			return v
 		}
-		Mem[n] = f(n-1) + f(n-2)
-		log.Printf(" -> f(%d) %d", n, Mem[n])
+		Mem[n] = fib(n-1) + fib(n-2)
+		log.Printf(" -> fib(%d) %d", n, Mem[n])
 		return Mem[n]
 	}
-	return f(n)
+	return fib(n)
 }
