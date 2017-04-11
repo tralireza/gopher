@@ -67,6 +67,7 @@ func SqlQuote(x interface{}) string {
 	case nil:
 		return "NULL"
 	case int, uint:
+		log.Printf(" -> %T %[1]v", x)
 		return fmt.Sprintf("%d", x)
 	case float32, float64:
 		return fmt.Sprintf("%g", x)
@@ -80,4 +81,18 @@ func SqlQuote(x interface{}) string {
 	default:
 		return fmt.Sprintf("'%v'", x)
 	}
+}
+
+func Fib(n int) int {
+	Mem := map[int]int{0: 0, 1: 1}
+	var f func(int) int
+	f = func(n int) int {
+		if v, ok := Mem[n]; ok {
+			return v
+		}
+		log.Printf(" -> f(%d)", n)
+		Mem[n] = f(n-1) + f(n-2)
+		return Mem[n]
+	}
+	return f(n)
 }
