@@ -90,8 +90,8 @@ func Fib(n int) int {
 		if v, ok := Mem[n]; ok {
 			return v
 		}
-		log.Printf(" -> f(%d)", n)
 		Mem[n] = f(n-1) + f(n-2)
+		log.Printf(" -> f(%d) %d", n, Mem[n])
 		return Mem[n]
 	}
 	return f(n)
