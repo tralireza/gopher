@@ -82,10 +82,20 @@ func TestClosure(t *testing.T) {
 }
 
 func TestChannel(t *testing.T) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Printf("%T -> %[1]v", err)
+		}
+	}()
+
 	var ch chan int
 	log.Print("? ", ch == nil)
-	log.Printf(" -> '%T'   R: '%v' '%v'", ch, reflect.TypeOf(ch), reflect.ValueOf(ch).Type())
+	log.Printf(" :: '%T'   R: '%v' '%v'", ch, reflect.TypeOf(ch), reflect.ValueOf(ch).Type())
 
-	ch1, ch2 := make(chan int), make(chan int)
-	log.Print("? ", ch1 == ch2)
+	ch1, ch2 := make(<-chan int), make(chan<- int)
+	// log.Print("? ", ch1 == ch2) -> compile error
+	log.Printf("| %T | %T |", ch1, ch2)
+	close(ch2)
+
+	close(ch)
 }
