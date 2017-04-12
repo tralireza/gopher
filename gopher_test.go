@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"reflect"
 	"testing"
 )
 
@@ -78,4 +79,13 @@ func TestErrors(t *testing.T) {
 func TestClosure(t *testing.T) {
 	log.Print("+ ", Fib(9))
 	log.Print("+ ", Fib(45))
+}
+
+func TestChannel(t *testing.T) {
+	var ch chan int
+	log.Print("? ", ch == nil)
+	log.Printf(" -> '%T'   R: '%v' '%v'", ch, reflect.TypeOf(ch), reflect.ValueOf(ch).Type())
+
+	ch1, ch2 := make(chan int), make(chan int)
+	log.Print("? ", ch1 == ch2)
 }
