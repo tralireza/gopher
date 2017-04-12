@@ -92,9 +92,10 @@ func TestChannel(t *testing.T) {
 	log.Print("? ", ch == nil)
 	log.Printf(" :: '%T'   R: '%v' '%v'", ch, reflect.TypeOf(ch), reflect.ValueOf(ch).Type())
 
-	ch1, ch2 := make(<-chan int), make(chan<- int)
+	ch1, ch2 := make(<-chan int), make(chan<- int, 1)
 	// log.Print("? ", ch1 == ch2) -> compile error
 	log.Printf("| %T | %T |", ch1, ch2)
+	ch2 <- 0
 	close(ch2)
 
 	close(ch)
