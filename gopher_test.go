@@ -98,5 +98,15 @@ func TestChannel(t *testing.T) {
 	ch2 <- 0
 	close(ch2)
 
+	chN := make(chan int, 1)
+	for i := 0; i < 10; i++ {
+		select {
+		case chN <- i:
+		case n := <-chN:
+			log.Print(n)
+		}
+	}
+	close(chN)
+
 	close(ch)
 }
