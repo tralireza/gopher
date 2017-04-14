@@ -110,3 +110,19 @@ func TestChannel(t *testing.T) {
 
 	close(ch)
 }
+
+func TestBits(t *testing.T) {
+	nums := []int{-3, -3, -3, 1, 1, 1, 4, 4, 4, -9}
+	x := 0
+	for p := 31; p >= 0; p-- {
+		b := 0
+		for _, n := range nums {
+			b += (n >> p) & 1
+		}
+		x |= (b % 3) << p
+	}
+	log.Print(nums, " -> -9 ?= ", int(int32(x)))
+
+	y, z := int32(x), int(int32(x))
+	log.Printf("| %d | %d | %d |", x, y, z)
+}
