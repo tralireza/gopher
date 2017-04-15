@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"reflect"
+	"sync"
 	"testing"
 )
 
@@ -158,9 +159,11 @@ func TestBits(t *testing.T) {
 }
 
 func TestSafety(t *testing.T) {
+	var wg sync.WaitGroup
+
 	// Immutable Safety
 	M := map[int]string{0: "Zero", 1: "One", 2: "Two", 3: "Three"}
-	var wg sync.WaitGroup
+	wg = sync.WaitGroup{}
 	for range 100 {
 		wg.Add(1)
 		go func() {
@@ -171,4 +174,31 @@ func TestSafety(t *testing.T) {
 		}()
 	}
 	wg.Wait()
+
+	type Task struct {
+		State  string
+		access chan struct{}
+	}
+
+	p1 := Task{"New", make(chan struct{}, 1)}
+	wg = sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		for range 1000 {
+			p1.access <- struct{}{}
+			p1.State = "Running"
+			<-p1.access
+		}
+	}()
+	go func() {
+		defer wg.Done()
+		for range 1000 {
+			p1.access <- struct{}{}
+			p1.State = "Sleeping"
+			<-p1.access
+		}
+	}()
+	wg.Wait()
+	log.Print(p1)
 }
