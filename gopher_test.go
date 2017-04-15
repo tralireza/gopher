@@ -156,3 +156,19 @@ func TestBits(t *testing.T) {
 		log.Printf("| %v |", []int{x, y})
 	}()
 }
+
+func TestSafety(t *testing.T) {
+	// Immutable Safety
+	M := map[int]string{0: "Zero", 1: "One", 2: "Two", 3: "Three"}
+	var wg sync.WaitGroup
+	for range 100 {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for n := range 100 {
+				fmt.Fprintf(io.Discard, "{%d->%s}", n%4, M[n%4])
+			}
+		}()
+	}
+	wg.Wait()
+}
