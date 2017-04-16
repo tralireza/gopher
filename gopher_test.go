@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/fs"
 	"log"
+	"math/rand"
 	"os"
 	"reflect"
 	"sync"
@@ -175,6 +176,7 @@ func TestSafety(t *testing.T) {
 	}
 	wg.Wait()
 
+	// Mutual Exclusion
 	type Task struct {
 		State  string
 		access chan struct{}
@@ -201,4 +203,38 @@ func TestSafety(t *testing.T) {
 	}()
 	wg.Wait()
 	log.Print(p1)
+
+	// Monitor
+	runc, slpc := make(chan *Task), make(chan *Task)
+	Run := func(p *Task) { runc <- p }
+	Sleep := func(p *Task) { slpc <- p }
+
+	quitc := make(chan struct{})
+	go func() {
+		for range 1000 {
+			switch rand.Intn(2) {
+			case 0:
+				Run(&p1)
+			case 1:
+				Sleep(&p1)
+			}
+		}
+		quitc <- struct{}{}
+	}()
+
+	quit := false
+	for !quit {
+		select {
+		case p := <-runc:
+			p.State = "Running"
+			fmt.Print(" -> ", p)
+		case p := <-slpc:
+			p.State = "Sleeping"
+			fmt.Print(" -> ", p)
+		case <-quitc:
+			quit = true
+		}
+	}
+
+	log.Print("\n", p1)
 }
