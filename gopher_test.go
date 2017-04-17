@@ -179,7 +179,7 @@ func TestSafety(t *testing.T) {
 	// Mutual Exclusion
 	type Task struct {
 		State  string
-		access chan struct{}
+		access chan struct{} // -> sync.Mutex
 	}
 
 	p1 := Task{"New", make(chan struct{}, 1)}
@@ -188,17 +188,17 @@ func TestSafety(t *testing.T) {
 	go func() {
 		defer wg.Done()
 		for range 1000 {
-			p1.access <- struct{}{}
-			p1.State = "Running"
-			<-p1.access
+			p1.access <- struct{}{} // -> sync.Mutex.Lock()
+			p1.State = "Running"    //
+			<-p1.access             // -> sync.Mutex.Unlock()
 		}
 	}()
 	go func() {
 		defer wg.Done()
 		for range 1000 {
-			p1.access <- struct{}{}
-			p1.State = "Sleeping"
-			<-p1.access
+			p1.access <- struct{}{} // -> sync.Mutex.Lock()
+			p1.State = "Sleeping"   //
+			<-p1.access             // -> sync.Mutex.Unlock()
 		}
 	}()
 	wg.Wait()
