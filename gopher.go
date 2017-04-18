@@ -1,12 +1,17 @@
 package gopher
 
 import (
+	"bytes"
+	"context"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"sort"
 	"strconv"
 	"text/tabwriter"
+	"time"
 )
 
 func init() {
@@ -81,6 +86,24 @@ func SqlQuote(x interface{}) string {
 	default:
 		return fmt.Sprintf("'%v'", x)
 	}
+}
+
+func httpGet(url string) (interface{}, error) {
+	ctx, _ := context.WithTimeout(context.Background(), 7*time.Second)
+	rq, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	rsp, err := http.DefaultClient.Do(rq)
+	if err != nil {
+		return nil, err
+	}
+	defer rsp.Body.Close()
+	bfr := bytes.Buffer{}
+	if _, err := io.Copy(&bfr, rsp.Body); err != nil {
+		return nil, err
+	}
+	return bfr, nil
 }
 
 func Fib(n int) int {

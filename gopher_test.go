@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -11,6 +12,7 @@ import (
 	"reflect"
 	"sync"
 	"testing"
+	"time"
 )
 
 func TestByteCounter(t *testing.T) {
@@ -237,4 +239,17 @@ func TestSafety(t *testing.T) {
 	}
 
 	log.Print("\n", p1)
+}
+
+func TestHttpGet(t *testing.T) {
+	ts := time.Now()
+	bfr, err := httpGet("https://go.dev")
+	if err != nil {
+		t.Fail()
+	}
+	dur := time.Since(ts)
+
+	if bfr, ok := bfr.(bytes.Buffer); ok {
+		log.Printf(" {%v} -> %d bytes", dur, bfr.Len())
+	}
 }
