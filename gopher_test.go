@@ -10,9 +10,12 @@ import (
 	"math/rand"
 	"os"
 	"reflect"
+	"strings"
 	"sync"
 	"testing"
 	"time"
+
+	"golang.org/x/net/html"
 )
 
 func TestByteCounter(t *testing.T) {
@@ -245,11 +248,30 @@ func TestHttpGet(t *testing.T) {
 	ts := time.Now()
 	bfr, err := httpGet("https://go.dev")
 	if err != nil {
-		t.Fail()
+		t.Fatal(err)
 	}
 	dur := time.Since(ts)
 
-	if bfr, ok := bfr.(bytes.Buffer); ok {
+	if bfr, ok := bfr.(*bytes.Buffer); ok {
 		log.Printf(" {%v} -> %d bytes", dur, bfr.Len())
+		node, err := html.Parse(bfr)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		wg := sync.WaitGroup{}
+		for _, lnk := range hrefXtr([]string{}, node) {
+			if strings.HasPrefix(lnk, "https") {
+				wg.Add(1)
+				go func(url string) {
+					defer wg.Done()
+					ts := time.Now()
+					if _, err := httpGet(url); err == nil {
+						log.Printf(" [%v] -> %s", time.Since(ts), url)
+					}
+				}(lnk)
+			}
+		}
+		wg.Wait()
 	}
 }
