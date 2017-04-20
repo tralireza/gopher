@@ -244,16 +244,42 @@ func TestSafety(t *testing.T) {
 	log.Print("\n", p1)
 }
 
-func TestHttpGet(t *testing.T) {
-	ts := time.Now()
+func TestFCache(t *testing.T) {
 	bfr, err := httpGet("https://go.dev")
 	if err != nil {
 		t.Fatal(err)
 	}
-	dur := time.Since(ts)
 
 	if bfr, ok := bfr.(*bytes.Buffer); ok {
-		log.Printf(" {%v} -> %d bytes", dur, bfr.Len())
+		node, err := html.Parse(bfr)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		getCache := NewFCache(httpGet)
+		var wg sync.WaitGroup // zero value is also fine...
+		for _, lnk := range hrefXtr([]string{}, node) {
+			if strings.HasPrefix(lnk, "https://") {
+				wg.Add(1)
+				go func(url string) {
+					defer wg.Done()
+					ts := time.Now()
+					_, err := getCache.Get(url)
+					log.Printf(" %v {%v} -> %s ", time.Since(ts), err, url)
+				}(lnk)
+			}
+		}
+		wg.Wait()
+	}
+}
+
+func TestHttpGet(t *testing.T) {
+	bfr, err := httpGet("https://go.dev")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if bfr, ok := bfr.(*bytes.Buffer); ok {
 		node, err := html.Parse(bfr)
 		if err != nil {
 			t.Fatal(err)
@@ -261,7 +287,7 @@ func TestHttpGet(t *testing.T) {
 
 		wg := sync.WaitGroup{}
 		for _, lnk := range hrefXtr([]string{}, node) {
-			if strings.HasPrefix(lnk, "https") {
+			if strings.HasPrefix(lnk, "https://") {
 				wg.Add(1)
 				go func(url string) {
 					defer wg.Done()

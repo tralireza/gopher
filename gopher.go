@@ -10,6 +10,7 @@ import (
 	"os"
 	"sort"
 	"strconv"
+	"sync"
 	"text/tabwriter"
 	"time"
 
@@ -88,6 +89,37 @@ func SqlQuote(x interface{}) string {
 	default:
 		return fmt.Sprintf("'%v'", x)
 	}
+}
+
+func NewFCache(f func(string) (interface{}, error)) *fCache {
+	return &fCache{f: f, cache: map[string]*fResult{}}
+}
+
+type fResult struct {
+	bdy   interface{}
+	err   error
+	ready chan struct{}
+}
+type fCache struct {
+	f     func(string) (interface{}, error)
+	cache map[string]*fResult
+	mtx   sync.Mutex
+}
+
+func (p *fCache) Get(url string) (interface{}, error) {
+	p.mtx.Lock()
+	if r, ok := p.cache[url]; ok {
+		p.mtx.Unlock()
+		<-r.ready // wait for data to be ready
+		return r.bdy, r.err
+	}
+
+	r := fResult{ready: make(chan struct{})}
+	p.cache[url] = &r
+	p.mtx.Unlock()
+	r.bdy, r.err = p.f(url)
+	close(r.ready) // data is ready...
+	return r.bdy, r.err
 }
 
 func httpGet(url string) (interface{}, error) {
