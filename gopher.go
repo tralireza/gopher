@@ -91,7 +91,8 @@ func SqlQuote(x interface{}) string {
 	}
 }
 
-func NewFCache(f func(string) (interface{}, error)) *fCache {
+// Non-Blocking Cache with Duplicate Suppression
+func NewNBCacheDS(f func(string) (interface{}, error)) *fCache {
 	return &fCache{f: f, cache: map[string]*fResult{}}
 }
 

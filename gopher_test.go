@@ -244,7 +244,7 @@ func TestSafety(t *testing.T) {
 	log.Print("\n", p1)
 }
 
-func TestFCache(t *testing.T) {
+func TestNBCacheDS(t *testing.T) {
 	bfr, err := httpGet("https://go.dev")
 	if err != nil {
 		t.Fatal(err)
@@ -256,7 +256,14 @@ func TestFCache(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		getCache := NewFCache(httpGet)
+		PageCache := NewNBCacheDS(httpGet)
+		for _, l := range []string{"https://pkg.go.dev", "https://github.com/golang"} {
+			go func(url string) {
+				PageCache.Get(url) // cache warm up!
+			}(l)
+		}
+		time.Sleep(time.Second)
+
 		var wg sync.WaitGroup // zero value is also fine...
 		for _, lnk := range hrefXtr([]string{}, node) {
 			if strings.HasPrefix(lnk, "https://") {
@@ -264,7 +271,7 @@ func TestFCache(t *testing.T) {
 				go func(url string) {
 					defer wg.Done()
 					ts := time.Now()
-					_, err := getCache.Get(url)
+					_, err := PageCache.Get(url)
 					log.Printf(" %v {%v} -> %s ", time.Since(ts), err, url)
 				}(lnk)
 			}
