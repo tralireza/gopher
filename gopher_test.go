@@ -308,3 +308,9 @@ func TestHttpGet(t *testing.T) {
 		wg.Wait()
 	}
 }
+
+// 1051 Height Checker
+func Test1051(t *testing.T) {
+	log.Print("3 ?= ", heightChecker([]int{1, 1, 4, 2, 1, 3}))
+	log.Print("5 ?= ", heightChecker([]int{5, 1, 2, 3, 4}))
+}

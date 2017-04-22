@@ -169,3 +169,29 @@ func Fib(n int) int {
 	}
 	return fib(n)
 }
+
+// 1051 Height Checker
+func heightChecker(heights []int) int {
+	// 1 <= heights[i] <= 100
+	fH := make([]int, 100+1)
+	for _, h := range heights {
+		fH[h]++
+	}
+
+	hSort := make([]int, len(heights))
+	i := 0
+	for h, f := range fH {
+		for range f {
+			hSort[i] = h
+			i++
+		}
+	}
+
+	x := 0
+	for i := range hSort {
+		if hSort[i] != heights[i] {
+			x++
+		}
+	}
+	return x
+}
