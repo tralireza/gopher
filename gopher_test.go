@@ -311,6 +311,46 @@ func TestHttpGet(t *testing.T) {
 
 // 1051 Height Checker
 func Test1051(t *testing.T) {
-	log.Print("3 ?= ", heightChecker([]int{1, 1, 4, 2, 1, 3}))
-	log.Print("5 ?= ", heightChecker([]int{5, 1, 2, 3, 4}))
+	// 1 <= heights[i] <= 100
+
+	RadixSort := func(heights []int) int {
+		rSort := make([]int, len(heights))
+		copy(rSort, heights)
+
+		for digitRx := 0; digitRx <= 100/10; digitRx++ {
+			Bucket := [10][]int{}
+
+			rx := 1
+			for range digitRx {
+				rx *= 10
+			}
+
+			for _, h := range rSort {
+				Bucket[(h/rx)%10] = append(Bucket[(h/rx)%10], h)
+			}
+
+			i := 0
+			for r := range Bucket {
+				for _, h := range Bucket[r] {
+					if h > 0 {
+						rSort[i] = h
+						i++
+					}
+				}
+			}
+		}
+
+		x := 0
+		for i := range rSort {
+			if rSort[i] != heights[i] {
+				x++
+			}
+		}
+		return x
+	}
+
+	for _, f := range []func([]int) int{RadixSort, heightChecker} {
+		log.Print("3 ?= ", f([]int{1, 1, 4, 2, 1, 3}))
+		log.Print("5 ?= ", f([]int{5, 1, 2, 3, 4}))
+	}
 }
