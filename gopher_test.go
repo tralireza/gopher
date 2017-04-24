@@ -320,7 +320,13 @@ func TestUnsafe(t *testing.T) {
 	p := (*int64)(unsafe.Pointer((uintptr(unsafe.Pointer(&i)) + unsafe.Sizeof(int64(0)))))
 	log.Printf("%p", p)
 	*p = 17
-	log.Print(" -> ", j)
+	log.Print(" {*p = 17} -> ", j)
+
+	s1, s2 := []string{"-", "."}, strings.Split("-*.", "*")
+	// s1 == s2 *** Not-Possible -> !comparable
+	log.Printf(" ? %t", reflect.DeepEqual(s1, s2))
+	log.Printf(" %v %v ? %t <!>", []string{}, []string(nil), reflect.DeepEqual([]string(nil), []string{}))
+	log.Printf(" %v %v ? %t <!>", map[int]int{}, map[int]int(nil), reflect.DeepEqual(map[int]int(nil), map[int]int{}))
 }
 
 // 1051 Height Checker
