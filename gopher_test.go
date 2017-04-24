@@ -315,8 +315,12 @@ func TestUnsafe(t *testing.T) {
 	log.Printf("%#016x\n%#016x", int64(31), *(*uint64)(unsafe.Pointer(&f)))
 	log.Printf("%d", *(*uint64)(unsafe.Pointer(&f)))
 
-	i := 9
-	log.Printf("%p %#x", &i, uintptr(unsafe.Pointer(&i)))
+	i, j := int64(9), int64(10)
+	log.Printf("%p %p %#x", &i, &j, uintptr(unsafe.Pointer(&i)))
+	p := (*int64)(unsafe.Pointer((uintptr(unsafe.Pointer(&i)) + unsafe.Sizeof(int64(0)))))
+	log.Printf("%p", p)
+	*p = 17
+	log.Print(" -> ", j)
 }
 
 // 1051 Height Checker
