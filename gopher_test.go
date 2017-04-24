@@ -14,6 +14,7 @@ import (
 	"sync"
 	"testing"
 	"time"
+	"unsafe"
 
 	"golang.org/x/net/html"
 )
@@ -307,6 +308,12 @@ func TestHttpGet(t *testing.T) {
 		}
 		wg.Wait()
 	}
+}
+
+func TestUnsafe(t *testing.T) {
+	f := float64(1.0)
+	log.Printf("%#016x\n%#016x", int64(31), *(*uint64)(unsafe.Pointer(&f)))
+	log.Printf("%d", *(*uint64)(unsafe.Pointer(&f)))
 }
 
 // 1051 Height Checker
