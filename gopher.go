@@ -170,6 +170,30 @@ func Fib(n int) int {
 	return fib(n)
 }
 
+// 763m Partition Labels
+func partitionLabels(s string) []int {
+	lP := []int{}
+
+	lMap := [26]int{}
+	for i, r := range s {
+		lMap[byte(r)-'a'] = i
+	}
+	log.Print(lMap)
+
+	pSize := 0
+	var iMax int
+	for i := 0; i < len(s); i++ {
+		pSize++
+		iMax = max(iMax, lMap[s[i]-'a'])
+		if i == iMax {
+			lP = append(lP, pSize)
+			pSize = 0
+		}
+	}
+
+	return lP
+}
+
 // 1051 Height Checker
 func heightChecker(heights []int) int {
 	// 1 <= heights[i] <= 100

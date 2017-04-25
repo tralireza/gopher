@@ -329,6 +329,12 @@ func TestUnsafe(t *testing.T) {
 	log.Printf(" %v %v ? %t <!>", map[int]int{}, map[int]int(nil), reflect.DeepEqual(map[int]int(nil), map[int]int{}))
 }
 
+// 763m Partition Labels
+func Test763(t *testing.T) {
+	log.Print("[9 7 8] ?= ", partitionLabels("ababcbacadefegdehijhklij"))
+	log.Print("[10] ?= ", partitionLabels("eccbbbbdec"))
+}
+
 // 1051 Height Checker
 func Test1051(t *testing.T) {
 	// 1 <= heights[i] <= 100
