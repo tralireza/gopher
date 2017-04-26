@@ -178,7 +178,7 @@ func partitionLabels(s string) []int {
 	for i, r := range s {
 		lMap[byte(r)-'a'] = i
 	}
-	log.Print(lMap)
+	log.Print(len(s), " :: ", lMap)
 
 	pSize := 0
 	var iMax int
