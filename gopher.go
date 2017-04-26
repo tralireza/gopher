@@ -170,6 +170,26 @@ func Fib(n int) int {
 	return fib(n)
 }
 
+// 49m Group Anagrams
+func groupAnagrams(strs []string) [][]string {
+	aGrp := map[[26]int][]string{}
+	for _, s := range strs {
+		w := [26]int{}
+		for i := 0; i < len(s); i++ {
+			w[s[i]-'a']++
+		}
+		log.Print(s, " -> ", w)
+
+		aGrp[w] = append(aGrp[w], s)
+	}
+
+	r := [][]string{}
+	for _, ag := range aGrp {
+		r = append(r, ag)
+	}
+	return r
+}
+
 // 763m Partition Labels
 func partitionLabels(s string) []int {
 	lP := []int{}

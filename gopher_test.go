@@ -329,6 +329,11 @@ func TestUnsafe(t *testing.T) {
 	log.Printf(" %v %v ? %t <!>", map[int]int{}, map[int]int(nil), reflect.DeepEqual(map[int]int(nil), map[int]int{}))
 }
 
+// 49m Group Anagrams
+func Test49(t *testing.T) {
+	log.Printf("-> %+v", groupAnagrams([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
+}
+
 // 763m Partition Labels
 func Test763(t *testing.T) {
 	log.Print("[9 7 8] ?= ", partitionLabels("ababcbacadefegdehijhklij"))
