@@ -329,6 +329,30 @@ func TestUnsafe(t *testing.T) {
 	log.Printf(" %v %v ? %t <!>", map[int]int{}, map[int]int(nil), reflect.DeepEqual(map[int]int(nil), map[int]int{}))
 }
 
+// 48m Rotate Image
+func Test48(t *testing.T) {
+	Draw := func(M [][]int) {
+		for r := range M {
+			fmt.Print("[")
+			for c := range M[r] {
+				fmt.Printf("%2d ", M[r][c])
+			}
+			fmt.Print("]\n")
+		}
+	}
+
+	for _, M := range [][][]int{
+		{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}},
+		{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}},
+	} {
+		log.Print("==")
+		Draw(M)
+		rotate(M)
+		log.Print(" -> ")
+		Draw(M)
+	}
+}
+
 // 49m Group Anagrams
 func Test49(t *testing.T) {
 	log.Printf("-> %+v", groupAnagrams([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))

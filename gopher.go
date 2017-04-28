@@ -170,6 +170,25 @@ func Fib(n int) int {
 	return fib(n)
 }
 
+// 48m Rotate Image
+func rotate(matrix [][]int) {
+	N := len(matrix)
+
+	// Transpose: M -> Mt
+	for r := 0; r < N; r++ {
+		for c := r + 1; c < N; c++ {
+			matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
+		}
+	}
+
+	// column exchange
+	for r := 0; r < N; r++ {
+		for c := 0; c < N/2; c++ {
+			matrix[r][c], matrix[r][N-c-1] = matrix[r][N-c-1], matrix[r][c]
+		}
+	}
+}
+
 // 49m Group Anagrams
 func groupAnagrams(strs []string) [][]string {
 	aGrp := map[[26]int][]string{}
