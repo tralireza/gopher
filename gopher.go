@@ -209,6 +209,46 @@ func groupAnagrams(strs []string) [][]string {
 	return r
 }
 
+// 73m Set Matrix Zeroes
+func setZeroes(matrix [][]int) {
+	M, N := len(matrix), len(matrix[0])
+
+	r0, c0 := false, false
+	for r := 0; r < M && !c0; r++ {
+		c0 = c0 || matrix[r][0] == 0
+	}
+	for c := 0; c < N && !r0; c++ {
+		r0 = r0 || matrix[0][c] == 0
+	}
+
+	for r := 1; r < M; r++ {
+		for c := 1; c < N; c++ {
+			if matrix[r][c] == 0 {
+				matrix[0][c], matrix[r][0] = 0, 0
+			}
+		}
+	}
+
+	for r := 1; r < M; r++ {
+		for c := 1; c < N; c++ {
+			if matrix[0][c] == 0 || matrix[r][0] == 0 {
+				matrix[r][c] = 0
+			}
+		}
+	}
+
+	if r0 {
+		for c := 0; c < N; c++ {
+			matrix[0][c] = 0
+		}
+	}
+	if c0 {
+		for r := 0; r < M; r++ {
+			matrix[r][0] = 0
+		}
+	}
+}
+
 // 763m Partition Labels
 func partitionLabels(s string) []int {
 	lP := []int{}
