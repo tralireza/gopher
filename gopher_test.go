@@ -384,9 +384,16 @@ func Test73(t *testing.T) {
 
 // 207m Course Schedule
 func Test207(t *testing.T) {
+	// 0 -> 1
 	log.Print("true ?= ", canFinish(2, [][]int{{1, 0}}))
+
+	// 0 <-> 1
 	log.Print("false ?= ", canFinish(2, [][]int{{1, 0}, {0, 1}}))
-	log.Print("true ?= ", canFinish(7, [][]int{{1, 0}, {2, 3}, {3, 4}, {0, 3}, {5, 6}}))
+
+	//       /------->|
+	// 1 -> 0 -> 3 -> 4   5 -> 6
+	//      2 -->|
+	log.Print("true ?= ", canFinish(7, [][]int{{0, 4}, {1, 0}, {2, 3}, {3, 4}, {0, 3}, {5, 6}}))
 }
 
 // 763m Partition Labels

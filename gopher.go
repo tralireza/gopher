@@ -258,6 +258,50 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	}
 	log.Print("Graph :: lsAdj -> ", Graph)
 
+	Vis := make([]bool, numCourses)
+
+	Comp := []int{} // Connected Components
+	for n := range numCourses {
+		if Vis[n] || len(Graph[n]) == 0 {
+			continue
+		}
+		Comp = append(Comp, n)
+
+		v, Q := n, []int{n}
+		for len(Q) > 0 {
+			v, Q = Q[0], Q[1:]
+			Vis[v] = true
+			for _, u := range Graph[v] {
+				if !Vis[u] {
+					Q = append(Q, u)
+				}
+			}
+		}
+	}
+	log.Print("Components :: ", Comp)
+
+	var t int
+	var T []int
+
+	var DFS func(int)
+	DFS = func(v int) {
+		Vis[v] = true
+		for _, u := range Graph[v] {
+			if !Vis[u] {
+				DFS(u)
+			}
+		}
+		t++
+		T[v] = t
+	}
+
+	for _, v := range Comp {
+		Vis = make([]bool, numCourses)
+		t, T = 0, make([]int, numCourses)
+		DFS(v)
+		log.Print(v, " -> ", T)
+	}
+
 	r := false
 	return r
 }
