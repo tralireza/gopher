@@ -297,15 +297,37 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 		T[v][1] = t
 	}
 
-	for _, v := range Comp {
-		Vis = make([]bool, numCourses)
-		t, T = 0, make([][2]int, numCourses)
-		DFS(v)
-		log.Print(v, " -> ", T)
+	cycle := false
+
+	var CheckCycle func(int)
+	CheckCycle = func(v int) {
+		if cycle {
+			return // done!
+		}
+		Vis[v] = true
+		for _, u := range Graph[v] {
+			if T[u][1] >= T[v][1] { // Cross or Back EDGE
+				log.Print("--- Cross/Back Edge (cycle): ", v, T[v], " -> ", u, T[u])
+				cycle = true
+				return
+			}
+			if !Vis[u] {
+				CheckCycle(u)
+			}
+		}
 	}
 
-	r := false
-	return r
+	for _, n := range Comp {
+		t, T = 0, make([][2]int, numCourses)
+		Vis = make([]bool, numCourses)
+		DFS(n)
+		log.Print(n, " -> ", T)
+
+		Vis = make([]bool, numCourses)
+		CheckCycle(n)
+	}
+
+	return !cycle
 }
 
 // 763m Partition Labels
