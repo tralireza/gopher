@@ -306,8 +306,8 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 		}
 		Vis[v] = true
 		for _, u := range Graph[v] {
-			if T[u][1] >= T[v][1] { // Cross or Back EDGE
-				log.Print("--- Cross/Back Edge (cycle): ", v, T[v], " -> ", u, T[u])
+			if T[u][1] >= T[v][1] { // Back EDGE
+				log.Print("== Back Edge (cycle): ", v, T[v], " -> ", u, T[u])
 				cycle = true
 				return
 			}
