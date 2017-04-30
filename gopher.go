@@ -281,10 +281,12 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	log.Print("Components :: ", Comp)
 
 	var t int
-	var T []int
+	var T [][2]int
 
 	var DFS func(int)
 	DFS = func(v int) {
+		t++
+		T[v][0] = t
 		Vis[v] = true
 		for _, u := range Graph[v] {
 			if !Vis[u] {
@@ -292,12 +294,12 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 			}
 		}
 		t++
-		T[v] = t
+		T[v][1] = t
 	}
 
 	for _, v := range Comp {
 		Vis = make([]bool, numCourses)
-		t, T = 0, make([]int, numCourses)
+		t, T = 0, make([][2]int, numCourses)
 		DFS(v)
 		log.Print(v, " -> ", T)
 	}
