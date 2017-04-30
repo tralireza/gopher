@@ -249,6 +249,19 @@ func setZeroes(matrix [][]int) {
 	}
 }
 
+// 207m Course Schedule
+func canFinish(numCourses int, prerequisites [][]int) bool {
+	Graph := make([][]int, numCourses)
+	for _, e := range prerequisites {
+		v, u := e[0], e[1]
+		Graph[v] = append(Graph[v], u)
+	}
+	log.Print("Graph :: lsAdj -> ", Graph)
+
+	r := false
+	return r
+}
+
 // 763m Partition Labels
 func partitionLabels(s string) []int {
 	lP := []int{}
