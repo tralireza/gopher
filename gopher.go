@@ -317,13 +317,16 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 		}
 	}
 
+	t, T = 0, make([][2]int, numCourses)
+	Vis = make([]bool, numCourses)
+	for n := range numCourses {
+		if !Vis[n] {
+			DFS(n)
+		}
+	}
+	log.Print("Discovery/Finishing :: ", T)
+	Vis = make([]bool, numCourses)
 	for _, n := range Comp {
-		t, T = 0, make([][2]int, numCourses)
-		Vis = make([]bool, numCourses)
-		DFS(n)
-		log.Print(n, " -> ", T)
-
-		Vis = make([]bool, numCourses)
 		CheckCycle(n)
 	}
 

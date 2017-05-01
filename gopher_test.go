@@ -394,6 +394,8 @@ func Test207(t *testing.T) {
 	// 1 -> 0 -> 3 -> 4   5 -> 6
 	//      2 -->|
 	log.Print("true ?= ", canFinish(7, [][]int{{0, 4}, {1, 0}, {2, 3}, {3, 4}, {0, 3}, {5, 6}}))
+
+	log.Print("false ?= ", canFinish(7, [][]int{{0, 4}, {4, 1}, {1, 0}, {2, 3}, {3, 4}, {0, 3}, {5, 6}}))
 }
 
 // 763m Partition Labels
