@@ -10,6 +10,7 @@ import (
 	"os"
 	"sort"
 	"strconv"
+	"strings"
 	"sync"
 	"text/tabwriter"
 	"time"
@@ -331,6 +332,45 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	}
 
 	return !cycle
+}
+
+// 394m Decode String
+func decodeString(s string) string {
+	i := 0
+
+	ParseK := func() int {
+		k := 0
+		for s[i] >= '0' && s[i] <= '9' {
+			k = 10*k + int(s[i]-'0')
+			i++
+		}
+		return k
+	}
+
+	var Decode func() string
+	Decode = func() string {
+		var dStr strings.Builder
+
+		for i < len(s) {
+			switch {
+			case s[i] >= 'a' && s[i] <= 'z':
+				dStr.WriteByte(s[i])
+				i++
+				continue
+			case s[i] == ']':
+				i++
+				return dStr.String()
+			}
+
+			k := ParseK()
+			i++ // '['
+			dStr.WriteString(strings.Repeat(Decode(), k))
+		}
+
+		return dStr.String()
+	}
+
+	return Decode()
 }
 
 // 763m Partition Labels

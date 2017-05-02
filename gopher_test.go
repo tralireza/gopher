@@ -398,6 +398,13 @@ func Test207(t *testing.T) {
 	log.Print("false ?= ", canFinish(7, [][]int{{0, 4}, {4, 1}, {1, 0}, {2, 3}, {3, 4}, {0, 3}, {5, 6}}))
 }
 
+// 394m Decode String
+func Test394(t *testing.T) {
+	log.Print("aaabcbc ?= ", decodeString("3[a]2[bc]"))
+	log.Print("accaccacc ?= ", decodeString("3[a2[c]]"))
+	log.Print("abcabccdcdcdef ?= ", decodeString("2[abc]3[cd]ef"))
+}
+
 // 763m Partition Labels
 func Test763(t *testing.T) {
 	log.Print("[9 7 8] ?= ", partitionLabels("ababcbacadefegdehijhklij"))
