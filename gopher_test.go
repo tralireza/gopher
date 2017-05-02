@@ -400,9 +400,9 @@ func Test207(t *testing.T) {
 
 // 394m Decode String
 func Test394(t *testing.T) {
-	log.Print("aaabcbc ?= ", decodeString("3[a]2[bc]"))
-	log.Print("accaccacc ?= ", decodeString("3[a2[c]]"))
-	log.Print("abcabccdcdcdef ?= ", decodeString("2[abc]3[cd]ef"))
+	log.Print("3[a]2[bc] ?= ", decodeString("3[a]2[bc]"))
+	log.Print("3[a2[c]] ?= ", decodeString("3[a2[c]]"))
+	log.Print("2[abc]3[cd]ef ?= ", decodeString("2[abc]3[cd]ef"))
 }
 
 // 763m Partition Labels
