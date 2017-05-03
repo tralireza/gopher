@@ -456,3 +456,9 @@ func Test1051(t *testing.T) {
 		log.Print("5 ?= ", f([]int{5, 1, 2, 3, 4}))
 	}
 }
+
+// 1052 Grumpy Bookstore Owner
+func Test1052(t *testing.T) {
+	log.Print("16 ?= ", maxSatisfied([]int{1, 0, 1, 2, 1, 1, 7, 5}, []int{0, 1, 0, 1, 0, 1, 0, 1}, 3))
+	log.Print("1 ?= ", maxSatisfied([]int{1}, []int{0}, 1))
+}

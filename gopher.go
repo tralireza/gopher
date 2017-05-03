@@ -422,3 +422,31 @@ func heightChecker(heights []int) int {
 	}
 	return x
 }
+
+// 1052 Grumpy Bookstore Owner
+func maxSatisfied(customers []int, grumpy []int, minutes int) int {
+	uMax := 0
+
+	winUnhappy := 0
+	l := 0
+	for r := range customers {
+		if grumpy[r] == 1 {
+			winUnhappy += customers[r]
+		}
+		if r-l+1 > minutes {
+			if grumpy[l] == 1 {
+				winUnhappy -= customers[l]
+			}
+			l++
+		}
+		uMax = max(winUnhappy, uMax)
+	}
+
+	t := 0
+	for i := range customers {
+		if grumpy[i] == 0 {
+			t += customers[i]
+		}
+	}
+	return t + uMax
+}
