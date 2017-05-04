@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"bytes"
+	"container/list"
 	"errors"
 	"fmt"
 	"io"
@@ -407,7 +408,23 @@ func Test394(t *testing.T) {
 
 // 739m Daily Temperatures
 func Test739(t *testing.T) {
+	Builtin := func(temperatures []int) []int {
+		r := make([]int, len(temperatures))
+
+		S := list.New()
+		for i, t := range temperatures {
+			for S.Len() > 0 && t > temperatures[S.Back().Value.(int)] {
+				j := S.Remove(S.Back()).(int)
+				r[j] = i - j
+			}
+			S.PushBack(i)
+		}
+
+		return r
+	}
+
 	log.Print("[1 1 4 2 1 1 0 0] ?= ", dailyTemperatures([]int{73, 74, 75, 71, 69, 72, 76, 73}))
+	log.Print("[1 1 4 2 1 1 0 0] ?= ", Builtin([]int{73, 74, 75, 71, 69, 72, 76, 73}))
 }
 
 // 763m Partition Labels
