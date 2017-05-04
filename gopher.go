@@ -373,6 +373,23 @@ func decodeString(s string) string {
 	return Decode()
 }
 
+// 739m Daily Temperatures
+func dailyTemperatures(temperatures []int) []int {
+	r := make([]int, len(temperatures))
+
+	Stack := []int{}
+	for i, t := range temperatures {
+		for len(Stack) > 0 && t > temperatures[Stack[len(Stack)-1]] {
+			j := Stack[len(Stack)-1]
+			r[j] = i - j
+			Stack = Stack[:len(Stack)-1]
+		}
+		Stack = append(Stack, i)
+	}
+
+	return r
+}
+
 // 763m Partition Labels
 func partitionLabels(s string) []int {
 	lP := []int{}

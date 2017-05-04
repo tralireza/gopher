@@ -405,6 +405,11 @@ func Test394(t *testing.T) {
 	log.Print("2[abc]3[cd]ef ?= ", decodeString("2[abc]3[cd]ef"))
 }
 
+// 739m Daily Temperatures
+func Test739(t *testing.T) {
+	log.Print("[1 1 4 2 1 1 0 0] ?= ", dailyTemperatures([]int{73, 74, 75, 71, 69, 72, 76, 73}))
+}
+
 // 763m Partition Labels
 func Test763(t *testing.T) {
 	log.Print("[9 7 8] ?= ", partitionLabels("ababcbacadefegdehijhklij"))
