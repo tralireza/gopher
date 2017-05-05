@@ -332,6 +332,22 @@ func TestUnsafe(t *testing.T) {
 
 // 3m Longest Substring Without Repeating Characters
 func Test3(t *testing.T) {
+	Distance := func(s string) int {
+		Mem := [256]int{}
+		for i := range Mem {
+			Mem[i] = -1
+		}
+
+		ls, k := 0, -1
+		for i, c := range s {
+			k = max(k, Mem[c])
+			ls = max(i-k, ls)
+			Mem[c] = i
+		}
+		return ls
+	}
+	log.Print("3 ?= ", Distance("pwwkew"))
+
 	log.Print("3 ?= ", lengthOfLongestSubstring("abcabcbb"))
 	log.Print("1 ?= ", lengthOfLongestSubstring("bbbb"))
 	log.Print("3 ?= ", lengthOfLongestSubstring("pwwkew"))
