@@ -330,6 +330,13 @@ func TestUnsafe(t *testing.T) {
 	log.Printf(" %v %v ? %t <!>", map[int]int{}, map[int]int(nil), reflect.DeepEqual(map[int]int(nil), map[int]int{}))
 }
 
+// 3m Longest Substring Without Repeating Characters
+func Test3(t *testing.T) {
+	log.Print("3 ?= ", lengthOfLongestSubstring("abcabcbb"))
+	log.Print("1 ?= ", lengthOfLongestSubstring("bbbb"))
+	log.Print("3 ?= ", lengthOfLongestSubstring("pwwkew"))
+}
+
 // 48m Rotate Image
 func Test48(t *testing.T) {
 	Draw := func(M [][]int) {

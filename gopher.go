@@ -171,6 +171,34 @@ func Fib(n int) int {
 	return fib(n)
 }
 
+// 3m Longest Substring Without Repeating Characters
+func lengthOfLongestSubstring(s string) int {
+	Mem := [256]int{}
+
+	ls, lsCur := 0, 0
+
+	l := 0
+	for r := range s {
+		if Mem[s[r]] == 0 {
+			lsCur++
+		}
+
+		Mem[s[r]]++
+
+		for Mem[s[r]] > 1 {
+			Mem[s[l]]--
+			if Mem[s[l]] == 0 {
+				lsCur--
+			}
+			l++
+		}
+
+		ls = max(lsCur, ls)
+	}
+
+	return ls
+}
+
 // 48m Rotate Image
 func rotate(matrix [][]int) {
 	N := len(matrix)
