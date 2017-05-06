@@ -507,3 +507,10 @@ func Test1052(t *testing.T) {
 	log.Print("16 ?= ", maxSatisfied([]int{1, 0, 1, 2, 1, 1, 7, 5}, []int{0, 1, 0, 1, 0, 1, 0, 1}, 3))
 	log.Print("1 ?= ", maxSatisfied([]int{1}, []int{0}, 1))
 }
+
+// 1248m Count Number of Nice Subarrays
+func Test1248(t *testing.T) {
+	log.Print("2 ?= ", numberOfSubarrays([]int{1, 1, 2, 1, 1}, 3))
+	log.Print("0 ?= ", numberOfSubarrays([]int{2, 4, 6}, 1))
+	log.Print("16 ?= ", numberOfSubarrays([]int{2, 2, 2, 1, 2, 2, 1, 2, 2, 2}, 2))
+}

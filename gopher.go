@@ -495,3 +495,18 @@ func maxSatisfied(customers []int, grumpy []int, minutes int) int {
 	}
 	return t + uMax
 }
+
+// 1248m Count Number of Nice Subarrays
+func numberOfSubarrays(nums []int, k int) int {
+	Mem := map[int]int{} // Track the number of subarrays with sum of values
+	Mem[0] = 1
+
+	x := 0
+	pSum := 0 // running Prefix Sum -> number of Odd numbers
+	for i := range nums {
+		pSum += nums[i] & 1
+		x += Mem[pSum-k]
+		Mem[pSum]++
+	}
+	return x
+}
