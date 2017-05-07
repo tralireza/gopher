@@ -510,7 +510,33 @@ func Test1052(t *testing.T) {
 
 // 1248m Count Number of Nice Subarrays
 func Test1248(t *testing.T) {
-	log.Print("2 ?= ", numberOfSubarrays([]int{1, 1, 2, 1, 1}, 3))
-	log.Print("0 ?= ", numberOfSubarrays([]int{2, 4, 6}, 1))
-	log.Print("16 ?= ", numberOfSubarrays([]int{2, 2, 2, 1, 2, 2, 1, 2, 2, 2}, 2))
+	WithQueue := func(nums []int, k int) int {
+		Q := list.New()
+		x := 0
+
+		l, gap := -1, -1
+		for r := range nums {
+			if nums[r]&1 == 1 {
+				Q.PushBack(r)
+			}
+
+			if Q.Len() > k {
+				l = Q.Remove(Q.Front()).(int)
+			}
+
+			if Q.Len() == k {
+				gap = Q.Front().Value.(int) - l
+				x += gap
+			}
+		}
+
+		return x
+	}
+
+	for _, f := range []func([]int, int) int{numberOfSubarrays, WithQueue} {
+		log.Print("==")
+		log.Print("2 ?= ", f([]int{1, 1, 2, 1, 1}, 3))
+		log.Print("0 ?= ", f([]int{2, 4, 6}, 1))
+		log.Print("16 ?= ", f([]int{2, 2, 2, 1, 2, 2, 1, 2, 2, 2}, 2))
+	}
 }
