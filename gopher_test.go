@@ -514,7 +514,7 @@ func Test1248(t *testing.T) {
 		Q := list.New()
 		x := 0
 
-		l, gap := -1, -1
+		l, gap := -1, 0
 		for r := range nums {
 			if nums[r]&1 == 1 {
 				Q.PushBack(r)
