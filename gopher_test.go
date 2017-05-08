@@ -533,7 +533,27 @@ func Test1248(t *testing.T) {
 		return x
 	}
 
-	for _, f := range []func([]int, int) int{numberOfSubarrays, WithQueue} {
+	SlidingWindow := func(nums []int, k int) int {
+		AtMost := func(k int) int {
+			x := 0
+			l, count := 0, 0
+			for r := range nums {
+				count += nums[r] & 1
+				for count > k {
+					count -= nums[l] & 1
+					l++
+				}
+				if count <= k {
+					x += r - l + 1
+				}
+			}
+			return x
+		}
+
+		return AtMost(k) - AtMost(k-1)
+	}
+
+	for _, f := range []func([]int, int) int{numberOfSubarrays, WithQueue, SlidingWindow} {
 		log.Print("==")
 		log.Print("2 ?= ", f([]int{1, 1, 2, 1, 1}, 3))
 		log.Print("0 ?= ", f([]int{2, 4, 6}, 1))
