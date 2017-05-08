@@ -519,11 +519,9 @@ func Test1248(t *testing.T) {
 			if nums[r]&1 == 1 {
 				Q.PushBack(r)
 			}
-
 			if Q.Len() > k {
 				l = Q.Remove(Q.Front()).(int)
 			}
-
 			if Q.Len() == k {
 				gap = Q.Front().Value.(int) - l
 				x += gap
@@ -539,7 +537,7 @@ func Test1248(t *testing.T) {
 			l := 0
 			for r := range nums {
 				k -= nums[r] & 1
-				for k < 0 { // More than k odd numbers in the Window between l & r, Shrink!
+				for k < 0 { // more than k odd numbers in the Window between l & r, Shrink!
 					k += nums[l] & 1
 					l++
 				}
@@ -553,7 +551,26 @@ func Test1248(t *testing.T) {
 		return AtMost(k) - AtMost(k-1)
 	}
 
-	for _, f := range []func([]int, int) int{numberOfSubarrays, WithQueue, SlidingWindow} {
+	Optimized := func(nums []int, k int) int {
+		x := 0
+		l := 0
+		gap := 0
+		for r := range nums {
+			k -= nums[r] & 1
+			if k == 0 { // exactly K odd numbers in the Window
+				gap = 0
+				for k == 0 {
+					k += nums[l] & 1
+					l++
+					gap++
+				}
+			}
+			x += gap
+		}
+		return x
+	}
+
+	for _, f := range []func([]int, int) int{numberOfSubarrays, WithQueue, SlidingWindow, Optimized} {
 		log.Print("==")
 		log.Print("2 ?= ", f([]int{1, 1, 2, 1, 1}, 3))
 		log.Print("0 ?= ", f([]int{2, 4, 6}, 1))
