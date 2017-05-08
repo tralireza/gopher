@@ -539,12 +539,12 @@ func Test1248(t *testing.T) {
 			l := 0
 			for r := range nums {
 				k -= nums[r] & 1
-				for k < 0 {
+				for k < 0 { // More than k odd numbers in the Window between l & r, Shrink!
 					k += nums[l] & 1
 					l++
 				}
 				if 0 <= k {
-					x += r - l + 1
+					x += r - l + 1 // Window Size
 				}
 			}
 			return x
