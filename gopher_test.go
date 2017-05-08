@@ -536,14 +536,14 @@ func Test1248(t *testing.T) {
 	SlidingWindow := func(nums []int, k int) int {
 		AtMost := func(k int) int {
 			x := 0
-			l, count := 0, 0
+			l := 0
 			for r := range nums {
-				count += nums[r] & 1
-				for count > k {
-					count -= nums[l] & 1
+				k -= nums[r] & 1
+				for k < 0 {
+					k += nums[l] & 1
 					l++
 				}
-				if count <= k {
+				if 0 <= k {
 					x += r - l + 1
 				}
 			}
