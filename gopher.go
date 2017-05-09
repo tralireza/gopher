@@ -442,6 +442,37 @@ func partitionLabels(s string) []int {
 	return lP
 }
 
+// 995h Minimum Number of K Consecutive Bit Flips
+func minKBitFlips(nums []int, k int) int {
+	x := 0
+
+	D := []int{} // Deque
+	fflag := 0   // flip flag
+	for i := range nums {
+		if i >= k {
+			fflag ^= D[0]
+		}
+
+		if nums[i] == fflag {
+			if i+k > len(nums) {
+				return -1
+			}
+
+			x++
+			fflag ^= 1
+			D = append(D, 1)
+		} else {
+			D = append(D, 0)
+		}
+
+		if len(D) > k {
+			D = D[1:]
+		}
+	}
+
+	return x
+}
+
 // 1051 Height Checker
 func heightChecker(heights []int) int {
 	// 1 <= heights[i] <= 100

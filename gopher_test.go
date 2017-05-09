@@ -456,6 +456,13 @@ func Test763(t *testing.T) {
 	log.Print("[10] ?= ", partitionLabels("eccbbbbdec"))
 }
 
+// 995h Minimum Number of K Consecutive Bit Flips
+func Test995(t *testing.T) {
+	log.Print("2 ?= ", minKBitFlips([]int{0, 1, 0}, 1))
+	log.Print("-1 ?= ", minKBitFlips([]int{1, 1, 0}, 2))
+	log.Print("3 ?= ", minKBitFlips([]int{0, 0, 0, 1, 0, 1, 1, 0}, 3))
+}
+
 // 1051 Height Checker
 func Test1051(t *testing.T) {
 	// 1 <= heights[i] <= 100
