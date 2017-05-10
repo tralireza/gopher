@@ -587,6 +587,33 @@ func Test1248(t *testing.T) {
 
 // 3191m Minimum Operations to Make Binary Array Elements Equal to One I
 func Test3191(t *testing.T) {
-	log.Print("3 ?= ", minOperations([]int{0, 1, 1, 1, 0, 0}))
-	log.Print("-1 ?= ", minOperations([]int{0, 1, 1, 1}))
+	SpaceOptimized := func(nums []int) int {
+		fflip, k := 0, 3
+
+		x := 0
+		for i := range nums {
+			if i-k >= 0 && nums[i-k] == 9 {
+				fflip ^= 1
+			}
+
+			if nums[i] == fflip {
+				if i+k > len(nums) {
+					return -1
+				}
+
+				x++
+				fflip ^= 1
+				nums[i] = 9 // 9: flag
+			}
+		}
+		log.Print(nums)
+
+		return x
+	}
+
+	for _, f := range []func([]int) int{minOperations, SpaceOptimized} {
+		log.Print("==")
+		log.Print("3 ?= ", f([]int{0, 1, 1, 1, 0, 0}))
+		log.Print("-1 ?= ", f([]int{0, 1, 1, 1}))
+	}
 }
