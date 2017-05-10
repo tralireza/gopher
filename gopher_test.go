@@ -584,3 +584,9 @@ func Test1248(t *testing.T) {
 		log.Print("16 ?= ", f([]int{2, 2, 2, 1, 2, 2, 1, 2, 2, 2}, 2))
 	}
 }
+
+// 3191m Minimum Operations to Make Binary Array Elements Equal to One I
+func Test3191(t *testing.T) {
+	log.Print("3 ?= ", minOperations([]int{0, 1, 1, 1, 0, 0}))
+	log.Print("-1 ?= ", minOperations([]int{0, 1, 1, 1}))
+}

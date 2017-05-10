@@ -541,3 +541,30 @@ func numberOfSubarrays(nums []int, k int) int {
 	}
 	return x
 }
+
+// 3191m Minimum Operations to Make Binary Array Elements Equal to One I
+func minOperations(nums []int) int {
+	fflip, Q, k := 0, []int{}, 3
+	x := 0
+	for i := range nums {
+		if i >= k {
+			fflip ^= Q[0]
+		}
+
+		if nums[i] == fflip {
+			if i+k > len(nums) {
+				return -1
+			}
+			x++
+			fflip ^= 1
+			Q = append(Q, 1) // flip
+		} else {
+			Q = append(Q, 0) // no-flip
+		}
+
+		if len(Q) > k {
+			Q = Q[1:]
+		}
+	}
+	return x
+}
