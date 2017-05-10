@@ -458,9 +458,35 @@ func Test763(t *testing.T) {
 
 // 995h Minimum Number of K Consecutive Bit Flips
 func Test995(t *testing.T) {
-	log.Print("2 ?= ", minKBitFlips([]int{0, 1, 0}, 1))
-	log.Print("-1 ?= ", minKBitFlips([]int{1, 1, 0}, 2))
-	log.Print("3 ?= ", minKBitFlips([]int{0, 0, 0, 1, 0, 1, 1, 0}, 3))
+	SpaceOptimized := func(nums []int, k int) int {
+		x := 0
+		fflip := 0
+
+		for i := range nums {
+			if i >= k && nums[i-k] == 9 {
+				fflip ^= 1
+			}
+
+			if nums[i] == fflip {
+				if i+k > len(nums) {
+					return -1
+				}
+
+				fflip ^= 1
+				nums[i] = 9
+				x++
+			}
+		}
+
+		return x
+	}
+
+	for _, f := range []func([]int, int) int{minKBitFlips, SpaceOptimized} {
+		log.Print("==")
+		log.Print("2 ?= ", f([]int{0, 1, 0}, 1))
+		log.Print("-1 ?= ", f([]int{1, 1, 0}, 2))
+		log.Print("3 ?= ", f([]int{0, 0, 0, 1, 0, 1, 1, 0}, 3))
+	}
 }
 
 // 1051 Height Checker
