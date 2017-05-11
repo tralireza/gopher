@@ -611,6 +611,12 @@ func Test1248(t *testing.T) {
 	}
 }
 
+// 2285m Maximum Total Importance of Roads
+func Test2285(t *testing.T) {
+	log.Print("43 ?= ", maximumImportance(5, [][]int{{0, 1}, {1, 2}, {2, 3}, {0, 2}, {1, 3}, {2, 4}}))
+	log.Print("20 ?= ", maximumImportance(5, [][]int{{0, 3}, {2, 4}, {1, 3}}))
+}
+
 // 3191m Minimum Operations to Make Binary Array Elements Equal to One I
 func Test3191(t *testing.T) {
 	SpaceOptimized := func(nums []int) int {

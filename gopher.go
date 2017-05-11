@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -538,6 +539,25 @@ func numberOfSubarrays(nums []int, k int) int {
 		pSum += nums[i] & 1
 		x += Mem[pSum-k]
 		Mem[pSum]++
+	}
+	return x
+}
+
+// 2285m Maximum Total Importance of Roads
+func maximumImportance(n int, roads [][]int) int64 {
+	D := make([]int, n)
+	for _, e := range roads {
+		D[e[0]]++
+		D[e[1]]++
+	}
+
+	slices.SortFunc(D, func(x, y int) int { return y - x })
+	log.Print(D)
+
+	x := int64(0)
+	for _, d := range D {
+		x += int64(d * n)
+		n--
 	}
 	return x
 }
