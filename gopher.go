@@ -543,6 +543,38 @@ func numberOfSubarrays(nums []int, k int) int {
 	return x
 }
 
+// 2192m All Ancestors of a Node in a Directed Acyclic Graph
+func getAncestors(n int, edges [][]int) [][]int {
+	G := make([][]int, n)
+	for _, e := range edges {
+		G[e[1]] = append(G[e[1]], e[0]) // Inverse/Transpose Graph
+	}
+
+	var Vis []bool
+	var r []int
+
+	var DFS func(int)
+	DFS = func(v int) {
+		for _, u := range G[v] {
+			if !Vis[u] {
+				r = append(r, u)
+				Vis[u] = true
+				DFS(u)
+			}
+		}
+	}
+
+	R := [][]int{}
+	for v := range n {
+		Vis, r = make([]bool, n), []int{}
+		Vis[v] = true
+		DFS(v)
+		slices.Sort(r)
+		R = append(R, r)
+	}
+	return R
+}
+
 // 2285m Maximum Total Importance of Roads
 func maximumImportance(n int, roads [][]int) int64 {
 	D := make([]int, n)
