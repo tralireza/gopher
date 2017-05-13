@@ -613,8 +613,38 @@ func Test1248(t *testing.T) {
 
 // 2192m All Ancestors of a Node in a Directed Acyclic Graph
 func Test2192(t *testing.T) {
-	log.Print("[[] [] [] [0 1] [0 2] [0 1 3] [0 1 2 3 4] [0 1 2 3]] ?= ", getAncestors(8, [][]int{{0, 3}, {0, 4}, {1, 3}, {2, 4}, {2, 7}, {3, 5}, {3, 6}, {3, 7}, {4, 6}}))
-	log.Print("[[] [0] [0 1] [0 1 2] [0 1 2 3]] ?= ", getAncestors(5, [][]int{{0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}}))
+	Optimized := func(n int, edges [][]int) [][]int {
+		G := make([][]int, n)
+		for _, e := range edges {
+			G[e[0]] = append(G[e[0]], e[1])
+		}
+
+		R := make([][]int, n)
+		var Vis []bool
+
+		var DFS func(a, v int)
+		DFS = func(a, v int) {
+			for _, u := range G[v] {
+				if !Vis[u] {
+					R[u] = append(R[u], a)
+					Vis[u] = true
+					DFS(a, u)
+				}
+			}
+		}
+
+		for v := range n {
+			Vis = make([]bool, n)
+			DFS(v, v)
+		}
+		return R
+	}
+
+	for _, f := range []func(int, [][]int) [][]int{getAncestors, Optimized} {
+		log.Print("--")
+		log.Print("[[] [] [] [0 1] [0 2] [0 1 3] [0 1 2 3 4] [0 1 2 3]] ?= ", f(8, [][]int{{0, 3}, {0, 4}, {1, 3}, {2, 4}, {2, 7}, {3, 5}, {3, 6}, {3, 7}, {4, 6}}))
+		log.Print("[[] [0] [0 1] [0 1 2] [0 1 2 3]] ?= ", f(5, [][]int{{0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}}))
+	}
 }
 
 // 2285m Maximum Total Importance of Roads
