@@ -640,7 +640,7 @@ func Test2192(t *testing.T) {
 		return R
 	}
 
-	TopologicalOrder := func(n int, edges [][]int) []int {
+	TopologicalSort := func(n int, edges [][]int) []int {
 		// Kahn's
 		G, D := make([][]int, n), make([]int, n)
 		for _, e := range edges {
@@ -670,7 +670,7 @@ func Test2192(t *testing.T) {
 		return topOrder
 	}
 
-	log.Print(" -> ", TopologicalOrder(8, [][]int{{0, 3}, {0, 4}, {1, 3}, {2, 4}, {2, 7}, {3, 5}, {3, 6}, {3, 7}, {4, 6}}))
+	log.Print(" -> ", TopologicalSort(8, [][]int{{0, 3}, {0, 4}, {1, 3}, {2, 4}, {2, 7}, {3, 5}, {3, 6}, {3, 7}, {4, 6}}))
 
 	for _, f := range []func(int, [][]int) [][]int{getAncestors, Optimized} {
 		log.Print("--")
