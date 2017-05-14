@@ -655,6 +655,7 @@ func Test2192(t *testing.T) {
 			}
 		}
 
+		log.Print("+ Degree -> ", D)
 		topOrder := []int{}
 		var v int
 		for len(Q) > 0 {
@@ -667,6 +668,7 @@ func Test2192(t *testing.T) {
 				}
 			}
 		}
+		log.Print("+ Degree -> ", D)
 		return topOrder
 	}
 
