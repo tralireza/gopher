@@ -330,6 +330,37 @@ func TestUnsafe(t *testing.T) {
 	log.Printf(" %v %v ? %t <!>", map[int]int{}, map[int]int(nil), reflect.DeepEqual(map[int]int(nil), map[int]int{}))
 }
 
+func TestBST(t *testing.T) {
+	type TreeNode struct {
+		Val         int
+		Left, Right *TreeNode
+	}
+
+	Draw := func(root *TreeNode) {
+		Q := list.New()
+		Q.PushBack(root)
+		for Q.Len() > 0 {
+			for range Q.Len() {
+				n := Q.Remove(Q.Front()).(*TreeNode)
+				l, r := '-', '-'
+				if n.Left != nil {
+					l = '*'
+					Q.PushBack(n.Left)
+				}
+				if n.Right != nil {
+					r = '*'
+					Q.PushBack(n.Right)
+				}
+				fmt.Printf("{%c %d %c}", l, n.Val, r)
+			}
+			fmt.Print("\n")
+		}
+	}
+
+	type T = TreeNode
+	Draw(&T{1, &T{Val: 0}, &T{Val: 2, Right: &T{Val: 3}}})
+}
+
 // 3m Longest Substring Without Repeating Characters
 func Test3(t *testing.T) {
 	Distance := func(s string) int {
