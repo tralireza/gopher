@@ -357,8 +357,16 @@ func TestBST(t *testing.T) {
 		}
 	}
 
+	RotateRight := func(root *TreeNode) *TreeNode {
+		root, root.Left.Right, root.Left = root.Left, root, root.Left.Right
+		return root
+	}
+
 	type T = TreeNode
-	Draw(&T{1, &T{Val: 0}, &T{Val: 2, Right: &T{Val: 3}}})
+	tree := &T{1, &T{Val: 0}, &T{Val: 2, Right: &T{Val: 3}}}
+	Draw(tree)
+	log.Print(" --- RotateRight --> ")
+	Draw(RotateRight(tree))
 }
 
 // 3m Longest Substring Without Repeating Characters
