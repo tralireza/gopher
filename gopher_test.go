@@ -367,20 +367,34 @@ func TestBST(t *testing.T) {
 		return root
 	}
 
+	VineRight := func(root *TreeNode) *TreeNode {
+		head := &TreeNode{}
+		head.Right = root
+		n := head
+		for n.Right != nil {
+			if n.Right.Left != nil {
+				n.Right = RotateRight(n.Right)
+			} else {
+				n = n.Right
+			}
+		}
+
+		return head.Right
+	}
+
 	type T = TreeNode
-	tree := &T{1, &T{Val: 0}, &T{Val: 2, Right: &T{Val: 3}}}
-	Draw(tree)
+	x := &T{1, &T{Val: 0}, &T{Val: 2, Right: &T{Val: 3}}}
+	Draw(x)
 	log.Print(" --- Rotate: Right --> ")
-	x := RotateRight(tree)
+	x = RotateRight(x)
 	Draw(x)
 	log.Print(" --- Rotate: Left --> ")
 	x = RotateLeft(x)
 	Draw(x)
-	log.Print(" --- Rotate: Left (2X) --> ")
-	x = RotateLeft(x)
-	Draw(x)
-	log.Print("-")
-	Draw(RotateLeft(x))
+
+	log.Print("--")
+	y := &T{1, &T{Val: 0}, &T{Val: 2, Right: &T{7, &T{Val: 5}, &T{Val: 8}}}}
+	Draw(VineRight(y))
 }
 
 // 3m Longest Substring Without Repeating Characters
