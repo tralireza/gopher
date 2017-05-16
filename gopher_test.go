@@ -368,8 +368,8 @@ func TestBST(t *testing.T) {
 	}
 
 	VineRight := func(root *TreeNode) *TreeNode {
-		head := &TreeNode{}
-		head.Right = root
+		head := &TreeNode{Right: root}
+
 		n := head
 		for n.Right != nil {
 			if n.Right.Left != nil {
