@@ -393,7 +393,7 @@ func TestBST(t *testing.T) {
 	Draw(x)
 
 	log.Print("--")
-	y := &T{1, &T{Val: 0}, &T{Val: 2, Right: &T{7, &T{Val: 5}, &T{Val: 8}}}}
+	y := &T{4, &T{2, &T{Val: 1}, &T{Val: 3}}, &T{Val: 6, Right: &T{8, &T{Val: 7}, &T{Val: 9}}}}
 	Draw(VineRight(y))
 }
 
