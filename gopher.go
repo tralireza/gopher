@@ -402,6 +402,34 @@ func decodeString(s string) string {
 	return Decode()
 }
 
+// 697 Degree of an Array
+func findShortestSubArray(nums []int) int {
+	// 1 <= nums[i] <= 49,999
+	D := make([]int, 50_000)
+	for _, n := range nums {
+		D[n]++
+	}
+
+	lM, dX := len(D)+1, slices.Max(D)
+	for n, d := range D {
+		if d != dX {
+			continue
+		}
+
+		l, r := 0, len(nums)-1
+		for nums[l] != n {
+			l++
+		}
+		for nums[r] != n {
+			r--
+		}
+
+		lM = min(r-l+1, lM)
+	}
+
+	return lM
+}
+
 // 739m Daily Temperatures
 func dailyTemperatures(temperatures []int) []int {
 	r := make([]int, len(temperatures))

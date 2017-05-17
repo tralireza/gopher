@@ -496,6 +496,12 @@ func Test394(t *testing.T) {
 	log.Print("2[abc]3[cd]ef ?= ", decodeString("2[abc]3[cd]ef"))
 }
 
+// 697 Degree of an Array
+func Test697(t *testing.T) {
+	log.Print("2 ?= ", findShortestSubArray([]int{1, 2, 2, 3, 1}))
+	log.Print("6 ?= ", findShortestSubArray([]int{2, 2, 3, 1, 4, 2}))
+}
+
 // 739m Daily Temperatures
 func Test739(t *testing.T) {
 	Builtin := func(temperatures []int) []int {
