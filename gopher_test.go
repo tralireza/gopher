@@ -762,8 +762,32 @@ func Test2285(t *testing.T) {
 
 // 2496 Maximum Value of a String in an Array
 func Test2496(t *testing.T) {
-	log.Print("5 ?= ", maximumValue([]string{"alic3", "bob", "3", "4", "00000"}))
-	log.Print("1 ?= ", maximumValue([]string{"1", "01", "001", "0001"}))
+	Scanner := func(strs []string) int {
+		Value := func(s string) int {
+			v := 0
+			for i := 0; i < len(s); i++ {
+				if s[i] <= '9' && '0' <= s[i] {
+					v *= 10
+					v += int(s[i] - '0')
+				} else {
+					return len(s)
+				}
+			}
+			return v
+		}
+
+		X := 0
+		for _, s := range strs {
+			X = max(Value(s), X)
+		}
+		return X
+	}
+
+	for _, f := range []func([]string) int{maximumValue, Scanner} {
+		log.Print("5 ?= ", f([]string{"alic3", "bob", "3", "4", "00000"}))
+		log.Print("1 ?= ", f([]string{"1", "01", "001", "0001"}))
+		log.Print("--")
+	}
 }
 
 // 3191m Minimum Operations to Make Binary Array Elements Equal to One I
