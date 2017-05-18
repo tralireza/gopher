@@ -760,6 +760,12 @@ func Test2285(t *testing.T) {
 	log.Print("20 ?= ", maximumImportance(5, [][]int{{0, 3}, {2, 4}, {1, 3}}))
 }
 
+// 2496 Maximum Value of a String in an Array
+func Test2496(t *testing.T) {
+	log.Print("5 ?= ", maximumValue([]string{"alic3", "bob", "3", "4", "00000"}))
+	log.Print("1 ?= ", maximumValue([]string{"1", "01", "001", "0001"}))
+}
+
 // 3191m Minimum Operations to Make Binary Array Elements Equal to One I
 func Test3191(t *testing.T) {
 	SpaceOptimized := func(nums []int) int {

@@ -622,6 +622,20 @@ func maximumImportance(n int, roads [][]int) int64 {
 	return x
 }
 
+// 2496 Maximum Value of a String in an Array
+func maximumValue(strs []string) int {
+  X := 0
+  for _, s := range strs {
+    if v, err := strconv.Atoi(s); err != nil {
+      X = max(len(s), X)
+    } else {
+      X = max(v, X)
+    }
+  }
+  return X
+}
+
+
 // 3191m Minimum Operations to Make Binary Array Elements Equal to One I
 func minOperations(nums []int) int {
 	fflip, Q, k := 0, []int{}, 3
