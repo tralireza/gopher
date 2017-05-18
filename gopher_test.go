@@ -767,8 +767,7 @@ func Test2496(t *testing.T) {
 			v := 0
 			for i := 0; i < len(s); i++ {
 				if s[i] <= '9' && '0' <= s[i] {
-					v *= 10
-					v += int(s[i] - '0')
+					v = 10*v + int(s[i]-'0')
 				} else {
 					return len(s)
 				}
