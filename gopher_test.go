@@ -775,11 +775,11 @@ func Test2496(t *testing.T) {
 			return v
 		}
 
-		X := 0
+		x := 0
 		for _, s := range strs {
-			X = max(Value(s), X)
+			x = max(Value(s), x)
 		}
-		return X
+		return x
 	}
 
 	for _, f := range []func([]string) int{maximumValue, Scanner} {
