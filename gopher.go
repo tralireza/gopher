@@ -575,6 +575,7 @@ func numberOfSubarrays(nums []int, k int) int {
 type DVal1579 struct{ p, r int } // p: parent, r: rank
 type DJS1579 []*DVal1579
 
+func (o *DJS1579) Connected(x, y int) bool { return o.FindSet(x) == o.FindSet(y) }
 func (o *DJS1579) FindSet(x int) int {
 	v := (*o)[x]
 	if v.p != x {
@@ -582,9 +583,6 @@ func (o *DJS1579) FindSet(x int) int {
 	}
 	return v.p
 }
-
-func (o *DJS1579) Connected(x, y int) bool { return o.FindSet(x) == o.FindSet(y) }
-
 func (o *DJS1579) Union(x, y int) {
 	x, y = o.FindSet(x), o.FindSet(y)
 	if x == y {
