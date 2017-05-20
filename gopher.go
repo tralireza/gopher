@@ -571,6 +571,81 @@ func numberOfSubarrays(nums []int, k int) int {
 	return x
 }
 
+// 1579h Remove Max Number of Edges to Keep Graph Fully Traversable
+type DVal1579 struct{ p, r int } // p: parent, r: rank
+type DJS1579 []*DVal1579
+
+func (o *DJS1579) FindSet(x int) int {
+	v := (*o)[x]
+	if v.p != x {
+		v.p = o.FindSet(v.p)
+	}
+	return v.p
+}
+
+func (o *DJS1579) Connected(x, y int) bool { return o.FindSet(x) == o.FindSet(y) }
+
+func (o *DJS1579) Union(x, y int) {
+	x, y = o.FindSet(x), o.FindSet(y)
+	if x == y {
+		return
+	}
+
+	X, Y := (*o)[x], (*o)[y]
+	if X.r >= Y.r {
+		Y.p = x
+		if X.r == Y.r {
+			X.r++
+		}
+	} else {
+		X.p = y
+	}
+}
+
+func maxNumEdgesToRemove(n int, edges [][]int) int {
+	type DVal = DVal1579
+	type DJS = DJS1579
+
+	A, B := make(DJS, n+1), make(DJS, n+1)
+	for i := range n + 1 {
+		A[i], B[i] = &DVal{p: i}, &DVal{p: i}
+	}
+
+	eA, eB, eG := 0, 0, 0
+	for _, e := range edges {
+		if e[0] == 3 && !A.Connected(e[1], e[2]) {
+			eG++
+			A.Union(e[1], e[2])
+			B.Union(e[1], e[2])
+		}
+	}
+	for _, e := range edges {
+		switch e[0] {
+		case 1:
+			if !A.Connected(e[1], e[2]) {
+				eA++
+				A.Union(e[1], e[2])
+			}
+		case 2:
+			if !B.Connected(e[1], e[2]) {
+				eB++
+				B.Union(e[1], e[2])
+			}
+		}
+	}
+
+	for v := 2; v <= n; v++ {
+		if !A.Connected(1, v) {
+			return -1
+		}
+		if !B.Connected(1, v) {
+			return -1
+		}
+	}
+
+	return len(edges) - (eA + eB + eG)
+}
+
 // 2192m All Ancestors of a Node in a Directed Acyclic Graph
 func getAncestors(n int, edges [][]int) [][]int {
 	G := make([][]int, n)

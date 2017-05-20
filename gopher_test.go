@@ -684,6 +684,13 @@ func Test1248(t *testing.T) {
 	}
 }
 
+// 1579h Remove Max Number of Edges to Keep Graph Fully Traversable
+func Test1579(t *testing.T) {
+	log.Print("2 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 1, 2}, {3, 2, 3}, {1, 1, 3}, {1, 2, 4}, {1, 1, 2}, {2, 3, 4}}))
+	log.Print("0 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 1, 2}, {3, 2, 3}, {1, 1, 4}, {2, 1, 4}}))
+	log.Print("-1 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 2, 3}, {1, 1, 2}, {2, 3, 4}}))
+}
+
 // 2192m All Ancestors of a Node in a Directed Acyclic Graph
 func Test2192(t *testing.T) {
 	Optimized := func(n int, edges [][]int) [][]int {
