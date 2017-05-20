@@ -632,11 +632,12 @@ func maxNumEdgesToRemove(n int, edges [][]int) int {
 		}
 	}
 
+	source := 1
 	for v := 2; v <= n; v++ {
-		if !A.Connected(1, v) {
+		if !A.Connected(source, v) {
 			return -1
 		}
-		if !B.Connected(1, v) {
+		if !B.Connected(source, v) {
 			return -1
 		}
 	}
