@@ -571,6 +571,22 @@ func numberOfSubarrays(nums []int, k int) int {
 	return x
 }
 
+// 1550 Three Consecutive Odds
+func threeConsecutiveOdds(arr []int) bool {
+	counter := 0
+	for _, n := range arr {
+		if n&1 == 1 {
+			counter++
+			if counter == 3 {
+				return true
+			}
+		} else {
+			counter = 0
+		}
+	}
+	return false
+}
+
 // 1579h Remove Max Number of Edges to Keep Graph Fully Traversable
 type DVal1579 struct{ p, r int } // p: parent, r: rank
 type DJS1579 []*DVal1579

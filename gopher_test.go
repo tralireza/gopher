@@ -684,6 +684,12 @@ func Test1248(t *testing.T) {
 	}
 }
 
+// 1550 Three Consecutive Odds
+func Test1550(t *testing.T) {
+	log.Println("false ?= ", threeConsecutiveOdds([]int{2, 6, 4, 1}))
+	log.Println("true ?= ", threeConsecutiveOdds([]int{1, 2, 34, 3, 4, 5, 7, 23, 12}))
+}
+
 // 1579h Remove Max Number of Edges to Keep Graph Fully Traversable
 func Test1579(t *testing.T) {
 	log.Print("2 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 1, 2}, {3, 2, 3}, {1, 1, 3}, {1, 2, 4}, {1, 1, 2}, {2, 3, 4}}))
