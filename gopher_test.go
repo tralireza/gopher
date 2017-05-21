@@ -688,6 +688,8 @@ func Test1248(t *testing.T) {
 func Test1550(t *testing.T) {
 	log.Println("false ?= ", threeConsecutiveOdds([]int{2, 6, 4, 1}))
 	log.Println("true ?= ", threeConsecutiveOdds([]int{1, 2, 34, 3, 4, 5, 7, 23, 12}))
+	log.Println("true ?= ", threeConsecutiveOdds([]int{1, 2, 3}))
+	log.Println("false ?= ", threeConsecutiveOdds([]int{1, 2, 4}))
 }
 
 // 1579h Remove Max Number of Edges to Keep Graph Fully Traversable
