@@ -692,8 +692,7 @@ func Test1550(t *testing.T) {
 	log.Println("true ?= ", threeConsecutiveOdds([]int{1, 3, 5}))  // edge case
 	log.Println("false ?= ", threeConsecutiveOdds([]int{1, 2, 3})) // edge case
 
-	log.Println("false ?= ", threeConsecutiveOdds([]int{1}))    // boundary
-	log.Println("false ?= ", threeConsecutiveOdds([]int{1, 2})) // boundary
+	log.Println("false ?= ", threeConsecutiveOdds([]int{1})) // boundary
 }
 
 // 1579h Remove Max Number of Edges to Keep Graph Fully Traversable
