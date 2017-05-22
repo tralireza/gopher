@@ -489,6 +489,12 @@ func Test207(t *testing.T) {
 	log.Print("false ?= ", canFinish(7, [][]int{{0, 4}, {4, 1}, {1, 0}, {2, 3}, {3, 4}, {0, 3}, {5, 6}}))
 }
 
+// 350 Intersection of Two Arrays II
+func Test350(t *testing.T) {
+	log.Print("[2 2] ?= ", intersect([]int{1, 2, 2, 1}, []int{2, 2}))
+	log.Print("[4 9] ?= ", intersect([]int{4, 9, 5}, []int{9, 4, 9, 8, 4}))
+}
+
 // 394m Decode String
 func Test394(t *testing.T) {
 	log.Print("3[a]2[bc] ?= ", decodeString("3[a]2[bc]"))
@@ -686,13 +692,13 @@ func Test1248(t *testing.T) {
 
 // 1550 Three Consecutive Odds
 func Test1550(t *testing.T) {
-	log.Println("false ?= ", threeConsecutiveOdds([]int{2, 6, 4, 1}))
-	log.Println("true ?= ", threeConsecutiveOdds([]int{1, 2, 34, 3, 4, 5, 7, 23, 12}))
+	log.Print("false ?= ", threeConsecutiveOdds([]int{2, 6, 4, 1}))
+	log.Print("true ?= ", threeConsecutiveOdds([]int{1, 2, 34, 3, 4, 5, 7, 23, 12}))
 
-	log.Println("true ?= ", threeConsecutiveOdds([]int{1, 3, 5}))  // edge case
-	log.Println("false ?= ", threeConsecutiveOdds([]int{1, 2, 3})) // edge case
+	log.Print("true ?= ", threeConsecutiveOdds([]int{1, 3, 5}))  // edge case
+	log.Print("false ?= ", threeConsecutiveOdds([]int{1, 2, 3})) // edge case
 
-	log.Println("false ?= ", threeConsecutiveOdds([]int{1})) // boundary
+	log.Print("false ?= ", threeConsecutiveOdds([]int{1})) // boundary
 }
 
 // 1579h Remove Max Number of Edges to Keep Graph Fully Traversable

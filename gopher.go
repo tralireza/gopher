@@ -363,6 +363,26 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	return !cycle
 }
 
+// 350 Intersection of Two Arrays II
+func intersect(nums1 []int, nums2 []int) []int {
+	M1, M2 := map[int]int{}, map[int]int{}
+
+	for _, n := range nums1 {
+		M1[n]++
+	}
+	for _, n := range nums2 {
+		M2[n]++
+	}
+
+	R := []int{}
+	for n, f := range M1 {
+		for range min(f, M2[n]) {
+			R = append(R, n)
+		}
+	}
+	return R
+}
+
 // 394m Decode String
 func decodeString(s string) string {
 	i := 0
