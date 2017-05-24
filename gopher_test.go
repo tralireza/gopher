@@ -491,8 +491,28 @@ func Test207(t *testing.T) {
 
 // 350 Intersection of Two Arrays II
 func Test350(t *testing.T) {
-	log.Print("[2 2] ?= ", intersect([]int{1, 2, 2, 1}, []int{2, 2}))
-	log.Print("[4 9] ?= ", intersect([]int{4, 9, 5}, []int{9, 4, 9, 8, 4}))
+	OneMap := func(nums1 []int, nums2 []int) []int {
+		M := map[int]int{}
+		for _, n := range nums1 {
+			M[n]++
+		}
+
+		R := []int{}
+		for _, n := range nums2 {
+			if M[n] > 0 {
+				M[n]--
+				R = append(R, n)
+			}
+		}
+
+		return R
+	}
+
+	for _, f := range []func([]int, []int) []int{intersect, OneMap} {
+		log.Print("[2 2] ?= ", f([]int{1, 2, 2, 1}, []int{2, 2}))
+		log.Print("[4 9] ?= ", f([]int{4, 9, 5}, []int{9, 4, 9, 8, 4}))
+		log.Print("--")
+	}
 }
 
 // 394m Decode String
