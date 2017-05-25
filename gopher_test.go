@@ -2,15 +2,18 @@ package gopher
 
 import (
 	"bytes"
+	"container/heap"
 	"container/list"
 	"errors"
 	"fmt"
 	"io"
 	"io/fs"
 	"log"
+	"math"
 	"math/rand"
 	"os"
 	"reflect"
+	"sort"
 	"strings"
 	"sync"
 	"testing"
@@ -711,10 +714,51 @@ func Test1248(t *testing.T) {
 }
 
 // 1509m Minimum Difference Between Largest and Smallest Value in Three Moves
+type PQ1509 struct{ sort.IntSlice }
+
+func (o *PQ1509) Push(any) {} // not needed, only .Init() & .Pop()
+func (o *PQ1509) Pop() any {
+	v := o.IntSlice[o.Len()-1]
+	o.IntSlice = o.IntSlice[:o.Len()-1]
+	return v
+}
+
 func Test1509(t *testing.T) {
-	log.Print("0 ?= ", minDifference([]int{5, 3, 2, 4}))
-	log.Print("1 ?= ", minDifference([]int{1, 5, 0, 10, 14}))
-	log.Print("0 ?= ", minDifference([]int{3, 100, 20}))
+	type PQ = PQ1509
+
+	WithHeap := func(nums []int) int {
+		if len(nums) <= 4 {
+			return 0
+		}
+
+		var Ns []int
+		for _, n := range nums {
+			Ns = append(Ns, -n)
+		}
+		hX := PQ{Ns}
+		heap.Init(&hX) // MaxHeap
+
+		hM := PQ{nums} // MinHeap
+		heap.Init(&hM)
+
+		Ms, Xs := []int{}, []int{}
+		for range 4 {
+			Xs = append(Xs, -heap.Pop(&hX).(int))
+			Ms = append(Ms, heap.Pop(&hM).(int))
+		}
+
+		m := math.MaxInt
+		for i := range 4 {
+			m = min(Xs[i]-Ms[3-i], m)
+		}
+		return m
+	}
+
+	for _, f := range []func([]int) int{minDifference, WithHeap} {
+		log.Print("0 ?= ", f([]int{5, 3, 2, 4}))
+		log.Print("1 ?= ", f([]int{1, 5, 0, 10, 14}))
+		log.Print("0 ?= ", f([]int{3, 100, 20}))
+	}
 }
 
 // 1550 Three Consecutive Odds
