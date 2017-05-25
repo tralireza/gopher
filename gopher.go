@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"slices"
@@ -589,6 +590,20 @@ func numberOfSubarrays(nums []int, k int) int {
 		Mem[pSum]++
 	}
 	return x
+}
+
+// 1509m Minimum Difference Between Largest and Smallest Value in Three Moves
+func minDifference(nums []int) int {
+	if len(nums) <= 4 {
+		return 0
+	}
+
+	slices.Sort(nums)
+	m := math.MaxInt
+	for l := 0; l < 4; l++ {
+		m = min(nums[len(nums)-4+l]-nums[l], m)
+	}
+	return m
 }
 
 // 1550 Three Consecutive Odds

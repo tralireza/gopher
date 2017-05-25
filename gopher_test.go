@@ -710,6 +710,13 @@ func Test1248(t *testing.T) {
 	}
 }
 
+// 1509m Minimum Difference Between Largest and Smallest Value in Three Moves
+func Test1509(t *testing.T) {
+	log.Print("0 ?= ", minDifference([]int{5, 3, 2, 4}))
+	log.Print("1 ?= ", minDifference([]int{1, 5, 0, 10, 14}))
+	log.Print("0 ?= ", minDifference([]int{3, 100, 20}))
+}
+
 // 1550 Three Consecutive Odds
 func Test1550(t *testing.T) {
 	log.Print("false ?= ", threeConsecutiveOdds([]int{2, 6, 4, 1}))
