@@ -731,7 +731,7 @@ func Test1509(t *testing.T) {
 			return 0
 		}
 
-		var Ns []int
+		var Ns sort.IntSlice
 		for _, n := range nums {
 			Ns = append(Ns, -n)
 		}
