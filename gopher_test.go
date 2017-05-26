@@ -795,11 +795,16 @@ func Test2181(t *testing.T) {
 
 	type L = ListNode
 
-	l := &L{0, &L{3, &L{1, &L{0, &L{4, &L{5, &L{2, &L{Val: 0}}}}}}}}
-	Draw(l)
-	fmt.Print("  ->  ")
-	Draw(mergeNodes(l))
-	fmt.Print("\n")
+	for _, l := range []*L{
+		&L{0, &L{3, &L{1, &L{0, &L{4, &L{5, &L{2, &L{Val: 0}}}}}}}},
+		&L{0, &L{1, &L{0, &L{3, &L{0, &L{2, &L{2, &L{Val: 0}}}}}}}},
+		&L{0, &L{1, &L{Val: 0}}},
+	} {
+		Draw(l)
+		fmt.Print("  ->  ")
+		Draw(mergeNodes(l))
+		fmt.Print("\n")
+	}
 }
 
 // 2192m All Ancestors of a Node in a Directed Acyclic Graph
