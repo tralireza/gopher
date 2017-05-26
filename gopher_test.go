@@ -801,7 +801,7 @@ func Test2181(t *testing.T) {
 		&L{0, &L{1, &L{Val: 0}}},
 	} {
 		Draw(l)
-		fmt.Print("  ->  ")
+		fmt.Print("  =>  ")
 		Draw(mergeNodes(l))
 		fmt.Print("\n")
 	}
