@@ -696,6 +696,26 @@ func maxNumEdgesToRemove(n int, edges [][]int) int {
 	return len(edges) - (eA + eB + eG)
 }
 
+// 2181m Merge Nodes in Between Zeros
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func mergeNodes(head *ListNode) *ListNode {
+	if head == nil || head.Val == 0 && head.Next == nil {
+		return nil
+	}
+
+	mVal := 0
+	n := head.Next
+	for n.Val != 0 {
+		mVal += n.Val
+		n = n.Next
+	}
+	return &ListNode{mVal, mergeNodes(n)}
+}
+
 // 2192m All Ancestors of a Node in a Directed Acyclic Graph
 func getAncestors(n int, edges [][]int) [][]int {
 	G := make([][]int, n)

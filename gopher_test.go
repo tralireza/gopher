@@ -731,7 +731,7 @@ func Test1509(t *testing.T) {
 			return 0
 		}
 
-		var Ns sort.IntSlice
+		var Ns []int
 		for _, n := range nums {
 			Ns = append(Ns, -n)
 		}
@@ -777,6 +777,29 @@ func Test1579(t *testing.T) {
 	log.Print("2 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 1, 2}, {3, 2, 3}, {1, 1, 3}, {1, 2, 4}, {1, 1, 2}, {2, 3, 4}}))
 	log.Print("0 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 1, 2}, {3, 2, 3}, {1, 1, 4}, {2, 1, 4}}))
 	log.Print("-1 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 2, 3}, {1, 1, 2}, {2, 3, 4}}))
+}
+
+// 2181m Merge Nodes in Between Zeros
+func Test2181(t *testing.T) {
+	Draw := func(n *ListNode) {
+		for n != nil {
+			fmt.Printf("{%d ", n.Val)
+			n = n.Next
+			if n != nil {
+				fmt.Print("*}->")
+			} else {
+				fmt.Print("/}")
+			}
+		}
+	}
+
+	type L = ListNode
+
+	l := &L{0, &L{3, &L{1, &L{0, &L{4, &L{5, &L{2, &L{Val: 0}}}}}}}}
+	Draw(l)
+	fmt.Print("  ->  ")
+	Draw(mergeNodes(l))
+	fmt.Print("\n")
 }
 
 // 2192m All Ancestors of a Node in a Directed Acyclic Graph
