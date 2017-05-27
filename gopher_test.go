@@ -779,6 +779,19 @@ func Test1579(t *testing.T) {
 	log.Print("-1 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 2, 3}, {1, 1, 2}, {2, 3, 4}}))
 }
 
+// 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
+func Test2058(t *testing.T) {
+	type L = ListNode
+
+	for _, l := range []*L{
+		&L{3, &L{Val: 1}},
+		&L{5, &L{3, &L{1, &L{2, &L{5, &L{1, &L{Val: 2}}}}}}},
+		&L{1, &L{3, &L{2, &L{2, &L{3, &L{2, &L{2, &L{2, &L{Val: 7}}}}}}}}},
+	} {
+		log.Print(" ?= ", nodesBetweenCriticalPoints(l))
+	}
+}
+
 // 2181m Merge Nodes in Between Zeros
 func Test2181(t *testing.T) {
 	Draw := func(n *ListNode) {

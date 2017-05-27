@@ -696,6 +696,38 @@ func maxNumEdgesToRemove(n int, edges [][]int) int {
 	return len(edges) - (eA + eB + eG)
 }
 
+// 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
+func nodesBetweenCriticalPoints(head *ListNode) []int {
+	// 1 <= Nodes <= 10^5
+	dX, dM := -1, 100_000
+
+	first, prv, cur := -1, -1, 0
+
+	var p *ListNode
+	for n := head; n != nil; n = n.Next {
+		if p != nil && n.Next != nil {
+			if p.Val < n.Val && n.Next.Val < n.Val || // local Maxima
+				p.Val > n.Val && n.Next.Val > n.Val { // local Minima
+				if first == -1 && prv == -1 {
+					first, prv = cur, cur
+				} else {
+					dX = cur - first
+					dM = min(cur-prv, dM)
+					prv = cur
+				}
+			}
+		}
+
+		cur++
+		p = n
+	}
+
+	if dM == 100_000 {
+		return []int{-1, -1}
+	}
+	return []int{dM, dX}
+}
+
 // 2181m Merge Nodes in Between Zeros
 type ListNode struct {
 	Val  int
