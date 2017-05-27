@@ -781,6 +781,18 @@ func Test1579(t *testing.T) {
 
 // 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
 func Test2058(t *testing.T) {
+	Draw := func(n *ListNode) {
+		for n != nil {
+			fmt.Printf("{%d ", n.Val)
+			n = n.Next
+			if n != nil {
+				fmt.Print("*}->")
+			} else {
+				fmt.Print("/}")
+			}
+		}
+	}
+
 	type L = ListNode
 
 	for _, l := range []*L{
@@ -788,7 +800,10 @@ func Test2058(t *testing.T) {
 		&L{5, &L{3, &L{1, &L{2, &L{5, &L{1, &L{Val: 2}}}}}}},
 		&L{1, &L{3, &L{2, &L{2, &L{3, &L{2, &L{2, &L{2, &L{Val: 7}}}}}}}}},
 	} {
+		Draw(l)
+		fmt.Print("\n")
 		log.Print(" ?= ", nodesBetweenCriticalPoints(l))
+		log.Print("--")
 	}
 }
 
