@@ -809,6 +809,30 @@ func Test2058(t *testing.T) {
 
 // 2181m Merge Nodes in Between Zeros
 func Test2181(t *testing.T) {
+	Iterative := func(head *ListNode) *ListNode {
+		var h *ListNode
+
+		var p *ListNode
+		for n := head; n.Next != nil; {
+			n = n.Next
+
+			r := &ListNode{}
+			if h == nil {
+				h = r
+			} else {
+				p.Next = r
+			}
+
+			for n.Val != 0 {
+				r.Val += n.Val
+				n = n.Next
+			}
+			p = r
+		}
+
+		return h
+	}
+
 	Draw := func(n *ListNode) {
 		for n != nil {
 			fmt.Printf("{%d ", n.Val)
@@ -823,15 +847,18 @@ func Test2181(t *testing.T) {
 
 	type L = ListNode
 
-	for _, l := range []*L{
-		&L{0, &L{3, &L{1, &L{0, &L{4, &L{5, &L{2, &L{Val: 0}}}}}}}},
-		&L{0, &L{1, &L{0, &L{3, &L{0, &L{2, &L{2, &L{Val: 0}}}}}}}},
-		&L{0, &L{1, &L{Val: 0}}},
-	} {
-		Draw(l)
-		fmt.Print("  =>  ")
-		Draw(mergeNodes(l))
-		fmt.Print("\n")
+	for _, f := range []func(*ListNode) *ListNode{mergeNodes, Iterative} {
+		for _, l := range []*L{
+			&L{0, &L{3, &L{1, &L{0, &L{4, &L{5, &L{2, &L{Val: 0}}}}}}}},
+			&L{0, &L{1, &L{0, &L{3, &L{0, &L{2, &L{2, &L{Val: 0}}}}}}}},
+			&L{0, &L{1, &L{Val: 0}}},
+		} {
+			Draw(l)
+			fmt.Print("  =>  ")
+			Draw(f(l))
+			fmt.Print("\n")
+		}
+		log.Print("--")
 	}
 }
 
