@@ -810,27 +810,22 @@ func Test2058(t *testing.T) {
 // 2181m Merge Nodes in Between Zeros
 func Test2181(t *testing.T) {
 	Iterative := func(head *ListNode) *ListNode {
-		var h *ListNode
+		h := &ListNode{}
 
-		var p *ListNode
+		r := h
 		for n := head; n.Next != nil; {
 			n = n.Next
 
-			r := &ListNode{}
-			if h == nil {
-				h = r
-			} else {
-				p.Next = r
-			}
-
+			v := &ListNode{}
+			r.Next = v
 			for n.Val != 0 {
-				r.Val += n.Val
+				v.Val += n.Val
 				n = n.Next
 			}
-			p = r
+			r = v
 		}
 
-		return h
+		return h.Next
 	}
 
 	Draw := func(n *ListNode) {
