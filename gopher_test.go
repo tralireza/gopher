@@ -411,6 +411,21 @@ func TestMDM(t *testing.T) {
 		M[r] = make([][2]int, 4)
 	}
 	log.Print(M)
+
+	M[2][3][0]++
+	M[2][3][1]++
+	log.Print(M)
+
+	M[1][2] = [2]int{7, 8}
+	log.Print(M)
+
+	M[0][1] = M[1][2]
+	M[0][1][1]++
+	M[1][2][0]++
+	log.Print(M)
+
+	M[0][0][0]++
+	log.Print(M)
 }
 
 // 3m Longest Substring Without Repeating Characters
