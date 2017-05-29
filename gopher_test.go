@@ -427,6 +427,18 @@ func TestMDM(t *testing.T) {
 
 	M[0][0][0]++
 	log.Print(M)
+
+	type T struct{ i, j, k int }
+	N := make([][][3]T, 2)
+	for r := range N {
+		N[r] = make([][3]T, 2)
+	}
+	log.Print(N)
+
+	N[1][1][2] = T{1, 1, 2}
+	copy(N[0], N[1])
+	N[1][1][0] = T{1, 1, 0}
+	log.Print(N)
 }
 
 // 3m Longest Substring Without Repeating Characters
