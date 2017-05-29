@@ -417,6 +417,7 @@ func TestMDM(t *testing.T) {
 	log.Print(M)
 
 	M[1][2] = [2]int{7, 8}
+	M[1][1] = [...]int{3, 4}
 	log.Print(M)
 
 	M[0][1] = M[1][2]
