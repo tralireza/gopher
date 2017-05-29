@@ -400,6 +400,19 @@ func TestBST(t *testing.T) {
 	Draw(VineRight(y))
 }
 
+func TestMDM(t *testing.T) {
+	var M [][][2]int
+	log.Print(M)
+
+	M = make([][][2]int, 3)
+	log.Print(M)
+
+	for r := range M {
+		M[r] = make([][2]int, 4)
+	}
+	log.Print(M)
+}
+
 // 3m Longest Substring Without Repeating Characters
 func Test3(t *testing.T) {
 	Distance := func(s string) int {
