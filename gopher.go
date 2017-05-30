@@ -606,6 +606,21 @@ func minDifference(nums []int) int {
 	return m
 }
 
+// 1518 Water Bottles
+func numWaterBottles(numBottles int, numExchange int) int {
+	x := 0
+
+	empty := 0
+	for numBottles > 0 {
+		x += numBottles
+		empty += numBottles
+		numBottles = empty / numExchange
+		empty %= numExchange
+	}
+
+	return x
+}
+
 // 1550 Three Consecutive Odds
 func threeConsecutiveOdds(arr []int) bool {
 	counter := 0

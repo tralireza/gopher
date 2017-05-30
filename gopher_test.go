@@ -802,6 +802,12 @@ func Test1509(t *testing.T) {
 	}
 }
 
+// 1518 Water Bottles
+func Test1518(t *testing.T) {
+	log.Print("13 ?= ", numWaterBottles(9, 3))
+	log.Print("19 ?= ", numWaterBottles(15, 4))
+}
+
 // 1550 Three Consecutive Odds
 func Test1550(t *testing.T) {
 	log.Print("false ?= ", threeConsecutiveOdds([]int{2, 6, 4, 1}))
