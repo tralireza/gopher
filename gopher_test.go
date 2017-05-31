@@ -826,6 +826,12 @@ func Test1579(t *testing.T) {
 	log.Print("-1 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 2, 3}, {1, 1, 2}, {2, 3, 4}}))
 }
 
+// 1823m Find the Winner of the Circular Game
+func Test1823(t *testing.T) {
+	log.Print("3 ?= ", findTheWinner(5, 2))
+	log.Print("1 ?= ", findTheWinner(6, 5))
+}
+
 // 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
 func Test2058(t *testing.T) {
 	Draw := func(n *ListNode) {

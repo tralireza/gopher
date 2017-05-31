@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"bytes"
+	"container/list"
 	"context"
 	"fmt"
 	"io"
@@ -709,6 +710,24 @@ func maxNumEdgesToRemove(n int, edges [][]int) int {
 	}
 
 	return len(edges) - (eA + eB + eG)
+}
+
+// 1823m Find the Winner of the Circular Game
+func findTheWinner(n int, k int) int {
+	// 1 <= k <= n
+	Q := list.New()
+	for p := range n {
+		Q.PushBack(p + 1)
+	}
+
+	for Q.Len() > 1 {
+		for range k - 1 {
+			Q.PushBack(Q.Remove(Q.Front()))
+		}
+		Q.Remove(Q.Front())
+	}
+
+	return Q.Front().Value.(int)
 }
 
 // 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
