@@ -831,19 +831,27 @@ func Test1823(t *testing.T) {
 	// Josephus Problem
 	// f(n, k) = (f(n-1, k) + k) mod n, f(1, k) = 0
 	Josephus := func(n, k int) int {
-		var J func(n, k int) int
-		J = func(n, k int) int {
+		var j func(n, k int) int
+		j = func(n, k int) int {
 			if n == 1 {
 				return 0
 			}
-			return (J(n-1, k) + k) % n
+			return (j(n-1, k) + k) % n
 		}
 
-		return J(n, k) + 1 // [0..n-1]
+		return j(n, k) + 1 // [0..n-1]
 	}
-	log.Print("Josephus Pronlem (n, k): (5, 2) ?= ", Josephus(5, 2))
+	log.Print("Josephus Problem (n, k): (6, 4) ?= ", Josephus(6, 4))
 
-	for _, f := range []func(int, int) int{findTheWinner, Josephus} {
+	Iterative := func(n, k int) int {
+		j := 0
+		for i := 2; i <= n; i++ {
+			j = (j + k) % i
+		}
+		return j + 1
+	}
+
+	for _, f := range []func(int, int) int{findTheWinner, Josephus, Iterative} {
 		log.Print("3 ?= ", f(5, 2))
 		log.Print("1 ?= ", f(6, 5))
 		log.Print("--")
