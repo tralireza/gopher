@@ -828,8 +828,26 @@ func Test1579(t *testing.T) {
 
 // 1823m Find the Winner of the Circular Game
 func Test1823(t *testing.T) {
-	log.Print("3 ?= ", findTheWinner(5, 2))
-	log.Print("1 ?= ", findTheWinner(6, 5))
+	// Josephus Problem
+	// f(n, k) = (f(n-1, k) + k) mod n, f(1, k) = 0
+	Josephus := func(n, k int) int {
+		var J func(n, k int) int
+		J = func(n, k int) int {
+			if n == 1 {
+				return 0
+			}
+			return (J(n-1, k) + k) % n
+		}
+
+		return J(n, k) + 1 // [0..n-1]
+	}
+	log.Print("Josephus Pronlem (n, k): (5, 2) ?= ", Josephus(5, 2))
+
+	for _, f := range []func(int, int) int{findTheWinner, Josephus} {
+		log.Print("3 ?= ", f(5, 2))
+		log.Print("1 ?= ", f(6, 5))
+		log.Print("--")
+	}
 }
 
 // 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
