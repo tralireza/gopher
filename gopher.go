@@ -712,6 +712,22 @@ func maxNumEdgesToRemove(n int, edges [][]int) int {
 	return len(edges) - (eA + eB + eG)
 }
 
+// 1701m Average Waiting Time
+func averageWaitingTime(customers [][]int) float64 {
+	w, clock := float64(0), 0
+
+	for i := range customers {
+		arrive, time := customers[i][0], customers[i][1]
+		if clock < arrive {
+			clock = arrive
+		}
+		clock += time
+		w += float64(clock - arrive)
+	}
+
+	return w / float64(len(customers))
+}
+
 // 1823m Find the Winner of the Circular Game
 func findTheWinner(n int, k int) int {
 	// 1 <= k <= n
