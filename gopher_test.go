@@ -826,6 +826,27 @@ func Test1579(t *testing.T) {
 	log.Print("-1 ?= ", maxNumEdgesToRemove(4, [][]int{{3, 2, 3}, {1, 1, 2}, {2, 3, 4}}))
 }
 
+// 1598 Crawler Log Folder
+func Test1598(t *testing.T) {
+	minOperations := func(logs []string) int {
+		Q := list.New()
+		for i := range logs {
+			switch logs[i] {
+			case "./":
+			case "../":
+				if Q.Len() > 0 {
+					Q.Remove(Q.Front())
+				}
+			default:
+				Q.PushBack(logs[i])
+			}
+		}
+		return Q.Len()
+	}
+
+	log.Print("2 ?= ", minOperations([]string{"d1/", "d2/", "../", "d21/", "./"}))
+}
+
 // 1701m Average Waiting Time
 func Test1701(t *testing.T) {
 	log.Print("5 ?= ", averageWaitingTime([][]int{{1, 2}, {2, 5}, {4, 3}}))
