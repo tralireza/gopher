@@ -828,6 +828,22 @@ func Test1579(t *testing.T) {
 
 // 1598 Crawler Log Folder
 func Test1598(t *testing.T) {
+	Counter := func(logs []string) int {
+		q := 0
+		for i := range logs {
+			switch logs[i] {
+			case "./":
+			case "../":
+				if q > 0 {
+					q--
+				}
+			default:
+				q++
+			}
+		}
+		return q
+	}
+
 	minOperations := func(logs []string) int {
 		Q := list.New()
 		for i := range logs {
@@ -844,7 +860,11 @@ func Test1598(t *testing.T) {
 		return Q.Len()
 	}
 
-	log.Print("2 ?= ", minOperations([]string{"d1/", "d2/", "../", "d21/", "./"}))
+	for _, f := range []func([]string) int{minOperations, Counter} {
+		log.Print("2 ?= ", f([]string{"d1/", "d2/", "../", "d21/", "./"}))
+		log.Print("3 ?= ", f([]string{"d1/", "d2/", "./", "d3/", "../", "d31/"}))
+		log.Print("--")
+	}
 }
 
 // 1701m Average Waiting Time
