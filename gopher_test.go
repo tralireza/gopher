@@ -905,6 +905,13 @@ func Test1823(t *testing.T) {
 	}
 }
 
+// 1190m Reverse Substrings Between Each Pair of Parentheses
+func Test1190(t *testing.T) {
+	log.Print("dcba ?= ", reverseParentheses("(abcd)"))
+	log.Print("iloveu ?= ", reverseParentheses("(u(love)i)"))
+	log.Print("leetcode ?= ", reverseParentheses("(ed(et(oc))el)"))
+}
+
 // 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
 func Test2058(t *testing.T) {
 	Draw := func(n *ListNode) {

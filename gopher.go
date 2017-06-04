@@ -746,6 +746,34 @@ func findTheWinner(n int, k int) int {
 	return Q.Front().Value.(int)
 }
 
+// 1190m Reverse Substrings Between Each Pair of Parentheses
+func reverseParentheses(s string) string {
+	Wtr := [][]byte{[]byte{}}
+
+	for _, c := range s {
+		switch c {
+		case '(':
+			Wtr = append(Wtr, []byte{})
+
+		case ')':
+			bfr := Wtr[len(Wtr)-1]
+			l, r := 0, len(bfr)-1
+			for l < r {
+				bfr[l], bfr[r] = bfr[r], bfr[l]
+				l++
+				r--
+			}
+			Wtr = Wtr[:len(Wtr)-1]
+			Wtr[len(Wtr)-1] = append(Wtr[len(Wtr)-1], bfr...)
+
+		default:
+			Wtr[len(Wtr)-1] = append(Wtr[len(Wtr)-1], byte(c))
+		}
+	}
+
+	return string(Wtr[0])
+}
+
 // 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
 func nodesBetweenCriticalPoints(head *ListNode) []int {
 	// 1 <= Nodes <= 10^5
