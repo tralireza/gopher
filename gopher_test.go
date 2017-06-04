@@ -907,9 +907,47 @@ func Test1823(t *testing.T) {
 
 // 1190m Reverse Substrings Between Each Pair of Parentheses
 func Test1190(t *testing.T) {
-	log.Print("dcba ?= ", reverseParentheses("(abcd)"))
-	log.Print("iloveu ?= ", reverseParentheses("(u(love)i)"))
-	log.Print("leetcode ?= ", reverseParentheses("(ed(et(oc))el)"))
+	Recursive := func(s string) string {
+		i := 0
+
+		var R func() string
+		R = func() string {
+			bfr := []byte{}
+
+			for i < len(s) {
+				switch s[i] {
+				case '(':
+					i++
+					bfr = append(bfr, R()...)
+
+				case ')':
+					i++
+					l, r := 0, len(bfr)-1
+					for l < r {
+						bfr[l], bfr[r] = bfr[r], bfr[l]
+						l++
+						r--
+					}
+					return string(bfr)
+
+				default:
+					bfr = append(bfr, s[i])
+					i++
+				}
+			}
+
+			return string(bfr)
+		}
+
+		return R()
+	}
+
+	for _, f := range []func(string) string{reverseParentheses, Recursive} {
+		log.Print("dcba ?= ", f("(abcd)"))
+		log.Print("iloveu ?= ", f("(u(love)i)"))
+		log.Print("leetcode ?= ", f("(ed(et(oc))el)"))
+		log.Print("--")
+	}
 }
 
 // 2058m Find the Minimum and Maximum Number of Nodes Between Critical Points
