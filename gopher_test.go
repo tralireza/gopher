@@ -942,7 +942,50 @@ func Test1190(t *testing.T) {
 		return R()
 	}
 
-	for _, f := range []func(string) string{reverseParentheses, Recursive} {
+	// O(n) time complexity
+	TwoPass := func(s string) string {
+		Q := []int{}
+		for i := 0; i < len(s); i++ {
+			switch s[i] {
+			case ')':
+				Q = append(Q, i)
+			}
+		}
+
+		P := make([]int, len(s))
+		for i := 0; i < len(s); i++ {
+			if s[i] == '(' {
+				P[i] = Q[len(Q)-1]
+				P[P[i]] = i
+
+				Q = Q[:len(Q)-1]
+			}
+		}
+		log.Print(P)
+
+		w := []byte{}
+
+		i, dir := 0, 1
+		for i < len(s) {
+			switch s[i] {
+			case '(':
+				i = P[i]
+				dir *= -1
+			case ')':
+				i = P[i]
+				dir *= -1
+
+			default:
+				w = append(w, s[i])
+			}
+
+			i += dir
+		}
+
+		return string(w)
+	}
+
+	for _, f := range []func(string) string{reverseParentheses, Recursive, TwoPass} {
 		log.Print("dcba ?= ", f("(abcd)"))
 		log.Print("iloveu ?= ", f("(u(love)i)"))
 		log.Print("leetcode ?= ", f("(ed(et(oc))el)"))
