@@ -965,8 +965,8 @@ func Test1190(t *testing.T) {
 
 		w := []byte{}
 
-		i, dir := 0, 1
-		for i < len(s) {
+		dir := 1
+		for i := 0; i < len(s); {
 			switch s[i] {
 			case '(':
 				i = P[i]
