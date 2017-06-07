@@ -464,6 +464,19 @@ func Test3(t *testing.T) {
 	log.Print("3 ?= ", lengthOfLongestSubstring("pwwkew"))
 }
 
+// 31m Next Permutation
+func Test31(t *testing.T) {
+	var nums []int
+
+	nums = []int{1, 2, 3}
+	nextPermutation(nums)
+	log.Print("[1 3 2] ?= ", nums)
+
+	nums = []int{3, 2, 1}
+	nextPermutation(nums)
+	log.Print("[1 2 3] ?= ", nums)
+}
+
 // 48m Rotate Image
 func Test48(t *testing.T) {
 	Draw := func(M [][]int) {

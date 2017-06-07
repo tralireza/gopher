@@ -202,6 +202,39 @@ func lengthOfLongestSubstring(s string) int {
 	return ls
 }
 
+// 31m Next Permutation
+func nextPermutation(nums []int) {
+	// N0 N1 N2 .. Nr-1<Nr .. Nn
+	//                  |------| descending
+
+	for r := len(nums) - 1; r > 0; r-- {
+		if nums[r-1] < nums[r] {
+			j := r
+			for ; j < len(nums) && nums[j] > nums[r-1]; j++ {
+			}
+			nums[r-1], nums[j-1] = nums[j-1], nums[r-1]
+
+			// Reverse: descending section
+			l, r := r, len(nums)-1
+			for l < r {
+				nums[l], nums[r] = nums[r], nums[l]
+				l++
+				r--
+			}
+
+			return
+		}
+	}
+
+	// Wrap
+	l, r := 0, len(nums)-1
+	for l < r {
+		nums[l], nums[r] = nums[r], nums[l]
+		l++
+		r--
+	}
+}
+
 // 48m Rotate Image
 func rotate(matrix [][]int) {
 	N := len(matrix)
