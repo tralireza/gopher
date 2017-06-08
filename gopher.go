@@ -398,6 +398,23 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	return !cycle
 }
 
+// 238m Product of Array Except Self
+func productExceptSelf(nums []int) []int {
+	mSum := make([]int, len(nums))
+	mSum[0] = 1
+	for i := 1; i < len(nums); i++ {
+		mSum[i] = nums[i-1] * mSum[i-1]
+	}
+	log.Print(mSum)
+
+	m := 1
+	for i := len(nums) - 1; i >= 0; i-- {
+		nums[i], m = mSum[i]*m, m*nums[i]
+	}
+
+	return nums
+}
+
 // 350 Intersection of Two Arrays II
 func intersect(nums1 []int, nums2 []int) []int {
 	M1, M2 := map[int]int{}, map[int]int{}

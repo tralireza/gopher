@@ -546,6 +546,12 @@ func Test207(t *testing.T) {
 	log.Print("false ?= ", canFinish(7, [][]int{{0, 4}, {4, 1}, {1, 0}, {2, 3}, {3, 4}, {0, 3}, {5, 6}}))
 }
 
+// 238m Product of Array Except Self
+func Test238(t *testing.T) {
+	log.Print("[24 12 8 6] ?= ", productExceptSelf([]int{1, 2, 3, 4}))
+	log.Print("[0 0 9 0 0] ?= ", productExceptSelf([]int{-1, 1, 0, -3, 3}))
+}
+
 // 350 Intersection of Two Arrays II
 func Test350(t *testing.T) {
 	OneMap := func(nums1 []int, nums2 []int) []int {
