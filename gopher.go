@@ -415,6 +415,18 @@ func productExceptSelf(nums []int) []int {
 	return nums
 }
 
+// 287m Find the Duplicate Number
+func findDuplicate(nums []int) int {
+  Mem := make([]bool, len(nums))
+  for _, n := range nums {
+    if Mem[n] {
+      return n
+    }
+    Mem[n] = true
+  }
+  return -1
+}
+
 // 350 Intersection of Two Arrays II
 func intersect(nums1 []int, nums2 []int) []int {
 	M1, M2 := map[int]int{}, map[int]int{}

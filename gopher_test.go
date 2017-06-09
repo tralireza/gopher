@@ -552,6 +552,13 @@ func Test238(t *testing.T) {
 	log.Print("[0 0 9 0 0] ?= ", productExceptSelf([]int{-1, 1, 0, -3, 3}))
 }
 
+// 287m Find the Duplicate Number
+func Test287(t *testing.T) {
+	log.Print("2 ?= ", findDuplicate([]int{1, 3, 4, 2, 2}))
+	log.Print("3 ?= ", findDuplicate([]int{3, 1, 3, 4, 2}))
+	log.Print("3 ?= ", findDuplicate([]int{3, 3, 3, 3, 3}))
+}
+
 // 350 Intersection of Two Arrays II
 func Test350(t *testing.T) {
 	OneMap := func(nums1 []int, nums2 []int) []int {
