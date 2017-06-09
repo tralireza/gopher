@@ -554,9 +554,27 @@ func Test238(t *testing.T) {
 
 // 287m Find the Duplicate Number
 func Test287(t *testing.T) {
-	log.Print("2 ?= ", findDuplicate([]int{1, 3, 4, 2, 2}))
-	log.Print("3 ?= ", findDuplicate([]int{3, 1, 3, 4, 2}))
-	log.Print("3 ?= ", findDuplicate([]int{3, 3, 3, 3, 3}))
+	// 1 <= nums[i] <= n
+
+	InPlace := func(nums []int) int {
+		for _, n := range nums {
+			if n < 0 {
+				n *= -1
+			}
+			if nums[n-1] < 0 {
+				return n
+			}
+			nums[n-1] *= -1
+		}
+		return -1
+	}
+
+	for _, f := range []func([]int) int{findDuplicate, InPlace} {
+		log.Print("2 ?= ", f([]int{1, 3, 4, 2, 2}))
+		log.Print("3 ?= ", f([]int{3, 1, 3, 4, 2}))
+		log.Print("3 ?= ", f([]int{3, 3, 3, 3, 3}))
+		log.Print("--")
+	}
 }
 
 // 350 Intersection of Two Arrays II
