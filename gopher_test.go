@@ -917,6 +917,12 @@ func Test1701(t *testing.T) {
 	log.Print("3.25 ?= ", averageWaitingTime([][]int{{5, 2}, {5, 4}, {10, 3}, {20, 1}}))
 }
 
+// 1717m Maximum Score From Removing Substrings
+func Test1717(t *testing.T) {
+	log.Print("19 ?= ", maximumGain("cdbcbbaaabab", 4, 5))
+	log.Print("20 ?= ", maximumGain("aabbaaxybbaabb", 5, 4))
+}
+
 // 1823m Find the Winner of the Circular Game
 func Test1823(t *testing.T) {
 	// Josephus Problem
