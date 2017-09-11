@@ -793,36 +793,6 @@ func averageWaitingTime(customers [][]int) float64 {
 // 1717m Maximum Score From Removing Substrings
 func maximumGain(s string, x int, y int) int {
 	g := 0
-	Q := list.New()
-
-	Greedy := func(tkn string, v int) {
-		log.Printf("Greedy :: %s:%d", tkn, v)
-		for Q.Len() > 0 {
-			s = ""
-			for Q.Len() > 0 {
-				s += Q.Remove(Q.Front()).(string)
-			}
-			log.Print(" -> ", s)
-
-			i, p := 0, 0
-			for i < len(s)-len(tkn)+1 {
-				if s[i:i+len(tkn)] == tkn {
-					g += v
-					Q.PushBack(s[p:i])
-					log.Print("P: ", s[p:i])
-					p = i + len(tkn)
-					i += len(tkn)
-				} else {
-					i++
-				}
-			}
-
-			if p > 0 {
-				Q.PushBack(s[p:])
-				log.Print("P: ", s[p:])
-			}
-		}
-	}
 
 	Tx, Ty := "ab", "ba"
 	if y > x {
@@ -831,15 +801,23 @@ func maximumGain(s string, x int, y int) int {
 	}
 	log.Printf("Tokens :: %s:%d %s:%d", Tx, x, Ty, y)
 
-	Q.PushBack(s)
+	Q := []byte{}
+	Greedy := func(tkn string, v int) {
+		for i := 0; i < len(s); i++ {
+			if len(Q) > 0 && tkn[0] == Q[len(Q)-1] && tkn[1] == s[i] {
+				g += v
+				Q = Q[:len(Q)-1]
+			} else {
+				Q = append(Q, s[i])
+			}
+		}
+	}
+
 	Greedy(Tx, x)
 
-	log.Print("+++ ", s)
-
-	Q.PushBack(s)
+	s = string(Q)
+	Q = []byte{}
 	Greedy(Ty, y)
-
-	log.Print("+++ ", s)
 
 	return g
 }
