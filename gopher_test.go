@@ -464,6 +464,13 @@ func Test3(t *testing.T) {
 	log.Print("3 ?= ", lengthOfLongestSubstring("pwwkew"))
 }
 
+// 20 Valid Parentheses
+func Test20(t *testing.T) {
+	log.Print("true ?= ", isValid("()"))
+	log.Print("true ?= ", isValid("()[]{}"))
+	log.Print("false ?= ", isValid("(]"))
+}
+
 // 31m Next Permutation
 func Test31(t *testing.T) {
 	var nums []int

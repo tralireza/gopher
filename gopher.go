@@ -202,6 +202,20 @@ func lengthOfLongestSubstring(s string) int {
 	return ls
 }
 
+// 20 Valid Parentheses
+func isValid(s string) bool {
+	Q := []byte{}
+	Pair := map[byte]byte{'(': ')', '[': ']', '{': '}'}
+	for i := 0; i < len(s); i++ {
+		if len(Q) > 0 && s[i] == Pair[Q[len(Q)-1]] {
+			Q = Q[:len(Q)-1]
+		} else {
+			Q = append(Q, s[i])
+		}
+	}
+	return len(Q) == 0
+}
+
 // 31m Next Permutation
 func nextPermutation(nums []int) {
 	// N0 N1 N2 .. Nr-1<Nr .. Nn
