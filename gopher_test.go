@@ -930,7 +930,7 @@ func Test1717(t *testing.T) {
 		g := 0
 
 		Pass := func(tkn string, v int) {
-			log.Printf("%s %s:%d", s, tkn, v)
+			log.Printf("-> %s %s:%d", s, tkn, v)
 			w := []byte(s)
 			wtr := 0
 			for rdr := 0; rdr < len(s); rdr++ {
@@ -943,7 +943,6 @@ func Test1717(t *testing.T) {
 				}
 			}
 			s = string(w[:wtr])
-			log.Print(s)
 		}
 
 		Tx, Ty := "ab", "ba"
