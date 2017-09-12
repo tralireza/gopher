@@ -926,8 +926,43 @@ func Test1701(t *testing.T) {
 
 // 1717m Maximum Score From Removing Substrings
 func Test1717(t *testing.T) {
-	log.Print("19 ?= ", maximumGain("cdbcbbaaabab", 4, 5))
-	log.Print("20 ?= ", maximumGain("aabbaaxybbaabb", 5, 4))
+	TwoPointer := func(s string, x, y int) int {
+		g := 0
+
+		Pass := func(tkn string, v int) {
+			log.Printf("%s %s:%d", s, tkn, v)
+			w := []byte(s)
+			wtr := 0
+			for rdr := 0; rdr < len(s); rdr++ {
+				w[wtr] = w[rdr]
+				wtr++
+
+				if wtr > 1 && w[wtr-2] == tkn[0] && w[wtr-1] == tkn[1] {
+					g += v
+					wtr -= 2
+				}
+			}
+			s = string(w[:wtr])
+			log.Print(s)
+		}
+
+		Tx, Ty := "ab", "ba"
+		if y > x {
+			Tx, Ty = Ty, Tx
+			x, y = y, x
+		}
+
+		Pass(Tx, x)
+		Pass(Ty, y)
+
+		return g
+	}
+
+	for _, f := range []func(s string, x, y int) int{maximumGain, TwoPointer} {
+		log.Print("19 ?= ", f("cdbcbbaaabab", 4, 5))
+		log.Print("20 ?= ", f("aabbaaxybbaabb", 5, 4))
+		log.Print("--")
+	}
 }
 
 // 1823m Find the Winner of the Circular Game
