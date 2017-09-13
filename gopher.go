@@ -1013,7 +1013,7 @@ func survivedRobotsHealths(positions []int, healths []int, directions string) []
 
 	Q := []Robot{}
 	for i := range Robs {
-		if len(Q) == 0 || Robs[i].dir == 'R' {
+		if Robs[i].dir == 'R' {
 			Q = append(Q, Robs[i])
 		} else {
 			for len(Q) > 0 && Q[len(Q)-1].dir == 'R' && Q[len(Q)-1].h < Robs[i].h {
