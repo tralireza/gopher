@@ -1267,6 +1267,14 @@ func Test2496(t *testing.T) {
 	}
 }
 
+// 2751h Robot Collisions
+func Test2751(t *testing.T) {
+	log.Print("[2 17 9 15 10] ?= ", survivedRobotsHealths([]int{5, 4, 3, 2, 1}, []int{2, 17, 9, 15, 10}, "RRRRR"))
+	log.Print("[14] ?= ", survivedRobotsHealths([]int{3, 5, 2, 6}, []int{10, 10, 15, 12}, "RLRL"))
+	log.Print("[] ?= ", survivedRobotsHealths([]int{1, 2, 5, 6}, []int{10, 10, 11, 11}, "RLRL"))
+	log.Print("[49 11] ?= ", survivedRobotsHealths([]int{3, 40}, []int{49, 11}, "LL"))
+}
+
 // 3191m Minimum Operations to Make Binary Array Elements Equal to One I
 func Test3191(t *testing.T) {
 	SpaceOptimized := func(nums []int) int {

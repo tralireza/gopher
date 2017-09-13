@@ -998,6 +998,49 @@ func maximumValue(strs []string) int {
 	return x
 }
 
+// 2751h Robot Collisions
+func survivedRobotsHealths(positions []int, healths []int, directions string) []int {
+	type Robot struct {
+		p, h, i int
+		dir     byte
+	}
+
+	Robs := []Robot{}
+	for i := range directions {
+		Robs = append(Robs, Robot{positions[i], healths[i], i, directions[i]})
+	}
+	slices.SortFunc(Robs, func(x, y Robot) int { return x.p - y.p })
+
+	Q := []Robot{}
+	for i := range Robs {
+		if len(Q) == 0 || Robs[i].dir == 'R' {
+			Q = append(Q, Robs[i])
+		} else {
+			for len(Q) > 0 && Q[len(Q)-1].dir == 'R' && Q[len(Q)-1].h < Robs[i].h {
+				Robs[i].h--
+				Q = Q[:len(Q)-1]
+			}
+
+			if len(Q) > 0 && Q[len(Q)-1].dir == 'R' {
+				if Q[len(Q)-1].h == Robs[i].h {
+					Q = Q[:len(Q)-1]
+				} else {
+					Q[len(Q)-1].h--
+				}
+			} else {
+				Q = append(Q, Robs[i])
+			}
+		}
+	}
+
+	slices.SortFunc(Q, func(x, y Robot) int { return y.i - x.i })
+	R := []int{}
+	for i := len(Q) - 1; i >= 0; i-- {
+		R = append(R, Q[i].h)
+	}
+	return R
+}
+
 // 3191m Minimum Operations to Make Binary Array Elements Equal to One I
 func minOperations(nums []int) int {
 	fflip, Q, k := 0, []int{}, 3
