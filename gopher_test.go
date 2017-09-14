@@ -623,6 +623,13 @@ func Test697(t *testing.T) {
 	log.Print("6 ?= ", findShortestSubArray([]int{2, 2, 3, 1, 4, 2}))
 }
 
+// 726h Number of Atoms
+func Test726(t *testing.T) {
+	log.Print("H2O ?= ", countOfAtoms("H2O"))
+	log.Print("H2MgO2 ?= ", countOfAtoms("Mg(OH)2"))
+	log.Print("K4N2O14S4 ?= ", countOfAtoms("K4(ON(SO3)2)2"))
+}
+
 // 739m Daily Temperatures
 func Test739(t *testing.T) {
 	Builtin := func(temperatures []int) []int {

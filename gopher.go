@@ -528,6 +528,74 @@ func findShortestSubArray(nums []int) int {
 	return lM
 }
 
+// 726h Number of Atoms
+func countOfAtoms(formula string) string {
+	i := 0
+
+	Count := func() int {
+		n := 0
+		for i < len(formula) && formula[i] >= '0' && formula[i] <= '9' {
+			n = 10*n + int(formula[i]-'0')
+			i++
+		}
+		if n > 0 {
+			return n
+		}
+		return 1
+	}
+
+	var W func() map[string]int
+	W = func() map[string]int {
+		M := map[string]int{}
+
+		for i < len(formula) {
+			switch {
+			case formula[i] == ')':
+				return M
+
+			case formula[i] == '(':
+				i++
+				rMap := W()
+				i++ // ')'
+
+				n := Count()
+				for k, v := range rMap {
+					M[k] += n * v
+				}
+
+			case formula[i] >= 'A' && formula[i] <= 'Z':
+				bfr := []byte{formula[i]}
+				i++
+				for i < len(formula) && formula[i] >= 'a' && formula[i] <= 'z' {
+					bfr = append(bfr, formula[i])
+					i++
+				}
+
+				M[string(bfr)] += Count()
+			}
+		}
+
+		return M
+	}
+
+	M := W()
+
+	E := []string{}
+	for e := range M {
+		E = append(E, e)
+	}
+	slices.Sort(E)
+
+	formula = ""
+	for _, e := range E {
+		formula += e
+		if M[e] > 1 {
+			formula += strconv.Itoa(M[e])
+		}
+	}
+	return formula
+}
+
 // 739m Daily Temperatures
 func dailyTemperatures(temperatures []int) []int {
 	r := make([]int, len(temperatures))
