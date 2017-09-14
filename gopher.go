@@ -586,14 +586,14 @@ func countOfAtoms(formula string) string {
 	}
 	slices.Sort(E)
 
-	formula = ""
+	sbr := strings.Builder{}
 	for _, e := range E {
-		formula += e
+		sbr.WriteString(e)
 		if M[e] > 1 {
-			formula += strconv.Itoa(M[e])
+			sbr.WriteString(strconv.Itoa(M[e]))
 		}
 	}
-	return formula
+	return sbr.String()
 }
 
 // 739m Daily Temperatures
