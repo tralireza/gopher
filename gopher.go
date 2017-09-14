@@ -551,12 +551,12 @@ func countOfAtoms(formula string) string {
 		for i < len(formula) {
 			switch {
 			case formula[i] == ')':
+				i++
 				return M
 
 			case formula[i] == '(':
 				i++
 				rMap := W()
-				i++ // ')'
 
 				n := Count()
 				for k, v := range rMap {
