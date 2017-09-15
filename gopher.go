@@ -556,11 +556,11 @@ func countOfAtoms(formula string) string {
 
 			case formula[i] == '(':
 				i++
-				rMap := W()
+				rM := W()
 
-				n := Count()
-				for k, v := range rMap {
-					M[k] += n * v
+				n := Count() // multiplier for (...)
+				for e := range rM {
+					M[e] += n * rM[e]
 				}
 
 			case formula[i] >= 'A' && formula[i] <= 'Z':
