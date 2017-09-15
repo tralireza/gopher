@@ -11,6 +11,46 @@ type TreeNode struct {
 	Left, Right *TreeNode
 }
 
+// 1110m Delete Nodes And Return Forest
+func delNodes(root *TreeNode, to_delete []int) []*TreeNode {
+	// 1 <= n.Val, length(to_delete) <= 1000
+	D := make([]bool, 1000+1)
+	for _, n := range to_delete {
+		D[n] = true
+	}
+
+	F := []*TreeNode{} // Forest
+
+	var postOrder func(*TreeNode) *TreeNode
+	postOrder = func(n *TreeNode) *TreeNode {
+		if n == nil {
+			return nil
+		}
+
+		n.Left = postOrder(n.Left)
+		n.Right = postOrder(n.Right)
+
+		if D[n.Val] {
+			if n.Left != nil {
+				F = append(F, n.Left)
+			}
+			if n.Right != nil {
+				F = append(F, n.Right)
+			}
+			return nil
+		}
+
+		return n
+	}
+
+	root = postOrder(root)
+	if root != nil {
+		F = append(F, root)
+	}
+
+	return F
+}
+
 // 2096m Step-By-Step Directions From a Binary Tree Node to Another
 func getDirections(root *TreeNode, startValue int, destValue int) string {
 	var lCA func(*TreeNode) *TreeNode // [Lowest] Common-Ancestor
