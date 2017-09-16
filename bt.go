@@ -91,11 +91,12 @@ func countPairs(root *TreeNode, distance int) int {
 
 	r := 0
 
-	for v := 1; v < len(G); v++ { // Root: G[0]
-		if len(G[v]) == 1 { // Leaf: run DFS
+	for n := 1; n < len(G); n++ { // Root: G[0]
+		if len(G[n]) == 1 { // Leaf: run DFS
 			Vis := make([]bool, len(G))
-			Q := []int{v}
+			Q := []int{n}
 			d := 0
+			var v int
 			for len(Q) > 0 && d < distance {
 				d++
 				for range len(Q) {
@@ -106,7 +107,6 @@ func countPairs(root *TreeNode, distance int) int {
 							if len(G[u]) == 1 && u != 0 { // Root: 0
 								r++
 							}
-							Vis[u] = true
 							Q = append(Q, u)
 						}
 					}
