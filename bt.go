@@ -51,6 +51,73 @@ func delNodes(root *TreeNode, to_delete []int) []*TreeNode {
 	return F
 }
 
+// 1530m Number of Good Leaf Nodes Pairs
+func countPairs(root *TreeNode, distance int) int {
+	// 1 <= #Nodes <= 2^10
+	// 1 <= Node.Val <= 100
+
+	// (re-)Label Nodes
+	var L func(*TreeNode, int) int
+	L = func(n *TreeNode, l int) int {
+		if n == nil {
+			return l
+		}
+
+		n.Val = l
+		l++
+		l = L(n.Left, l)
+		return L(n.Right, l)
+	}
+
+	n := L(root, 0)
+
+	// Tree -> Graph
+	G := make([][]int, n)
+
+	var W func(*TreeNode)
+	W = func(n *TreeNode) {
+		for _, c := range []*TreeNode{n.Left, n.Right} {
+			if c != nil {
+				G[n.Val] = append(G[n.Val], c.Val)
+				G[c.Val] = append(G[c.Val], n.Val)
+				W(c)
+			}
+		}
+	}
+
+	W(root)
+
+	log.Print(G)
+
+	r := 0
+
+	for v := 1; v < len(G); v++ { // Root: G[0]
+		if len(G[v]) == 1 { // Leaf: run DFS
+			Vis := make([]bool, len(G))
+			Q := []int{v}
+			d := 0
+			for len(Q) > 0 && d < distance {
+				d++
+				for range len(Q) {
+					v, Q = Q[0], Q[1:]
+					Vis[v] = true
+					for _, u := range G[v] {
+						if !Vis[u] {
+							if len(G[u]) == 1 && u != 0 { // Root: 0
+								r++
+							}
+							Vis[u] = true
+							Q = append(Q, u)
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return r / 2
+}
+
 // 2096m Step-By-Step Directions From a Binary Tree Node to Another
 func getDirections(root *TreeNode, startValue int, destValue int) string {
 	var lCA func(*TreeNode) *TreeNode // [Lowest] Common-Ancestor

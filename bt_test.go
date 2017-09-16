@@ -84,6 +84,14 @@ func Test1110(t *testing.T) {
 	}
 }
 
+// 1530m Number of Good Leaf Nodes Pairs
+func Test1530(t *testing.T) {
+	type T = TreeNode
+
+	log.Print("1 ?= ", countPairs(&T{1, &T{2, nil, &T{Val: 4}}, &T{Val: 3}}, 3))
+	log.Print("2 ?= ", countPairs(&T{1, &T{2, &T{Val: 4}, &T{Val: 5}}, &T{3, &T{Val: 6}, &T{Val: 7}}}, 3))
+}
+
 // 2096m Step-By-Step Directions From a Binary Tree Node to Another
 func Test2096(t *testing.T) {
 	type T = TreeNode
