@@ -88,7 +88,7 @@ func Test1110(t *testing.T) {
 func Test1530(t *testing.T) {
 	Refined := func(root *TreeNode, distance int) int {
 		G := map[*TreeNode][]*TreeNode{} // Graph
-		L := []*TreeNode{}               // Leaves
+		L := map[*TreeNode]struct{}{}    // Leaves
 
 		var Walk func(*TreeNode)
 		Walk = func(n *TreeNode) {
@@ -100,7 +100,7 @@ func Test1530(t *testing.T) {
 				}
 			}
 			if n.Left == nil && n.Right == nil {
-				L = append(L, n)
+				L[n] = struct{}{}
 			}
 		}
 
@@ -109,7 +109,7 @@ func Test1530(t *testing.T) {
 		r := 0
 
 		// BFS for Leaves
-		for _, l := range L {
+		for l := range L {
 			Q := []*TreeNode{l}
 			Vis := map[*TreeNode]struct{}{}
 			var v *TreeNode
@@ -122,7 +122,7 @@ func Test1530(t *testing.T) {
 					Vis[v] = struct{}{}
 					for _, u := range G[v] {
 						if _, ok := Vis[u]; !ok {
-							if len(G[u]) == 1 && u != root {
+							if _, ok := L[u]; ok {
 								r++
 							}
 							Q = append(Q, u)
