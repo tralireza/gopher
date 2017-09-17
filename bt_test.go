@@ -86,10 +86,62 @@ func Test1110(t *testing.T) {
 
 // 1530m Number of Good Leaf Nodes Pairs
 func Test1530(t *testing.T) {
+	Refined := func(root *TreeNode, distance int) int {
+		G := map[*TreeNode][]*TreeNode{} // Graph
+		L := []*TreeNode{}               // Leaves
+
+		var Walk func(*TreeNode)
+		Walk = func(n *TreeNode) {
+			for _, c := range []*TreeNode{n.Left, n.Right} {
+				if c != nil {
+					G[n] = append(G[n], c)
+					G[c] = append(G[c], n)
+					Walk(c)
+				}
+			}
+			if n.Left == nil && n.Right == nil {
+				L = append(L, n)
+			}
+		}
+
+		Walk(root)
+
+		r := 0
+
+		// BFS for Leaves
+		for _, l := range L {
+			Q := []*TreeNode{l}
+			Vis := map[*TreeNode]struct{}{}
+			var v *TreeNode
+			d := 0
+
+			for len(Q) > 0 && d < distance {
+				d++
+				for range len(Q) {
+					v, Q = Q[0], Q[1:]
+					Vis[v] = struct{}{}
+					for _, u := range G[v] {
+						if _, ok := Vis[u]; !ok {
+							if len(G[u]) == 1 && u != root {
+								r++
+							}
+							Q = append(Q, u)
+						}
+					}
+				}
+			}
+		}
+
+		return r / 2
+	}
+
 	type T = TreeNode
 
-	log.Print("1 ?= ", countPairs(&T{1, &T{2, nil, &T{Val: 4}}, &T{Val: 3}}, 3))
-	log.Print("2 ?= ", countPairs(&T{1, &T{2, &T{Val: 4}, &T{Val: 5}}, &T{3, &T{Val: 6}, &T{Val: 7}}}, 3))
+	for _, f := range []func(*TreeNode, int) int{countPairs, Refined} {
+		log.Print("1 ?= ", f(&T{1, &T{2, nil, &T{Val: 4}}, &T{Val: 3}}, 3))
+		log.Print("2 ?= ", f(&T{1, &T{2, &T{Val: 4}, &T{Val: 5}}, &T{3, &T{Val: 6}, &T{Val: 7}}}, 3))
+		log.Print("--")
+	}
 }
 
 // 2096m Step-By-Step Directions From a Binary Tree Node to Another
