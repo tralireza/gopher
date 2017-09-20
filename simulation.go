@@ -25,8 +25,12 @@ func luckyNumbers(matrix [][]int) []int {
 	log.Print(Xc)
 
 	R := []int{}
-	if slices.Max(Mr) == slices.Min(Xc) {
-		R = append(R, slices.Max(Mr))
+	for r := 0; r < len(matrix); r++ {
+		for c := 0; c < len(matrix[0]); c++ {
+			if matrix[r][c] == Mr[r] && matrix[r][c] == Xc[c] {
+				R = append(R, matrix[r][c])
+			}
+		}
 	}
 	return R
 }
