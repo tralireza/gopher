@@ -926,7 +926,7 @@ func findTheWinner(n int, k int) int {
 
 // 1190m Reverse Substrings Between Each Pair of Parentheses
 func reverseParentheses(s string) string {
-	Wtr := [][]byte{[]byte{}}
+	Wtr := [][]byte{{}}
 
 	for _, c := range s {
 		switch c {
