@@ -128,7 +128,9 @@ func (p *fCache) Get(url string) (interface{}, error) {
 }
 
 func httpGet(url string) (interface{}, error) {
-	ctx, _ := context.WithTimeout(context.Background(), 7*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 7*time.Second)
+	defer cancel()
+
 	rq, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, err
