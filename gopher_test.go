@@ -1108,9 +1108,9 @@ func Test2058(t *testing.T) {
 	type L = ListNode
 
 	for _, l := range []*L{
-		&L{3, &L{Val: 1}},
-		&L{5, &L{3, &L{1, &L{2, &L{5, &L{1, &L{Val: 2}}}}}}},
-		&L{1, &L{3, &L{2, &L{2, &L{3, &L{2, &L{2, &L{2, &L{Val: 7}}}}}}}}},
+		{3, &L{Val: 1}},
+		{5, &L{3, &L{1, &L{2, &L{5, &L{1, &L{Val: 2}}}}}}},
+		{1, &L{3, &L{2, &L{2, &L{3, &L{2, &L{2, &L{2, &L{Val: 7}}}}}}}}},
 	} {
 		Draw(l)
 		fmt.Print("\n")
@@ -1156,9 +1156,9 @@ func Test2181(t *testing.T) {
 
 	for _, f := range []func(*ListNode) *ListNode{mergeNodes, Iterative} {
 		for _, l := range []*L{
-			&L{0, &L{3, &L{1, &L{0, &L{4, &L{5, &L{2, &L{Val: 0}}}}}}}},
-			&L{0, &L{1, &L{0, &L{3, &L{0, &L{2, &L{2, &L{Val: 0}}}}}}}},
-			&L{0, &L{1, &L{Val: 0}}},
+			{0, &L{3, &L{1, &L{0, &L{4, &L{5, &L{2, &L{Val: 0}}}}}}}},
+			{0, &L{1, &L{0, &L{3, &L{0, &L{2, &L{2, &L{Val: 0}}}}}}}},
+			{0, &L{1, &L{Val: 0}}},
 		} {
 			Draw(l)
 			fmt.Print("  =>  ")
