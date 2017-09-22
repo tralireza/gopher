@@ -170,12 +170,12 @@ func getDirections(root *TreeNode, startValue int, destValue int) string {
 	p = bytes.Buffer{}
 	BackTrack(lca, startValue)
 	pStart := p.String()
-	log.Printf("+++ lca -> start: %s", pStart)
+	log.Printf("+++ lCA -> Start: %q", pStart)
 
 	p.Truncate(0)
 	BackTrack(lca, destValue)
 	pDest := p.String()
-	log.Printf("+++ lca -> dest: %s", pDest)
+	log.Printf("+++ lCA -> Dest: %q", pDest)
 
 	return strings.Repeat("U", len(pStart)) + pDest
 }
