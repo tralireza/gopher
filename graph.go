@@ -15,13 +15,13 @@ func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 		log.Print("Graph :: ", G[1:])
 		log.Print("InDegree :: ", D[1:])
 
+		// Kahn's algorithm
 		Q := []int{}
 		for v, degree := range D[1:] {
 			if degree == 0 {
 				Q = append(Q, v+1)
 			}
 		}
-
 		tSort := []int{}
 		var v int
 		for len(Q) > 0 {
@@ -38,13 +38,13 @@ func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	}
 
 	rTopo := TopoSort(rowConditions)
-	if len(rTopo) < k { // Cycle :: G !DAG
+	if len(rTopo) < k { // cycle :: G !DAG
 		return nil
 	}
 	log.Print("row Topological order -> ", rTopo)
 
 	cTopo := TopoSort(colConditions)
-	if len(cTopo) < k { // Cycle :: G !DAG
+	if len(cTopo) < k { // cycle :: G !DAG
 		return nil
 	}
 	log.Print("column Topological order -> ", cTopo)
