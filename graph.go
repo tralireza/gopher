@@ -12,8 +12,9 @@ func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 			D[e[1]]++
 		}
 
-		log.Print("Graph :: ", G[1:])
-		log.Print("InDegree :: ", D[1:])
+		// exclusive Node 0
+		log.Print("Graph :: ", G)
+		log.Print("InDegree :: ", D)
 
 		// Kahn's algorithm
 		Q := []int{}
