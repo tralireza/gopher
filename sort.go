@@ -9,11 +9,11 @@ func sortPeople(names []string, heights []int) []string {
 		height int
 	}
 
-	D := []P{}
+	D := []*P{}
 	for i := range names {
-		D = append(D, P{name: names[i], height: heights[i]})
+		D = append(D, &P{name: names[i], height: heights[i]})
 	}
-	slices.SortFunc(D, func(x, y P) int { return y.height - x.height })
+	slices.SortFunc(D, func(x, y *P) int { return y.height - x.height })
 
 	for i := range D {
 		names[i] = D[i].name
