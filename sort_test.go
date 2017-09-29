@@ -36,6 +36,13 @@ func Test2418(t *testing.T) {
 
 	MergeSort := func(names []string, heights []int) []string {
 		// worse-case: O(NlogN)
+
+		// Heights/Names merge temporary storage
+		th, tn := make([]int, len(heights)), make([]string, len(heights))
+		for i := range heights {
+			th[i], tn[i] = heights[i], names[i]
+		}
+
 		var mSort func(s, e int)
 		mSort = func(s, e int) {
 			if s >= e {
@@ -47,19 +54,18 @@ func Test2418(t *testing.T) {
 			mSort(m+1, e)
 
 			// Merge
-			Ht, Nt := make([]int, e-s+1), make([]string, e-s+1) // Heights/Names merge temporary storage
 			l, r := s, m+1
-			for i := 0; i <= e-s; i++ {
+			for i := s; i <= e; i++ {
 				if l <= m && (r > e || heights[l] >= heights[r]) {
-					Ht[i], Nt[i] = heights[l], names[l]
+					th[i], tn[i] = heights[l], names[l]
 					l++
 				} else {
-					Ht[i], Nt[i] = heights[r], names[r]
+					th[i], tn[i] = heights[r], names[r]
 					r++
 				}
 			}
-			copy(heights[s:], Ht)
-			copy(names[s:], Nt)
+			copy(heights[s:e+1], th[s:e+1])
+			copy(names[s:e+1], tn[s:e+1])
 		}
 		mSort(0, len(heights)-1)
 
