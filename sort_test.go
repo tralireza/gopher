@@ -43,20 +43,21 @@ func Test2418(t *testing.T) {
 			th[i], tn[i] = heights[i], names[i]
 		}
 
-		var mSort func(s, e int)
-		mSort = func(s, e int) {
-			if s >= e {
+		var mSort func(heights []int, names []string, s, e int, th []int, tn []string)
+		mSort = func(heights []int, names []string, s, e int, th []int, tn []string) {
+			// s <= i < e <=> N: [s...e)
+			if e-s <= 1 {
 				return
 			}
 
 			m := s + (e-s)>>1
-			mSort(s, m)
-			mSort(m+1, e)
+			mSort(th, tn, s, m, heights, names)
+			mSort(th, tn, m, e, heights, names)
 
 			// Merge
-			l, r := s, m+1
-			for i := s; i <= e; i++ {
-				if l <= m && (r > e || heights[l] >= heights[r]) {
+			l, r := s, m
+			for i := s; i < e; i++ {
+				if l < m && (r >= e || heights[l] >= heights[r]) {
 					th[i], tn[i] = heights[l], names[l]
 					l++
 				} else {
@@ -64,10 +65,8 @@ func Test2418(t *testing.T) {
 					r++
 				}
 			}
-			copy(heights[s:e+1], th[s:e+1])
-			copy(names[s:e+1], tn[s:e+1])
 		}
-		mSort(0, len(heights)-1)
+		mSort(th, tn, 0, len(heights), heights, names)
 
 		return names
 	}
