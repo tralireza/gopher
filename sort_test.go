@@ -51,22 +51,22 @@ func Test2418(t *testing.T) {
 			}
 
 			m := s + (e-s)>>1
-			mSort(th, tn, s, m, heights, names)
-			mSort(th, tn, m, e, heights, names)
+			mSort(heights, names, s, m, th, tn)
+			mSort(heights, names, m, e, th, tn)
 
 			// Merge
 			l, r := s, m
 			for i := s; i < e; i++ {
-				if l < m && (r >= e || heights[l] >= heights[r]) {
-					th[i], tn[i] = heights[l], names[l]
+				if l < m && (r >= e || th[l] >= th[r]) {
+					heights[i], names[i] = th[l], tn[l]
 					l++
 				} else {
-					th[i], tn[i] = heights[r], names[r]
+					heights[i], names[i] = th[r], tn[r]
 					r++
 				}
 			}
 		}
-		mSort(th, tn, 0, len(heights), heights, names)
+		mSort(heights, names, 0, len(heights), th, tn)
 
 		return names
 	}
