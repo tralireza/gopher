@@ -28,15 +28,13 @@ func minChanges(nums []int, k int) int {
 		r--
 	}
 
-	log.Print(M)
+	log.Print("Difference Frequency -> ", M)
 
 	slices.Sort(Diffs)
-	log.Print(Diffs)
+	log.Print("(One Operation) Maximum Difference -> ", Diffs)
 
 	minOps := math.MaxInt
 	for x, f := range M {
-		log.Print(x, f)
-
 		l, r := 0, len(Diffs)-1
 		for l < r {
 			m := l + (r-l)>>1
@@ -46,7 +44,6 @@ func minChanges(nums []int, k int) int {
 				l = m + 1
 			}
 		}
-
 		minOps = min(minOps, len(nums)/2-f+l)
 	}
 	return minOps
