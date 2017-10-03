@@ -6,6 +6,12 @@ import (
 	"testing"
 )
 
+// 912m Sort an Array
+func Test912(t *testing.T) {
+	log.Print(" ?= ", sortArray([]int{5, 2, 3, 1}))
+	log.Print(" ?= ", sortArray([]int{5, 1, 1, 2, 0, 0}))
+}
+
 // 2418 Sort the People
 func Test2418(t *testing.T) {
 	QuickSort := func(names []string, heights []int) []string {
