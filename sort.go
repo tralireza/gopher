@@ -42,11 +42,9 @@ func sortJumbled(mapping []int, nums []int) []int {
 	// 0 <= nums[i] < 10^9
 	Map := func(n int) int {
 		m := 0
-		rdx := 1
-		for n > 0 {
+		for rdx := 1; n > 0; rdx *= 10 {
 			m += mapping[n%10] * rdx
 			n /= 10
-			rdx *= 10
 		}
 		return m
 	}
