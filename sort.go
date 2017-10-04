@@ -1,13 +1,14 @@
 package gopher
 
-import "slices"
+import (
+	"log"
+	"slices"
+)
 
 // 912m Sort an Array
 func sortArray(nums []int) []int {
 	t := make([]int, len(nums)) // temporary merge storage
-	for i, n := range nums {
-		t[i] = n
-	}
+	copy(t, nums)
 
 	var mSort func(s, e int, main, tmp []int)
 	mSort = func(s, e int, main, tmp []int) {
@@ -34,6 +35,35 @@ func sortArray(nums []int) []int {
 
 	mSort(0, len(nums), nums, t)
 	return nums
+}
+
+// 2191m Sort the Jumbled Numbers
+func sortJumbled(mapping []int, nums []int) []int {
+	// 0 <= nums[i] < 10^9
+	Map := func(n int) int {
+		m := 0
+		rdx := 1
+		for n > 0 {
+			m += mapping[n%10] * rdx
+			n /= 10
+			rdx *= 10
+		}
+		return m
+	}
+
+	D := [][]int{}
+	for i, n := range nums {
+		D = append(D, []int{Map(n), i})
+	}
+	log.Print(" -> ", D)
+
+	slices.SortFunc(D, func(x, y []int) int { return x[0] - y[0] })
+
+	R := []int{}
+	for i := range D {
+		R = append(R, nums[D[i][1]])
+	}
+	return R
 }
 
 // 2418 Sort the People

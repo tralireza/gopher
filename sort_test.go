@@ -12,6 +12,12 @@ func Test912(t *testing.T) {
 	log.Print(" ?= ", sortArray([]int{5, 1, 1, 2, 0, 0}))
 }
 
+// 2191m Sort the Jumbled Numbers
+func Test2191(t *testing.T) {
+	log.Print("[338 38 991] ?= ", sortJumbled([]int{8, 9, 4, 0, 2, 1, 3, 5, 7, 6}, []int{991, 338, 38}))
+	log.Print("[123 456 789] ?= ", sortJumbled([]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, []int{789, 456, 123}))
+}
+
 // 2418 Sort the People
 func Test2418(t *testing.T) {
 	QuickSort := func(names []string, heights []int) []string {
