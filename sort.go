@@ -51,17 +51,16 @@ func sortJumbled(mapping []int, nums []int) []int {
 
 	D := [][]int{}
 	for i, n := range nums {
-		D = append(D, []int{Map(n), i})
+		D = append(D, []int{Map(n), nums[i]})
 	}
 	log.Print(" -> ", D)
 
 	slices.SortFunc(D, func(x, y []int) int { return x[0] - y[0] })
 
-	R := []int{}
 	for i := range D {
-		R = append(R, nums[D[i][1]])
+		nums[i] = D[i][1]
 	}
-	return R
+	return nums
 }
 
 // 2418 Sort the People
