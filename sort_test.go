@@ -14,8 +14,49 @@ func Test912(t *testing.T) {
 
 // 2191m Sort the Jumbled Numbers
 func Test2191(t *testing.T) {
-	log.Print("[338 38 991] ?= ", sortJumbled([]int{8, 9, 4, 0, 2, 1, 3, 5, 7, 6}, []int{991, 338, 38}))
-	log.Print("[123 456 789] ?= ", sortJumbled([]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, []int{789, 456, 123}))
+	BucketSort := func(mapping []int, nums []int) []int {
+		K := 0
+		for x := slices.Max(nums); x > 0; x /= 10 {
+			K++
+		}
+
+		Buckets := make([][]int, 10)
+		Buckets[0] = nums
+
+		rdx := 1
+		for range K {
+			Tmps := make([][]int, 10)
+			for b := range Buckets {
+				for _, n := range Buckets[b] {
+					if n < rdx && n != 0 {
+						Tmps[0] = append(Tmps[0], n)
+						continue
+					}
+
+					digit := (n / rdx) % 10
+					md := mapping[digit]
+					Tmps[md] = append(Tmps[md], n)
+				}
+			}
+			rdx *= 10
+			Buckets = Tmps
+		}
+
+		i := 0
+		for b := range Buckets {
+			for _, n := range Buckets[b] {
+				nums[i] = n
+				i++
+			}
+		}
+		return nums
+	}
+
+	for _, f := range []func([]int, []int) []int{sortJumbled, BucketSort} {
+		log.Print("[338 38 991] ?= ", f([]int{8, 9, 4, 0, 2, 1, 3, 5, 7, 6}, []int{991, 338, 38}))
+		log.Print("[123 456 789] ?= ", f([]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, []int{789, 456, 123}))
+		log.Print("--")
+	}
 }
 
 // 2418 Sort the People
