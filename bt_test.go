@@ -86,6 +86,8 @@ func Test1110(t *testing.T) {
 
 // 1530m Number of Good Leaf Nodes Pairs
 func Test1530(t *testing.T) {
+	// 1 <= distance <= 10
+
 	Refined := func(root *TreeNode, distance int) int {
 		G := map[*TreeNode][]*TreeNode{} // Graph
 		L := map[*TreeNode]struct{}{}    // Leaves
@@ -135,9 +137,47 @@ func Test1530(t *testing.T) {
 		return r / 2
 	}
 
+	Direct := func(root *TreeNode, distance int) int {
+		R := 0
+
+		var Distance func(*TreeNode) [11]int
+		Distance = func(n *TreeNode) [11]int {
+			if n == nil {
+				return [11]int{}
+			}
+			if n.Left == nil && n.Right == nil {
+				v := [11]int{}
+				v[0] = 1 // n: Leaf -> is at distance 0 from 1 Leaf
+				return v
+			}
+
+			lD := Distance(n.Left)
+			rD := Distance(n.Right)
+
+			v := [11]int{}
+			for i := 0; i < 10; i++ {
+				v[i+1] = rD[i] + lD[i]
+			}
+
+			if n.Left != nil && n.Right != nil {
+				for l := range distance + 1 {
+					for r := range distance + 1 {
+						if l+r+2 <= distance {
+							R += lD[l] * rD[r]
+						}
+					}
+				}
+			}
+			return v
+		}
+
+		Distance(root)
+		return R
+	}
+
 	type T = TreeNode
 
-	for _, f := range []func(*TreeNode, int) int{countPairs, Refined} {
+	for _, f := range []func(*TreeNode, int) int{countPairs, Refined, Direct} {
 		log.Print("1 ?= ", f(&T{1, &T{2, nil, &T{Val: 4}}, &T{Val: 3}}, 3))
 		log.Print("2 ?= ", f(&T{1, &T{2, &T{Val: 4}, &T{Val: 5}}, &T{3, &T{Val: 6}, &T{Val: 7}}}, 3))
 		log.Print("--")
