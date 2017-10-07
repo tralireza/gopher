@@ -54,15 +54,12 @@ func findTheCity(n int, edges [][]int, distanceThreshold int) int {
 		for h.Len() > 0 {
 			e := heap.Pop(h).(E)
 			v, d := e.n, e.distance
-			if d > SP[v] {
-				continue
-			}
-
-			// closest neighbor to source
-			for u, w := range G[v] { // relaxing of all neighbors to source if possible
-				if w > 0 && d+w < SP[u] {
-					SP[u] = d + w
-					heap.Push(h, E{u, SP[u]})
+			if d <= SP[v] { // closest neighbor to source
+				for u, w := range G[v] { // relaxing of all neighbors to source if possible
+					if w > 0 && d+w < SP[u] {
+						SP[u] = d + w
+						heap.Push(h, E{u, SP[u]})
+					}
 				}
 			}
 		}
