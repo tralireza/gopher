@@ -6,6 +6,14 @@ import (
 	"testing"
 )
 
+// 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
+func Test1334(t *testing.T) {
+	// 1 <= Weight_i <= 10^4
+
+	log.Print("3 ?= ", findTheCity(4, [][]int{{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}}, 4))
+	log.Print("0 ?= ", findTheCity(5, [][]int{{0, 1, 2}, {0, 4, 8}, {1, 2, 3}, {1, 4, 2}, {2, 3, 1}, {3, 4, 1}}, 2))
+}
+
 // 2392h Build a Matrix With Conditions
 func Test2392(t *testing.T) {
 	// 1 <= Node(labels) <= k
