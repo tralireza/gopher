@@ -23,14 +23,22 @@ func Test1334(t *testing.T) {
 		BellmanFord := func(s int, SP []int) {
 			SP[s] = 0
 			for range n - 1 {
+				earlyTerminate := true
+
 				for _, e := range edges {
 					v, u, w := e[0], e[1], e[2]
 					if SP[v] != math.MaxInt && SP[v]+w < SP[u] {
 						SP[u] = SP[v] + w
+						earlyTerminate = false
 					}
 					if SP[u] != math.MaxInt && SP[u]+w < SP[v] {
 						SP[v] = SP[u] + w
+						earlyTerminate = false
 					}
+				}
+
+				if earlyTerminate {
+					break
 				}
 			}
 		}
