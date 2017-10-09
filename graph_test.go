@@ -52,7 +52,58 @@ func Test1334(t *testing.T) {
 		return 0
 	}
 
-	for _, f := range []func(int, [][]int, int) int{findTheCity, BellmanFord} {
+	// Shortest-Path-First
+	SPF := func(n int, edges [][]int, distanceThreshold int) int {
+		G := make([][]int, n)
+		for r := range G {
+			G[r] = make([]int, n)
+		}
+
+		for _, e := range edges {
+			v, u, w := e[0], e[1], e[2]
+			G[v][u] = w
+			G[u][v] = w
+		}
+
+		aSP := make([][]int, n)
+		for r := range aSP {
+			aSP[r] = make([]int, n)
+			for c := range aSP[r] {
+				aSP[r][c] = math.MaxInt
+			}
+		}
+
+		SPF := func(s int, SP []int) {
+			UCount := make([]int, n) // Node/Vertex update counter -> cycle detection
+
+			SP[s] = 0
+			Q := []int{s}
+			var v int
+			for len(Q) > 0 {
+				v, Q = Q[0], Q[1:]
+				for u, w := range G[v] {
+					if w > 0 && SP[v]+w < SP[u] {
+						SP[u] = SP[v] + w
+						Q = append(Q, u)
+
+						UCount[u]++
+						if UCount[u] > n {
+							log.Print("Negative Weight cycle detected on Vertex: ", u)
+						}
+					}
+				}
+			}
+		}
+
+		for s := range n {
+			SPF(s, aSP[s])
+		}
+		log.Print("SPF: ", aSP)
+
+		return 0
+	}
+
+	for _, f := range []func(int, [][]int, int) int{findTheCity, BellmanFord, SPF} {
 		log.Print("3 ?= ", f(4, [][]int{{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}}, 4))
 		log.Print("0 ?= ", f(5, [][]int{{0, 1, 2}, {0, 4, 8}, {1, 2, 3}, {1, 4, 2}, {2, 3, 1}, {3, 4, 1}}, 2))
 		log.Print("--")
