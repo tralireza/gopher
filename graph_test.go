@@ -104,11 +104,13 @@ func Test1334(t *testing.T) {
 	}
 
 	FloydWarshall := func(n int, edges [][]int, distanceThreshold int) int {
+		// assumption: MinInt/2 - 1 < Weight_i < MaxInt/2 - 1
+
 		aSP := make([][]int, n)
 		for r := range aSP {
 			aSP[r] = make([]int, n)
 			for c := range aSP[r] {
-				aSP[r][c] = math.MaxInt
+				aSP[r][c] = math.MaxInt>>1 - 1 // preventing overflow in summation of min() in main loop
 			}
 		}
 		for i := range aSP {
@@ -124,12 +126,6 @@ func Test1334(t *testing.T) {
 		for k := range n {
 			for r := range n {
 				for c := range n {
-					if r == c {
-						continue
-					}
-					if aSP[r][k] == math.MaxInt || aSP[k][c] == math.MaxInt {
-						continue
-					}
 					aSP[r][c] = min(aSP[r][c], aSP[r][k]+aSP[k][c])
 				}
 			}
