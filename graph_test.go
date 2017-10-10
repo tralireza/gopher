@@ -103,7 +103,44 @@ func Test1334(t *testing.T) {
 		return 0
 	}
 
-	for _, f := range []func(int, [][]int, int) int{findTheCity, BellmanFord, SPF} {
+	FloydWarshall := func(n int, edges [][]int, distanceThreshold int) int {
+		aSP := make([][]int, n)
+		for r := range aSP {
+			aSP[r] = make([]int, n)
+			for c := range aSP[r] {
+				aSP[r][c] = math.MaxInt
+			}
+		}
+		for i := range aSP {
+			aSP[i][i] = 0
+		}
+
+		for _, e := range edges {
+			v, u, w := e[0], e[1], e[2]
+			aSP[v][u] = w
+			aSP[u][v] = w
+		}
+
+		for k := range n {
+			for r := range n {
+				for c := range n {
+					if r == c {
+						continue
+					}
+					if aSP[r][k] == math.MaxInt || aSP[k][c] == math.MaxInt {
+						continue
+					}
+					aSP[r][c] = min(aSP[r][c], aSP[r][k]+aSP[k][c])
+				}
+			}
+		}
+
+		log.Print("Floyd-Warshall: ", aSP)
+
+		return 0
+	}
+
+	for _, f := range []func(int, [][]int, int) int{findTheCity, BellmanFord, SPF, FloydWarshall} {
 		log.Print("3 ?= ", f(4, [][]int{{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}}, 4))
 		log.Print("0 ?= ", f(5, [][]int{{0, 1, 2}, {0, 4, 8}, {1, 2, 3}, {1, 4, 2}, {2, 3, 1}, {3, 4, 1}}, 2))
 		log.Print("--")
