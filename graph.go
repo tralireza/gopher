@@ -68,7 +68,7 @@ func findTheCity(n int, edges [][]int, distanceThreshold int) int {
 	for s := range n {
 		Dijkstra(s, aSP[s])
 	}
-	log.Print(aSP)
+	log.Print("Dijkstra: ", aSP)
 
 	city, reachables := -1, n
 	for v := range n {
