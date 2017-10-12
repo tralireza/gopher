@@ -198,3 +198,10 @@ func Test2392(t *testing.T) {
 	log.Print("[[3 0 0] [0 0 1] [0 2 0]] ?= ", buildMatrix(3, [][]int{{1, 2}, {3, 2}}, [][]int{{2, 1}, {3, 2}}))
 	log.Print("[] ?= ", buildMatrix(3, [][]int{{1, 2}, {2, 3}, {3, 1}, {2, 3}}, [][]int{{2, 1}}))
 }
+
+// 2976m Minimum Cost to Convert String I
+func Test2976(t *testing.T) {
+	log.Print("28 ?= ", minimumCost("abcd", "acbe", []byte{'a', 'b', 'c', 'c', 'e', 'd'}, []byte{'b', 'c', 'b', 'e', 'b', 'e'}, []int{2, 5, 5, 1, 2, 20}))
+	log.Print("12 ?= ", minimumCost("aaaa", "bbbb", []byte{'a', 'c'}, []byte{'c', 'b'}, []int{1, 2}))
+	log.Print("-1 ?= ", minimumCost("abcd", "abce", []byte{'a'}, []byte{'c'}, []int{10000}))
+}

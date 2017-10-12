@@ -144,3 +144,41 @@ func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	}
 	return M
 }
+
+// 2976m Minimum Cost to Convert String I
+func minimumCost(source string, target string, original []byte, changed []byte, cost []int) int64 {
+	// 1 <= Cost <= 10^6
+	const INF = math.MaxInt>>1 - 1 // Overflow guard for Floyd-Warshall loop
+	G := [26][26]int{}
+	for r := range G {
+		for c := range G[r] {
+			if r != c { // cost of letter x -> x :: 0
+				G[r][c] = INF
+			}
+		}
+	}
+
+	for i := range cost {
+		r, c := original[i]-'a', changed[i]-'a'
+		G[r][c] = min(G[r][c], cost[i])
+	}
+
+	// Floyd-Warshall
+	for k := range 26 {
+		for r := range 26 {
+			for c := range 26 {
+				G[r][c] = min(G[r][c], G[r][k]+G[k][c])
+			}
+		}
+	}
+
+	x := int64(0)
+	for i := 0; i < len(source); i++ {
+		r, c := source[i]-'a', target[i]-'a'
+		if G[r][c] == INF {
+			return -1
+		}
+		x += int64(G[r][c])
+	}
+	return x
+}
