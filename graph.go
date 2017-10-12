@@ -152,7 +152,7 @@ func minimumCost(source string, target string, original []byte, changed []byte, 
 	G := [26][26]int{}
 	for r := range G {
 		for c := range G[r] {
-			if r != c { // cost of letter x -> x :: 0
+			if r != c { // cost of letter src:X -> tgt:X :: 0, ie, no conversation needed
 				G[r][c] = INF
 			}
 		}
