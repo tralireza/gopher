@@ -229,6 +229,7 @@ func Test2976(t *testing.T) {
 
 		Dijkstra := func(source int, SP []int) {
 			h := &PQ{}
+
 			heap.Push(h, E{source, 0})
 			SP[source] = 0
 
@@ -236,7 +237,7 @@ func Test2976(t *testing.T) {
 				v := heap.Pop(h).(E).n
 
 				for u, w := range G[v] {
-					if w > 0 && w+SP[v] < SP[u] {
+					if w > 0 && w+SP[v] < SP[u] { // w = 0 => v and u are not connected/neighbors
 						SP[u] = SP[v] + w
 						heap.Push(h, E{u, SP[u]})
 					}
@@ -245,7 +246,7 @@ func Test2976(t *testing.T) {
 		}
 
 		INF := math.MaxInt>>1 - 1
-		aSP := [26][26]int{}
+		aSP := [26][26]int{} // all-Node Shortest-Path
 		for r := range 26 {
 			for c := range 26 {
 				aSP[r][c] = INF
