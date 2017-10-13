@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"container/heap"
 	"log"
 	"math"
 	"slices"
@@ -200,8 +201,76 @@ func Test2392(t *testing.T) {
 }
 
 // 2976m Minimum Cost to Convert String I
+type E2976 struct{ n, d int }
+type PQ2976 []E2976
+
+func (h PQ2976) Len() int           { return len(h) }
+func (h PQ2976) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h PQ2976) Less(i, j int) bool { return h[i].d < h[j].d }
+func (h *PQ2976) Push(x any)        { *h = append(*h, x.(E2976)) }
+func (h *PQ2976) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
 func Test2976(t *testing.T) {
-	log.Print("28 ?= ", minimumCost("abcd", "acbe", []byte{'a', 'b', 'c', 'c', 'e', 'd'}, []byte{'b', 'c', 'b', 'e', 'b', 'e'}, []int{2, 5, 5, 1, 2, 20}))
-	log.Print("12 ?= ", minimumCost("aaaa", "bbbb", []byte{'a', 'c'}, []byte{'c', 'b'}, []int{1, 2}))
-	log.Print("-1 ?= ", minimumCost("abcd", "abce", []byte{'a'}, []byte{'c'}, []int{10000}))
+	type E = E2976
+	type PQ = PQ2976
+
+	WithDijkstra := func(source, target string, original, changed []byte, cost []int) int64 {
+		G := [26][26]int{}
+		for i := range cost {
+			r, c := original[i]-'a', changed[i]-'a'
+			if G[r][c] == 0 || G[r][c] < cost[i] {
+				G[r][c] = cost[i]
+			}
+		}
+
+		Dijkstra := func(source int, SP []int) {
+			h := &PQ{}
+			heap.Push(h, E{source, 0})
+			SP[source] = 0
+
+			for h.Len() > 0 {
+				v := heap.Pop(h).(E).n
+
+				for u, w := range G[v] {
+					if w > 0 && w+SP[v] < SP[u] {
+						SP[u] = SP[v] + w
+						heap.Push(h, E{u, SP[u]})
+					}
+				}
+			}
+		}
+
+		INF := math.MaxInt>>1 - 1
+		aSP := [26][26]int{}
+		for r := range 26 {
+			for c := range 26 {
+				aSP[r][c] = INF
+			}
+		}
+
+		for n := range 26 {
+			Dijkstra(n, aSP[n][:])
+		}
+
+		x := int64(0)
+		for i := 0; i < len(source); i++ {
+			r, c := source[i]-'a', target[i]-'a'
+			if aSP[r][c] == INF {
+				return -1
+			}
+			x += int64(aSP[r][c])
+		}
+		return x
+	}
+
+	for _, f := range []func(string, string, []byte, []byte, []int) int64{minimumCost, WithDijkstra} {
+		log.Print("28 ?= ", f("abcd", "acbe", []byte{'a', 'b', 'c', 'c', 'e', 'd'}, []byte{'b', 'c', 'b', 'e', 'b', 'e'}, []int{2, 5, 5, 1, 2, 20}))
+		log.Print("12 ?= ", f("aaaa", "bbbb", []byte{'a', 'c'}, []byte{'c', 'b'}, []int{1, 2}))
+		log.Print("-1 ?= ", f("abcd", "abce", []byte{'a'}, []byte{'c'}, []int{10000}))
+		log.Print("--")
+	}
 }
