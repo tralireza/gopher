@@ -19,7 +19,7 @@ func numTeams(rating []int) int {
 			}
 		}
 
-		x += l * r                               // Rarting[l] < Rating[m] < Rating[r]
+		x += l * r                               // Rating[l] < Rating[m] < Rating[r]
 		x += (m - l) * (len(rating) - m - 1 - r) // Rating[l] > Raring[m] > Rating[r]
 	}
 
