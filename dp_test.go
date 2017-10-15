@@ -22,6 +22,8 @@ func Test1395(t *testing.T) {
 				return v
 			}
 
+			log.Print(" -> ", i, size)
+
 			v := 0
 			for j := i + 1; j < len(rating); j++ {
 				if rating[j] > rating[i] {
