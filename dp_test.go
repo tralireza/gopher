@@ -34,8 +34,8 @@ func Test1395(t *testing.T) {
 		}
 
 		teams := 0
-		for start := 0; start < len(rating); start++ {
-			teams += Count(start, 1)
+		for start := 0; start < len(rating)-2; start++ {
+			teams += Count(start, 1) // increasing
 		}
 		log.Print(Mem)
 
@@ -43,9 +43,8 @@ func Test1395(t *testing.T) {
 		for i := range rating {
 			rating[i] *= -1
 		}
-
-		for start := 0; start < len(rating); start++ {
-			teams += Count(start, 1)
+		for start := 0; start < len(rating)-2; start++ {
+			teams += Count(start, 1) // decreasing
 		}
 		log.Print(Mem)
 
