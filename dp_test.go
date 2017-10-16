@@ -53,7 +53,40 @@ func Test1395(t *testing.T) {
 		return teams
 	}
 
-	for _, f := range []func([]int) int{numTeams, Recursion} {
+	Tabulation := func(rating []int) int {
+		Incs, Decs := make([][4]int, len(rating)), make([][4]int, len(rating))
+
+		// team of size 1 with (last) member at index i -> 1 (team)
+		for i := range len(rating) {
+			Incs[i][1], Decs[i][1] = 1, 1
+		}
+
+		for size := 2; size <= 3; size++ {
+			for i := 0; i < len(rating); i++ {
+				for j := i + 1; j < len(rating); j++ {
+					if rating[j] > rating[i] {
+						Incs[j][size] += Incs[i][size-1]
+					}
+
+					if rating[j] < rating[i] {
+						Decs[j][size] += Decs[i][size-1]
+					}
+				}
+			}
+		}
+
+		log.Print(Incs)
+		log.Print(Decs)
+
+		teams := 0
+		for i := range Incs {
+			teams += Incs[i][3]
+			teams += Decs[i][3]
+		}
+		return teams
+	}
+
+	for _, f := range []func([]int) int{numTeams, Recursion, Tabulation} {
 		log.Print("3 ?= ", f([]int{2, 5, 3, 4, 1}))
 		log.Print("0 ?= ", f([]int{2, 1, 3}))
 		log.Print("4 ?= ", f([]int{1, 2, 3, 4}))
