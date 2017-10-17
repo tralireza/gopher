@@ -5,6 +5,26 @@ import (
 	"slices"
 )
 
+// 56m Merge Intervals
+func merge(intervals [][]int) [][]int {
+	I := [][]int{}
+
+	slices.SortFunc(intervals, func(x, y []int) int { return x[0] - y[0] })
+
+	prv := intervals[0]
+	for _, v := range intervals[1:] {
+		if prv[1] >= v[0] { // merge
+			prv[1] = max(prv[1], v[1])
+		} else {
+			I = append(I, prv)
+			prv = v
+		}
+	}
+	I = append(I, prv)
+
+	return I
+}
+
 // 912m Sort an Array
 func sortArray(nums []int) []int {
 	t := make([]int, len(nums)) // temporary merge storage
