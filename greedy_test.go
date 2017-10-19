@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+// 11m Container With Most Water
+func Test11(t *testing.T) {
+	log.Print("49 ?= ", maxArea([]int{1, 8, 6, 2, 5, 4, 8, 3, 7}))
+	log.Print("1 ?= ", maxArea([]int{1, 1}))
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func Test1605(t *testing.T) {
 	Optimized := func(rowSum []int, colSum []int) [][]int {
