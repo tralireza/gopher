@@ -1,5 +1,7 @@
 package gopher
 
+import "slices"
+
 // 11m Container With Most Water
 func maxArea(height []int) int {
 	A := 0
@@ -20,6 +22,41 @@ func maxArea(height []int) int {
 	}
 
 	return A
+}
+
+// 15m 3Sum
+func threeSum(nums []int) [][]int {
+	slices.Sort(nums)
+
+	R := [][]int{}
+	for i := 0; i < len(nums); i++ {
+		if i > 0 && nums[i-1] == nums[i] {
+			continue
+		}
+
+		l, r := i+1, len(nums)-1
+		for l < r {
+			v := nums[i] + nums[l] + nums[r]
+			if v > 0 {
+				r--
+			} else if v < 0 {
+				l++
+			} else {
+				R = append(R, []int{nums[i], nums[l], nums[r]})
+				for l < r && nums[l] == nums[l+1] {
+					l++
+				}
+				for l < r && nums[r] == nums[r-1] {
+					r--
+				}
+
+				l++
+				r--
+			}
+		}
+	}
+
+	return R
 }
 
 // 1605m Find Valid Matrix Given Row and Column Sums

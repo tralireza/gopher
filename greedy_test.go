@@ -11,6 +11,11 @@ func Test11(t *testing.T) {
 	log.Print("1 ?= ", maxArea([]int{1, 1}))
 }
 
+// 15m 3Sum
+func Test15(t *testing.T) {
+	log.Print("[[-1 -1 2] [-1 0 1]] ?= ", threeSum([]int{-1, 0, 1, 2, -1, -4}))
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func Test1605(t *testing.T) {
 	Optimized := func(rowSum []int, colSum []int) [][]int {
