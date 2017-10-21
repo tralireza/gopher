@@ -985,11 +985,6 @@ func nodesBetweenCriticalPoints(head *ListNode) []int {
 }
 
 // 2181m Merge Nodes in Between Zeros
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
 func mergeNodes(head *ListNode) *ListNode {
 	if head == nil || head.Val == 0 && head.Next == nil {
 		return nil
