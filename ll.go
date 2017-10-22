@@ -31,3 +31,37 @@ func mergeKLists(lists []*ListNode) *ListNode {
 
 	return h.Next
 }
+
+// 25h Reverse Nodes in k-Group
+func reverseKGroup(head *ListNode, k int) *ListNode {
+	if head == nil {
+		return nil
+	}
+
+	n, l := head, 0
+	for n != nil && l < k {
+		l++
+		n = n.Next
+	}
+	if l < k {
+		return head
+	}
+
+	r := reverseKGroup(n, k)
+
+	n, Q := head, []*ListNode{}
+	for range k {
+		Q = append(Q, n)
+		n = n.Next
+	}
+
+	h := &ListNode{}
+	p := h
+	for len(Q) > 0 {
+		p.Next = Q[len(Q)-1]
+		Q = Q[:len(Q)-1]
+		p = p.Next
+	}
+	p.Next = r
+	return h.Next
+}
