@@ -96,6 +96,27 @@ func Test1395(t *testing.T) {
 
 // 1653m Minimum Deletions to Make String Balanced
 func Test1653(t *testing.T) {
+	WithStack := func(s string) int {
+		Q := []byte{}
+
+		dels := 0
+		for i := 0; i < len(s); i++ {
+			switch s[i] {
+			case 'a':
+				if len(Q) > 0 && Q[0] == 'b' {
+					Q = Q[:len(Q)-1]
+					dels++
+				}
+			case 'b':
+				Q = append(Q, 'b')
+			}
+		}
+		return dels
+	}
+
+	log.Print(WithStack("aababbab"))
+	log.Print(WithStack("bbaaaaabb"))
+
 	log.Print("2 ?= ", minimumDeletions("aababbab"))
 	log.Print("2 ?= ", minimumDeletions("bbaaaaabb"))
 }
