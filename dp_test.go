@@ -93,3 +93,9 @@ func Test1395(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 1653m Minimum Deletions to Make String Balanced
+func Test1653(t *testing.T) {
+	log.Print("2 ?= ", minimumDeletions("aababbab"))
+	log.Print("2 ?= ", minimumDeletions("bbaaaaabb"))
+}

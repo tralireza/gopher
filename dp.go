@@ -25,3 +25,31 @@ func numTeams(rating []int) int {
 
 	return x
 }
+
+// 1653m Minimum Deletions to Make String Balanced
+func minimumDeletions(s string) int {
+	A, B := make([]int, len(s)), make([]int, len(s))
+
+	var x int
+	for i := 0; i < len(s); i++ {
+		B[i] = x
+		if s[i] == 'b' {
+			x++
+		}
+	}
+	x = 0
+	for i := len(s) - 1; i >= 0; i-- {
+		A[i] = x
+		if s[i] == 'a' {
+			x++
+		}
+	}
+
+	dels := len(s)
+	for i := 0; i < len(s); i++ {
+		if A[i]+B[i] < dels {
+			dels = A[i] + B[i]
+		}
+	}
+	return dels
+}
