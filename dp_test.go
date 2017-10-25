@@ -114,9 +114,9 @@ func Test1653(t *testing.T) {
 		return dels
 	}
 
-	log.Print(WithStack("aababbab"))
-	log.Print(WithStack("bbaaaaabb"))
-
-	log.Print("2 ?= ", minimumDeletions("aababbab"))
-	log.Print("2 ?= ", minimumDeletions("bbaaaaabb"))
+	for _, f := range []func(string) int{minimumDeletions, WithStack} {
+		log.Print("2 ?= ", f("aababbab"))
+		log.Print("2 ?= ", f("bbaaaaabb"))
+		log.Print("--")
+	}
 }
