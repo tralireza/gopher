@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+// 1105m Filling Bookcase Shelves
+func Test1105(t *testing.T) {
+	//Book[i]: Width, Height
+
+	log.Print("6 ?= ", minHeightShelves([][]int{{1, 1}, {2, 3}, {2, 3}, {1, 1}, {1, 1}, {1, 1}, {1, 2}}, 4))
+	log.Print("4 ?= ", minHeightShelves([][]int{{1, 3}, {2, 4}, {3, 2}}, 6))
+}
+
 // 1395m Count Number of Teams
 func Test1395(t *testing.T) {
 	// 1 <= Rating[i] <= 10^5

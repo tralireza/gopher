@@ -1,5 +1,33 @@
 package gopher
 
+// 1105m Filling Bookcase Shelves
+func minHeightShelves(books [][]int, shelfWidth int) int {
+	Mem := map[[3]int]int{}
+
+	var Check func(i, curW, curH int) int
+	Check = func(i, curW, curH int) int {
+		if i == len(books) {
+			return curH
+		}
+
+		if v, ok := Mem[[3]int{i, curW, curH}]; ok {
+			return v
+		}
+
+		book := books[i]
+
+		v := Check(i+1, shelfWidth-book[0], book[1]) + curH // Go next row
+		if book[0] <= curW {                                // Stay in current row
+			v = min(Check(i+1, curW-book[0], max(curH, book[1])), v)
+		}
+
+		Mem[[3]int{i, curW, curH}] = v
+		return v
+	}
+
+	return Check(0, shelfWidth, 0)
+}
+
 // 1395m Count Number of Teams
 func numTeams(rating []int) int {
 	x := 0
