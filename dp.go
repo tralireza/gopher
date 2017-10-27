@@ -1,11 +1,19 @@
 package gopher
 
+import "log"
+
 // 1105m Filling Bookcase Shelves
 func minHeightShelves(books [][]int, shelfWidth int) int {
-	Mem := map[[3]int]int{}
+	rCalls, Mem := 0, map[[3]int]int{}
+
+	defer func() {
+		log.Print("-> ", rCalls, " :: ", Mem)
+	}()
 
 	var Check func(i, curW, curH int) int
 	Check = func(i, curW, curH int) int {
+		rCalls++
+
 		if i == len(books) {
 			return curH
 		}

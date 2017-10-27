@@ -9,8 +9,31 @@ import (
 func Test1105(t *testing.T) {
 	//Book[i]: Width, Height
 
-	log.Print("6 ?= ", minHeightShelves([][]int{{1, 1}, {2, 3}, {2, 3}, {1, 1}, {1, 1}, {1, 1}, {1, 2}}, 4))
-	log.Print("4 ?= ", minHeightShelves([][]int{{1, 3}, {2, 4}, {3, 2}}, 6))
+	Tabulation := func(books [][]int, shelfWidth int) int {
+		DP := make([]int, len(books)+1)
+		DP[0], DP[1] = 0, books[0][1]
+
+		for i := 2; i <= len(books); i++ {
+			book := books[i-1]
+			w, h := book[0], book[1]
+
+			DP[i] = DP[i-1] + h // this book "Goes" to next row
+
+			for j := i - 1; j > 0 && w+books[j-1][0] <= shelfWidth; j-- {
+				w += books[j-1][0]
+				h = max(books[j-1][1], h)
+				DP[i] = min(h+DP[j-1], DP[i])
+			}
+		}
+
+		return DP[len(books)]
+	}
+
+	for _, f := range []func([][]int, int) int{minHeightShelves, Tabulation} {
+		log.Print("6 ?= ", f([][]int{{1, 1}, {2, 3}, {2, 3}, {1, 1}, {1, 1}, {1, 1}, {1, 2}}, 4))
+		log.Print("4 ?= ", f([][]int{{1, 3}, {2, 4}, {3, 2}}, 6))
+		log.Print("--")
+	}
 }
 
 // 1395m Count Number of Teams
