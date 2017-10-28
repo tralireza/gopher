@@ -2,6 +2,17 @@ package gopher
 
 import "log"
 
+// 122m Best Time to Buy and Sell Stock II
+func maxProfit(prices []int) int {
+	profit := 0
+	for i, price := range prices[:len(prices)-1] {
+		if prices[i+1] > price {
+			profit += prices[i+1] - price
+		}
+	}
+	return profit
+}
+
 // 1105m Filling Bookcase Shelves
 func minHeightShelves(books [][]int, shelfWidth int) int {
 	rCalls, Mem := 0, map[[3]int]int{}

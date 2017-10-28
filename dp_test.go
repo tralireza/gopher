@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+// 122m Best Time to Buy and Sell Stock II
+func Test122(t *testing.T) {
+	log.Print("7 ?= ", maxProfit([]int{7, 1, 5, 3, 6, 4}))
+	log.Print("4 ?= ", maxProfit([]int{1, 2, 3, 4, 5}))
+	log.Print("0 ?= ", maxProfit([]int{7, 6, 4, 3, 1}))
+}
+
 // 1105m Filling Bookcase Shelves
 func Test1105(t *testing.T) {
 	//Book[i]: Width, Height
