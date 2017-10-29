@@ -1,0 +1,32 @@
+package gopher
+
+import "log"
+
+// 2134m Minimum Swaps to Group All 1's Together II
+func minSwaps(nums []int) int {
+	ones := 0
+	for _, n := range nums {
+		ones += n
+	}
+
+	circular := make([]int, len(nums)*2)
+	copy(circular, nums)
+	copy(circular[len(nums):], nums)
+
+	log.Print(nums, " -> ", circular)
+
+	// Prefix Sum for zeros
+	pSum := make([]int, 2*len(nums)+1)
+	for i := range circular {
+		pSum[i+1] = pSum[i]
+		if circular[i] == 0 {
+			pSum[i+1]++
+		}
+	}
+
+	ops := len(nums) - ones
+	for r := ones - 1; r < len(circular); r++ {
+		ops = min(pSum[r+1]-pSum[r-ones+1], ops)
+	}
+	return ops
+}
