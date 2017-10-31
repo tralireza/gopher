@@ -30,3 +30,23 @@ func minSwaps(nums []int) int {
 	}
 	return ops
 }
+
+// 2574 Left and Right Sum Difference
+func leftRightDifference(nums []int) []int {
+	lSum, rSum := 0, 0
+	for _, n := range nums {
+		rSum += n
+	}
+
+	R := []int{}
+	for _, n := range nums {
+		rSum -= n
+		r := rSum - lSum
+		if r < 0 {
+			r *= -1
+		}
+		R = append(R, r)
+		lSum += n
+	}
+	return R
+}
