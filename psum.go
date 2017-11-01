@@ -2,6 +2,24 @@ package gopher
 
 import "log"
 
+// 1991 Find the Middle Index in Array
+func findMiddleIndex(nums []int) int {
+	rSum := 0
+	for _, n := range nums {
+		rSum += n
+	}
+
+	lSum := 0
+	for i, n := range nums {
+		rSum -= n
+		if rSum == lSum {
+			return i
+		}
+		lSum += n
+	}
+	return -1
+}
+
 // 2134m Minimum Swaps to Group All 1's Together II
 func minSwaps(nums []int) int {
 	ones := 0
