@@ -7,9 +7,48 @@ import (
 
 // 1013 Partition Array Into Three Parts With Equal Sum
 func Test1013(t *testing.T) {
-	log.Print("true ?= ", canThreePartsEqualSum([]int{0, 2, 1, -6, 6, -7, 9, 1, 2, 0, 1}))
-	log.Print("false ?= ", canThreePartsEqualSum([]int{0, 2, 1, -6, 6, 7, 9, -1, 2, 0, 1}))
-	log.Print("true ?= ", canThreePartsEqualSum([]int{3, 3, 6, 5, -2, 2, 5, 1, -9, 4}))
+	TwoPointers := func(arr []int) bool {
+		aSum := 0
+		for _, n := range arr {
+			aSum += n
+		}
+
+		if aSum%3 != 0 {
+			return false
+		}
+		t := aSum / 3
+
+		l, r := 0, len(arr)-1
+		lSum, rSum := arr[l], arr[r]
+		for l+1 < r {
+			if lSum != t {
+				l++
+				lSum += arr[l]
+				continue
+			}
+			if rSum != t {
+				r--
+				rSum += arr[r]
+				continue
+			}
+
+			mSum := 0
+			for m := l + 1; m < r; m++ {
+				mSum += arr[m]
+			}
+			if mSum == t {
+				return true
+			}
+		}
+		return false
+	}
+
+	for _, f := range []func([]int) bool{canThreePartsEqualSum, TwoPointers} {
+		log.Print("true ?= ", f([]int{0, 2, 1, -6, 6, -7, 9, 1, 2, 0, 1}))
+		log.Print("false ?= ", f([]int{0, 2, 1, -6, 6, 7, 9, -1, 2, 0, 1}))
+		log.Print("true ?= ", f([]int{3, 3, 6, 5, -2, 2, 5, 1, -9, 4}))
+		log.Print("--")
+	}
 }
 
 // 1991 Find the Middle Index in Array
