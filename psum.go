@@ -2,6 +2,29 @@ package gopher
 
 import "log"
 
+// 1013 Partition Array Into Three Parts With Equal Sum
+func canThreePartsEqualSum(arr []int) bool {
+	aSum := 0
+	for _, n := range arr {
+		aSum += n
+	}
+
+	if aSum%3 != 0 {
+		return false
+	}
+	t := aSum / 3
+
+	counter, curSum := 0, 0
+	for _, n := range arr {
+		curSum += n
+		if curSum == t {
+			counter++
+			curSum = 0
+		}
+	}
+	return counter >= 3
+}
+
 // 1991 Find the Middle Index in Array
 func findMiddleIndex(nums []int) int {
 	rSum := 0

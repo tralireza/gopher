@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+// 1013 Partition Array Into Three Parts With Equal Sum
+func Test1013(t *testing.T) {
+	log.Print("true ?= ", canThreePartsEqualSum([]int{0, 2, 1, -6, 6, -7, 9, 1, 2, 0, 1}))
+	log.Print("false ?= ", canThreePartsEqualSum([]int{0, 2, 1, -6, 6, 7, 9, -1, 2, 0, 1}))
+	log.Print("true ?= ", canThreePartsEqualSum([]int{3, 3, 6, 5, -2, 2, 5, 1, -9, 4}))
+}
+
 // 1991 Find the Middle Index in Array
 func Test1991(t *testing.T) {
 	log.Print("3 ?= ", findMiddleIndex([]int{2, 3, -1, 8, 4}))
