@@ -91,3 +91,27 @@ func leftRightDifference(nums []int) []int {
 	}
 	return R
 }
+
+// 2670 Find the Distinct Difference Array
+func distinctDifferenceArray(nums []int) []int {
+	rM := map[int]int{}
+	for _, n := range nums {
+		rM[n]++
+	}
+
+	lM := map[int]struct{}{}
+	R := []int{}
+	for _, n := range nums {
+		lM[n] = struct{}{}
+
+		if rM[n] > 0 {
+			rM[n]--
+			if rM[n] == 0 {
+				delete(rM, n)
+			}
+		}
+
+		R = append(R, len(lM)-len(rM))
+	}
+	return R
+}

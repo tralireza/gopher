@@ -72,3 +72,9 @@ func Test2574(t *testing.T) {
 	log.Print("[15 1 11 22] ?= ", leftRightDifference([]int{10, 4, 8, 3}))
 	log.Print("[0] ?= ", leftRightDifference([]int{1}))
 }
+
+// 2670 Find the Distinct Difference Array
+func Test2680(t *testing.T) {
+	log.Print("[-3 -1 1 3 5] ?= ", distinctDifferenceArray([]int{1, 2, 3, 4, 5}))
+	log.Print("[-2 -1 0 2 3] ?= ", distinctDifferenceArray([]int{3, 2, 3, 4, 2}))
+}
