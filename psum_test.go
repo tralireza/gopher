@@ -78,3 +78,10 @@ func Test2680(t *testing.T) {
 	log.Print("[-3 -1 1 3 5] ?= ", distinctDifferenceArray([]int{1, 2, 3, 4, 5}))
 	log.Print("[-2 -1 0 2 3] ?= ", distinctDifferenceArray([]int{3, 2, 3, 4, 2}))
 }
+
+// 3179m Find the N-th Value After K Seconds
+func Test3179(t *testing.T) {
+	log.Print("56 ?= ", valueAfterKSeconds(4, 5))
+	log.Print("35 ?= ", valueAfterKSeconds(5, 3))
+	log.Print("84793457 ?= ", valueAfterKSeconds(5, 1000))
+}

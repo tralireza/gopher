@@ -115,3 +115,19 @@ func distinctDifferenceArray(nums []int) []int {
 	}
 	return R
 }
+
+// 3179m Find the N-th Value After K Seconds
+func valueAfterKSeconds(n int, k int) int {
+	pSum := make([]int, n)
+	for i := range n {
+		pSum[i] = 1
+	}
+
+	for range k {
+		for i := range pSum[:n-1] {
+			pSum[i+1] += pSum[i]
+			pSum[i+1] %= 1e9 + 7
+		}
+	}
+	return pSum[n-1]
+}
