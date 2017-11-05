@@ -17,3 +17,12 @@ func Test438(t *testing.T) {
 	log.Print("[0 6] ?= ", findAnagrams("cbaebabacd", "abc"))
 	log.Print("[0 1 2] ?= ", findAnagrams("abab", "ab"))
 }
+
+// 1460 Make Two Arrays Equal by Reversing Subarrays
+func Test1460(t *testing.T) {
+	// 1 <= Ai <= 10000
+
+	log.Print("true ?= ", canBeEqual([]int{1, 2, 3, 4}, []int{2, 4, 1, 3}))
+	log.Print("true ?= ", canBeEqual([]int{7}, []int{7}))
+	log.Print("false ?= ", canBeEqual([]int{3, 7, 9}, []int{3, 7, 11}))
+}
