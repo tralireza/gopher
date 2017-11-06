@@ -67,6 +67,7 @@ func rangeSum(nums []int, n int, left int, right int) int {
 
 		if i+1 >= left {
 			x += e.n
+			x %= 1e9 + 7
 		}
 
 		e.i++
