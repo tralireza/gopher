@@ -13,6 +13,8 @@ func Test239(t *testing.T) {
 
 // 1508m Range Sum of Sorted Subarray Sums
 func Test1508(t *testing.T) {
+	// 1 <= left, right <= n*(n+1)/2
+
 	log.Print("13 ?= ", rangeSum([]int{1, 2, 3, 4}, 4, 1, 5))
 	log.Print("6 ?= ", rangeSum([]int{1, 2, 3, 4}, 4, 3, 4))
 	log.Print("50 ?= ", rangeSum([]int{1, 2, 3, 4}, 4, 1, 10))
