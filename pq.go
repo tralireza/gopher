@@ -1,6 +1,8 @@
 package gopher
 
-import "container/heap"
+import (
+	"container/heap"
+)
 
 // 239h Sliding Window Maximum
 type E239 struct{ v, i int }
@@ -33,4 +35,45 @@ func maxSlidingWindow(nums []int, k int) []int {
 		}
 	}
 	return R
+}
+
+// 1508m Range Sum of Sorted Subarray Sums
+type E1508 struct{ n, i int }
+type PQ1508 []E1508
+
+func (h PQ1508) Len() int           { return len(h) }
+func (h PQ1508) Less(i, j int) bool { return h[i].n < h[j].n }
+func (h PQ1508) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ1508) Push(x any)        { *h = append(*h, x.(E1508)) }
+func (h *PQ1508) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func rangeSum(nums []int, n int, left int, right int) int {
+	type E = E1508
+	type PQ = PQ1508
+
+	h := PQ{}
+	for i, n := range nums {
+		h = append(h, E{n, i})
+	}
+	heap.Init(&h)
+
+	x := 0
+	for i := range right {
+		e := heap.Pop(&h).(E)
+
+		if i+1 >= left {
+			x += e.n
+		}
+
+		e.i++
+		if e.i < len(nums) {
+			e.n += nums[e.i]
+			heap.Push(&h, e)
+		}
+	}
+	return x
 }
