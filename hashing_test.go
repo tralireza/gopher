@@ -2,8 +2,68 @@ package gopher
 
 import (
 	"log"
+	"math/rand"
 	"testing"
 )
+
+// 380m Insert Delete GetRandom O(1)
+type RandomizedSet struct {
+	Mem  map[int]int
+	Vals []int
+}
+
+func NewRandomizedSet() RandomizedSet {
+	return RandomizedSet{
+		Mem:  map[int]int{},
+		Vals: []int{},
+	}
+}
+func (o *RandomizedSet) Insert(v int) bool {
+	if _, ok := o.Mem[v]; ok {
+		return false
+	}
+	o.Mem[v] = len(o.Vals)
+	o.Vals = append(o.Vals, v)
+	return true
+}
+func (o *RandomizedSet) Remove(v int) bool {
+	if i, ok := o.Mem[v]; ok {
+		// o.Vals: swap last value with this one, remove last, also update index in map
+
+		lastVal := o.Vals[len(o.Vals)-1]
+		o.Vals[i] = lastVal
+		o.Mem[lastVal] = i
+
+		o.Vals = o.Vals[:len(o.Vals)-1] // trim it
+		delete(o.Mem, v)
+		return true
+	}
+	return false
+}
+func (o *RandomizedSet) GetRandom() int { return o.Vals[rand.Intn(len(o.Vals))] }
+
+func Test380(t *testing.T) {
+	mSet := NewRandomizedSet()
+	mSet.Insert(1)
+	log.Print(mSet, " :: ", mSet.GetRandom())
+	mSet.Remove(1)
+	log.Print(mSet)
+
+	for range 16 {
+		v := rand.Intn(16)
+		log.Printf("---I-> %d :: %v", v, mSet.Insert(v))
+	}
+	log.Print(mSet)
+	for range 8 {
+		v := rand.Intn(16)
+		log.Printf("---D-> %d :: %v", v, mSet.Remove(v))
+	}
+	log.Print(mSet)
+
+	for range 8 {
+		log.Printf("<-G--- %d", mSet.GetRandom())
+	}
+}
 
 // 76h Minimum Window Substring
 func Test76(t *testing.T) {
