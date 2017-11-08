@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"slices"
 	"testing"
 )
 
@@ -14,8 +15,56 @@ func Test239(t *testing.T) {
 // 1508m Range Sum of Sorted Subarray Sums
 func Test1508(t *testing.T) {
 	// 1 <= left, right <= n*(n+1)/2
+	WithBinSearch := func(nums []int, n, left, right int) int {
+		minSum := slices.Min(nums)
+		maxSum := nums[0]
+		for _, n := range nums[1:] {
+			maxSum += n
+		}
 
-	log.Print("13 ?= ", rangeSum([]int{1, 2, 3, 4}, 4, 1, 5))
-	log.Print("6 ?= ", rangeSum([]int{1, 2, 3, 4}, 4, 3, 4))
-	log.Print("50 ?= ", rangeSum([]int{1, 2, 3, 4}, 4, 1, 10))
+		log.Printf("BinSearch (space, sub-array sums): [ %d ... %d ]", minSum, maxSum)
+
+		SumOfK := func(k int) int {
+			Count := func(targetSum int) (int, int) {
+				totalSum, count := 0, 0
+				for l := 0; l < len(nums); l++ {
+					curSum := 0
+					for r := l; r < len(nums); r++ {
+						curSum += nums[r]
+						if curSum <= targetSum {
+							count++
+							totalSum += curSum
+						}
+					}
+				}
+				return count, totalSum
+			}
+
+			l, r := minSum, maxSum
+			for l <= r {
+				m := l + (r-l)>>1
+
+				i, t := Count(m)
+
+				if i == k {
+					return t
+				} else if i > k {
+					r = m - 1
+				} else {
+					l = m + 1
+				}
+			}
+
+			return 0
+		}
+
+		return SumOfK(right) - SumOfK(left-1)
+	}
+
+	for _, f := range []func([]int, int, int, int) int{rangeSum, WithBinSearch} {
+		log.Print("13 ?= ", f([]int{1, 2, 3, 4}, 4, 1, 5))
+		log.Print("6 ?= ", f([]int{1, 2, 3, 4}, 4, 3, 4))
+		log.Print("50 ?= ", f([]int{1, 2, 3, 4}, 4, 1, 10))
+		log.Print("---")
+	}
 }

@@ -18,6 +18,7 @@ func NewRandomizedSet() RandomizedSet {
 		Vals: []int{},
 	}
 }
+
 func (o *RandomizedSet) Insert(v int) bool {
 	if _, ok := o.Mem[v]; ok {
 		return false
@@ -59,7 +60,6 @@ func Test380(t *testing.T) {
 		log.Printf("---D-> %d :: %v", v, mSet.Remove(v))
 	}
 	log.Print(mSet)
-
 	for range 8 {
 		log.Printf("<-G--- %d", mSet.GetRandom())
 	}
