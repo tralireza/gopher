@@ -6,6 +6,39 @@ import (
 	"slices"
 )
 
+// 274m H-Index
+func hIndex(citations []int) int {
+	slices.Sort(citations)
+
+	Check := func(m int) int {
+		x := 0
+		for i := 0; i < len(citations); i++ {
+			if citations[i] >= m {
+				x++
+			}
+		}
+		return x
+	}
+
+	l, r := 0, len(citations)
+	var h int
+	for l <= r {
+		m := l + (r-l)>>1
+
+		v := Check(m)
+
+		log.Print(l, m, r, " :: ", v)
+
+		if v >= m {
+			l = m + 1
+			h = m
+		} else {
+			r = m - 1
+		}
+	}
+	return h
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func minChanges(nums []int, k int) int {
 	M := map[int]int{}
