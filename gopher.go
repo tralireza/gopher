@@ -437,30 +437,30 @@ func numberToWords(num int) string {
 		return "Zero"
 	}
 
-	Unit := []string{"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}
-	Teen := []string{"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"}
-	Ten := []string{"Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"}
+	Unit := []string{"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}
+	Teen := []string{"", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"}
+	Ten := []string{"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"}
 
 	var Convert func(int) string
 	Convert = func(n int) string {
 		if 1 <= n && n <= 9 {
-			return Unit[n-1]
+			return Unit[n]
 		}
 		if 11 <= n && n <= 19 {
-			return Teen[n-11]
+			return Teen[n%10]
 		}
 		if n%10 == 0 && n < 100 {
-			return Ten[n/10-1]
+			return Ten[n/10]
 		}
 		if 20 < n && n < 100 {
-			return Ten[n/10-1] + " " + Unit[n%10-1]
+			return Ten[n/10] + " " + Unit[n%10]
 		}
 
 		if n >= 100 {
 			if n%100 > 0 {
-				return Unit[n/100-1] + " Hundred " + Convert(n%100)
+				return Unit[n/100] + " Hundred " + Convert(n%100)
 			}
-			return Unit[n/100-1] + " Hundred"
+			return Unit[n/100] + " Hundred"
 		}
 		return ""
 	}
