@@ -559,6 +559,17 @@ func Test238(t *testing.T) {
 	log.Print("[0 0 9 0 0] ?= ", productExceptSelf([]int{-1, 1, 0, -3, 3}))
 }
 
+// 273h Integer to English Words
+func Test273(t *testing.T) {
+	log.Print(" ?= ", numberToWords(123))
+	log.Print(" ?= ", numberToWords(12345))
+	log.Print(" ?= ", numberToWords(1234567))
+
+	log.Print(" ?= ", numberToWords(10))
+	log.Print(" ?= ", numberToWords(1000))
+	log.Print(" ?= ", numberToWords(100010))
+}
+
 // 287m Find the Duplicate Number
 func Test287(t *testing.T) {
 	// 1 <= nums[i] <= n

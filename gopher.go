@@ -431,6 +431,61 @@ func productExceptSelf(nums []int) []int {
 	return nums
 }
 
+// 273h Integer to English Words
+func numberToWords(num int) string {
+	if num == 0 {
+		return "Zero"
+	}
+
+	Unit := []string{"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}
+	Teen := []string{"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"}
+	Ten := []string{"Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"}
+
+	var Convert func(int) string
+	Convert = func(n int) string {
+		if 1 <= n && n <= 9 {
+			return Unit[n-1]
+		}
+		if 11 <= n && n <= 19 {
+			return Teen[n-11]
+		}
+		if n%10 == 0 && n < 100 {
+			return Ten[n/10-1]
+		}
+		if 20 < n && n < 100 {
+			return Ten[n/10-1] + " " + Unit[n%10-1]
+		}
+
+		if n >= 100 {
+			if n%100 > 0 {
+				return Unit[n/100-1] + " Hundred " + Convert(n%100)
+			}
+			return Unit[n/100-1] + " Hundred"
+		}
+		return ""
+	}
+
+	W := []string{}
+	p, P := 0, []string{"", "Thousand", "Million", "Billion"}
+	for num > 0 {
+		n := num % 1000
+		num /= 1000
+		p++
+
+		if n == 0 {
+			continue
+		}
+
+		w := Convert(n)
+		if p-1 > 0 {
+			w += " " + P[p-1]
+		}
+		W = append([]string{w}, W...)
+	}
+
+	return strings.Join(W, " ")
+}
+
 // 287m Find the Duplicate Number
 func findDuplicate(nums []int) int {
 	Mem := make([]bool, len(nums))
