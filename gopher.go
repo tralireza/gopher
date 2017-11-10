@@ -483,7 +483,7 @@ func numberToWords(num int) string {
 		W = append([]string{w}, W...)
 	}
 
-	return strings.Join(W, " ")
+	return strings.Join(W, " and ")
 }
 
 // 287m Find the Duplicate Number
