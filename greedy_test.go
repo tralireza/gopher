@@ -16,6 +16,12 @@ func Test15(t *testing.T) {
 	log.Print("[[-1 -1 2] [-1 0 1]] ?= ", threeSum([]int{-1, 0, 1, 2, -1, -4}))
 }
 
+// 134m Gas Station
+func Test134(t *testing.T) {
+	log.Print("3 ?= ", canCompleteCircuit([]int{1, 2, 3, 4, 5}, []int{3, 4, 5, 1, 2}))
+	log.Print("-1 ?= ", canCompleteCircuit([]int{2, 3, 4}, []int{3, 4, 3}))
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func Test1605(t *testing.T) {
 	Optimized := func(rowSum []int, colSum []int) [][]int {

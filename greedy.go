@@ -59,6 +59,25 @@ func threeSum(nums []int) [][]int {
 	return R
 }
 
+// 134m Gas Station
+func canCompleteCircuit(gas []int, cost []int) int {
+	p, tank, tankTotal := 0, 0, 0
+
+	for i := range gas {
+		tank += gas[i] - cost[i]
+		tankTotal += gas[i] - cost[i]
+		if tank < 0 {
+			tank = 0
+			p = i + 1
+		}
+	}
+
+	if p == len(cost) || tankTotal < 0 {
+		return -1
+	}
+	return p
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func restoreMatrix(rowSum []int, colSum []int) [][]int {
 	M := make([][]int, len(rowSum))
