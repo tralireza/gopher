@@ -13,30 +13,21 @@ func spiralMatrixIII(rows int, cols int, rStart int, cStart int) [][]int {
 	dir := 0 // 0: >, 1: v, 2: <, 3: ^
 
 	r, c := rStart, cStart
-	rD, cD := 1, 1
+	steps := 1
 	for len(M) < rows*cols {
-		switch dir {
-		case 0, 2: // > | <
-			for range rD {
-				c += dirs[dir][1]
-				if 0 <= c && c < cols && 0 <= r && r < rows {
-					M = append(M, []int{r, c})
-				}
-			}
-			rD++
-
-		default: // v | ^
-			for range cD {
+		for range 2 {
+			for range steps {
 				r += dirs[dir][0]
-				if 0 <= c && c < cols && 0 <= r && r < rows {
+				c += dirs[dir][1]
+
+				if r < rows && c < cols && 0 <= r && 0 <= c {
 					M = append(M, []int{r, c})
 				}
 			}
-			cD++
+			dir++
 		}
-
-		dir++
 		dir %= 4
+		steps++
 	}
 
 	return M
