@@ -10,13 +10,13 @@ func spiralMatrixIII(rows int, cols int, rStart int, cStart int) [][]int {
 	M := [][]int{{rStart, cStart}}
 
 	dirs := [][]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
-	dir := 0 // 0: ->, 1: v, 2: <-, 3: ^
+	dir := 0 // 0: >, 1: v, 2: <, 3: ^
 
 	r, c := rStart, cStart
 	rD, cD := 1, 1
 	for len(M) < rows*cols {
 		switch dir {
-		case 0, 2: // -> | <-
+		case 0, 2: // > | <
 			for range rD {
 				c += dirs[dir][1]
 				if 0 <= c && c < cols && 0 <= r && r < rows {
