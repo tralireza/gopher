@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+// 840m Magic Squares In Grid
+func Test840(t *testing.T) {
+	log.Print("1 ?= ", numMagicSquaresInside([][]int{{4, 3, 8, 4}, {9, 5, 1, 9}, {2, 7, 6, 2}}))
+	log.Print("0 ?= ", numMagicSquaresInside([][]int{{8}}))
+}
+
 // 885m Spiral Matrix III
 func Test885(t *testing.T) {
 	log.Print(" ?= ", spiralMatrixIII(1, 4, 0, 0))

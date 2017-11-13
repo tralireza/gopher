@@ -55,3 +55,9 @@ func Test1605(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 2202m Maximize the Topmost Element After K Moves
+func Test2202(t *testing.T) {
+	log.Print("5 ?= ", maximumTop([]int{5, 2, 2, 4, 0, 6}, 4))
+	log.Print("-1 ?= ", maximumTop([]int{2}, 1))
+}

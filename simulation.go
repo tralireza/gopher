@@ -5,6 +5,61 @@ import (
 	"slices"
 )
 
+// 840m Magic Squares In Grid
+func numMagicSquaresInside(grid [][]int) int {
+	t := 0
+
+	Check := func(r, c int) bool {
+		M := make([]bool, 9+1) // 1..9 uniqueness
+
+		vSums := [3]int{} // vertical sums, ie: columns
+		for _, r := range []int{r - 1, r, r + 1} {
+			hSum := 0 // horizontal sum, ie: row
+			for j, c := range []int{c - 1, c, c + 1} {
+				v := grid[r][c]
+				if v < 1 || v > 9 || M[v] {
+					return false
+				}
+				M[v] = true
+
+				hSum += v
+				vSums[j] += v
+			}
+			if hSum != 15 {
+				return false
+			}
+		}
+		for _, vSum := range vSums {
+			if vSum != 15 {
+				return false
+			}
+		}
+
+		dSums := [2]int{} // diagonal sums, ie: \ /
+		for _, d := range []int{-1, 0, 1} {
+			dSums[0] += grid[r+d][c+d]
+			dSums[1] += grid[r-d][c+d]
+		}
+		for _, dSum := range dSums {
+			if dSum != 15 {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	for r := 1; r < len(grid)-1; r++ {
+		for c := 1; c < len(grid[r])-1; c++ {
+			if grid[r][c] == 5 && Check(r, c) {
+				t++
+			}
+		}
+	}
+
+	return t
+}
+
 // 885m Spiral Matrix III
 func spiralMatrixIII(rows int, cols int, rStart int, cStart int) [][]int {
 	M := [][]int{{rStart, cStart}}

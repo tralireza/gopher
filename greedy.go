@@ -101,3 +101,21 @@ func restoreMatrix(rowSum []int, colSum []int) [][]int {
 
 	return M
 }
+
+// 2202m Maximize the Topmost Element After K Moves
+func maximumTop(nums []int, k int) int {
+	if len(nums) == 1 && k&1 == 1 {
+		return -1
+	}
+
+	nX := -1
+	for i := range min(len(nums), k-1) {
+		nX = max(nums[i], nX)
+	}
+
+	if k < len(nums) {
+		nX = max(nums[k], nX)
+	}
+
+	return nX
+}
