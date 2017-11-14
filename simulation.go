@@ -3,7 +3,36 @@ package gopher
 import (
 	"log"
 	"slices"
+	"strings"
 )
+
+// 6m Zigzag Conversion
+func convert(s string, numRows int) string {
+	if numRows == 1 {
+		return s
+	}
+
+	Z := make([][]byte, numRows)
+
+	i, r := 0, 0
+	for i < len(s) {
+		for _, dir := range []int{1, -1} {
+			for range numRows - 1 {
+				if i < len(s) {
+					Z[r] = append(Z[r], s[i])
+				}
+				i++
+				r += dir
+			}
+		}
+	}
+
+	S := []string{}
+	for _, z := range Z {
+		S = append(S, string(z))
+	}
+	return strings.Join(S, "")
+}
 
 // 840m Magic Squares In Grid
 func numMagicSquaresInside(grid [][]int) int {

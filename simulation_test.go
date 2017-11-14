@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+// 6m Zigzag Conversion
+func Test6(t *testing.T) {
+	log.Print("PAHNAPLSIIGYIR ?= ", convert("PAYPALISHIRING", 3))
+	log.Print("PINALSIGYAHRPI ?= ", convert("PAYPALISHIRING", 4))
+	log.Print("A ?= ", convert("A", 1))
+
+}
+
 // 840m Magic Squares In Grid
 func Test840(t *testing.T) {
 	log.Print("1 ?= ", numMagicSquaresInside([][]int{{4, 3, 8, 4}, {9, 5, 1, 9}, {2, 7, 6, 2}}))
