@@ -78,6 +78,26 @@ func canCompleteCircuit(gas []int, cost []int) int {
 	return p
 }
 
+// 167m Two Sum II - Input Array Is Sorted
+func twoSum(numbers []int, target int) []int {
+	l, r := 0, len(numbers)-1
+
+	for l < r {
+		v := numbers[l] + numbers[r]
+		if v == target {
+			return []int{l + 1, r + 1}
+		}
+
+		if v < target {
+			l++
+		} else {
+			r--
+		}
+	}
+
+	return []int{0, 0}
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func restoreMatrix(rowSum []int, colSum []int) [][]int {
 	M := make([][]int, len(rowSum))

@@ -22,6 +22,13 @@ func Test134(t *testing.T) {
 	log.Print("-1 ?= ", canCompleteCircuit([]int{2, 3, 4}, []int{3, 4, 3}))
 }
 
+// 167m Two Sum II - Input Array Is Sorted
+func Test167(t *testing.T) {
+	log.Print("[1 2] ?= ", twoSum([]int{2, 7, 11, 15}, 9))
+	log.Print("[1 3] ?= ", twoSum([]int{2, 3, 4}, 6))
+	log.Print("[1 2] ?= ", twoSum([]int{-1, 0}, -1))
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func Test1605(t *testing.T) {
 	Optimized := func(rowSum []int, colSum []int) [][]int {
