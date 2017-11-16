@@ -59,6 +59,54 @@ func threeSum(nums []int) [][]int {
 	return R
 }
 
+// 36m Valid Sudoku
+func isValidSudoku(board [][]byte) bool {
+	for r := 0; r < 9; r++ {
+		M := make([]bool, 9+1) // rows
+		for c := 0; c < 9; c++ {
+			v := board[r][c]
+			if v != '.' {
+				if M[v-'0'] {
+					return false
+				}
+				M[v-'0'] = true
+			}
+		}
+	}
+
+	for c := 0; c < 9; c++ {
+		M := make([]bool, 9+1) // columns
+		for r := 0; r < 9; r++ {
+			v := board[r][c]
+			if v != '.' {
+				if M[v-'0'] {
+					return false
+				}
+				M[v-'0'] = true
+			}
+		}
+	}
+
+	for r := 0; r < 9; r += 3 {
+		for c := 0; c < 9; c += 3 {
+			M := make([]bool, 9+1) // sub-boxes
+			for x := range 3 {
+				for y := range 3 {
+					v := board[r+x][c+y]
+					if v != '.' {
+						if M[v-'0'] {
+							return false
+						}
+						M[v-'0'] = true
+					}
+				}
+			}
+		}
+	}
+
+	return true
+}
+
 // 134m Gas Station
 func canCompleteCircuit(gas []int, cost []int) int {
 	p, tank, tankTotal := 0, 0, 0
