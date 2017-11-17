@@ -34,6 +34,62 @@ func convert(s string, numRows int) string {
 	return strings.Join(S, "")
 }
 
+// 289m Game of Life
+func gameOfLife(board [][]int) {
+	log.Print(" <- ", board)
+
+	Rows, Cols := len(board), len(board[0])
+
+	lCells := func(r, c int) int {
+		l := 0
+		for _, x := range []int{r - 1, r, r + 1} {
+			for _, y := range []int{c - 1, c, c + 1} {
+				if x == r && y == c {
+					continue
+				}
+
+				if x >= 0 && x < Rows && y >= 0 && y < Cols {
+					if board[x][y] == 1 || board[x][y] == -9 {
+						l++
+					}
+				}
+			}
+		}
+		return l
+	}
+
+	for r := 0; r < Rows; r++ {
+		for c := 0; c < Cols; c++ {
+			l := lCells(r, c)
+			switch board[r][c] {
+			case 0:
+				if l == 3 {
+					board[r][c] = -1 // new Live
+				}
+			case 1:
+				if l < 2 && l > 3 {
+					board[r][c] = -9 // new Dead
+				}
+			}
+		}
+	}
+
+	log.Print(board)
+
+	for r := 0; r < Rows; r++ {
+		for c := 0; c < Cols; c++ {
+			if board[r][c] == -1 {
+				board[r][c] = 1
+			}
+			if board[r][c] == -9 {
+				board[r][c] = 0
+			}
+		}
+	}
+
+	log.Print(" -> ", board)
+}
+
 // 840m Magic Squares In Grid
 func numMagicSquaresInside(grid [][]int) int {
 	t := 0

@@ -13,6 +13,12 @@ func Test6(t *testing.T) {
 
 }
 
+// 289m Game of Life
+func Test289(t *testing.T) {
+	gameOfLife([][]int{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}})
+	gameOfLife([][]int{{1, 1}, {1, 0}})
+}
+
 // 840m Magic Squares In Grid
 func Test840(t *testing.T) {
 	log.Print("1 ?= ", numMagicSquaresInside([][]int{{4, 3, 8, 4}, {9, 5, 1, 9}, {2, 7, 6, 2}}))
