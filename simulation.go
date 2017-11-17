@@ -67,7 +67,7 @@ func gameOfLife(board [][]int) {
 					board[r][c] = -1 // new Live
 				}
 			case 1:
-				if l < 2 && l > 3 {
+				if l < 2 || l > 3 {
 					board[r][c] = -9 // new Dead
 				}
 			}
