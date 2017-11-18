@@ -1,10 +1,15 @@
 package gopher
 
-import "strings"
+import (
+	"log"
+	"strings"
+)
 
 // 71m Simplify Path
 func simplifyPath(path string) string {
 	P := strings.Split(path, "/")
+
+	log.Printf(" -> %q", P)
 
 	Q := []string{}
 	for _, p := range P {
@@ -19,6 +24,8 @@ func simplifyPath(path string) string {
 			Q = append(Q, p)
 		}
 	}
+
+	log.Printf(" -> %q", Q)
 
 	return "/" + strings.Join(Q, "/")
 }
