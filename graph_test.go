@@ -12,7 +12,7 @@ import (
 func Test595(t *testing.T) {
 	log.Print("2 ?= ", regionsBySlashes([]string{" /", "/ "}))
 	log.Print("1 ?= ", regionsBySlashes([]string{"  ", "/ "}))
-	log.Print("5 ?= ", regionsBySlashes([]string{`/\`, `\/`}))
+	log.Print("5 ?= ", regionsBySlashes([]string{"/\\", "\\/"}))
 
 	log.Print("14 ?= ", regionsBySlashes([]string{
 		"//\\\\////",
