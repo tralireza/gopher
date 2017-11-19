@@ -106,7 +106,7 @@ func regionsBySlashes(grid []string) int {
 			for x := range 9 {
 				v := grid[r][c]
 				if v == '/' && x%3+x/3 == 2 || v == '\\' && x%3 == x/3 {
-					G[3*r+x%3][3*c+x/3] = '1'
+					G[3*r+x%3][3*c+x/3] = '*'
 				} else {
 					G[3*r+x%3][3*c+x/3] = ' '
 				}
@@ -127,10 +127,8 @@ func regionsBySlashes(grid []string) int {
 	for r := 0; r < Rows; r++ {
 		for c := 0; c < Cols; c++ {
 			if G[r][c] == ' ' {
-				regions++
-
 				Q := [][]int{{r, c}}
-				G[r][c] = '-'
+				G[r][c] = byte('a' + regions%26)
 
 				var v []int
 				for len(Q) > 0 {
@@ -138,13 +136,24 @@ func regionsBySlashes(grid []string) int {
 					for d := range 4 {
 						x, y := v[0]+dirs[d], v[1]+dirs[d+1]
 						if x >= 0 && x < Rows && y >= 0 && y < Cols && G[x][y] == ' ' {
-							G[x][y] = '@'
+							G[x][y] = byte('a' + regions%26)
 							Q = append(Q, []int{x, y})
 						}
 					}
 				}
+
+				regions++
 			}
 		}
+	}
+
+	for r := range G {
+		for c := range G[r] {
+			if G[r][c] == '*' {
+				G[r][c] = ' '
+			}
+		}
+		log.Printf("-- %c", G[r])
 	}
 
 	return regions
