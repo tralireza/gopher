@@ -85,6 +85,71 @@ func findTheCity(n int, edges [][]int, distanceThreshold int) int {
 	return city
 }
 
+// 595m Regions Cut By Slashes
+func regionsBySlashes(grid []string) int {
+	for r := range grid {
+		log.Printf(`<- "%s"`, grid[r])
+	}
+
+	// Graph transformation
+	// / -> 0 0 1  | \ -> 1 0 0
+	//      0 1 0  |      0 1 0
+	//      1 0 0  |      0 0 1
+
+	G := make([][]byte, 3*len(grid))
+	for r := range G {
+		G[r] = make([]byte, 3*len(grid[0]))
+	}
+
+	for r := 0; r < len(grid); r++ {
+		for c := 0; c < len(grid[r]); c++ {
+			for x := range 9 {
+				v := grid[r][c]
+				if v == '/' && x%3+x/3 == 2 || v == '\\' && x%3 == x/3 {
+					G[3*r+x%3][3*c+x/3] = '1'
+				} else {
+					G[3*r+x%3][3*c+x/3] = ' '
+				}
+			}
+		}
+	}
+
+	for r := range G {
+		log.Printf("-> %c", G[r])
+	}
+
+	regions := 0
+
+	// Graph connectivity (DFS/BFS)
+	Rows, Cols := len(G), len(G[0])
+	dirs := []int{0, 1, 0, -1, 0}
+
+	for r := 0; r < Rows; r++ {
+		for c := 0; c < Cols; c++ {
+			if G[r][c] == ' ' {
+				regions++
+
+				Q := [][]int{{r, c}}
+				G[r][c] = '-'
+
+				var v []int
+				for len(Q) > 0 {
+					v, Q = Q[0], Q[1:]
+					for d := range 4 {
+						x, y := v[0]+dirs[d], v[1]+dirs[d+1]
+						if x >= 0 && x < Rows && y >= 0 && y < Cols && G[x][y] == ' ' {
+							G[x][y] = '@'
+							Q = append(Q, []int{x, y})
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return regions
+}
+
 // 2392h Build a Matrix With Conditions
 func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	TopoSort := func(edges [][]int) []int {

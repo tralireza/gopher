@@ -8,6 +8,24 @@ import (
 	"testing"
 )
 
+// 595m Regions Cut By Slashes
+func Test595(t *testing.T) {
+	log.Print("2 ?= ", regionsBySlashes([]string{" /", "/ "}))
+	log.Print("1 ?= ", regionsBySlashes([]string{"  ", "/ "}))
+	log.Print("5 ?= ", regionsBySlashes([]string{`/\`, `\/`}))
+
+	log.Print("14 ?= ", regionsBySlashes([]string{
+		"//\\\\////",
+		"//\\\\/\\//",
+		"\\/ /\\\\/\\",
+		"///\\\\\\\\ ",
+		"//  / \\\\",
+		"\\/\\/ //\\",
+		" // \\ \\\\",
+		"/\\\\/\\\\\\/",
+	}))
+}
+
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
 func Test1334(t *testing.T) {
 	// 1 <= Weight_i <= 10^4
