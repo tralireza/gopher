@@ -92,9 +92,9 @@ func regionsBySlashes(grid []string) int {
 	}
 
 	// Graph transformation
-	// / -> - - 1  | \ -> 1 - -
-	//      - 1 -  |      - 1 -
-	//      1 - -  |      - - 1
+	// / -> - - *  | \ -> * - -
+	//      - * -  |      - * -
+	//      * - -  |      - - *
 
 	G := make([][]byte, 3*len(grid))
 	for r := range G {
