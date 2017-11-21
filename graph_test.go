@@ -10,20 +10,105 @@ import (
 
 // 595m Regions Cut By Slashes
 func Test595(t *testing.T) {
-	log.Print("2 ?= ", regionsBySlashes([]string{" /", "/ "}))
-	log.Print("1 ?= ", regionsBySlashes([]string{"  ", "/ "}))
-	log.Print("5 ?= ", regionsBySlashes([]string{"/\\", "\\/"}))
+	WithDJS := func(grid []string) int {
+		//           .-.-.  (/: bottom-left: v "Connected-To" top-right: u)
+		// '/''\' -> |/|\|  (\: bottom-right: v "Connected-To" top-left: u)
+		//           .-.-.
+		//
+		// 2x2 grid -> 3x3 nodes Graph
 
-	log.Print("14 ?= ", regionsBySlashes([]string{
-		"//\\\\////",
-		"//\\\\/\\//",
-		"\\/ /\\\\/\\",
-		"///\\\\\\\\ ",
-		"//  / \\\\",
-		"\\/\\/ //\\",
-		" // \\ \\\\",
-		"/\\\\/\\\\\\/",
-	}))
+		type P struct{ x, y int }
+		DJS := map[P]P{}     // Node{x,y} -> leader/root
+		Ranks := map[P]int{} // DJS ranks
+
+		var FindSet func(a P) P
+		FindSet = func(a P) P {
+			r := DJS[a]
+			if r != a {
+				DJS[a] = FindSet(r)
+			}
+			return DJS[a]
+		}
+
+		Union := func(a, b P) {
+			a, b = FindSet(a), FindSet(b)
+			if a == b {
+				return
+			}
+			ra, rb := Ranks[a], Ranks[b]
+			if ra >= rb {
+				DJS[b] = a
+				if ra == rb {
+					Ranks[a]++
+				}
+			} else {
+				DJS[a] = b
+			}
+		}
+
+		Rows, Cols := len(grid), len(grid[0])
+
+		// init DJS
+		for r := 0; r <= Rows; r++ {
+			for c := 0; c <= Cols; c++ {
+				DJS[P{r, c}] = P{r, c}
+			}
+		}
+
+		// Union/Join boundary points/vertices
+		Bdr := P{0, 0}
+		for r := 0; r <= Rows; r++ {
+			Union(P{r, 0}, Bdr)
+			Union(P{r, Cols}, Bdr)
+		}
+		for c := 1; c < Cols; c++ {
+			Union(P{0, c}, Bdr)
+			Union(P{Rows, c}, Bdr)
+		}
+		regions := 1 // all boundary points (connected) form a loop/region
+
+		for r := 0; r < Rows; r++ {
+			for c := 0; c < Cols; c++ {
+				switch grid[r][c] {
+				case '/':
+					a, b := P{r + 1, c}, P{r, c + 1}
+					if FindSet(a) == FindSet(b) {
+						regions++
+					}
+					Union(a, b) // Union bottom-left and top-right
+				case '\\':
+					a, b := P{r, c}, P{r + 1, c + 1}
+					if FindSet(a) == FindSet(b) {
+						regions++
+					}
+					Union(a, b) // Union top-left and bottom-right
+				}
+			}
+		}
+
+		log.Print("DJS: ", DJS)
+		log.Print("Ranks: ", Ranks)
+
+		return regions
+	}
+
+	for _, f := range []func([]string) int{regionsBySlashes, WithDJS} {
+		log.Print("2 ?= ", f([]string{" /", "/ "}))
+		log.Print("1 ?= ", f([]string{"  ", "/ "}))
+		log.Print("5 ?= ", f([]string{"/\\", "\\/"}))
+
+		log.Print("14 ?= ", f([]string{
+			"//\\\\////",
+			"//\\\\/\\//",
+			"\\/ /\\\\/\\",
+			"///\\\\\\\\ ",
+			"//  / \\\\",
+			"\\/\\/ //\\",
+			" // \\ \\\\",
+			"/\\\\/\\\\\\/",
+		}))
+		log.Print("---")
+	}
 }
 
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
