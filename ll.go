@@ -79,16 +79,17 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 		n = n.Next
 	}
 	l := n
+	n = n.Next
+
 	log.Print(" -- left (prv): ", l)
 
 	var prv *ListNode
-	n = n.Next
-	for range right - left + 1 {
+	for range right - left + 1 { // reverse #N nodes
 		n.Next, prv, n = prv, n, n.Next
 	}
+
 	log.Print(" -- right (next): ", n)
 
 	l.Next, l.Next.Next = prv, n
-
 	return h.Next
 }
