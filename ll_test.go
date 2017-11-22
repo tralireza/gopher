@@ -76,6 +76,7 @@ func Test92(t *testing.T) {
 		llDraw(Reverse(l))
 		fmt.Print("\n")
 	}
+	log.Print("---")
 
 	llDraw(reverseBetween(&L{1, &L{2, &L{3, &L{4, &L{Val: 5}}}}}, 2, 4))
 	fmt.Print("\n")
