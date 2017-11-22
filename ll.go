@@ -1,5 +1,9 @@
 package gopher
 
+import (
+	"log"
+)
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -63,5 +67,28 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 		p = p.Next
 	}
 	p.Next = r
+	return h.Next
+}
+
+// 92m Reverse Linked List II
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	h := &ListNode{Next: head}
+
+	n := h
+	for range left - 1 {
+		n = n.Next
+	}
+	l := n
+	log.Print(" -- left (prv): ", l)
+
+	var prv *ListNode
+	n = n.Next
+	for range right - left + 1 {
+		n.Next, prv, n = prv, n, n.Next
+	}
+	log.Print(" -- right (next): ", n)
+
+	l.Next, l.Next.Next = prv, n
+
 	return h.Next
 }

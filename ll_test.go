@@ -57,3 +57,28 @@ func Test25(t *testing.T) {
 	llDraw(reverseKGroup(l, 2))
 	log.Print()
 }
+
+// 92m Reverse Linked List II
+func Test92(t *testing.T) {
+	Reverse := func(head *ListNode) *ListNode {
+		var prv *ListNode
+		for n := head; n != nil; {
+			n.Next, prv, n = prv, n, n.Next
+		}
+		return prv
+	}
+
+	type L = ListNode
+
+	for _, l := range []*L{{1, &L{2, &L{3, &L{4, &L{Val: 5}}}}}, {Val: 1}, {1, &L{Val: 9}}} {
+		llDraw(l)
+		fmt.Print("  ==R=>  ")
+		llDraw(Reverse(l))
+		fmt.Print("\n")
+	}
+
+	llDraw(reverseBetween(&L{1, &L{2, &L{3, &L{4, &L{Val: 5}}}}}, 2, 4))
+	fmt.Print("\n")
+	llDraw(reverseBetween(&L{Val: 5}, 1, 1))
+	fmt.Print("\n")
+}
