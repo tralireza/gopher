@@ -111,6 +111,12 @@ func Test595(t *testing.T) {
 	}
 }
 
+// 733 Flood Fill
+func Test733(t *testing.T) {
+	log.Print(floodFill([][]int{{1, 1, 1}, {1, 1, 0}, {1, 0, 1}}, 1, 1, 2))
+	log.Print(floodFill([][]int{{0, 0, 0}, {0, 0, 0}}, 0, 0, 0))
+}
+
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
 func Test1334(t *testing.T) {
 	// 1 <= Weight_i <= 10^4

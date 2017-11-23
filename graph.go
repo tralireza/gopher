@@ -159,6 +159,31 @@ func regionsBySlashes(grid []string) int {
 	return regions
 }
 
+// 733 Flood Fill
+func floodFill(image [][]int, sr int, sc int, color int) [][]int {
+	Rows, Cols := len(image), len(image[0])
+
+	var Color func(r, c, baseColor int)
+	Color = func(r, c, baseColor int) {
+		if image[r][c] == color {
+			return
+		}
+
+		image[r][c] = color
+
+		D := []int{0, 1, 0, -1, 0}
+		for d := range 4 {
+			x, y := r+D[d], c+D[d+1]
+			if x >= 0 && x < Rows && y >= 0 && y < Cols && image[x][y] == baseColor {
+				Color(x, y, baseColor)
+			}
+		}
+	}
+
+	Color(sr, sc, image[sr][sc])
+	return image
+}
+
 // 2392h Build a Matrix With Conditions
 func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	TopoSort := func(edges [][]int) []int {
