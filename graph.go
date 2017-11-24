@@ -192,23 +192,21 @@ func criticalConnections(n int, connections [][]int) [][]int {
 		G[v], G[u] = append(G[v], u), append(G[u], v)
 	}
 
-	R := [][]int{}
-
 	Index, Lowest := make([]int, n), make([]int, n)
 	timer := 0
 
-	var findBridge func(v, p int)
-	findBridge = func(v, p int) {
+	var findBridge func(v, p int, rBridge func(v, u int))
+	findBridge = func(v, p int, rBridge func(v, u int)) {
 		timer++
 		Index[v], Lowest[v] = timer, timer
 
 		for _, u := range G[v] {
 			if Index[u] == 0 { // Not visited/discovered yet...
-				findBridge(u, v)
+				findBridge(u, v, rBridge)
 				Lowest[v] = min(Lowest[v], Lowest[u])
 
 				if Lowest[u] > Index[v] {
-					R = append(R, []int{v, u}) // Bridge edge
+					rBridge(v, u) // Bridge edge {v, u}
 				}
 
 			} else if u != p {
@@ -217,7 +215,8 @@ func criticalConnections(n int, connections [][]int) [][]int {
 		}
 	}
 
-	findBridge(0, -1) // Node 0 as root (parent -1 -> no parent)
+	R := [][]int{}
+	findBridge(0, -1, func(v, u int) { R = append(R, []int{v, u}) }) // Node 0 as root (parent -1 -> no parent)
 
 	return R
 }
