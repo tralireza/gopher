@@ -184,6 +184,44 @@ func floodFill(image [][]int, sr int, sc int, color int) [][]int {
 	return image
 }
 
+// 1192h Critical Connections in a Network
+func criticalConnections(n int, connections [][]int) [][]int {
+	G := make([][]int, n)
+	for _, e := range connections {
+		v, u := e[0], e[1]
+		G[v], G[u] = append(G[v], u), append(G[u], v)
+	}
+
+	R := [][]int{}
+
+	Index, Lowest := make([]int, n), make([]int, n)
+	timer := 0
+
+	var findBridge func(v, p int)
+	findBridge = func(v, p int) {
+		timer++
+		Index[v], Lowest[v] = timer, timer
+
+		for _, u := range G[v] {
+			if Index[u] == 0 { // Not visited/discovered yet...
+				findBridge(u, v)
+				Lowest[v] = min(Lowest[v], Lowest[u])
+
+				if Lowest[u] > Index[v] {
+					R = append(R, []int{v, u}) // Bridge edge
+				}
+
+			} else if u != p {
+				Lowest[v] = min(Lowest[v], Index[u])
+			}
+		}
+	}
+
+	findBridge(0, -1) // Node 0 as root (parent -1 -> no parent)
+
+	return R
+}
+
 // 2392h Build a Matrix With Conditions
 func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	TopoSort := func(edges [][]int) []int {
