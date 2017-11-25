@@ -25,14 +25,13 @@ func combinationSum2(candidates []int, target int) [][]int {
 		}
 
 		for i := start; i < len(candidates); i++ {
-			if i > start && candidates[i] == candidates[i-1] {
+			if i > start && candidates[i] == candidates[i-1] { // Group & Prune
 				continue
 			}
 			v = append(v, candidates[i])
 			Search(i+1, cSum+candidates[i])
 			v = v[:len(v)-1]
 		}
-
 	}
 
 	Search(0, 0)
