@@ -145,6 +145,34 @@ func numMagicSquaresInside(grid [][]int) int {
 	return t
 }
 
+// 860 Lemonade Change
+func lemonadeChange(bills []int) bool {
+	f, t := 0, 0 // fives, tens
+
+	for _, b := range bills {
+		switch b {
+		case 5:
+			f++
+		case 10:
+			if f > 0 {
+				f--
+			} else {
+				return false
+			}
+		case 20:
+			if f > 0 && t > 0 {
+				f--
+				t--
+			} else if f > 2 {
+				t -= 3
+			} else {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 // 885m Spiral Matrix III
 func spiralMatrixIII(rows int, cols int, rStart int, cStart int) [][]int {
 	M := [][]int{{rStart, cStart}}

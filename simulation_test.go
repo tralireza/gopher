@@ -31,6 +31,12 @@ func Test885(t *testing.T) {
 	log.Print(" ?= ", spiralMatrixIII(5, 6, 1, 4))
 }
 
+// 860 Lemonade Change
+func Test860(t *testing.T) {
+	log.Print("true ?= ", lemonadeChange([]int{5, 5, 5, 10, 20}))
+	log.Print("false ?= ", lemonadeChange([]int{5, 5, 10, 10, 20}))
+}
+
 // 1380 Lucky Numbers in a Matrix
 func Test1380(t *testing.T) {
 	log.Print("[15] ?= ", luckyNumbers([][]int{{3, 7, 8}, {9, 11, 13}, {15, 16, 17}}))
