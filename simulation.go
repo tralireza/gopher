@@ -159,12 +159,13 @@ func lemonadeChange(bills []int) bool {
 			} else {
 				return false
 			}
+			t++
 		case 20:
 			if f > 0 && t > 0 {
 				f--
 				t--
 			} else if f > 2 {
-				t -= 3
+				f -= 3
 			} else {
 				return false
 			}
