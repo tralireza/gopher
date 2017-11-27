@@ -70,6 +70,43 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	return h.Next
 }
 
+// 61m Rotate Right
+func rotateRight(head *ListNode, k int) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	l := 0
+	for n := head; n != nil; n = n.Next {
+		l++
+	}
+
+	// edge cases ...
+	if l < 2 {
+		return head
+	}
+	k %= l
+	if k == 0 {
+		return head
+	}
+
+	var p *ListNode
+	n := head
+	for ; l-k > 0; n = n.Next {
+		p = n
+		l--
+	}
+	phead := head
+	head, p.Next = n, nil
+
+	for ; n != nil; n = n.Next {
+		p = n
+	}
+	p.Next = phead
+
+	return head
+}
+
 // 92m Reverse Linked List II
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	h := &ListNode{Next: head}

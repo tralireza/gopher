@@ -58,6 +58,25 @@ func Test25(t *testing.T) {
 	log.Print()
 }
 
+// 61m Rotate Right
+func Test61(t *testing.T) {
+	type L = ListNode
+
+	lists := []*L{
+		{1, &L{2, &L{3, &L{4, &L{Val: 5}}}}},
+		{0, &L{1, &L{Val: 2}}},
+	}
+	ks := []int{2, 4}
+
+	for i, k := range ks {
+		l := lists[i]
+		llDraw(l)
+		fmt.Print("   =>   ")
+		llDraw(rotateRight(l, k))
+		fmt.Print("\n")
+	}
+}
+
 // 92m Reverse Linked List II
 func Test92(t *testing.T) {
 	Reverse := func(head *ListNode) *ListNode {
