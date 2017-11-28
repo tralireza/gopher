@@ -96,14 +96,12 @@ func rotateRight(head *ListNode, k int) *ListNode {
 		p = n
 		l--
 	}
-	phead := head
+	ph := head
 	head, p.Next = n, nil
-
 	for ; n != nil; n = n.Next {
 		p = n
 	}
-	p.Next = phead
-
+	p.Next = ph
 	return head
 }
 
