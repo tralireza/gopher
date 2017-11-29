@@ -112,13 +112,14 @@ func deleteDuplicates(head *ListNode) *ListNode {
 	}
 
 	v := head.Val
-	if v == head.Next.Val {
+	if v == head.Next.Val { // head has a duplicate at .Next ...
 		n := head
 		for ; n != nil && n.Val == v; n = n.Next {
 		}
 		return deleteDuplicates(n)
 	}
 
+	// head didn't have a duplicate ...
 	head.Next = deleteDuplicates(head.Next)
 	return head
 }
