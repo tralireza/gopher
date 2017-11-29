@@ -77,6 +77,21 @@ func Test61(t *testing.T) {
 	}
 }
 
+// 82m Remove Duplicates from Sorted List II
+func Test82(t *testing.T) {
+	type L = ListNode
+
+	for _, l := range []*L{
+		{1, &L{2, &L{3, &L{3, &L{4, &L{4, &L{Val: 5}}}}}}},
+		{1, &L{1, &L{1, &L{2, &L{Val: 3}}}}},
+	} {
+		llDraw(l)
+		fmt.Print("   =>   ")
+		llDraw(deleteDuplicates(l))
+		fmt.Print("\n")
+	}
+}
+
 // 92m Reverse Linked List II
 func Test92(t *testing.T) {
 	Reverse := func(head *ListNode) *ListNode {

@@ -105,6 +105,24 @@ func rotateRight(head *ListNode, k int) *ListNode {
 	return head
 }
 
+// 82m Remove Duplicates from Sorted List II
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	v := head.Val
+	if v == head.Next.Val {
+		n := head
+		for ; n != nil && n.Val == v; n = n.Next {
+		}
+		return deleteDuplicates(n)
+	}
+
+	head.Next = deleteDuplicates(head.Next)
+	return head
+}
+
 // 92m Reverse Linked List II
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	h := &ListNode{Next: head}
