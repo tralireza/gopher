@@ -12,6 +12,12 @@ func Test122(t *testing.T) {
 	log.Print("0 ?= ", maxProfit([]int{7, 6, 4, 3, 1}))
 }
 
+// 1014m Best Sightseeing Pair
+func Test1014(t *testing.T) {
+	log.Print("11 ?= ", maxScoreSightseeingPair([]int{8, 1, 5, 2, 6}))
+	log.Print("2 ?= ", maxScoreSightseeingPair([]int{1, 2}))
+}
+
 // 1105m Filling Bookcase Shelves
 func Test1105(t *testing.T) {
 	//Book[i]: Width, Height

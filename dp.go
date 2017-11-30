@@ -13,6 +13,24 @@ func maxProfit(prices []int) int {
 	return profit
 }
 
+// 1014m Best Sightseeing Pair
+func maxScoreSightseeingPair(values []int) int {
+	// Score: i < j :: Vi+Vj - (j-i)
+	n := len(values)
+
+	D := make([]int, n)
+	D[n-1] = values[n-1] - (n - 1) // Vj - j
+	for j := n - 2; j > 0; j-- {
+		D[j] = max(D[j+1], values[j]-j)
+	}
+
+	xVal := 0
+	for i := range values[:n-1] {
+		xVal = max(xVal, D[i+1]+values[i]+i)
+	}
+	return xVal
+}
+
 // 1105m Filling Bookcase Shelves
 func minHeightShelves(books [][]int, shelfWidth int) int {
 	rCalls, Mem := 0, map[[3]int]int{}
