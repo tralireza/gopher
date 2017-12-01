@@ -164,3 +164,9 @@ func Test1653(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 1937m Maximum Number of Points with Cost
+func Test1937(t *testing.T) {
+	log.Print("9 ?= ", maxPoints([][]int{{1, 2, 3}, {1, 5, 1}, {3, 1, 1}}))
+	log.Print("11 ?= ", maxPoints([][]int{{1, 5}, {2, 3}, {4, 2}}))
+}

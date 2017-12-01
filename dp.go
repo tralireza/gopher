@@ -1,6 +1,9 @@
 package gopher
 
-import "log"
+import (
+	"log"
+	"slices"
+)
 
 // 122m Best Time to Buy and Sell Stock II
 func maxProfit(prices []int) int {
@@ -113,4 +116,33 @@ func minimumDeletions(s string) int {
 		}
 	}
 	return dels
+}
+
+// 1937m Maximum Number of Points with Cost
+func maxPoints(points [][]int) int64 {
+	Rows, Cols := len(points), len(points[0])
+	prv := append([]int{}, points[0]...)
+
+	for r := 1; r < Rows; r++ {
+		cur := make([]int, Cols)
+
+		left := make([]int, Cols)
+		left[0] = prv[0]
+		for c := 2; c < Cols; c++ {
+			left[c] = max(prv[c], left[c-1]-1)
+		}
+
+		right := make([]int, Cols)
+		right[Cols-1] = prv[Cols-1]
+		for c := Cols - 2; c >= 0; c-- {
+			right[c] = max(prv[c], right[c+1]-1)
+		}
+
+		for c := 0; c < Cols; c++ {
+			cur[c] = points[r][c] + max(left[c], right[c])
+		}
+		prv = cur
+	}
+
+	return int64(slices.Max(prv))
 }
