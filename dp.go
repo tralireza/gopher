@@ -152,7 +152,7 @@ func maximumDifference(nums []int) int {
 	xVal := -1
 
 	nVal := nums[0]
-	for i := 1; i < len(nums)-1; i++ {
+	for i := range nums[:len(nums)-1] {
 		nVal = min(nVal, nums[i])
 		if nums[i+1] > nVal {
 			xVal = max(xVal, nums[i+1]-nVal)
