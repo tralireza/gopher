@@ -146,3 +146,18 @@ func maxPoints(points [][]int) int64 {
 
 	return int64(slices.Max(prv))
 }
+
+// 2016 Maximum Difference Between Increasing Elements
+func maximumDifference(nums []int) int {
+	xVal := -1
+
+	nVal := nums[0]
+	for i := 1; i < len(nums)-1; i++ {
+		nVal = min(nVal, nums[i])
+		if nums[i+1] > nVal {
+			xVal = max(xVal, nums[i+1]-nVal)
+		}
+	}
+
+	return xVal
+}

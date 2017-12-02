@@ -170,3 +170,10 @@ func Test1937(t *testing.T) {
 	log.Print("9 ?= ", maxPoints([][]int{{1, 2, 3}, {1, 5, 1}, {3, 1, 1}}))
 	log.Print("11 ?= ", maxPoints([][]int{{1, 5}, {2, 3}, {4, 2}}))
 }
+
+// 2016 Maximum Difference Between Increasing Elements
+func Test2016(t *testing.T) {
+	log.Print("4 ?= ", maximumDifference([]int{7, 1, 5, 4}))
+	log.Print("-1 ?= ", maximumDifference([]int{9, 4, 3, 2}))
+	log.Print("9 ?= ", maximumDifference([]int{1, 5, 2, 10}))
+}
