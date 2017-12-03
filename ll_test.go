@@ -92,6 +92,24 @@ func Test82(t *testing.T) {
 	}
 }
 
+// 86m Partition List
+func Test86(t *testing.T) {
+	type L = ListNode
+
+	lists := []*L{
+		{1, &L{4, &L{3, &L{2, &L{5, &L{Val: 2}}}}}},
+		{2, &L{Val: 1}},
+		{Val: 1},
+	}
+	for i, x := range []int{3, 2, 2} {
+		l := lists[i]
+		llDraw(l)
+		fmt.Printf("   ==%d=>   ", x)
+		llDraw(partition(l, x))
+		fmt.Print("\n")
+	}
+}
+
 // 92m Reverse Linked List II
 func Test92(t *testing.T) {
 	Reverse := func(head *ListNode) *ListNode {

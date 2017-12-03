@@ -124,6 +124,28 @@ func deleteDuplicates(head *ListNode) *ListNode {
 	return head
 }
 
+// 86m Partition List
+func partition(head *ListNode, x int) *ListNode {
+	lh := &ListNode{}
+	gh := &ListNode{}
+
+	l, g := lh, gh
+	for n := head; n != nil; n = n.Next {
+		if n.Val < x {
+			l.Next = n
+			l = n
+		} else {
+			g.Next = n
+			g = n
+		}
+	}
+
+	l.Next = gh.Next
+	g.Next = nil
+
+	return lh.Next
+}
+
 // 92m Reverse Linked List II
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	h := &ListNode{Next: head}
