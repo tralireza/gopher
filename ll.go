@@ -126,8 +126,7 @@ func deleteDuplicates(head *ListNode) *ListNode {
 
 // 86m Partition List
 func partition(head *ListNode, x int) *ListNode {
-	lh := &ListNode{}
-	gh := &ListNode{}
+	lh, gh := &ListNode{}, &ListNode{}
 
 	l, g := lh, gh
 	for n := head; n != nil; n = n.Next {
@@ -139,9 +138,7 @@ func partition(head *ListNode, x int) *ListNode {
 			g = n
 		}
 	}
-
-	l.Next = gh.Next
-	g.Next = nil
+	l.Next, g.Next = gh.Next, nil
 
 	return lh.Next
 }
