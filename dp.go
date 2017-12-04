@@ -128,7 +128,7 @@ func maxPoints(points [][]int) int64 {
 
 		left := make([]int, Cols)
 		left[0] = prv[0]
-		for c := 2; c < Cols; c++ {
+		for c := 1; c < Cols; c++ {
 			left[c] = max(prv[c], left[c-1]-1)
 		}
 
