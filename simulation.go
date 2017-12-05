@@ -239,7 +239,7 @@ func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 			x, y := e+d[0], f+d[1]
 			for x < 9 && x > 0 && y < 9 && y > 0 && !(x == bkX && y == bkY) { // && ... and other piece is not in the way
 				if x == tgX && y == tgY {
-					return 1 // Rock|Bishop hits...
+					return 1 // Rook|Bishop hits...
 				}
 				x, y = x+d[0], y+d[1]
 			}
@@ -247,7 +247,7 @@ func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 		return -1
 	}
 
-	if Cross([][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}, a, b, c, d) == 1 { // Rock
+	if Cross([][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}, a, b, c, d) == 1 { // Rook
 		return 1
 	}
 	if Cross([][]int{{1, 1}, {1, -1}, {-1, 1}, {-1, -1}}, c, d, a, b) == 1 { // Bishop
