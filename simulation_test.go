@@ -43,3 +43,9 @@ func Test1380(t *testing.T) {
 	log.Print("[12] ?= ", luckyNumbers([][]int{{1, 10, 4, 2}, {9, 3, 8, 7}, {15, 16, 17, 12}}))
 	log.Print("[7] ?= ", luckyNumbers([][]int{{7, 8}, {1, 2}}))
 }
+
+// 3001m Minimum Moves to Capture the Queen
+func Test3001(t *testing.T) {
+	log.Print("2 ?= ", minMovesToCaptureTheQueen(1, 1, 8, 8, 2, 3))
+	log.Print("1 ?= ", minMovesToCaptureTheQueen(5, 3, 3, 4, 5, 2))
+}
