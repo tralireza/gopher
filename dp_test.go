@@ -12,6 +12,14 @@ func Test122(t *testing.T) {
 	log.Print("0 ?= ", maxProfit([]int{7, 6, 4, 3, 1}))
 }
 
+// 264m Ugly Numbers II
+func Test264(t *testing.T) {
+	// Ugly: prime factors [only]: 2, 3, 5
+
+	log.Print("12 ?= ", nthUglyNumber(10))
+	log.Print("1 ?= ", nthUglyNumber(1))
+}
+
 // 1014m Best Sightseeing Pair
 func Test1014(t *testing.T) {
 	log.Print("11 ?= ", maxScoreSightseeingPair([]int{8, 1, 5, 2, 6}))

@@ -1,8 +1,10 @@
 package gopher
 
 import (
+	"container/heap"
 	"log"
 	"slices"
+	"sort"
 )
 
 // 122m Best Time to Buy and Sell Stock II
@@ -14,6 +16,41 @@ func maxProfit(prices []int) int {
 		}
 	}
 	return profit
+}
+
+// 264m Ugly Numbers II
+type PQ264 struct{ sort.IntSlice }
+
+func (h *PQ264) Push(x any) { h.IntSlice = append(h.IntSlice, x.(int)) }
+func (h *PQ264) Pop() any {
+	v := h.IntSlice[h.Len()-1]
+	h.IntSlice = h.IntSlice[:h.Len()-1]
+	return v
+}
+
+func nthUglyNumber(n int) int {
+	type PQ = PQ264
+
+	h := PQ{}
+	heap.Push(&h, 1)
+
+	Mem := map[int]struct{}{}
+	Mem[1] = struct{}{}
+
+	var u int
+	for range n {
+		u = heap.Pop(&h).(int)
+		delete(Mem, u)
+
+		for _, f := range []int{2, 3, 5} {
+			if _, ok := Mem[f*u]; !ok {
+				heap.Push(&h, f*u)
+				Mem[f*u] = struct{}{}
+			}
+		}
+	}
+
+	return u
 }
 
 // 1014m Best Sightseeing Pair
