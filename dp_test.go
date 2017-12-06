@@ -15,9 +15,33 @@ func Test122(t *testing.T) {
 // 264m Ugly Numbers II
 func Test264(t *testing.T) {
 	// Ugly: prime factors [only]: 2, 3, 5
+	WithDP := func(n int) int {
+		D := make([]int, n)
+		D[0] = 1
 
-	log.Print("12 ?= ", nthUglyNumber(10))
-	log.Print("1 ?= ", nthUglyNumber(1))
+		i2, i3, i5 := 0, 0, 0
+		for i := range n - 1 {
+			D[i+1] = min(D[i2]*2, D[i3]*3, D[i5]*5)
+
+			if D[i+1] == D[i2]*2 {
+				i2++
+			}
+			if D[i+1] == D[i3]*3 {
+				i3++
+			}
+			if D[i+1] == D[i5]*5 {
+				i5++
+			}
+		}
+
+		return D[n-1]
+	}
+
+	for _, f := range []func(int) int{nthUglyNumber, WithDP} {
+		log.Print("12 ?= ", f(10))
+		log.Print("1 ?= ", f(1))
+		log.Print("--")
+	}
 }
 
 // 1014m Best Sightseeing Pair
