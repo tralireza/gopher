@@ -78,3 +78,56 @@ func rangeSum(nums []int, n int, left int, right int) int {
 	}
 	return x
 }
+
+// 3256h Maximum Value Sum by Placing Three Rooks I
+type E3256 struct{ col, score int }
+type PQ3256 []E3256
+
+func (h PQ3256) Len() int           { return len(h) }
+func (h PQ3256) Less(i, j int) bool { return h[j].score < h[i].score }
+func (h PQ3256) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ3256) Push(_ any)        {}
+func (h *PQ3256) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func maximumValueSum(board [][]int) int64 {
+	type E = E3256
+	type PQ = PQ3256
+
+	Rows := len(board)
+
+	D := make([][3]E, Rows)
+	for r := range D {
+		h := PQ{}
+		for c, s := range board[r] {
+			h = append(h, E{c, s})
+		}
+		heap.Init(&h)
+		for i := range 3 {
+			D[r][i] = heap.Pop(&h).(E)
+		}
+	}
+
+	xScore := -3000_000_000
+	for r := 0; r < Rows; r++ {
+		for r2 := r + 1; r2 < Rows; r2++ {
+			for r3 := r2 + 1; r3 < Rows; r3++ {
+
+				for _, e := range D[r] {
+					for _, e2 := range D[r2] {
+						for _, e3 := range D[r3] {
+							if e.col != e2.col && e.col != e3.col && e2.col != e3.col { // different columns...
+								xScore = max(xScore, e.score+e2.score+e3.score)
+							}
+						}
+					}
+				}
+
+			}
+		}
+	}
+	return int64(xScore)
+}

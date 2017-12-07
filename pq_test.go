@@ -68,3 +68,12 @@ func Test1508(t *testing.T) {
 		log.Print("---")
 	}
 }
+
+// 3256h Maximum Value Sum by Placing Three Rooks I
+func Test3256(t *testing.T) {
+	// 3 <= Rows, Cols <= 100
+
+	log.Print("4 ?= ", maximumValueSum([][]int{{-3, 1, 1, 1}, {-3, 1, -3, 1}, {-3, 2, 1, 1}}))
+	log.Print("15 ?= ", maximumValueSum([][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}))
+	log.Print("3 ?= ", maximumValueSum([][]int{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}))
+}
