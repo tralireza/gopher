@@ -38,3 +38,29 @@ func combinationSum2(candidates []int, target int) [][]int {
 
 	return R
 }
+
+// 650m 2 Keys Keyboard
+func minSteps(n int) int {
+	if n == 1 {
+		return 0
+	}
+
+	ops := n
+
+	var CopyPaste func(l, lp, curOps int)
+	CopyPaste = func(l, lp, curOps int) {
+		if l >= n {
+			if l == n {
+				ops = min(ops, curOps)
+			}
+			return
+		}
+
+		CopyPaste(l+lp, lp, curOps+1) // just Paste
+		CopyPaste(l+l, l, curOps+2)   // Copy & Paste
+	}
+
+	CopyPaste(1, 1, 1)
+
+	return ops
+}
