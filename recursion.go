@@ -1,6 +1,9 @@
 package gopher
 
-import "slices"
+import (
+	"log"
+	"slices"
+)
 
 // 40m Combination Sum II
 func combinationSum2(candidates []int, target int) [][]int {
@@ -45,22 +48,32 @@ func minSteps(n int) int {
 		return 0
 	}
 
+	rCalls, Mem := 0, map[[2]int]int{}
 	ops := n
 
-	var CopyPaste func(l, lp, curOps int)
-	CopyPaste = func(l, lp, curOps int) {
+	var CopyPaste func(l, lp int) int
+	CopyPaste = func(l, lp int) int {
 		if l >= n {
 			if l == n {
-				ops = min(ops, curOps)
+				return 0
 			}
-			return
+			return n
 		}
 
-		CopyPaste(l+lp, lp, curOps+1) // just Paste
-		CopyPaste(l+l, l, curOps+2)   // Copy & Paste
+		rCalls++
+		if v, ok := Mem[[2]int{l, lp}]; ok {
+			return v
+		}
+
+		p := CopyPaste(l+lp, lp) // just Paste
+		cp := CopyPaste(l+l, l)  // Copy & Paste
+
+		Mem[[2]int{l, lp}] = min(1+p, 2+cp)
+		return Mem[[2]int{l, lp}]
 	}
 
-	CopyPaste(1, 1, 1)
+	ops = 1 + CopyPaste(1, 1)
+	log.Print(rCalls)
 
 	return ops
 }
