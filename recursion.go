@@ -73,7 +73,7 @@ func minSteps(n int) int {
 	}
 
 	ops = 1 + CopyPaste(1, 1)
-	log.Print(rCalls)
+	log.Print(" -> ", rCalls, " # rCalls")
 
 	return ops
 }

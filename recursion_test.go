@@ -14,6 +14,7 @@ func Test40(t *testing.T) {
 // 650m 2 Keys Keyboard
 func Test650(t *testing.T) {
 	log.Print("3 ?= ", minSteps(3))
-	log.Print("1 ?= ", minSteps(1))
+	log.Print("0 ?= ", minSteps(1))
+	log.Print("8 ?= ", minSteps(15))
 	log.Print("21 ?= ", minSteps(1000))
 }
