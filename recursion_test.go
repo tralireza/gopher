@@ -39,3 +39,9 @@ func Test650(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 1140m Stone Games II
+func Test1140(t *testing.T) {
+	log.Print("10 ?= ", stoneGameII([]int{2, 7, 9, 4, 4}))
+	log.Print("104 ?= ", stoneGameII([]int{1, 2, 3, 4, 5, 100}))
+}
