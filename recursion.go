@@ -113,5 +113,7 @@ func stoneGameII(piles []int) int {
 	for _, v := range piles {
 		p += v
 	}
+
+	log.Print(p, xdelta, Mem)
 	return (p + xdelta) / 2
 }
