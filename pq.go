@@ -2,6 +2,9 @@ package gopher
 
 import (
 	"container/heap"
+	"log"
+	"math"
+	"slices"
 )
 
 // 239h Sliding Window Maximum
@@ -126,6 +129,39 @@ func maximumValueSum(board [][]int) int64 {
 					}
 				}
 
+			}
+		}
+	}
+	return int64(xScore)
+}
+
+// 3257h Maximum Value Sum by Placing Three Rooks II
+func maximumValueSum2(board [][]int) int64 {
+	Rows, Cols := len(board), len(board[0])
+
+	D := make([][3]int, 0, Rows*Cols)
+	for r := range Rows {
+		for c := range Cols {
+			D = append(D, [3]int{board[r][c], r, c})
+		}
+	}
+
+	slices.SortFunc(D, func(x, y [3]int) int { return y[0] - x[0] })
+	log.Print(D)
+
+	xScore := math.MinInt
+	for start := range 5 {
+		r, c := D[start][1], D[start][2]
+
+		for x := start + 1; x < 3*max(Rows, Cols); x++ {
+			r2, c2 := D[x][1], D[x][2]
+
+			for y := x + 1; y < 3*max(Rows, Cols); y++ {
+				r3, c3 := D[y][1], D[y][2]
+
+				if r != r2 && r != r3 && r2 != r3 && c != c2 && c != c3 && c2 != c3 {
+					xScore = max(D[start][0]+D[x][0]+D[y][0], xScore)
+				}
 			}
 		}
 	}
