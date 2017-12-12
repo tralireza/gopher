@@ -53,6 +53,35 @@ func nthUglyNumber(n int) int {
 	return u
 }
 
+// 664h Strange Printer
+func strangePrinter(s string) int {
+	Mem := map[[2]int]int{}
+	defer log.Print(Mem)
+
+	var MinTurn func(start, end int) int
+	MinTurn = func(start, end int) int {
+		if start > end {
+			return 0
+		}
+
+		if v, ok := Mem[[2]int{start, end}]; ok {
+			return v
+		}
+
+		v := 1 + MinTurn(start+1, end)
+		for k := start + 1; k <= end; k++ {
+			if s[start] == s[k] {
+				v = min(MinTurn(start, k-1)+MinTurn(k+1, end), v)
+			}
+		}
+
+		Mem[[2]int{start, end}] = v
+		return v
+	}
+
+	return MinTurn(0, len(s)-1)
+}
+
 // 1014m Best Sightseeing Pair
 func maxScoreSightseeingPair(values []int) int {
 	// Score: i < j :: Vi+Vj - (j-i)

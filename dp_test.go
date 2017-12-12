@@ -44,6 +44,12 @@ func Test264(t *testing.T) {
 	}
 }
 
+// 664h Strange Printer
+func Test664(t *testing.T) {
+	log.Print("2 ?= ", strangePrinter("aaabbb"))
+	log.Print("2 ?= ", strangePrinter("aba"))
+}
+
 // 1014m Best Sightseeing Pair
 func Test1014(t *testing.T) {
 	log.Print("11 ?= ", maxScoreSightseeingPair([]int{8, 1, 5, 2, 6}))
