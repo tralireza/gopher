@@ -325,6 +325,13 @@ func Test1192(t *testing.T) {
 	log.Print("[[0 1]] ?= ", criticalConnections(2, [][]int{{0, 1}}))
 }
 
+// 1591h Strange Printer II
+func Test1591(t *testing.T) {
+	log.Print("true ?= ", isPrintable([][]int{{1, 1, 1, 1}, {1, 2, 2, 1}, {1, 2, 2, 1}, {1, 1, 1, 1}}))
+	log.Print("true ?= ", isPrintable([][]int{{1, 1, 1, 1}, {1, 1, 3, 3}, {1, 1, 3, 4}, {5, 5, 1, 4}}))
+	log.Print("false ?= ", isPrintable([][]int{{1, 2, 1}, {2, 1, 2}, {1, 2, 1}}))
+}
+
 // 2392h Build a Matrix With Conditions
 func Test2392(t *testing.T) {
 	// 1 <= Node(labels) <= k
@@ -336,7 +343,7 @@ func Test2392(t *testing.T) {
 		}
 
 		Color := make([]int, k+1) // Visited:Color of a Node: 0: white, 1: gray, 2: black
-		Color[0] = -1             // ignore Node at label 0
+		Color[0] = -1             // ignore (no) Node at label 0
 
 		tSort := []int{}
 		var DFS func(int) bool

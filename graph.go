@@ -4,6 +4,7 @@ import (
 	"container/heap"
 	"log"
 	"math"
+	"slices"
 )
 
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
@@ -219,6 +220,88 @@ func criticalConnections(n int, connections [][]int) [][]int {
 	findBridge(0, -1, func(v, u int) { R = append(R, []int{v, u}) }) // Node 0 as root (parent -1 -> no parent)
 
 	return R
+}
+
+// 1591h Strange Printer II
+func isPrintable(targetGrid [][]int) bool {
+	Rows, Cols := len(targetGrid), len(targetGrid[0])
+	Cords := map[int][2][2]int{}
+
+	for r := 0; r < Rows; r++ {
+		for c := 0; c < Cols; c++ {
+			k := targetGrid[r][c]
+			if cord, ok := Cords[k]; !ok {
+				cords := [2][2]int{{r, c}, {r, c}}
+
+				for x := r; x < Rows; x++ {
+					for y := 0; y < Cols; y++ {
+						if targetGrid[x][y] != k {
+							if x > cords[1][0] {
+								cords[1][0] = r
+							}
+							if y < cord[0][1] {
+								cords[0][1] = y
+							}
+							if y > cord[1][1] {
+								cords[1][1] = y
+							}
+						}
+					}
+				}
+				Cords[k] = cords
+			}
+
+		}
+	}
+
+	log.Print("Cords -> ", Cords)
+
+	G := map[int]map[int]struct{}{}
+
+	for k, cords := range Cords {
+		G[k] = map[int]struct{}{}
+		for r := cords[0][0]; r <= cords[1][0]; r++ {
+			for c := cords[0][1]; c <= cords[1][1]; c++ {
+				if k != targetGrid[r][c] {
+					G[k][targetGrid[r][c]] = struct{}{}
+				}
+			}
+		}
+	}
+
+	log.Print("Graph -> ", G)
+
+	tSort := []int{}
+	Color := map[int]int{} // 0: White, 1: Gray, 2: Black
+	var DFS func(v int) bool
+	DFS = func(v int) bool {
+		Color[v] = 1 // Visiting...
+		for u := range G[v] {
+			switch Color[u] {
+			case 0:
+				if DFS(u) {
+					return true // terminate early
+				}
+			case 1:
+				return true // cycle detected
+			}
+		}
+		Color[v] = 2 // Done.
+		tSort = append(tSort, v)
+		return false // no cycle
+	}
+
+	for v := range G {
+		if Color[v] == 0 {
+			if DFS(v) {
+				return false
+			}
+		}
+	}
+
+	slices.Reverse(tSort)
+	log.Print("TopoSort :: ", tSort)
+	return true
 }
 
 // 2392h Build a Matrix With Conditions
