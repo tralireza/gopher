@@ -126,6 +126,28 @@ func canCompleteCircuit(gas []int, cost []int) int {
 	return p
 }
 
+// 135m Candy
+func candy(ratings []int) int {
+	C := make([]int, len(ratings))
+
+	for i := 1; i < len(ratings); i++ {
+		if ratings[i] > ratings[i-1] {
+			C[i] = C[i-1] + 1
+		}
+	}
+	for i := len(ratings) - 2; i >= 0; i-- {
+		if ratings[i] > ratings[i+1] {
+			C[i] = max(C[i], C[i+1]+1)
+		}
+	}
+
+	t := 0
+	for _, c := range C {
+		t += c
+	}
+	return t + len(ratings)
+}
+
 // 167m Two Sum II - Input Array Is Sorted
 func twoSum(numbers []int, target int) []int {
 	l, r := 0, len(numbers)-1

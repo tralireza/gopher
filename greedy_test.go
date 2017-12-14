@@ -37,6 +37,12 @@ func Test134(t *testing.T) {
 	log.Print("-1 ?= ", canCompleteCircuit([]int{2, 3, 4}, []int{3, 4, 3}))
 }
 
+// 135m Candy
+func Test135(t *testing.T) {
+	log.Print("5 ?= ", candy([]int{1, 0, 2}))
+	log.Print("4 ?= ", candy([]int{1, 2, 2}))
+}
+
 // 167m Two Sum II - Input Array Is Sorted
 func Test167(t *testing.T) {
 	log.Print("[1 2] ?= ", twoSum([]int{2, 7, 11, 15}, 9))
