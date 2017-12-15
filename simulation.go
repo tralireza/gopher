@@ -36,22 +36,25 @@ func convert(s string, numRows int) string {
 
 // 68h Text Justification
 func fullJustify(words []string, maxWidth int) []string {
-	L := [][]string{}
-
-	llen, line := 0, []string{}
-	for _, w := range words {
-		if len(w) <= maxWidth-llen-len(line) {
-			line = append(line, w)
-			llen += len(w)
-		} else {
-			L = append(L, line)
-			llen, line = len(w), []string{w}
+	Pack := func() [][]string {
+		L := [][]string{}
+		llen, line := 0, []string{}
+		for _, w := range words {
+			if len(w) <= maxWidth-llen-len(line) {
+				line = append(line, w)
+				llen += len(w)
+			} else {
+				L = append(L, line)
+				llen, line = len(w), []string{w}
+			}
 		}
-	}
-	if len(line) > 0 {
-		L = append(L, line)
+		if len(line) > 0 {
+			L = append(L, line)
+		}
+		return L
 	}
 
+	L := Pack()
 	log.Print(L)
 
 	J := []string{}
