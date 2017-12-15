@@ -13,6 +13,13 @@ func Test6(t *testing.T) {
 
 }
 
+// 68h Text Justification
+func Test68(t *testing.T) {
+	log.Printf("-> %q", fullJustify([]string{"This", "is", "an", "example", "of", "text", "justification."}, 16))
+	log.Printf("-> %q", fullJustify([]string{"What", "must", "be", "acknowledgment", "shall", "be"}, 16))
+	log.Printf("-> %q", fullJustify([]string{"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"}, 20))
+}
+
 // 289m Game of Life
 func Test289(t *testing.T) {
 	gameOfLife([][]int{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}})

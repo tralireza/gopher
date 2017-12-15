@@ -34,6 +34,57 @@ func convert(s string, numRows int) string {
 	return strings.Join(S, "")
 }
 
+// 68h Text Justification
+func fullJustify(words []string, maxWidth int) []string {
+	L := [][]string{}
+
+	llen, line := 0, []string{}
+	for _, w := range words {
+		if len(w) <= maxWidth-llen-len(line) {
+			line = append(line, w)
+			llen += len(w)
+		} else {
+			L = append(L, line)
+			llen, line = len(w), []string{w}
+		}
+	}
+	if len(line) > 0 {
+		L = append(L, line)
+	}
+
+	log.Print(L)
+
+	J := []string{}
+	for i, line := range L {
+		if i == len(L)-1 || len(line) == 1 { // last line or one word line are only left-justified
+			llen := 0
+			for _, w := range line {
+				llen += len(w)
+			}
+			for llen < maxWidth-len(line)+1 { // left-justify last word of line
+				line[len(line)-1] += " "
+				llen++
+			}
+		} else { // middle lines -> fully justified
+			llen := 0
+			for _, w := range line {
+				llen += len(w)
+			}
+			p := 0
+			for llen < maxWidth-len(line)+1 {
+				line[p] += " "
+				llen++
+				p++
+				if p == len(line)-1 {
+					p = 0
+				}
+			}
+		}
+		J = append(J, strings.Join(line, " "))
+	}
+	return J
+}
+
 // 289m Game of Life
 func gameOfLife(board [][]int) {
 	log.Print(" <- ", board)
