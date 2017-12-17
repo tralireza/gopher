@@ -6,6 +6,13 @@ import (
 	"testing"
 )
 
+// 30h Substring With Concatenation of All Words
+func Test30(t *testing.T) {
+	log.Print("[0 9] ?= ", findSubstring("barfoothefoobarman", []string{"foo", "bar"}))
+	log.Print("[] ?= ", findSubstring("wordgoodgoodgoodbestword", []string{"word", "good", "best", "word"}))
+	log.Print("[6 9 12] ?= ", findSubstring("barfoofoobarthefoobarman", []string{"bar", "foo", "the"}))
+}
+
 // 380m Insert Delete GetRandom O(1)
 type RandomizedSet struct {
 	Mem  map[int]int

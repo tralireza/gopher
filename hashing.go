@@ -1,5 +1,52 @@
 package gopher
 
+import (
+	"maps"
+)
+
+// 30h Substring With Concatenation of All Words
+func findSubstring(s string, words []string) []int {
+	Mem := map[string]int{}
+	for _, w := range words {
+		Mem[w]++
+	}
+
+	lW := len(words[0])      // Word length
+	wSize := lW * len(words) // Window size
+
+	R := []int{}
+
+	V := map[string]int{}
+	l, r := 0, 0
+	for r <= len(s)-lW {
+		w := s[r : r+lW]
+		if Mem[w] == 0 {
+			r++
+			l++
+			clear(V)
+			continue
+		}
+		r += lW
+
+		V[w]++
+		if r-l == wSize {
+			if maps.Equal(Mem, V) {
+				R = append(R, l)
+			}
+
+			if V[s[l:l+lW]] > 0 {
+				V[s[l:l+lW]]--
+				if V[s[l:l+lW]] == 0 {
+					delete(V, s[l:l+lW])
+				}
+			}
+			l += lW
+		}
+	}
+
+	return R
+}
+
 // 76h Minimum Window Substring
 func minWindow(s string, t string) string {
 	idx := func(l byte) int {
