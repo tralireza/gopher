@@ -108,18 +108,19 @@ func findAnagrams(s string, p string) []int {
 	}
 	return R
 }
+
 // 1460 Make Two Arrays Equal by Reversing Subarrays
 func canBeEqual(target []int, arr []int) bool {
-  hT, hA := make([]int, 10_000+1), make([]int, 10_000+1)
-  for i, n := range arr {
-    hA[n]++
-    hT[target[i]]++
-  }
+	hT, hA := make([]int, 10_000+1), make([]int, 10_000+1)
+	for i, n := range arr {
+		hA[n]++
+		hT[target[i]]++
+	}
 
-  for n, f := range hA {
-    if hT[n] != f {
-      return false
-    }
-  }
-  return true
+	for n, f := range hA {
+		if hT[n] != f {
+			return false
+		}
+	}
+	return true
 }
