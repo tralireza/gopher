@@ -11,6 +11,9 @@ func Test30(t *testing.T) {
 	log.Print("[0 9] ?= ", findSubstring("barfoothefoobarman", []string{"foo", "bar"}))
 	log.Print("[] ?= ", findSubstring("wordgoodgoodgoodbestword", []string{"word", "good", "best", "word"}))
 	log.Print("[6 9 12] ?= ", findSubstring("barfoofoobarthefoobarman", []string{"bar", "foo", "the"}))
+
+	log.Print("[1 2 3 4 5 6 7 8 9 10] ?= ", findSubstring("aaaaaaaaaaaaaa", []string{"aa", "aa"}))
+	log.Print("[97] ?= ", findSubstring("abbaccaaabcabbbccbabbccabbacabcacbbaabbbbbaaabaccaacbccabcbababbbabccabacbbcabbaacaccccbaabcabaabaaaabcaabcacabaa", []string{"cac", "aaa", "aba", "aab", "abc"}))
 }
 
 // 380m Insert Delete GetRandom O(1)

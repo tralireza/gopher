@@ -16,34 +16,40 @@ func findSubstring(s string, words []string) []int {
 
 	R := []int{}
 
-	V := map[string]int{}
-	l, r := 0, 0
-	for r <= len(s)-lW {
-		w := s[r : r+lW]
-		if Mem[w] == 0 {
-			r++
-			l++
-			clear(V)
-			continue
-		}
-		r += lW
+	for x := 0; x < lW; x++ {
+		l, r := x, x
+		V := map[string]int{}
 
-		V[w]++
-		if r-l == wSize {
-			if maps.Equal(Mem, V) {
-				R = append(R, l)
+		for r <= len(s)-lW {
+			w := s[r : r+lW]
+			if Mem[w] == 0 {
+				r += lW
+				if r-l > wSize {
+					if V[s[l:l+lW]] > 0 {
+						V[s[l:l+lW]]--
+					}
+					l += lW
+				}
+				continue
 			}
 
-			if V[s[l:l+lW]] > 0 {
-				V[s[l:l+lW]]--
-				if V[s[l:l+lW]] == 0 {
-					delete(V, s[l:l+lW])
+			r += lW
+			V[w]++
+
+			for r-l > wSize {
+				if V[s[l:l+lW]] > 0 {
+					V[s[l:l+lW]]--
+				}
+				l += lW
+			}
+
+			if r-l == wSize {
+				if maps.Equal(Mem, V) {
+					R = append(R, l)
 				}
 			}
-			l += lW
 		}
 	}
-
 	return R
 }
 
