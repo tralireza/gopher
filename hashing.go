@@ -15,7 +15,6 @@ func findSubstring(s string, words []string) []int {
 	wSize := lW * len(words) // Window size
 
 	R := []int{}
-
 	for x := 0; x < lW; x++ {
 		l, r := x, x
 		V := map[string]int{}
