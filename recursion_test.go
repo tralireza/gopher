@@ -11,6 +11,13 @@ func Test40(t *testing.T) {
 	log.Print(" ?= ", combinationSum2([]int{2, 5, 2, 1, 2}, 5))
 }
 
+// 224h Basic Calculator
+func Test224(t *testing.T) {
+	log.Print("2 ?= ", calculate("1 + 1"))
+	log.Print("3 ?= ", calculate(" 2-1 + 2 "))
+	log.Print("23 ?= ", calculate("(1+(4+5+2)-3)+(6+8)"))
+}
+
 // 650m 2 Keys Keyboard
 func Test650(t *testing.T) {
 	// 1 <= n <= 1000

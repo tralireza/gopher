@@ -4,6 +4,7 @@ import (
 	"log"
 	"math"
 	"slices"
+	"strings"
 )
 
 // 40m Combination Sum II
@@ -41,6 +42,58 @@ func combinationSum2(candidates []int, target int) [][]int {
 	Search(0, 0)
 
 	return R
+}
+
+// 224h Basic Calculator
+func calculate(s string) int {
+	i := 0
+	s = strings.Replace(s, " ", "", -1)
+
+	Value := func() int {
+		v := 0
+		for ; i < len(s) && s[i] >= '0' && s[i] <= '9'; i++ {
+			v = 10*v + int(s[i]-'0')
+		}
+		return v
+	}
+
+	var Calc func() int
+	Calc = func() int {
+		var v int
+		for i < len(s) {
+			switch s[i] {
+			case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
+				v = Value()
+
+			case '(':
+				i++
+				v += Calc()
+			case ')':
+				i++
+				return v
+
+			case '+':
+				i++
+				switch s[i] {
+				case '(':
+					v += Calc()
+				default:
+					v += Value()
+				}
+			case '-':
+				i++
+				switch s[i] {
+				case '(':
+					v -= Calc()
+				default:
+					v -= Value()
+				}
+			}
+		}
+		return v
+	}
+
+	return Calc()
 }
 
 // 650m 2 Keys Keyboard
