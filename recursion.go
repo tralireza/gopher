@@ -67,7 +67,7 @@ func calculate(s string) int {
 
 			case '(':
 				i++
-				v += Calc()
+				v = Calc()
 			case ')':
 				i++
 				return v
