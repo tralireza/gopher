@@ -19,6 +19,7 @@ func Test224(t *testing.T) {
 
 	log.Print("0 ?= ", calculate("0"))
 	log.Print("-2 ?= ", calculate("-2"))
+	log.Print("1 ?= ", calculate("+1"))
 }
 
 // 650m 2 Keys Keyboard
