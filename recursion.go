@@ -47,7 +47,7 @@ func combinationSum2(candidates []int, target int) [][]int {
 // 224h Basic Calculator
 func calculate(s string) int {
 	i := 0
-	s = strings.Replace(s, " ", "", -1)
+	s = strings.Replace(s, " ", "", -1) // Noise-reduction!
 
 	Value := func() int {
 		v := 0
