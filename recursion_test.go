@@ -21,6 +21,7 @@ func Test224(t *testing.T) {
 	log.Print("-2 ?= ", calculate("-2"))
 	log.Print("1 ?= ", calculate("+1"))
 	log.Print("-3 ?= ", calculate("1-(1+3)"))
+	log.Print("2 ?= ", calculate("13-(1+3+((3+1)+4))+1"))
 }
 
 // 650m 2 Keys Keyboard

@@ -76,6 +76,7 @@ func calculate(s string) int {
 				i++
 				switch s[i] {
 				case '(':
+					i++
 					v += Calc()
 				default:
 					v += Value()
@@ -84,6 +85,7 @@ func calculate(s string) int {
 				i++
 				switch s[i] {
 				case '(':
+					i++
 					v -= Calc()
 				default:
 					v -= Value()
