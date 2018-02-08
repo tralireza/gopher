@@ -11,6 +11,25 @@ type TreeNode struct {
 	Left, Right *TreeNode
 }
 
+// 106m Construct Binary Tree from Inorder and Postorder Traversal
+func buildTree(inorder []int, postorder []int) *TreeNode {
+	if len(inorder) == 0 {
+		return nil
+	}
+	if len(inorder) == 1 {
+		return &TreeNode{Val: inorder[0]}
+	}
+
+	r := &TreeNode{Val: postorder[len(postorder)-1]}
+	i := 0
+	for r.Val != inorder[i] {
+		i++
+	}
+	r.Left = buildTree(inorder[:i], postorder[:i])
+	r.Right = buildTree(inorder[i+1:], postorder[i:len(postorder)-1])
+	return r
+}
+
 // 1110m Delete Nodes And Return Forest
 func delNodes(root *TreeNode, to_delete []int) []*TreeNode {
 	// 1 <= n.Val, length(to_delete) <= 1000

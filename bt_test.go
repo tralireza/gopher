@@ -6,6 +6,11 @@ import (
 	"testing"
 )
 
+// 106m Construct Binary Tree from Inorder and Postorder Traversal
+func Test106(t *testing.T) {
+	log.Print(" ?= ", buildTree([]int{9, 3, 15, 20, 7}, []int{9, 15, 7, 20, 3}))
+}
+
 // 1110m Delete Nodes And Return Forest
 func Test1110(t *testing.T) {
 	Draw := func(n *TreeNode) {
