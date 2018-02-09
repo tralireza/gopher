@@ -3,6 +3,7 @@ package gopher
 import (
 	"log"
 	"slices"
+	"strconv"
 	"strings"
 )
 
@@ -142,6 +143,78 @@ func gameOfLife(board [][]int) {
 	}
 
 	log.Print(" -> ", board)
+}
+
+// 592m Fraction Addition and Subtraction
+func fractionAddition(expression string) string {
+	gcd := func(a, b int) int {
+		if b > a {
+			a, b = b, a
+		}
+		for a%b != 0 {
+			a, b = b, a%b
+		}
+		return b
+	}
+
+	i := 0
+
+	e := expression
+	Value := func() int {
+		v := 0
+		for ; i < len(e) && e[i] <= '9' && e[i] >= '0'; i++ {
+			v = 10*v + int(expression[i]-'0')
+		}
+		return v
+	}
+
+	n, d := 1, 1
+	if e[0] == '-' {
+		d *= -1
+		i++
+	}
+
+	for i < len(e) {
+		switch e[i] {
+		case '+':
+			i++ // Skip +
+			N := Value()
+			i++ // Skip /
+			D := Value()
+
+			n, d = n*D+N*d, d*D
+			r := gcd(n, d)
+			n, d = n/r, d/r
+
+		case '-':
+			i++ // Skip -
+			N := Value()
+			i++ // Skip /
+			D := Value()
+
+			n, d = n*D-N*d, d*D
+			r := gcd(n, d)
+			n, d = n/r, d/r
+
+		default: // first n/d
+			n *= Value()
+			i++
+			d *= Value()
+		}
+	}
+
+	abs := func(n int) int {
+		if n < 0 {
+			return -n
+		}
+		return n
+	}
+
+	expOut := strconv.Itoa(abs(n)) + "/" + strconv.Itoa(abs(d))
+	if n*d < 0 {
+		return "-" + expOut
+	}
+	return expOut
 }
 
 // 840m Magic Squares In Grid

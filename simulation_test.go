@@ -26,6 +26,13 @@ func Test289(t *testing.T) {
 	gameOfLife([][]int{{1, 1}, {1, 0}})
 }
 
+// 592m Fraction Addition and Subtraction
+func Test592(t *testing.T) {
+	log.Print("0/1 ?= ", fractionAddition("-1/2+1/2"))
+	log.Print("1/3 ?= ", fractionAddition("-1/2+1/2+1/3"))
+	log.Print("-1/6 ?= ", fractionAddition("1/3-1/2"))
+}
+
 // 840m Magic Squares In Grid
 func Test840(t *testing.T) {
 	log.Print("1 ?= ", numMagicSquaresInside([][]int{{4, 3, 8, 4}, {9, 5, 1, 9}, {2, 7, 6, 2}}))
