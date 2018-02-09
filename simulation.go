@@ -151,10 +151,10 @@ func fractionAddition(expression string) string {
 		if b > a {
 			a, b = b, a
 		}
-		for a%b != 0 {
+		for b != 0 {
 			a, b = b, a%b
 		}
-		return b
+		return a
 	}
 
 	i := 0
