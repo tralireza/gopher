@@ -8,6 +8,15 @@ import (
 	"testing"
 )
 
+// 210m Course Schedule II
+func Test210(t *testing.T) {
+	// Prerequisite,  {a_i, b_i}  ::  b_i -> a_i
+
+	log.Print("[0 1] ?= ", findOrder(2, [][]int{{1, 0}}))
+	log.Print("[0 2 1 3] ?= ", findOrder(4, [][]int{{1, 0}, {2, 0}, {3, 1}, {3, 2}}))
+	log.Print("[0] ?= ", findOrder(1, [][]int{}))
+}
+
 // 595m Regions Cut By Slashes
 func Test595(t *testing.T) {
 	WithDJS := func(grid []string) int {

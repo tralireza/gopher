@@ -7,6 +7,58 @@ import (
 	"slices"
 )
 
+// 210m Course Schedule II
+func findOrder(numCourses int, prerequisites [][]int) []int {
+	G := make([][]int, numCourses)
+	for _, e := range prerequisites {
+		G[e[1]] = append(G[e[1]], e[0])
+	}
+
+	D := make([]int, numCourses) // in-Degree of all N nodes :: [0..n) courses
+	for v := range G {
+		for _, u := range G[v] { // edge: v -> u
+			D[u]++
+		}
+	}
+
+	Color := make([]int, numCourses)
+	tSort := []int{} // Topological-Sort data
+
+	var DFS func(int) bool // true if cycle detected
+	DFS = func(v int) bool {
+		Color[v] = 1 // Visiting
+
+		for _, u := range G[v] {
+			switch Color[u] {
+			case 0:
+				if DFS(u) {
+					return true // terminate early with cycles...
+				}
+			case 1:
+				return true // cycle detected
+			}
+		}
+
+		Color[v] = 2 // Done
+		tSort = append(tSort, v)
+		return false // no cycle
+	}
+
+	for n := range D {
+		if D[n] == 0 {
+			if DFS(n) {
+				return []int{} // with cycles, no schedule
+			}
+		}
+	}
+
+	if len(tSort) != numCourses {
+		return []int{}
+	}
+	slices.Reverse(tSort)
+	return tSort
+}
+
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
 type E1334 struct{ n, distance int }
 type PQ1334 []E1334
