@@ -237,6 +237,50 @@ func floodFill(image [][]int, sr int, sc int, color int) [][]int {
 	return image
 }
 
+// 909m Snakes & Ladders
+func snakesAndLadders(board [][]int) int {
+	Rows, Cols := len(board), len(board[0])
+
+	Cord := func(n int) (r, c int) {
+		n--
+		r = Rows - 1 - n/Rows
+		if (Rows-r)&1 == 1 {
+			c = n % Cols
+			return
+		}
+		c = Cols - 1 - n%Cols
+		return
+	}
+
+	Q := []int{1}
+	r, c := Cord(1)
+	board[r][c] = 0 // Done!
+
+	throws := 0      // Dice throws...
+	for len(Q) > 0 { // BFS
+		var n int
+		for range len(Q) {
+			n, Q = Q[0], Q[1:]
+			if n == Rows*Cols {
+				return throws
+			}
+
+			for d := 1; d <= 6 && n+d <= Rows*Cols; d++ {
+				r, c := Cord(n + d)
+				if board[r][c] == -1 {
+					Q = append(Q, n+d)
+				} else if board[r][c] > 0 {
+					Q = append(Q, board[r][c])
+				}
+				board[r][c] = 0 // Done!
+			}
+		}
+		throws++
+	}
+
+	return -1
+}
+
 // 1192h Critical Connections in a Network
 func criticalConnections(n int, connections [][]int) [][]int {
 	G := make([][]int, n)

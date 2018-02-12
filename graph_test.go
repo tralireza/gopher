@@ -126,6 +126,14 @@ func Test733(t *testing.T) {
 	log.Print(floodFill([][]int{{0, 0, 0}, {0, 0, 0}}, 0, 0, 0))
 }
 
+// 909m Snakes & Ladders
+func Test909(t *testing.T) {
+	// 'Boustrophedon' style
+
+	log.Print("4 ?= ", snakesAndLadders([][]int{{-1, -1, -1, -1, -1, -1}, {-1, -1, -1, -1, -1, -1}, {-1, -1, -1, -1, -1, -1}, {-1, 35, -1, -1, 13, -1}, {-1, -1, -1, -1, -1, -1}, {-1, 15, -1, -1, -1, -1}}))
+	log.Print("1 ?= ", snakesAndLadders([][]int{{-1, -1}, {-1, 3}}))
+}
+
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
 func Test1334(t *testing.T) {
 	// 1 <= Weight_i <= 10^4
