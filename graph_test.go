@@ -17,6 +17,12 @@ func Test210(t *testing.T) {
 	log.Print("[0] ?= ", findOrder(1, [][]int{}))
 }
 
+// 433m Minimum Genetic Mutation
+func Test443(t *testing.T) {
+	log.Print("1 ?= ", minMutation("AACCGGTT", "AACCGGTA", []string{"AACCGGTA"}))
+	log.Print("2 ?= ", minMutation("AACCGGTT", "AAACGGTA", []string{"AACCGGTA", "AACCGCTA", "AAACGGTA"}))
+}
+
 // 595m Regions Cut By Slashes
 func Test595(t *testing.T) {
 	WithDJS := func(grid []string) int {

@@ -138,6 +138,41 @@ func findTheCity(n int, edges [][]int, distanceThreshold int) int {
 	return city
 }
 
+// 433m Minimum Genetic Mutation
+func minMutation(startGene string, endGene string, bank []string) int {
+	Mem := map[string]bool{}
+	for _, m := range bank {
+		Mem[m] = true
+	}
+
+	Q := []string{startGene}
+	m := 0
+
+	Vis := map[string]bool{}
+
+	for len(Q) > 0 {
+		var v string
+		for range len(Q) {
+			v, Q = Q[0], Q[1:]
+			if v == endGene {
+				return m
+			}
+
+			for i := range 8 {
+				for _, x := range []string{"A", "C", "T", "G"} {
+					u := v[:i] + x + v[i+1:]
+					if Mem[u] && !Vis[u] {
+						Q = append(Q, u)
+					}
+				}
+			}
+		}
+		m++
+	}
+
+	return -1
+}
+
 // 595m Regions Cut By Slashes
 func regionsBySlashes(grid []string) int {
 	for r := range grid {
