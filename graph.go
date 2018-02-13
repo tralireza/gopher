@@ -149,6 +149,7 @@ func minMutation(startGene string, endGene string, bank []string) int {
 	m := 0
 
 	Vis := map[string]bool{}
+	Vis[startGene] = true
 
 	for len(Q) > 0 {
 		var v string
@@ -162,6 +163,7 @@ func minMutation(startGene string, endGene string, bank []string) int {
 				for _, x := range []string{"A", "C", "T", "G"} {
 					u := v[:i] + x + v[i+1:]
 					if Mem[u] && !Vis[u] {
+						Vis[u] = true
 						Q = append(Q, u)
 					}
 				}
