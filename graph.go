@@ -160,8 +160,8 @@ func minMutation(startGene string, endGene string, bank []string) int {
 				for _, x := range []string{"A", "C", "T", "G"} {
 					u := v[:i] + x + v[i+1:]
 					if Mem[u] {
-						delete(Mem, u)
 						Q = append(Q, u)
+						delete(Mem, u)
 					}
 				}
 			}
