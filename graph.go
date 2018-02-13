@@ -148,9 +148,6 @@ func minMutation(startGene string, endGene string, bank []string) int {
 	Q := []string{startGene}
 	m := 0
 
-	Vis := map[string]bool{}
-	Vis[startGene] = true
-
 	for len(Q) > 0 {
 		var v string
 		for range len(Q) {
@@ -162,8 +159,8 @@ func minMutation(startGene string, endGene string, bank []string) int {
 			for i := range 8 {
 				for _, x := range []string{"A", "C", "T", "G"} {
 					u := v[:i] + x + v[i+1:]
-					if Mem[u] && !Vis[u] {
-						Vis[u] = true
+					if Mem[u] {
+						delete(Mem, u)
 						Q = append(Q, u)
 					}
 				}
