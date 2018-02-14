@@ -14,11 +14,12 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 		Mem[w] = true
 	}
 
-	L := len(beginWord)
+	N := len(beginWord)
+
 	Q := []string{beginWord}
 	delete(Mem, beginWord)
 
-	t := 1
+	t := 1           // BFS layers
 	for len(Q) > 0 { // BFS
 		var v string
 		for range len(Q) {
@@ -27,7 +28,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 				return t
 			}
 
-			for l := range L {
+			for l := range N {
 				for x := 'a'; x <= 'z'; x++ {
 					u := v[:l] + string(x) + v[l+1:]
 					if Mem[u] {
