@@ -7,6 +7,42 @@ import (
 	"slices"
 )
 
+// 127h Word Ladder
+func ladderLength(beginWord string, endWord string, wordList []string) int {
+	Mem := map[string]bool{}
+	for _, w := range wordList {
+		Mem[w] = true
+	}
+
+	L := len(beginWord)
+	Q := []string{beginWord}
+	delete(Mem, beginWord)
+
+	t := 1
+	for len(Q) > 0 { // BFS
+		var v string
+		for range len(Q) {
+			v, Q = Q[0], Q[1:]
+			if v == endWord {
+				return t
+			}
+
+			for l := range L {
+				for x := 'a'; x <= 'z'; x++ {
+					u := v[:l] + string(x) + v[l+1:]
+					if Mem[u] {
+						Q = append(Q, u)
+						delete(Mem, u)
+					}
+				}
+			}
+		}
+		t++
+	}
+
+	return 0
+}
+
 // 210m Course Schedule II
 func findOrder(numCourses int, prerequisites [][]int) []int {
 	G := make([][]int, numCourses)

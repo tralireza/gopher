@@ -8,6 +8,12 @@ import (
 	"testing"
 )
 
+// 127h Word Ladder
+func Test127(t *testing.T) {
+	log.Print("5 ?= ", ladderLength("hit", "cog", []string{"hot", "dot", "dog", "lot", "log", "cog"}))
+	log.Print("0 ?= ", ladderLength("hit", "cog", []string{"hot", "dot", "dog", "lot", "log"}))
+}
+
 // 210m Course Schedule II
 func Test210(t *testing.T) {
 	// Prerequisite,  {a_i, b_i}  ::  b_i -> a_i
