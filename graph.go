@@ -27,6 +27,10 @@ func findLadders(beginWord string, endWord string, wordList []string) [][]string
 			return
 		}
 
+		if len(r) >= rMin {
+			return
+		}
+
 		for l := range len(beginWord) {
 			for x := 'a'; x <= 'z'; x++ {
 				u := v[:l] + string(x) + v[l+1:]
