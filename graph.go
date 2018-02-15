@@ -7,6 +7,53 @@ import (
 	"slices"
 )
 
+// 126h Word Ladder II
+func findLadders(beginWord string, endWord string, wordList []string) [][]string {
+	Mem := map[string]bool{}
+	for _, w := range wordList {
+		Mem[w] = true
+	}
+
+	R := [][]string{}
+
+	Vis := map[string]bool{}
+	r, rMin := []string{}, len(Mem)+1
+
+	var Search func(string)
+	Search = func(v string) {
+		if v == endWord {
+			rMin = min(rMin, len(r))
+			R = append(R, append([]string{}, r...))
+			return
+		}
+
+		for l := range len(beginWord) {
+			for x := 'a'; x <= 'z'; x++ {
+				u := v[:l] + string(x) + v[l+1:]
+				if Mem[u] && !Vis[u] {
+					r = append(r, u)
+					Vis[u] = true
+					Search(u)
+					Vis[u] = false
+					r = r[:len(r)-1]
+				}
+			}
+		}
+	}
+
+	r = append(r, beginWord)
+	Search(beginWord)
+
+	wtr := 0
+	for rdr := range R {
+		if len(R[rdr]) == rMin {
+			R[wtr] = R[rdr]
+			wtr++
+		}
+	}
+	return R[:wtr]
+}
+
 // 127h Word Ladder
 func ladderLength(beginWord string, endWord string, wordList []string) int {
 	Mem := map[string]bool{}

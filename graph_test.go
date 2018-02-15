@@ -8,6 +8,12 @@ import (
 	"testing"
 )
 
+// 126h Word Ladder II
+func Test126(t *testing.T) {
+	log.Printf(`["hit" "hot" "dot" "dog" "cog"] ["hit" "hot" "lot" "log" "cog"] ?= %q`, findLadders("hit", "cog", []string{"hot", "dot", "dog", "lot", "log", "cog"}))
+	log.Printf("[] ?= %q", findLadders("hit", "cog", []string{"hot", "dot", "dog", "lot", "log"}))
+}
+
 // 127h Word Ladder
 func Test127(t *testing.T) {
 	log.Print("5 ?= ", ladderLength("hit", "cog", []string{"hot", "dot", "dog", "lot", "log", "cog"}))
