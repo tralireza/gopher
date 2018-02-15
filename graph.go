@@ -14,48 +14,46 @@ func findLadders(beginWord string, endWord string, wordList []string) [][]string
 		Mem[w] = true
 	}
 
-	R := [][]string{}
-
-	Vis := map[string]bool{}
-	r, rMin := []string{}, len(Mem)+1
-
-	var Search func(string)
-	Search = func(v string) {
-		if v == endWord {
-			rMin = min(rMin, len(r))
-			R = append(R, append([]string{}, r...))
-			return
-		}
-
-		if len(r) >= rMin {
-			return
-		}
-
-		for l := range len(beginWord) {
+	Neighbors := func(w string) []string {
+		R := []string{}
+		for l := range len(w) {
 			for x := 'a'; x <= 'z'; x++ {
-				u := v[:l] + string(x) + v[l+1:]
-				if Mem[u] && !Vis[u] {
-					r = append(r, u)
-					Vis[u] = true
-					Search(u)
-					Vis[u] = false
-					r = r[:len(r)-1]
+				u := w[:l] + string(x) + w[l+1:]
+				if Mem[u] {
+					R = append(R, u)
 				}
 			}
 		}
+		return R
 	}
 
-	r = append(r, beginWord)
-	Search(beginWord)
+	Q := map[string][][]string{} // initial BFS layer
+	Q[beginWord] = [][]string{{beginWord}}
 
-	wtr := 0
-	for rdr := range R {
-		if len(R[rdr]) == rMin {
-			R[wtr] = R[rdr]
-			wtr++
+	for len(Q) > 0 {
+		N := map[string][][]string{} // next BFS layer
+
+		for v, R := range Q {
+			if v == endWord {
+				return R
+			}
+
+			for _, u := range Neighbors(v) {
+				for _, r := range R {
+					rcopy := []string{}
+					rcopy = append(rcopy, r...)
+					N[u] = append(N[u], append(rcopy, u))
+				}
+			}
 		}
+
+		for w := range N {
+			delete(Mem, w)
+		}
+		Q = N // BFS layer switch
 	}
-	return R[:wtr]
+
+	return [][]string{}
 }
 
 // 127h Word Ladder
