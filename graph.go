@@ -40,9 +40,7 @@ func findLadders(beginWord string, endWord string, wordList []string) [][]string
 
 			for _, u := range Neighbors(v) {
 				for _, r := range R {
-					rcopy := []string{}
-					rcopy = append(rcopy, r...)
-					N[u] = append(N[u], append(rcopy, u))
+					N[u] = append(N[u], append(r, u))
 				}
 			}
 		}
@@ -63,8 +61,6 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 		Mem[w] = true
 	}
 
-	N := len(beginWord)
-
 	Q := []string{beginWord}
 	delete(Mem, beginWord)
 
@@ -77,7 +73,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 				return t
 			}
 
-			for l := range N {
+			for l := range len(beginWord) {
 				for x := 'a'; x <= 'z'; x++ {
 					u := v[:l] + string(x) + v[l+1:]
 					if Mem[u] {
