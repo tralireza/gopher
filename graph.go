@@ -14,44 +14,68 @@ func findLadders(beginWord string, endWord string, wordList []string) [][]string
 		Mem[w] = true
 	}
 
-	Neighbors := func(w string) []string {
-		R := []string{}
-		for l := range len(w) {
-			for x := 'a'; x <= 'z'; x++ {
-				u := w[:l] + string(x) + w[l+1:]
-				if Mem[u] {
-					R = append(R, u)
-				}
-			}
-		}
-		return R
-	}
+	Prev := map[string][]string{}
 
-	Q := map[string][][]string{} // initial BFS layer
-	Q[beginWord] = [][]string{{beginWord}}
+	Dist := map[string]int{}
+	Dist[beginWord] = 0
 
+	Q := []string{beginWord}
+	var v string
 	for len(Q) > 0 {
-		N := map[string][][]string{} // next BFS layer
+		v, Q = Q[0], Q[1:]
 
-		for v, R := range Q {
-			if v == endWord {
-				return R
-			}
+		if Mem[v] {
+			delete(Mem, v)
+		}
 
-			for _, u := range Neighbors(v) {
-				for _, r := range R {
-					N[u] = append(N[u], append(r, u))
+		for u := range Mem {
+			diff := 0
+			for i := range len(beginWord) {
+				if v[i] != u[i] {
+					diff++
 				}
 			}
-		}
+			if diff > 1 {
+				continue // v & u :: not-adjacent
+			}
 
-		for w := range N {
-			delete(Mem, w)
+			if Dist[u] == 0 || Dist[u] > Dist[v]+1 {
+				Dist[u] = Dist[v] + 1
+				Prev[u] = append(Prev[u], v)
+				Q = append(Q, u)
+				continue
+			}
+
+			if Dist[u] == Dist[v]+1 {
+				Prev[u] = append(Prev[u], v)
+			}
 		}
-		Q = N // BFS layer switch
 	}
 
-	return [][]string{}
+	log.Print("Dist :: ", Dist)
+	log.Print("Prev :: ", Prev)
+
+	if Dist[endWord] == 0 {
+		return [][]string{}
+	}
+
+	R := [][]string{}
+	var BackTrack func(string, []string)
+	BackTrack = func(v string, r []string) {
+		if v == beginWord {
+			t := append([]string{}, r...)
+			slices.Reverse(t)
+			R = append(R, t)
+			return
+		}
+		for _, u := range Prev[v] {
+			r = append(r, u)
+			BackTrack(u, r)
+			r = r[:len(r)-1]
+		}
+	}
+	BackTrack(endWord, []string{endWord})
+	return R
 }
 
 // 127h Word Ladder
