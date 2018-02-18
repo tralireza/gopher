@@ -4,6 +4,7 @@ import (
 	"log"
 	"math"
 	"slices"
+	"strconv"
 )
 
 // 274m H-Index
@@ -37,6 +38,72 @@ func hIndex(citations []int) int {
 		}
 	}
 	return h
+}
+
+// 564h Find the Closest Palindrome
+func nearestPalindromic(n string) string {
+	Value := func(s string) int {
+		v := 0
+		for i := 0; i < len(s); i++ {
+			v = v*10 + int(s[i]-'0')
+		}
+		return v
+	}
+
+	N := Value(n)
+
+	Palin := func(v int) int {
+		s := strconv.Itoa(v)
+		l, r := (len(s)-1)/2, len(s)/2
+		bs := []byte(s)
+		for l >= 0 {
+			bs[r] = bs[l]
+			l--
+			r++
+		}
+
+		return Value(string(bs))
+	}
+
+	Next := func() int {
+		var v int
+		l, r := N, math.MaxInt
+		for l <= r {
+			m := l + (r-l)>>1
+			p := Palin(m)
+			if p > N {
+				v = p
+				r = m - 1
+			} else {
+				l = m + 1
+			}
+		}
+		return v
+	}
+
+	Prev := func() int {
+		var v int
+		l, r := 0, N
+		for l <= r {
+			m := l + (r-l)>>1
+			p := Palin(m)
+			if p < N {
+				v = p
+				l = m + 1
+			} else {
+				r = m - 1
+			}
+		}
+		return v
+	}
+
+	prev, next := Prev(), Next()
+	log.Print(prev, " <  N: ", N, "  < ", next)
+
+	if N-prev <= next-N {
+		return strconv.Itoa(prev)
+	}
+	return strconv.Itoa(next)
 }
 
 // 3224m Minimum Array Changes to Make Difference Equal

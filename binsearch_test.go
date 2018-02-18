@@ -13,6 +13,15 @@ func Test274(t *testing.T) {
 	log.Print("0 ?= ", hIndex([]int{0}))
 }
 
+// 564h Find the Closest Palindrome
+func Test564(t *testing.T) {
+	// 1 <= N <= 1^18-1
+
+	log.Print("121 ?= ", nearestPalindromic("123"))
+	log.Print("0 ?= ", nearestPalindromic("1"))
+	log.Print("99799 ?= ", nearestPalindromic("99800"))
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func Test3224(t *testing.T) {
 	// 0 <= Array[i] <= k <= 10^5
