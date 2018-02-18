@@ -50,8 +50,6 @@ func nearestPalindromic(n string) string {
 		return v
 	}
 
-	N := Value(n)
-
 	Palin := func(v int) int {
 		s := strconv.Itoa(v)
 		l, r := (len(s)-1)/2, len(s)/2
@@ -61,9 +59,10 @@ func nearestPalindromic(n string) string {
 			l--
 			r++
 		}
-
 		return Value(string(bs))
 	}
+
+	N := Value(n)
 
 	Next := func() int {
 		var v int
