@@ -15,7 +15,7 @@ func Test274(t *testing.T) {
 
 // 564h Find the Closest Palindrome
 func Test564(t *testing.T) {
-	// 1 <= N <= 1^18-1
+	// 1 <= N <= 10^18-1
 
 	log.Print("121 ?= ", nearestPalindromic("123"))
 	log.Print("0 ?= ", nearestPalindromic("1"))
