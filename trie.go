@@ -73,7 +73,7 @@ func findWords(board [][]byte, words []string) []string {
 		}
 		if n {
 			R = append(R, w)
-			Remove(trie, w)
+			Remove(trie, w) // to optimize BackTracking
 		}
 
 		for i := range 4 {
@@ -81,7 +81,7 @@ func findWords(board [][]byte, words []string) []string {
 			if x >= 0 && x < Rows && y >= 0 && y < Cols && !Vis[[2]int{x, y}] {
 				Vis[[2]int{x, y}] = true
 				DFS(x, y, w+string(board[x][y]))
-				Vis[[2]int{x, y}] = false
+				Vis[[2]int{x, y}] = false // BackTracking ...
 			}
 		}
 	}
