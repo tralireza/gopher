@@ -89,6 +89,7 @@ func findWords(board [][]byte, words []string) []string {
 	for r := 0; r < Rows; r++ {
 		for c := 0; c < Cols; c++ {
 			Vis = map[[2]int]bool{}
+			Vis[[2]int{r, c}] = true
 			DFS(r, c, string(board[r][c]))
 		}
 	}
