@@ -15,6 +15,8 @@ func Test40(t *testing.T) {
 func Test77(t *testing.T) {
 	log.Print(" ?= ", combine(4, 2))
 	log.Print(" ?= ", combine(1, 1))
+
+	log.Print(" ?= ", combine(7, 3))
 }
 
 // 224h Basic Calculator
