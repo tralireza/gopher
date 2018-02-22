@@ -44,6 +44,30 @@ func combinationSum2(candidates []int, target int) [][]int {
 	return R
 }
 
+// 77m Combinations
+func combine(n int, k int) [][]int {
+	R := [][]int{}
+	var r []int
+
+	var Choose func(int)
+	Choose = func(start int) {
+		if len(r) == k {
+			R = append(R, append([]int{}, r...))
+			return
+		}
+
+		for i := start; i <= n; i++ {
+			r = append(r, i)
+			Choose(i + 1)
+			r = r[:len(r)-1]
+		}
+	}
+
+	Choose(1)
+
+	return R
+}
+
 // 224h Basic Calculator
 func calculate(s string) int {
 	i := 0
