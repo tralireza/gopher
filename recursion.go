@@ -7,6 +7,36 @@ import (
 	"strings"
 )
 
+// 17m Letter Combinations of a Phone Number
+func letterCombinations(digits string) []string {
+	R := []string{}
+	if len(digits) == 0 {
+		return R
+	}
+
+	Mem := []string{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}
+	var r []byte
+
+	var BT func(int)
+	BT = func(start int) {
+		if start == len(digits) {
+			R = append(R, string(r))
+			return
+		}
+
+		d := digits[start] - '0'
+		for i := start; i < len(Mem[d]); i++ {
+			r = append(r, Mem[d][i])
+			BT(start + 1)
+			r = r[:len(r)-1]
+		}
+	}
+
+	BT(0)
+
+	return R
+}
+
 // 40m Combination Sum II
 func combinationSum2(candidates []int, target int) [][]int {
 	slices.Sort(candidates)

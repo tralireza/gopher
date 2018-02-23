@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+// 17m Letter Combinations of a Phone Number
+func Test17(t *testing.T) {
+	log.Printf(`["ae" "af" "be" "bf" "ce" "cf"] ?= %q`, letterCombinations("23"))
+	log.Printf(`[] ?= %q`, letterCombinations(""))
+	log.Printf(`["a" "b" "c"] ?= %q`, letterCombinations("2"))
+}
+
 // 40m Combination Sum II
 func Test40(t *testing.T) {
 	log.Print(" ?= ", combinationSum2([]int{10, 1, 2, 7, 6, 1, 5}, 8))
