@@ -23,6 +23,8 @@ func Test46(t *testing.T) {
 	log.Print(" ?= ", permute([]int{1, 2, 3}))
 	log.Print(" ?= ", permute([]int{0, 1}))
 	log.Print(" ?= ", permute([]int{1}))
+
+	log.Print(" ?= ", permute([]int{0, 4, 5, 9}))
 }
 
 // 77m Combinations
