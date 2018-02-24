@@ -18,6 +18,13 @@ func Test40(t *testing.T) {
 	log.Print(" ?= ", combinationSum2([]int{2, 5, 2, 1, 2}, 5))
 }
 
+// 46m Permutations
+func Test46(t *testing.T) {
+	log.Print(" ?= ", permute([]int{1, 2, 3}))
+	log.Print(" ?= ", permute([]int{0, 1}))
+	log.Print(" ?= ", permute([]int{1}))
+}
+
 // 77m Combinations
 func Test77(t *testing.T) {
 	log.Print(" ?= ", combine(4, 2))

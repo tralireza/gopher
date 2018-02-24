@@ -74,6 +74,31 @@ func combinationSum2(candidates []int, target int) [][]int {
 	return R
 }
 
+// 46m Permutations
+func permute(nums []int) [][]int {
+	R := [][]int{}
+
+	var r []int
+	var BT func(int)
+	BT = func(start int) {
+		if start == len(nums) {
+			R = append(R, append([]int{}, r...))
+			return
+		}
+
+		for i := start; i < len(nums); i++ {
+			r[start], r[i] = r[i], r[start]
+			BT(start + 1)
+			r[start], r[i] = r[i], r[start]
+		}
+	}
+
+	r = append(r, nums...)
+	BT(0)
+
+	return R
+}
+
 // 77m Combinations
 func combine(n int, k int) [][]int {
 	R := [][]int{}
