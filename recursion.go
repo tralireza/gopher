@@ -99,6 +99,59 @@ func permute(nums []int) [][]int {
 	return R
 }
 
+// 52h N-Queens II
+func totalNQueens(n int) int {
+	B := make([][]byte, n)
+	for r := range B {
+		B[r] = slices.Repeat([]byte{'~'}, n)
+	}
+
+	Dir := []int{1, -1, -1, 1, 1} // diagonal movement...
+
+	t := 0
+
+	var Queen func(int)
+	Queen = func(r int) {
+		if r == n {
+			t++
+			log.Printf("*** -> %s", B)
+			return
+		}
+
+		for c := 0; c < n; c++ {
+			B[r][c] = 'Q' // place a Queen!
+
+			q := 0
+			for x := 0; x < n; x++ {
+				if B[x][c] == 'Q' {
+					q++
+				}
+			}
+			for d := range 4 { // diagonal...
+				r, c := r, c
+				for range n - 1 {
+					r += Dir[d]
+					c += Dir[d+1]
+					if r >= 0 && r < n && c >= 0 && c < n && B[r][c] == 'Q' {
+						q++
+					}
+				}
+			}
+
+			log.Printf("%d %d -> %s", r, q, B)
+			if q == 1 { // only 1 Queen roaming this realm!
+				Queen(r + 1) // go to next Row
+			}
+
+			B[r][c] = '~' // BackTrack :: remove the Queen
+		}
+	}
+
+	Queen(0) // Row: 0
+
+	return t
+}
+
 // 77m Combinations
 func combine(n int, k int) [][]int {
 	R := [][]int{}

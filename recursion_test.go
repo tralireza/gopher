@@ -27,6 +27,14 @@ func Test46(t *testing.T) {
 	log.Print(" ?= ", permute([]int{0, 4, 5, 9}))
 }
 
+// 52h N-Queens II
+func Test52(t *testing.T) {
+	// 1 <= N <= 9
+
+	log.Print("2 ?= ", totalNQueens(4))
+	log.Print("1 ?= ", totalNQueens(1))
+}
+
 // 77m Combinations
 func Test77(t *testing.T) {
 	log.Print(" ?= ", combine(4, 2))
