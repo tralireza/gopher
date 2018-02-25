@@ -138,7 +138,6 @@ func totalNQueens(n int) int {
 				}
 			}
 
-			log.Printf("%d %d -> %s", r, q, B)
 			if q == 1 { // only 1 Queen roaming this realm!
 				Queen(r + 1) // go to next Row
 			}

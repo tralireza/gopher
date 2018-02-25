@@ -33,6 +33,8 @@ func Test52(t *testing.T) {
 
 	log.Print("2 ?= ", totalNQueens(4))
 	log.Print("1 ?= ", totalNQueens(1))
+
+	log.Print(" ?= ", totalNQueens(8))
 }
 
 // 77m Combinations
