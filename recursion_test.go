@@ -31,10 +31,16 @@ func Test46(t *testing.T) {
 func Test52(t *testing.T) {
 	// 1 <= N <= 9
 
-	log.Print("2 ?= ", totalNQueens(4))
-	log.Print("1 ?= ", totalNQueens(1))
+	log.Print("2 ?= ", totalNQueens(4, func(int, [][]byte) {}))
+	log.Print("1 ?= ", totalNQueens(1, func(int, [][]byte) {}))
 
-	log.Print(" ?= ", totalNQueens(8))
+	log.Print(" ?= ", totalNQueens(8, func(i int, B [][]byte) {
+		if i == 92 {
+			for r := range B {
+				log.Printf(" -> %d :: %q", i, B[r])
+			}
+		}
+	}))
 }
 
 // 77m Combinations

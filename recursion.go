@@ -100,7 +100,7 @@ func permute(nums []int) [][]int {
 }
 
 // 52h N-Queens II
-func totalNQueens(n int) int {
+func totalNQueens(n int, f func(i int, B [][]byte)) int {
 	B := make([][]byte, n)
 	for r := range B {
 		B[r] = slices.Repeat([]byte{'~'}, n)
@@ -115,6 +115,7 @@ func totalNQueens(n int) int {
 		if r == n {
 			t++
 			log.Printf("*** -> %s", B)
+			f(t, B)
 			return
 		}
 
