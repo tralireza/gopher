@@ -35,9 +35,19 @@ func Test52(t *testing.T) {
 	log.Print("1 ?= ", totalNQueens(1, func(int, [][]byte) {}))
 
 	log.Print(" ?= ", totalNQueens(8, func(i int, B [][]byte) {
-		if i == 92 {
+		Row := func(r []byte) string {
+			s := ""
+			for _, b := range r {
+				if b == '~' {
+					b = '-'
+				}
+				s += "|" + string(b)
+			}
+			return s + "|"
+		}
+		if i == 89 || i == 92 {
 			for r := range B {
-				log.Printf(" -> %d :: %q", i, B[r])
+				log.Printf(" -> %d :: %s", i, Row(B[r]))
 			}
 		}
 	}))
