@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"testing"
 )
@@ -75,11 +76,36 @@ func Test224(t *testing.T) {
 }
 
 // 427m Construct Quad Tree
+func (n *Node427) String() string {
+	tl, tr, bl, br := "/", "/", "/", "/"
+	if n.TopLeft != nil {
+		tl = "->"
+	}
+	if n.TopRight != nil {
+		tr = "->"
+	}
+	if n.BottomLeft != nil {
+		bl = "->"
+	}
+	if n.BottomRight != nil {
+		br = "->"
+	}
+	return fmt.Sprintf("{ Val: %t  IsLeaf: %t   TL %s  TR %s  BL %s  BR %s }", n.Val, n.IsLeaf, tl, tr, bl, br)
+}
+
 func Test427(t *testing.T) {
 	// n = 2^x, 0 <= x <= 6
 
 	log.Printf("%+v", construct([][]int{{0, 1}, {1, 0}}))
-	log.Printf("%+v", construct([][]int{{1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}}))
+	log.Print("--")
+
+	qtree := construct([][]int{{1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}})
+	log.Print(qtree)
+	log.Print("   TL -> ", qtree.TopLeft)
+	log.Print("   TR -> ", qtree.TopRight)
+	log.Print("      TR -> ", qtree.TopRight.TopRight)
+	log.Print("      BL -> ", qtree.TopRight.BottomLeft)
+	log.Print("   BR -> ", qtree.BottomRight)
 }
 
 // 650m 2 Keys Keyboard
