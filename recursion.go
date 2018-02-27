@@ -230,6 +230,69 @@ func calculate(s string) int {
 	return Calc()
 }
 
+// 427m Construct Quad Tree
+type Node427 struct {
+	Val, IsLeaf                                bool
+	TopLeft, TopRight, BottomLeft, BottomRight *Node427
+}
+
+func construct(grid [][]int) *Node427 {
+	N := len(grid)
+	if N == 1 {
+		return &Node427{Val: grid[0][0] == 1, IsLeaf: true}
+	}
+
+	n := &Node427{}
+
+	for i, r := range []int{0, N / 2} {
+		for j, c := range []int{0, N / 2} {
+			G := [][]int{}
+			for i := range N / 2 {
+				G = append(G, grid[r+i][c:c+N/2])
+			}
+
+			switch i<<1 + j {
+			case 0:
+				n.TopLeft = construct(G)
+			case 1:
+				n.TopRight = construct(G)
+			case 2:
+				n.BottomLeft = construct(G)
+			case 3:
+				n.BottomRight = construct(G)
+			}
+		}
+	}
+
+	Children := []*Node427{n.TopLeft, n.TopRight, n.BottomLeft, n.BottomRight}
+	n.IsLeaf = true
+	for _, c := range Children {
+		if !c.IsLeaf {
+			n.IsLeaf = false
+		}
+	}
+	if n.IsLeaf { // Set|Reset Val for this Leaf Node ...
+		n.Val = true
+		for _, c := range Children {
+			n.Val = n.Val && c.Val
+		}
+		if n.Val { // :: all Child.Val: true
+			return &Node427{IsLeaf: true, Val: true}
+		}
+
+		n.Val = false
+		for _, c := range Children {
+			n.Val = n.Val || c.Val
+		}
+		if !n.Val { // :: all Child.Val: false
+			return &Node427{IsLeaf: true}
+		}
+	}
+
+	n.IsLeaf, n.Val = false, true
+	return n
+}
+
 // 650m 2 Keys Keyboard
 func minSteps(n int) int {
 	if n == 1 {

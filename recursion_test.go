@@ -74,6 +74,14 @@ func Test224(t *testing.T) {
 	log.Print("2 ?= ", calculate("13-(1+3+((3+1)+4))+1"))
 }
 
+// 427m Construct Quad Tree
+func Test427(t *testing.T) {
+	// n = 2^x, 0 <= x <= 6
+
+	log.Printf("%+v", construct([][]int{{0, 1}, {1, 0}}))
+	log.Printf("%+v", construct([][]int{{1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}, {1, 1, 1, 1, 0, 0, 0, 0}}))
+}
+
 // 650m 2 Keys Keyboard
 func Test650(t *testing.T) {
 	// 1 <= n <= 1000
