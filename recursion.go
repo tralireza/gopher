@@ -267,9 +267,7 @@ func construct(grid [][]int) *Node427 {
 	Children := []*Node427{n.TopLeft, n.TopRight, n.BottomLeft, n.BottomRight}
 	n.IsLeaf = true
 	for _, c := range Children {
-		if !c.IsLeaf {
-			n.IsLeaf = false
-		}
+		n.IsLeaf = n.IsLeaf && c.IsLeaf
 	}
 	if n.IsLeaf { // Set|Reset Val for this Leaf Node ...
 		n.Val = true
