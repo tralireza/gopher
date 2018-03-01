@@ -107,6 +107,21 @@ func isValidSudoku(board [][]byte) bool {
 	return true
 }
 
+// 53m Maximum Subarray
+func maxSubArray(nums []int) int {
+	// Kadane's algorithm
+
+	kX := nums[0]
+	curX := nums[0]
+
+	for _, n := range nums[1:] {
+		curX = max(curX, 0) + n
+		kX = max(kX, curX)
+	}
+
+	return kX
+}
+
 // 134m Gas Station
 func canCompleteCircuit(gas []int, cost []int) int {
 	p, tank, tankTotal := 0, 0, 0

@@ -31,6 +31,13 @@ func Test36(t *testing.T) {
 	}))
 }
 
+// 53m Maximum Subarray
+func Test53(t *testing.T) {
+	log.Print("6 ?= ", maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+	log.Print("1 ?= ", maxSubArray([]int{1}))
+	log.Print("23 ?= ", maxSubArray([]int{5, 4, -1, 7, 8}))
+}
+
 // 134m Gas Station
 func Test134(t *testing.T) {
 	log.Print("3 ?= ", canCompleteCircuit([]int{1, 2, 3, 4, 5}, []int{3, 4, 5, 1, 2}))
