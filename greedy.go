@@ -183,6 +183,28 @@ func twoSum(numbers []int, target int) []int {
 	return []int{0, 0}
 }
 
+// 918m Maximum Sum Circular Subarray
+func maxSubarraySumCircular(nums []int) int {
+	// Kadane's
+
+	tSum := nums[0] // total
+
+	kM, kX := nums[0], nums[0] // Kadane's Minimum | Maximum
+	curM, curX := nums[0], nums[0]
+
+	for _, n := range nums[1:] {
+		curM, curX = min(curM, 0)+n, max(curX, 0)+n
+		kM, kX = min(kM, curM), max(kX, curX)
+
+		tSum += n
+	}
+
+	if kM == tSum {
+		return kX
+	}
+	return max(kX, tSum-kM)
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func restoreMatrix(rowSum []int, colSum []int) [][]int {
 	M := make([][]int, len(rowSum))

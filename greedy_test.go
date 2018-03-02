@@ -57,6 +57,13 @@ func Test167(t *testing.T) {
 	log.Print("[1 2] ?= ", twoSum([]int{-1, 0}, -1))
 }
 
+// 918m Maximum Sum Circular Subarray
+func Test918(t *testing.T) {
+	log.Print("3 ?= ", maxSubarraySumCircular([]int{1, -2, 3, -2}))
+	log.Print("10 ?= ", maxSubarraySumCircular([]int{5, -3, 5}))
+	log.Print("-2 ?= ", maxSubarraySumCircular([]int{-3, -2, -3}))
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func Test1605(t *testing.T) {
 	Optimized := func(rowSum []int, colSum []int) [][]int {
