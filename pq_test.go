@@ -19,6 +19,8 @@ func Test373(t *testing.T) {
 
 	log.Print("[[1 2] [1 4] [1 6]] ?= ", kSmallestPairs([]int{1, 7, 11}, []int{2, 4, 6}, 3))
 	log.Print("[[1 1] [1 1]] ?= ", kSmallestPairs([]int{1, 1, 2}, []int{1, 2, 3}, 2))
+	log.Print("--")
+	log.Print(" ?= ", kSmallestPairs([]int{1, 2, 4, 5, 6}, []int{3, 5, 7, 9}, 20))
 }
 
 // 1508m Range Sum of Sorted Subarray Sums
