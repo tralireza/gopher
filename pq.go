@@ -40,6 +40,53 @@ func maxSlidingWindow(nums []int, k int) []int {
 	return R
 }
 
+// 373m Find K Pairs with Smallest Sums
+type E373 struct{ v, x, y int } // Value, Index1, Index2
+type PQ373 []E373
+
+func (h PQ373) Len() int           { return len(h) }
+func (h PQ373) Less(i, j int) bool { return h[i].v < h[j].v }
+func (h PQ373) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ373) Push(x any)        { *h = append(*h, x.(E373)) }
+func (h *PQ373) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
+	type E = E373
+	type PQ = PQ373
+
+	R := [][]int{}
+
+	Mem := map[[2]int]bool{}
+	h := PQ{}
+
+	heap.Push(&h, E{nums1[0] + nums2[0], 0, 0})
+	Mem[[2]int{0, 0}] = true
+
+	for range k {
+		e := heap.Pop(&h).(E)
+		R = append(R, []int{nums1[e.x], nums2[e.y]})
+
+		e.x++
+		if e.x < len(nums1) && !Mem[[2]int{e.x, e.y}] {
+			heap.Push(&h, E{nums1[e.x] + nums2[e.y], e.x, e.y})
+			Mem[[2]int{e.x, e.y}] = true
+		}
+
+		e.x--
+		e.y++
+		if e.y < len(nums2) && !Mem[[2]int{e.x, e.y}] {
+			heap.Push(&h, E{nums1[e.x] + nums2[e.y], e.x, e.y})
+			Mem[[2]int{e.x, e.y}] = true
+		}
+	}
+
+	return R
+}
+
 // 1508m Range Sum of Sorted Subarray Sums
 type E1508 struct{ n, i int }
 type PQ1508 []E1508

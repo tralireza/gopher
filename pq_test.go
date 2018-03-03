@@ -12,6 +12,15 @@ func Test239(t *testing.T) {
 	log.Print("[1 -1] ?= ", maxSlidingWindow([]int{1, -1}, 1))
 }
 
+// 373m Find K Pairs with Smallest Sums
+func Test373(t *testing.T) {
+	// 1 <= length N1, N2 <= 10^5
+	// 1 <= k <= 10^4
+
+	log.Print("[[1 2] [1 4] [1 6]] ?= ", kSmallestPairs([]int{1, 7, 11}, []int{2, 4, 6}, 3))
+	log.Print("[[1 1] [1 1]] ?= ", kSmallestPairs([]int{1, 1, 2}, []int{1, 2, 3}, 2))
+}
+
 // 1508m Range Sum of Sorted Subarray Sums
 func Test1508(t *testing.T) {
 	// 1 <= left, right <= n*(n+1)/2
