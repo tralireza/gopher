@@ -70,6 +70,8 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
 		e := heap.Pop(&h).(E)
 		R = append(R, []int{nums1[e.x], nums2[e.y]})
 
+		// try 2 minimum candidate after (x, y) -> 1: (x+1, y) and 2: (x, y+1)
+		// ( if not already in Queue )
 		e.x++
 		if e.x < len(nums1) && !Mem[[2]int{e.x, e.y}] {
 			heap.Push(&h, E{nums1[e.x] + nums2[e.y], e.x, e.y})
