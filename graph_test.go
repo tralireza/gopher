@@ -369,6 +369,13 @@ func Test1192(t *testing.T) {
 	log.Print("[[0 1]] ?= ", criticalConnections(2, [][]int{{0, 1}}))
 }
 
+// 1514m Path with Maximum Probability
+func Test1514(t *testing.T) {
+	log.Print("0.25 ?= ", maxProbability(3, [][]int{{0, 1}, {1, 2}, {0, 2}}, []float64{.5, .5, .2}, 0, 2))
+	log.Print("0.3 ?= ", maxProbability(3, [][]int{{0, 1}, {1, 2}, {0, 2}}, []float64{.5, .5, .3}, 0, 2))
+	log.Print("0 ?= ", maxProbability(3, [][]int{{0, 1}}, []float64{.5}, 0, 2))
+}
+
 // 1591h Strange Printer II
 func Test1591(t *testing.T) {
 	log.Print("true ?= ", isPrintable([][]int{{1, 1, 1, 1}, {1, 2, 2, 1}, {1, 2, 2, 1}, {1, 1, 1, 1}}))

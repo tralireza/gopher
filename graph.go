@@ -458,6 +458,55 @@ func criticalConnections(n int, connections [][]int) [][]int {
 	return R
 }
 
+// 1514m Path with Maximum Probability
+type E1514 struct {
+	n int
+	w float64
+}
+type PQ1514 []E1514
+
+func (h PQ1514) Len() int           { return len(h) }
+func (h PQ1514) Less(i, j int) bool { return h[i].w > h[j].w } // MaxHeap
+func (h PQ1514) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ1514) Push(x any)        { *h = append(*h, x.(E1514)) }
+func (h *PQ1514) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func maxProbability(n int, edges [][]int, succProb []float64, start_node int, end_node int) float64 {
+	// Dijkstra
+
+	type E = E1514
+	type PQ = PQ1514
+
+	G := make([][]E, n)
+	for i, e := range edges {
+		v, u := e[0], e[1]
+		G[v], G[u] = append(G[v], E{u, succProb[i]}), append(G[u], E{v, succProb[i]})
+	}
+
+	Dist := make([]float64, n)
+	Dist[start_node] = 1 // ie, Probability
+
+	h := PQ{}
+	heap.Push(&h, E{start_node, 1})
+	for h.Len() > 0 {
+		log.Print(" (PQ) -> ", h)
+
+		v := heap.Pop(&h).(E)
+		for _, u := range G[v.n] {
+			if Dist[u.n] < Dist[v.n]*u.w {
+				Dist[u.n] = Dist[v.n] * u.w
+				heap.Push(&h, E{u.n, Dist[u.n]})
+			}
+		}
+	}
+
+	return Dist[end_node]
+}
+
 // 1591h Strange Printer II
 func isPrintable(targetGrid [][]int) bool {
 	Rows, Cols := len(targetGrid), len(targetGrid[0])
