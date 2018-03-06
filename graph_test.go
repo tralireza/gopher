@@ -376,7 +376,7 @@ func Test1514(t *testing.T) {
 
 		Dist[start_node] = 1
 		for range n - 1 {
-			for i, e := range edges {
+			for i, e := range edges { // relaxing all edges...
 				v, u := e[0], e[1]
 				if Dist[v]*succProb[i] > Dist[u] {
 					Dist[u] = Dist[v] * succProb[i]
@@ -411,7 +411,7 @@ func Test1514(t *testing.T) {
 		for len(Q) > 0 {
 			v, Q = Q[0], Q[1:]
 			for _, u := range G[v] {
-				if Dist[v]*u.w > Dist[u.n] {
+				if Dist[v]*u.w > Dist[u.n] { // relaxing neighbor edges...
 					Dist[u.n] = Dist[v] * u.w
 					Q = append(Q, u.n)
 				}
