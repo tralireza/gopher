@@ -371,9 +371,62 @@ func Test1192(t *testing.T) {
 
 // 1514m Path with Maximum Probability
 func Test1514(t *testing.T) {
-	log.Print("0.25 ?= ", maxProbability(3, [][]int{{0, 1}, {1, 2}, {0, 2}}, []float64{.5, .5, .2}, 0, 2))
-	log.Print("0.3 ?= ", maxProbability(3, [][]int{{0, 1}, {1, 2}, {0, 2}}, []float64{.5, .5, .3}, 0, 2))
-	log.Print("0 ?= ", maxProbability(3, [][]int{{0, 1}}, []float64{.5}, 0, 2))
+	BellmanFord := func(n int, edges [][]int, succProb []float64, start_node, end_node int) float64 {
+		Dist := make([]float64, n)
+
+		Dist[start_node] = 1
+		for range n - 1 {
+			for i, e := range edges {
+				v, u := e[0], e[1]
+				if Dist[v]*succProb[i] > Dist[u] {
+					Dist[u] = Dist[v] * succProb[i]
+				}
+				if Dist[u]*succProb[i] > Dist[v] {
+					Dist[v] = Dist[u] * succProb[i]
+				}
+			}
+		}
+		return Dist[end_node]
+	}
+
+	SPF := func(n int, edges [][]int, succProb []float64, start_node, end_node int) float64 {
+		// Shortest-Path-First
+
+		type E struct {
+			n int     // Node
+			w float64 // Weight ie, Probability
+		}
+
+		G := make([][]E, n)
+		for i, e := range edges {
+			u, v, w := e[0], e[1], succProb[i]
+			G[v], G[u] = append(G[v], E{u, w}), append(G[u], E{v, w})
+		}
+
+		Dist := make([]float64, n)
+		Dist[start_node] = 1
+
+		Q := []int{start_node}
+		var v int
+		for len(Q) > 0 {
+			v, Q = Q[0], Q[1:]
+			for _, u := range G[v] {
+				if Dist[v]*u.w > Dist[u.n] {
+					Dist[u.n] = Dist[v] * u.w
+					Q = append(Q, u.n)
+				}
+			}
+		}
+
+		return Dist[end_node]
+	}
+
+	for _, f := range []func(int, [][]int, []float64, int, int) float64{maxProbability, BellmanFord, SPF} {
+		log.Print("0.25 ?= ", f(3, [][]int{{0, 1}, {1, 2}, {0, 2}}, []float64{.5, .5, .2}, 0, 2))
+		log.Print("0.3 ?= ", f(3, [][]int{{0, 1}, {1, 2}, {0, 2}}, []float64{.5, .5, .3}, 0, 2))
+		log.Print("0 ?= ", f(3, [][]int{{0, 1}}, []float64{.5}, 0, 2))
+		log.Print("--")
+	}
 }
 
 // 1591h Strange Printer II
