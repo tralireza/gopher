@@ -589,6 +589,81 @@ func isPrintable(targetGrid [][]int) bool {
 	return true
 }
 
+// 1976m Number of Ways to Arrive at Destination
+type E1976 struct{ n, d, i int } // Node, Distance, HeapSeq(i)
+type PQ1976 []E1976
+
+func (h PQ1976) Len() int           { return len(h) }
+func (h PQ1976) Less(i, j int) bool { return h[i].d < h[j].d }
+func (h PQ1976) Swap(i, j int) {
+	h[i], h[j] = h[j], h[i]
+	h[i].i, h[j].i = i, j
+}
+func (h *PQ1976) Push(x any) {
+	e := x.(E1976)
+	e.i = h.Len()
+	*h = append(*h, e)
+}
+func (h *PQ1976) Pop() any {
+	e := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return e
+}
+
+func countPaths(n int, roads [][]int) int {
+	type E = E1976
+	type PQ = PQ1976
+
+	M := 1000_000_007
+
+	G := make([][]E, n)
+	for _, e := range roads {
+		v, u, w := e[0], e[1], e[2]
+		G[v], G[u] = append(G[v], E{u, w, -1}), append(G[u], E{v, w, -1})
+	}
+
+	Count := make([]int, n)
+	Count[0] = 1
+
+	Dist := make([]int, n)
+	for i := range Dist {
+		Dist[i] = math.MaxInt
+	}
+
+	Prev := make([][]int, n)
+
+	h := PQ{}
+
+	heap.Push(&h, E{n: 0, d: 0})
+	Dist[0] = 0
+
+	for h.Len() > 0 {
+		log.Print("PQ :: ", h)
+		v := heap.Pop(&h).(E)
+		if Dist[v.n] < v.d {
+			continue
+		}
+
+		for _, u := range G[v.n] {
+			if Dist[u.n] > Dist[v.n]+u.d {
+				Dist[u.n] = Dist[v.n] + u.d
+				u.d = Dist[u.n]
+				heap.Push(&h, u)
+				Count[u.n] = Count[v.n]
+
+			} else if Dist[u.n] == Dist[v.n]+u.d {
+				Count[u.n] += Count[v.n]
+			}
+		}
+	}
+
+	log.Print(" Dist -> ", Dist)
+	log.Print(" Prev -> ", Prev)
+	log.Print(" Count -> ", Count)
+
+	return Count[n-1] % M
+}
+
 // 2392h Build a Matrix With Conditions
 func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	TopoSort := func(edges [][]int) []int {

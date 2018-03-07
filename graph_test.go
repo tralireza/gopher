@@ -436,6 +436,14 @@ func Test1591(t *testing.T) {
 	log.Print("false ?= ", isPrintable([][]int{{1, 2, 1}, {2, 1, 2}, {1, 2, 1}}))
 }
 
+// 1976m Number of Ways to Arrive at Destination
+func Test1976(t *testing.T) {
+	log.Print("4 ?= ", countPaths(7, [][]int{{0, 6, 7}, {0, 1, 2}, {1, 2, 3}, {1, 3, 3}, {6, 3, 3}, {3, 5, 1}, {6, 5, 1}, {2, 5, 1}, {0, 4, 5}, {4, 6, 2}}))
+	log.Print("1 ?= ", countPaths(2, [][]int{{1, 0, 10}}))
+
+	countPaths(5, [][]int{{3, 0, 5}, {0, 1, 1}, {1, 2, 4}, {0, 4, 3}, {3, 2, 5}, {3, 4, 1}, {1, 3, 1}})
+}
+
 // 2392h Build a Matrix With Conditions
 func Test2392(t *testing.T) {
 	// 1 <= Node(labels) <= k
