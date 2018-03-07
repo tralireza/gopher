@@ -438,10 +438,72 @@ func Test1591(t *testing.T) {
 
 // 1976m Number of Ways to Arrive at Destination
 func Test1976(t *testing.T) {
-	log.Print("4 ?= ", countPaths(7, [][]int{{0, 6, 7}, {0, 1, 2}, {1, 2, 3}, {1, 3, 3}, {6, 3, 3}, {3, 5, 1}, {6, 5, 1}, {2, 5, 1}, {0, 4, 5}, {4, 6, 2}}))
-	log.Print("1 ?= ", countPaths(2, [][]int{{1, 0, 10}}))
+	type E = E1976
+	type PQ = PQ1976
 
-	countPaths(5, [][]int{{3, 0, 5}, {0, 1, 1}, {1, 2, 4}, {0, 4, 3}, {3, 2, 5}, {3, 4, 1}, {1, 3, 1}})
+	Dijkstra := func(n int, roads [][]int) int {
+		const M = 1000_000_007
+
+		G := make([][]E, n)
+		for _, e := range roads {
+			v, u, w := e[0], e[1], e[2]
+			G[v], G[u] = append(G[v], E{Node: u, Dist: w}), append(G[u], E{Node: v, Dist: w})
+		}
+
+		Dist := make([]int, n)
+
+		for v := range n {
+			Dist[v] = math.MaxInt
+		}
+
+		Prev := make([][]int, n)
+
+		Count := make([]int, n)
+		Count[0] = 1
+
+		h := PQ{}
+
+		heap.Push(&h, E{Node: 0, Dist: 0})
+		Dist[0] = 0
+
+		for h.Len() > 0 {
+			log.Print(" PQ :: ", h)
+			v := heap.Pop(&h).(E)
+
+			if Dist[v.Node] != v.Dist {
+				log.Print(" + already visited :: ", v, " distance from start(v): ", Dist[v.Node])
+				Prev[v.Node] = Prev[v.Node][1:]
+				continue
+			}
+
+			for _, u := range G[v.Node] {
+				if Dist[v.Node]+u.Dist < Dist[u.Node] {
+					Dist[u.Node] = Dist[v.Node] + u.Dist
+					heap.Push(&h, E{Node: u.Node, Dist: Dist[u.Node]})
+
+					Count[u.Node] = Count[v.Node]
+					Prev[u.Node] = append(Prev[u.Node], v.Node)
+
+				} else if Dist[v.Node]+u.Dist == Dist[u.Node] {
+					Count[u.Node] += Count[v.Node]
+					Count[u.Node] %= M
+					Prev[u.Node] = append(Prev[u.Node], v.Node)
+				}
+			}
+		}
+
+		log.Print(" Dist :: ", Dist)
+		log.Print(" Prev :: ", Prev)
+
+		return Count[n-1]
+	}
+
+	for _, f := range []func(int, [][]int) int{countPaths, Dijkstra} {
+		log.Print("4 ?= ", f(7, [][]int{{0, 6, 7}, {0, 1, 2}, {1, 2, 3}, {1, 3, 3}, {6, 3, 3}, {3, 5, 1}, {6, 5, 1}, {2, 5, 1}, {0, 4, 5}, {4, 6, 2}}))
+		log.Print("1 ?= ", f(2, [][]int{{1, 0, 10}}))
+		log.Print("2 ?= ", f(5, [][]int{{3, 0, 5}, {0, 1, 1}, {1, 2, 4}, {0, 4, 3}, {3, 2, 5}, {3, 4, 1}, {1, 3, 1}}))
+		log.Print("--")
+	}
 }
 
 // 2392h Build a Matrix With Conditions

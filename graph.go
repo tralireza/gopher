@@ -590,23 +590,24 @@ func isPrintable(targetGrid [][]int) bool {
 }
 
 // 1976m Number of Ways to Arrive at Destination
-type E1976 struct{ n, d, i int } // Node, Distance, HeapSeq(i)
+type E1976 struct{ Node, Dist, hSeq int } // Node, Distance, HeapSeq(i)
 type PQ1976 []E1976
 
 func (h PQ1976) Len() int           { return len(h) }
-func (h PQ1976) Less(i, j int) bool { return h[i].d < h[j].d }
+func (h PQ1976) Less(i, j int) bool { return h[i].Dist < h[j].Dist }
 func (h PQ1976) Swap(i, j int) {
 	h[i], h[j] = h[j], h[i]
-	h[i].i, h[j].i = i, j
+	h[i].hSeq, h[j].hSeq = i, j
 }
 func (h *PQ1976) Push(x any) {
 	e := x.(E1976)
-	e.i = h.Len()
+	e.hSeq = h.Len()
 	*h = append(*h, e)
 }
 func (h *PQ1976) Pop() any {
 	e := (*h)[h.Len()-1]
 	*h = (*h)[:h.Len()-1]
+	e.hSeq = -1
 	return e
 }
 
@@ -634,25 +635,25 @@ func countPaths(n int, roads [][]int) int {
 
 	h := PQ{}
 
-	heap.Push(&h, E{n: 0, d: 0})
+	heap.Push(&h, E{Node: 0, Dist: 0})
 	Dist[0] = 0
 
 	for h.Len() > 0 {
 		log.Print("PQ :: ", h)
 		v := heap.Pop(&h).(E)
-		if Dist[v.n] < v.d {
+		if Dist[v.Node] < v.Dist {
 			continue
 		}
 
-		for _, u := range G[v.n] {
-			if Dist[u.n] > Dist[v.n]+u.d {
-				Dist[u.n] = Dist[v.n] + u.d
-				u.d = Dist[u.n]
+		for _, u := range G[v.Node] {
+			if Dist[u.Node] > Dist[v.Node]+u.Dist {
+				Dist[u.Node] = Dist[v.Node] + u.Dist
+				u.Dist = Dist[u.Node]
 				heap.Push(&h, u)
-				Count[u.n] = Count[v.n]
+				Count[u.Node] = Count[v.Node]
 
-			} else if Dist[u.n] == Dist[v.n]+u.d {
-				Count[u.n] += Count[v.n]
+			} else if Dist[u.Node] == Dist[v.Node]+u.Dist {
+				Count[u.Node] += Count[v.Node]
 			}
 		}
 	}
