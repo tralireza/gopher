@@ -246,3 +246,24 @@ func maximumTop(nums []int, k int) int {
 
 	return nX
 }
+
+// 2280m Minimum Lines to Represent a Line Chart
+func minimumLines(stockPrices [][]int) int {
+	P := stockPrices
+	if len(P) == 1 {
+		return 0
+	}
+
+	slices.SortFunc(P, func(x, y []int) int { return x[0] - y[0] })
+
+	t := 1
+	Dx, Dy := 0, 0
+	for i := 1; i < len(stockPrices); i++ {
+		dx, dy := P[i][0]-P[i-1][0], P[i][1]-P[i-1][1]
+		if Dx*dy != Dy*dx {
+			t++
+		}
+		Dx, Dy = dx, dy
+	}
+	return t
+}

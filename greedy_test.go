@@ -103,3 +103,9 @@ func Test2202(t *testing.T) {
 	log.Print("5 ?= ", maximumTop([]int{5, 2, 2, 4, 0, 6}, 4))
 	log.Print("-1 ?= ", maximumTop([]int{2}, 1))
 }
+
+// 2280m Minimum Lines to Represent a Line Chart
+func Test2280(t *testing.T) {
+	log.Print("3 ?= ", minimumLines([][]int{{1, 7}, {2, 6}, {3, 5}, {4, 4}, {5, 4}, {6, 3}, {7, 2}, {8, 1}}))
+	log.Print("1 ?= ", minimumLines([][]int{{3, 4}, {1, 2}, {7, 8}, {2, 3}}))
+}
