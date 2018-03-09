@@ -1,6 +1,10 @@
 package gopher
 
-import "slices"
+import (
+	"log"
+	"math"
+	"slices"
+)
 
 // 11m Container With Most Water
 func maxArea(height []int) int {
@@ -161,6 +165,40 @@ func candy(ratings []int) int {
 		t += c
 	}
 	return t + len(ratings)
+}
+
+// 149h Max Points on a Line
+func maxPointsOnLine(points [][]int) int {
+	P := points
+	if len(P) <= 2 {
+		return len(P)
+	}
+
+	xP := 0
+
+	for i := 0; i < len(P)-1; i++ {
+		x, y := P[i][0], P[i][1]
+
+		Mem := map[float64]int{}
+		for j := i + 1; j < len(P); j++ {
+			dx, dy := P[j][0]-x, P[j][1]-y
+
+			if dx == 0 {
+				Mem[math.MaxFloat64]++
+			} else {
+				Mem[float64(dy)/float64(dx)]++
+			}
+		}
+		log.Print(Mem)
+
+		for _, v := range Mem {
+			if v > xP {
+				xP = v
+			}
+		}
+	}
+
+	return xP + 1
 }
 
 // 167m Two Sum II - Input Array Is Sorted

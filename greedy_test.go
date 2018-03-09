@@ -50,6 +50,12 @@ func Test135(t *testing.T) {
 	log.Print("4 ?= ", candy([]int{1, 2, 2}))
 }
 
+// 149h Max Points on a Line
+func Test149(t *testing.T) {
+	log.Print("3 ?= ", maxPointsOnLine([][]int{{1, 1}, {2, 2}, {3, 3}}))
+	log.Print("4 ?= ", maxPointsOnLine([][]int{{1, 1}, {3, 2}, {5, 3}, {4, 1}, {2, 3}, {1, 4}}))
+}
+
 // 167m Two Sum II - Input Array Is Sorted
 func Test167(t *testing.T) {
 	log.Print("[1 2] ?= ", twoSum([]int{2, 7, 11, 15}, 9))
