@@ -189,7 +189,7 @@ func maxPointsOnLine(points [][]int) int {
 				Mem[float64(dy)/float64(dx)]++
 			}
 		}
-		log.Print(Mem)
+		log.Print(P[i], " -> ", Mem)
 
 		for _, v := range Mem {
 			if v > xP {
