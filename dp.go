@@ -7,6 +7,26 @@ import (
 	"sort"
 )
 
+// 120m Triangle
+func minimumTotal(triangle [][]int) int {
+	t := make([][]int, len(triangle))
+	for r := range t {
+		t[r] = make([]int, r+1)
+	}
+
+	t[0][0] = triangle[0][0]
+	for r := 1; r < len(t); r++ {
+		t[r][0] += t[r-1][0] + triangle[r][0]
+		t[r][r] += t[r-1][r-1] + triangle[r][r-1]
+
+		for c := 1; c < r; c++ {
+			t[r][c] = triangle[r][c] + min(t[r-1][c-1], t[r-1][c])
+		}
+	}
+
+	return slices.Min(t[len(t)-1])
+}
+
 // 122m Best Time to Buy and Sell Stock II
 func maxProfit(prices []int) int {
 	profit := 0

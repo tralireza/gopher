@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+// 120m Triangle
+func Test120(t *testing.T) {
+	log.Print("11 ?= ", minimumTotal([][]int{{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}}))
+	log.Print("-10 ?= ", minimumTotal([][]int{{-10}}))
+}
+
 // 122m Best Time to Buy and Sell Stock II
 func Test122(t *testing.T) {
 	log.Print("7 ?= ", maxProfit([]int{7, 1, 5, 3, 6, 4}))
