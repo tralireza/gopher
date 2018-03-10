@@ -24,6 +24,8 @@ func minimumTotal(triangle [][]int) int {
 		}
 	}
 
+	log.Print(t)
+
 	return slices.Min(t[len(t)-1])
 }
 
