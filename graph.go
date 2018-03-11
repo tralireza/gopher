@@ -589,6 +589,45 @@ func isPrintable(targetGrid [][]int) bool {
 	return true
 }
 
+// 1905m Count Sub Islands
+func countSubIslands(grid1, grid2 [][]int) int {
+	Rows, Cols := len(grid1), len(grid1[0])
+
+	Dir := []int{0, 1, 0, -1, 0}
+
+	var Islands func(r, c int) bool
+	Islands = func(r, c int) bool {
+		grid2[r][c] = -1
+
+		isSub := true
+		for i := range 4 {
+			x, y := r+Dir[i], c+Dir[i+1]
+			if x >= 0 && x < Rows && y >= 0 && y < Cols && grid2[x][y] == 1 {
+				if grid1[x][y] != 1 {
+					isSub = false
+				}
+				if !Islands(x, y) {
+					isSub = false
+				}
+			}
+		}
+		return isSub
+	}
+
+	t := 0
+	for r := 0; r < Rows; r++ {
+		for c := 0; c < Cols; c++ {
+			if grid1[r][c] == 1 && grid2[r][c] == 1 {
+				if Islands(r, c) {
+					t++
+				}
+			}
+		}
+	}
+
+	return t
+}
+
 // 1976m Number of Ways to Arrive at Destination
 type E1976 struct{ Node, Dist, hSeq int } // Node, Distance, HeapSeq(i)
 type PQ1976 []E1976
