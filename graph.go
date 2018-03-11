@@ -599,7 +599,7 @@ func countSubIslands(grid1, grid2 [][]int) int {
 	Islands = func(r, c int) bool {
 		grid2[r][c] = -1
 
-		isSub := true
+		isSub := true // Sub-Island flag...
 		for i := range 4 {
 			x, y := r+Dir[i], c+Dir[i+1]
 			if x >= 0 && x < Rows && y >= 0 && y < Cols && grid2[x][y] == 1 {
@@ -624,7 +624,6 @@ func countSubIslands(grid1, grid2 [][]int) int {
 			}
 		}
 	}
-
 	return t
 }
 
