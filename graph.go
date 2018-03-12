@@ -421,6 +421,41 @@ func snakesAndLadders(board [][]int) int {
 	return -1
 }
 
+// 947m Most Stones Removed with Same Row or Column
+func removeStones(stones [][]int) int {
+	G := make([][]int, len(stones))
+	for i := 0; i < len(stones)-1; i++ {
+		for j := i + 1; j < len(stones); j++ {
+			if stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1] { // same Row or Column
+				G[i], G[j] = append(G[i], j), append(G[j], i)
+			}
+		}
+	}
+
+	n := 0 // number of connected components
+
+	Vis := make([]bool, len(G)) // number of Nodes in Graph
+	for v := range len(G) {
+		if !Vis[v] {
+			Vis[v] = true
+			n++
+
+			Q := []int{v} // BFS
+			for len(Q) > 0 {
+				v, Q = Q[0], Q[1:]
+				for _, u := range G[v] {
+					if !Vis[u] {
+						Vis[u] = true
+						Q = append(Q, u)
+					}
+				}
+			}
+		}
+	}
+
+	return len(stones) - n
+}
+
 // 1192h Critical Connections in a Network
 func criticalConnections(n int, connections [][]int) [][]int {
 	G := make([][]int, n)
