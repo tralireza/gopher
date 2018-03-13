@@ -9,6 +9,9 @@ import (
 func Test63(t *testing.T) {
 	log.Print("2 ?= ", uniquePathsWithObstacles([][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}))
 	log.Print("1 ?= ", uniquePathsWithObstacles([][]int{{0, 1}, {0, 0}}))
+
+	log.Print("0 ?= ", uniquePathsWithObstacles([][]int{{1}}))
+	log.Print("0 ?= ", uniquePathsWithObstacles([][]int{{0, 0}, {1, 1}, {0, 0}}))
 }
 
 // 120m Triangle
