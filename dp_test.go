@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+// 63m Unique Paths II
+func Test63(t *testing.T) {
+	log.Print("2 ?= ", uniquePathsWithObstacles([][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}))
+	log.Print("1 ?= ", uniquePathsWithObstacles([][]int{{0, 1}, {0, 0}}))
+}
+
 // 120m Triangle
 func Test120(t *testing.T) {
 	log.Print("11 ?= ", minimumTotal([][]int{{2}, {3, 4}, {6, 5, 7}, {4, 1, 8, 3}}))

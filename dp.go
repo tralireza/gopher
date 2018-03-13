@@ -7,6 +7,35 @@ import (
 	"sort"
 )
 
+// 63m Unique Paths II
+func uniquePathsWithObstacles(obstacleGrid [][]int) int {
+	Rows, Cols := len(obstacleGrid), len(obstacleGrid[0])
+
+	D := make([][]int, Rows)
+	for r := range D {
+		D[r] = make([]int, Cols)
+	}
+
+	if obstacleGrid[0][0] != 1 {
+		D[0][0] = 1
+	}
+
+	for r := 0; r < Rows; r++ {
+		for c := 0; c < Cols; c++ {
+			if obstacleGrid[r][c] != 1 {
+				if r > 0 {
+					D[r][c] += D[r-1][c]
+				}
+				if c > 0 {
+					D[r][c] += D[r][c-1]
+				}
+			}
+		}
+	}
+
+	return D[Rows-1][Cols-1]
+}
+
 // 120m Triangle
 func minimumTotal(triangle [][]int) int {
 	t := make([][]int, len(triangle))
