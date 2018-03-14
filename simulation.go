@@ -359,6 +359,22 @@ func luckyNumbers(matrix [][]int) []int {
 	return R
 }
 
+// 2022 Convert 1D Array Into 2D Array
+func construct2DArray(original []int, m int, n int) [][]int {
+	if len(original) != m*n {
+		return [][]int{}
+	}
+
+	R := [][]int{}
+	for i, v := range original {
+		if i%n == 0 {
+			R = append(R, make([]int, n))
+		}
+		R[i/n][i%n] = v
+	}
+	return R
+}
+
 // 3001m Minimum Moves to Capture the Queen
 func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 	Cross := func(dirs [][]int, tgX, tgY, bkX, bkY int) int {

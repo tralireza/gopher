@@ -58,6 +58,13 @@ func Test1380(t *testing.T) {
 	log.Print("[7] ?= ", luckyNumbers([][]int{{7, 8}, {1, 2}}))
 }
 
+// 2022 Convert 1D Array Into 2D Array
+func Test2022(t *testing.T) {
+	log.Print("[[1 2] [3 4]] ?= ", construct2DArray([]int{1, 2, 3, 4}, 2, 2))
+	log.Print("[[1 2 3]] ?= ", construct2DArray([]int{1, 2, 3}, 1, 3))
+	log.Print("[] ?= ", construct2DArray([]int{1, 2}, 1, 1))
+}
+
 // 3001m Minimum Moves to Capture the Queen
 func Test3001(t *testing.T) {
 	log.Print("2 ?= ", minMovesToCaptureTheQueen(1, 1, 8, 8, 2, 3))
