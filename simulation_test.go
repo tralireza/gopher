@@ -26,6 +26,12 @@ func Test289(t *testing.T) {
 	gameOfLife([][]int{{1, 1}, {1, 0}})
 }
 
+// 566 Reshape the Matrix
+func Test566(t *testing.T) {
+	log.Print("[[1 2 3 4]] ?= ", matrixReshape([][]int{{1, 2}, {3, 4}}, 1, 4))
+	log.Print("[[1 2] [3 4]] ?= ", matrixReshape([][]int{{1, 2}, {3, 4}}, 2, 4))
+}
+
 // 592m Fraction Addition and Subtraction
 func Test592(t *testing.T) {
 	log.Print("0/1 ?= ", fractionAddition("-1/2+1/2"))

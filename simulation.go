@@ -145,6 +145,26 @@ func gameOfLife(board [][]int) {
 	log.Print(" -> ", board)
 }
 
+// 566 Reshape the Matrix
+func matrixReshape(mat [][]int, r int, c int) [][]int {
+	if len(mat)*len(mat[0]) != r*c {
+		return mat
+	}
+
+	R := [][]int{}
+	i := 0
+	for x := 0; x < len(mat); x++ {
+		for y := 0; y < len(mat[x]); y++ {
+			if i%c == 0 {
+				R = append(R, make([]int, c))
+			}
+			R[i/c][i%c] = mat[x][y]
+			i++
+		}
+	}
+	return R
+}
+
 // 592m Fraction Addition and Subtraction
 func fractionAddition(expression string) string {
 	gcd := func(a, b int) int {
