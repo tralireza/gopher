@@ -79,6 +79,17 @@ func Test3001(t *testing.T) {
 
 // 3274 Check if Two Chessboard Squares Have the Same Color
 func Test3274(t *testing.T) {
-	log.Print("true ?= ", checkTwoChessboards("a1", "c3"))
-	log.Print("false ?= ", checkTwoChessboards("a1", "h3"))
+	Check := func(coordinate1, coordinate2 string) bool {
+		// a1 :: 1+1 even => Black
+		// h3 :: 8+3 odd => White
+
+		return (coordinate1[0]-'a'+1+coordinate1[1]-'0')&1 ==
+			(coordinate2[0]-'a'+1+coordinate2[1]-'0')&1
+	}
+
+	for _, f := range []func(string, string) bool{checkTwoChessboards, Check} {
+		log.Print("true ?= ", f("a1", "c3"))
+		log.Print("false ?= ", f("a1", "h3"))
+		log.Print("--")
+	}
 }
