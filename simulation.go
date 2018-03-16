@@ -418,3 +418,19 @@ func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 	}
 	return 2
 }
+
+// 3274 Check if Two Chessboard Squares Have the Same Color
+func checkTwoChessboards(coordinate1 string, coordinate2 string) bool {
+	Chess := [8][8]int{}
+	for c := 1; c < 8; c++ {
+		Chess[0][c] = Chess[0][c-1] ^ 1
+	}
+	for r := 1; r < 8; r++ {
+		for c := 0; c < 8; c++ {
+			Chess[r][c] = Chess[r-1][c] ^ 1
+		}
+	}
+
+	return Chess[7-coordinate1[1]+'1'][coordinate1[0]-'a'] ==
+		Chess[7-coordinate2[1]+'1'][coordinate2[0]-'a']
+}

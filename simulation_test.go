@@ -76,3 +76,9 @@ func Test3001(t *testing.T) {
 	log.Print("2 ?= ", minMovesToCaptureTheQueen(1, 1, 8, 8, 2, 3))
 	log.Print("1 ?= ", minMovesToCaptureTheQueen(5, 3, 3, 4, 5, 2))
 }
+
+// 3274 Check if Two Chessboard Squares Have the Same Color
+func Test3274(t *testing.T) {
+	log.Print("true ?= ", checkTwoChessboards("a1", "c3"))
+	log.Print("false ?= ", checkTwoChessboards("a1", "h3"))
+}
