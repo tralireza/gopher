@@ -77,6 +77,13 @@ func Test3001(t *testing.T) {
 	log.Print("1 ?= ", minMovesToCaptureTheQueen(5, 3, 3, 4, 5, 2))
 }
 
+// 3270 Find the Key of the Numbers
+func Test3270(t *testing.T) {
+	log.Print("0 ?= ", generateKey(1, 10, 1000))
+	log.Print("777 ?= ", generateKey(987, 879, 798))
+	log.Print("1 ?= ", generateKey(1, 2, 3))
+}
+
 // 3274 Check if Two Chessboard Squares Have the Same Color
 func Test3274(t *testing.T) {
 	Check := func(coordinate1, coordinate2 string) bool {

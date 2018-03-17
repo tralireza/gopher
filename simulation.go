@@ -419,8 +419,26 @@ func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 	return 2
 }
 
+// 3270 Find the Key of the Numbers
+func generateKey(num1 int, num2 int, num3 int) int {
+	k := 0
+
+	rdx := 1
+	for range 4 {
+		d := min(num1%10, num2%10, num3%10)
+		k += d * rdx
+		rdx *= 10
+
+		num1 /= 10
+		num2 /= 10
+		num3 /= 10
+	}
+
+	return k
+}
+
 // 3274 Check if Two Chessboard Squares Have the Same Color
-func checkTwoChessboards(coordinate1 , coordinate2 string) bool {
+func checkTwoChessboards(coordinate1, coordinate2 string) bool {
 	Chess := [8][8]int{}
 	for c := 1; c < 8; c++ {
 		Chess[0][c] = Chess[0][c-1] ^ 1
