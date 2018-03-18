@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"slices"
+	"sort"
 	"testing"
 )
 
@@ -21,15 +22,7 @@ func Test179(t *testing.T) {
 			S = append(S, fmt.Sprintf("%d", n))
 		}
 
-		slices.SortFunc(S, func(a, b string) int {
-			if a+b > b+a {
-				return -1
-			}
-			if a+b < b+a {
-				return 1
-			}
-			return 0
-		})
+		sort.Slice(S, func(i, j int) bool { return S[i]+S[j] > S[j]+S[i] })
 
 		if S[0] == "0" {
 			return "0"
