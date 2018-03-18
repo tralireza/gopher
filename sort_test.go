@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"slices"
 	"testing"
@@ -14,16 +15,46 @@ func Test56(t *testing.T) {
 
 // 179m Largest Number
 func Test179(t *testing.T) {
-	log.Print("201 ?= ", largestNumber([]int{10, 2}))
-	log.Print("9534330 ?= ", largestNumber([]int{3, 30, 34, 5, 9}))
+	Largest := func(nums []int) string {
+		S := []string{}
+		for _, n := range nums {
+			S = append(S, fmt.Sprintf("%d", n))
+		}
 
-	log.Print("43243432 ?= ", largestNumber([]int{432, 43243}))
-	log.Print("1113111311 ?= ", largestNumber([]int{111311, 1113}))
+		slices.SortFunc(S, func(a, b string) int {
+			if a+b > b+a {
+				return -1
+			}
+			if a+b < b+a {
+				return 1
+			}
+			return 0
+		})
 
-	log.Print("93921710 ?= ", largestNumber([]int{10, 2, 9, 39, 17}))
-	log.Print("8645124322562161281 ?= ", largestNumber([]int{1, 2, 4, 8, 16, 32, 64, 128, 256, 512}))
+		if S[0] == "0" {
+			return "0"
+		}
 
-	log.Print("0 ?= ", largestNumber([]int{0, 0}))
+		var l string
+		for _, s := range S {
+			l += s
+		}
+		return l
+	}
+
+	for _, f := range []func([]int) string{largestNumber, Largest} {
+		log.Print("201 ?= ", f([]int{10, 2}))
+		log.Print("9534330 ?= ", f([]int{3, 30, 34, 5, 9}))
+
+		log.Print("43243432 ?= ", f([]int{432, 43243}))
+		log.Print("1113111311 ?= ", f([]int{111311, 1113}))
+
+		log.Print("93921710 ?= ", f([]int{10, 2, 9, 39, 17}))
+		log.Print("8645124322562161281 ?= ", f([]int{1, 2, 4, 8, 16, 32, 64, 128, 256, 512}))
+
+		log.Print("0 ?= ", f([]int{0, 0}))
+		log.Print("--")
+	}
 }
 
 // 912m Sort an Array
