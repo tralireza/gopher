@@ -1,8 +1,10 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"slices"
+	"strings"
 )
 
 // 56m Merge Intervals
@@ -23,6 +25,61 @@ func merge(intervals [][]int) [][]int {
 	I = append(I, prv)
 
 	return I
+}
+
+// 179m Largest Number
+func largestNumber(nums []int) string {
+	x := 0
+	for _, n := range nums {
+		l := 0
+		for n > 0 {
+			l++
+			n /= 10
+		}
+		x = max(l, x)
+	}
+
+	S := []string{}
+	for _, n := range nums {
+		S = append(S, fmt.Sprintf("%-[1]*d", x, n))
+	}
+
+	slices.SortFunc(S, func(a, b string) int {
+		for i := 0; i < len(a) && i < len(b); i++ {
+			if a[i] == ' ' && b[i] == ' ' {
+				return int(a[i-1]) - int(b[i-1])
+			}
+			if a[i] == b[i] {
+				continue
+			}
+
+			if a[i] == ' ' {
+				var x, y int
+				fmt.Sscanf(strings.ReplaceAll(a[:i]+b, " ", ""), "%d", &x)
+				fmt.Sscanf(strings.ReplaceAll(b+a[:i], " ", ""), "%d", &y)
+
+				return x - y
+
+			} else if b[i] == ' ' {
+				var x, y int
+				fmt.Sscanf(strings.ReplaceAll(a+b[:i], " ", ""), "%d", &x)
+				fmt.Sscanf(strings.ReplaceAll(b[:i]+a, " ", ""), "%d", &y)
+
+				return x - y
+			}
+
+			return int(a[i]) - int(b[i])
+		}
+		return 0
+	})
+
+	log.Printf(" -> %q", S)
+
+	var v string
+	for i := range S {
+		v = strings.Replace(S[i], " ", "", -1) + v
+	}
+	return v
 }
 
 // 912m Sort an Array

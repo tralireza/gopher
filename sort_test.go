@@ -12,6 +12,19 @@ func Test56(t *testing.T) {
 	log.Print("[[1 5]] ?= ", merge([][]int{{1, 4}, {4, 5}}))
 }
 
+// 179m Largest Number
+func Test179(t *testing.T) {
+	log.Print("201 ?= ", largestNumber([]int{10, 2}))
+	log.Print("9534330 ?= ", largestNumber([]int{3, 30, 34, 5, 9}))
+
+	log.Print("43243432 ?= ", largestNumber([]int{432, 43243}))
+	log.Print("1113111311 ?= ", largestNumber([]int{111311, 1113}))
+
+	log.Print("93921710 ?= ", largestNumber([]int{10, 2, 9, 39, 17}))
+	log.Print("8645124322562161281 ?= ", largestNumber([]int{1, 2, 4, 8, 16, 32, 64, 128, 256, 512}))
+
+}
+
 // 912m Sort an Array
 func Test912(t *testing.T) {
 	log.Print(" ?= ", sortArray([]int{5, 2, 3, 1}))
