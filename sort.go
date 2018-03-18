@@ -75,6 +75,10 @@ func largestNumber(nums []int) string {
 
 	log.Printf(" -> %q", S)
 
+	if S[len(S)-1] == "0" {
+		return "0"
+	}
+
 	var v string
 	for i := range S {
 		v = strings.Replace(S[i], " ", "", -1) + v

@@ -23,6 +23,7 @@ func Test179(t *testing.T) {
 	log.Print("93921710 ?= ", largestNumber([]int{10, 2, 9, 39, 17}))
 	log.Print("8645124322562161281 ?= ", largestNumber([]int{1, 2, 4, 8, 16, 32, 64, 128, 256, 512}))
 
+	log.Print("0 ?= ", largestNumber([]int{0, 0}))
 }
 
 // 912m Sort an Array
