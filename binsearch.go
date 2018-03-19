@@ -105,6 +105,27 @@ func nearestPalindromic(n string) string {
 	return strconv.Itoa(next)
 }
 
+// 1894m Find the Student that Will Replace the Chalk
+func chalkReplacer(chalk []int, k int) int {
+	pSum := make([]int, len(chalk))
+	pSum[0] = chalk[0]
+	for i, n := range chalk[1:] {
+		pSum[i+1] = n + pSum[i]
+	}
+	k %= pSum[len(chalk)-1]
+
+	l, r := 0, len(chalk)-1
+	for l < r {
+		m := l + (r-l)>>1
+		if pSum[m] <= k {
+			l = m + 1
+		} else {
+			r = m
+		}
+	}
+	return r
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func minChanges(nums []int, k int) int {
 	M := map[int]int{}

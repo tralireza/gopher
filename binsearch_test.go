@@ -22,6 +22,12 @@ func Test564(t *testing.T) {
 	log.Print("99799 ?= ", nearestPalindromic("99800"))
 }
 
+// 1894m Find the Student that Will Replace the Chalk
+func Test1894(t *testing.T) {
+	log.Print("0 ?= ", chalkReplacer([]int{5, 1, 5}, 22))
+	log.Print("1 ?= ", chalkReplacer([]int{3, 4, 1, 2}, 25))
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func Test3224(t *testing.T) {
 	// 0 <= Array[i] <= k <= 10^5
