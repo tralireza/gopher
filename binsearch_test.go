@@ -24,6 +24,24 @@ func Test564(t *testing.T) {
 
 // 1894m Find the Student that Will Replace the Chalk
 func Test1894(t *testing.T) {
+	// left-most BinSearch
+	lBS := func(A []int, k int) int {
+		l, r := 0, len(A)
+		for l < r {
+			m := l + (r-l)>>1
+			if A[m] >= k {
+				r = m
+			} else {
+				l = m + 1
+			}
+		}
+		return l
+	}
+
+	for _, k := range []int{1, 2, 3, 8, 9} {
+		log.Print(k, " => ", lBS([]int{2, 2, 3, 3, 3, 4, 5, 8, 8}, k))
+	}
+
 	log.Print("0 ?= ", chalkReplacer([]int{5, 1, 5}, 22))
 	log.Print("1 ?= ", chalkReplacer([]int{3, 4, 1, 2}, 25))
 }
