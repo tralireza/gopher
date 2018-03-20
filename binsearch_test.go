@@ -38,8 +38,25 @@ func Test1894(t *testing.T) {
 		return l
 	}
 
+	// right-most BinSearch
+	rBS := func(A []int, k int) int {
+		l, r := 0, len(A)
+		for l < r {
+			m := l + (r-l)>>1
+			if A[m] <= k {
+				l = m + 1
+			} else {
+				r = m
+			}
+		}
+		return r - 1
+	}
+
+	A := []int{2, 3, 3, 3, 3, 4, 5, 6, 8}
+	log.Print("      0 1 2 3 4 5 6 7 8")
+	log.Print("A :: ", A)
 	for _, k := range []int{1, 2, 3, 8, 9} {
-		log.Print(k, " => ", lBS([]int{2, 2, 3, 3, 3, 4, 5, 8, 8}, k))
+		log.Print(k, "?   ==L=> ", lBS(A, k), "   ==R=> ", rBS(A, k))
 	}
 
 	log.Print("0 ?= ", chalkReplacer([]int{5, 1, 5}, 22))
