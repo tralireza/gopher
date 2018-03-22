@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"slices"
 	"strconv"
@@ -377,6 +378,26 @@ func luckyNumbers(matrix [][]int) []int {
 		}
 	}
 	return R
+}
+
+// 1945 Sum of Digits of String After Convert
+func getLucky(s string, k int) int {
+	t := ""
+	for i := 0; i < len(s); i++ {
+		t += fmt.Sprintf("%d", s[i]-'a'+1)
+	}
+
+	for range k {
+		n := 0
+		for i := 0; i < len(t); i++ {
+			n += int(t[i] - '0')
+		}
+		t = fmt.Sprintf("%d", n)
+	}
+
+	n := 0
+	fmt.Sscanf(t, "%d", &n)
+	return n
 }
 
 // 2022 Convert 1D Array Into 2D Array

@@ -64,6 +64,12 @@ func Test1380(t *testing.T) {
 	log.Print("[7] ?= ", luckyNumbers([][]int{{7, 8}, {1, 2}}))
 }
 
+// 1945 Sum of Digits of String After Convert
+func Test1945(t *testing.T) {
+	log.Print("36 ?= ", getLucky("iiii", 1))
+	log.Print("8 ?= ", getLucky("zbax", 2))
+}
+
 // 2022 Convert 1D Array Into 2D Array
 func Test2022(t *testing.T) {
 	log.Print("[[1 2] [3 4]] ?= ", construct2DArray([]int{1, 2, 3, 4}, 2, 2))
