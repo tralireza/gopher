@@ -114,6 +114,40 @@ func findAnagrams(s string, p string) []int {
 	return R
 }
 
+// 874m Walking Robot Simulation
+func robotSim(commands []int, obstacles [][]int) int {
+	Obs := make(map[[2]int]bool, len(obstacles))
+	for _, p := range obstacles {
+		Obs[[2]int{p[0], p[1]}] = true
+	}
+
+	Dirs := []int{0, 1, 0, -1, 0}
+	dir := 0
+
+	dist := 0
+
+	x, y := 0, 0
+	for _, c := range commands {
+		switch c {
+		case -1:
+			dir = (dir + 1) % 4
+		case -2:
+			dir = (dir + 3) % 4
+		default:
+			for range c {
+				X, Y := x+Dirs[dir], y+Dirs[dir+1]
+				if Obs[[2]int{X, Y}] {
+					break
+				}
+				x, y = X, Y
+				dist = max(x*x+y*y, dist)
+			}
+		}
+	}
+
+	return dist
+}
+
 // 1460 Make Two Arrays Equal by Reversing Subarrays
 func canBeEqual(target []int, arr []int) bool {
 	hT, hA := make([]int, 10_000+1), make([]int, 10_000+1)

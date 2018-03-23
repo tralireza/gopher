@@ -88,6 +88,13 @@ func Test438(t *testing.T) {
 	log.Print("[0 1 2] ?= ", findAnagrams("abab", "ab"))
 }
 
+// 874m Walking Robot Simulation
+func Test874(t *testing.T) {
+	log.Print("25 ?= ", robotSim([]int{4, -1, 3}, [][]int{}))
+	log.Print("65 ?= ", robotSim([]int{4, -1, 4, -2, 4}, [][]int{{2, 4}}))
+	log.Print("36 ?= ", robotSim([]int{6, -1, -1, 6}, [][]int{}))
+}
+
 // 1460 Make Two Arrays Equal by Reversing Subarrays
 func Test1460(t *testing.T) {
 	// 1 <= Ai <= 10000
