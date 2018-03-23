@@ -122,7 +122,7 @@ func robotSim(commands []int, obstacles [][]int) int {
 	}
 
 	Dirs := []int{0, 1, 0, -1, 0}
-	dir := 0
+	dir := 0 // Right(-1) -> +1, Left(-2) -> +3  (mod 4)
 
 	dist := 0
 
