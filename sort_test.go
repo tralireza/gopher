@@ -36,7 +36,7 @@ func Test179(t *testing.T) {
 	}
 
 	for _, f := range []func([]int) string{largestNumber, Largest} {
-		log.Print("201 ?= ", f([]int{10, 2}))
+		log.Print("210 ?= ", f([]int{10, 2}))
 		log.Print("9534330 ?= ", f([]int{3, 30, 34, 5, 9}))
 
 		log.Print("43243432 ?= ", f([]int{432, 43243}))
