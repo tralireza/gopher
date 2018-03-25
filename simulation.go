@@ -416,6 +416,31 @@ func construct2DArray(original []int, m int, n int) [][]int {
 	return R
 }
 
+// 2028m Find Missing Observations
+func missingRolls(rolls []int, mean int, n int) []int {
+	tSum := (len(rolls) + n) * mean
+	for _, v := range rolls {
+		tSum -= v
+	}
+
+	if tSum < 1*n || 6*n < tSum {
+		return []int{} // Impossible
+	}
+
+	rSum := n
+	R := make([]int, n)
+	for i := range R {
+		R[i] = 1
+	}
+
+	for i := 0; tSum-rSum > 0; rSum++ {
+		R[i]++
+		i = (i + 1) % n
+	}
+
+	return R
+}
+
 // 3001m Minimum Moves to Capture the Queen
 func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 	Cross := func(dirs [][]int, tgX, tgY, bkX, bkY int) int {
