@@ -427,15 +427,15 @@ func missingRolls(rolls []int, mean int, n int) []int {
 		return []int{} // Impossible
 	}
 
-	rSum := n
 	R := make([]int, n)
 	for i := range R {
-		R[i] = 1
+		R[i] = tSum / n
 	}
 
-	for i := 0; tSum-rSum > 0; rSum++ {
+	i := 0
+	for range tSum % n {
 		R[i]++
-		i = (i + 1) % n
+		i++
 	}
 
 	return R

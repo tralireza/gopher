@@ -80,7 +80,7 @@ func Test2022(t *testing.T) {
 // 2028m Find Missing Observations
 func Test2028(t *testing.T) {
 	log.Print("[6 6] ?= ", missingRolls([]int{3, 2, 4, 3}, 4, 2))
-	log.Print("[2 2 3 2] ?*=", missingRolls([]int{1, 5, 6}, 3, 4))
+	log.Print("[2 2 3 2] ?*= ", missingRolls([]int{1, 5, 6}, 3, 4))
 	log.Print("[] ?= ", missingRolls([]int{1, 2, 3, 4}, 6, 4))
 }
 
