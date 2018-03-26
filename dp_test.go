@@ -102,6 +102,13 @@ func Test1105(t *testing.T) {
 	}
 }
 
+// 1155m Number of Dice Rolls With Target Sum
+func Test1155(t *testing.T) {
+	log.Print("1 ?= ", numRollsToTarget(1, 6, 3))
+	log.Print("6 ?= ", numRollsToTarget(2, 6, 7))
+	log.Print("222616187 ?= ", numRollsToTarget(30, 30, 500))
+}
+
 // 1395m Count Number of Teams
 func Test1395(t *testing.T) {
 	// 1 <= Rating[i] <= 10^5
