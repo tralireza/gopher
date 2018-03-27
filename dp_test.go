@@ -115,8 +115,8 @@ func Test1155(t *testing.T) {
 		for range n - 1 {
 			prv := cur
 			cur = make([]int, len(prv))
-			for s := 1; s <= target; s++ {
-				for r := 1; r <= k && r+s <= target; r++ {
+			for r := 1; r <= k; r++ {
+				for s := 1; s+r <= target; s++ {
 					cur[s+r] += prv[s]
 					cur[s+r] %= M
 				}
