@@ -104,9 +104,34 @@ func Test1105(t *testing.T) {
 
 // 1155m Number of Dice Rolls With Target Sum
 func Test1155(t *testing.T) {
-	log.Print("1 ?= ", numRollsToTarget(1, 6, 3))
-	log.Print("6 ?= ", numRollsToTarget(2, 6, 7))
-	log.Print("222616187 ?= ", numRollsToTarget(30, 30, 500))
+	MemOptimized := func(n, k, target int) int {
+		const M = 1000_000_007
+
+		cur := make([]int, max(k, target)+1)
+		for r := range k {
+			cur[r+1] = 1
+		}
+
+		for range n - 1 {
+			prv := cur
+			cur = make([]int, len(prv))
+			for s := 1; s <= target; s++ {
+				for r := 1; r <= k && r+s <= target; r++ {
+					cur[s+r] += prv[s]
+					cur[s+r] %= M
+				}
+			}
+		}
+
+		return cur[target]
+	}
+
+	for _, fn := range []func(int, int, int) int{numRollsToTarget, MemOptimized} {
+		log.Print("1 ?= ", fn(1, 6, 3))
+		log.Print("6 ?= ", fn(2, 6, 7))
+		log.Print("222616187 ?= ", fn(30, 30, 500))
+		log.Print("--")
+	}
 }
 
 // 1395m Count Number of Teams

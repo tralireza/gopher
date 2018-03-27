@@ -186,7 +186,7 @@ func minHeightShelves(books [][]int, shelfWidth int) int {
 }
 
 // 1155m Number of Dice Rolls With Target Sum
-func numRollsToTarget(n int, k int, target int) int {
+func numRollsToTarget(n, k, target int) int {
 	D := make([][]int, n)
 	for d := range D {
 		D[d] = make([]int, max(target, k)+1)
