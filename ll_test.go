@@ -135,3 +135,30 @@ func Test92(t *testing.T) {
 	llDraw(reverseBetween(&L{Val: 5}, 1, 1))
 	fmt.Print("\n")
 }
+
+// 3217m Delete Nodes from Linked List Present in Array
+func Test3217(t *testing.T) {
+	llDraw := func(n *ListNode) string {
+		var s string
+		for n != nil {
+			if n.Next != nil {
+				s += fmt.Sprintf("{%d *}->", n.Val)
+			} else {
+				s += fmt.Sprintf("{%d /}", n.Val)
+			}
+			n = n.Next
+		}
+		return s
+	}
+
+	type L = ListNode
+
+	Vals := [][]int{{1, 2, 3}, {1}, {5}}
+	for i, l := range []*L{
+		{1, &L{2, &L{3, &L{4, &L{Val: 5}}}}},
+		{1, &L{2, &L{1, &L{2, &L{1, &L{Val: 2}}}}}},
+		{1, &L{2, &L{3, &L{Val: 4}}}},
+	} {
+		log.Printf("%s   =>   %s", llDraw(l), llDraw(modifiedList(Vals[i], l)))
+	}
+}

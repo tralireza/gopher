@@ -166,3 +166,22 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	l.Next, l.Next.Next = prv, n
 	return h.Next
 }
+
+// 3217m Delete Nodes from Linked List Present in Array
+func modifiedList(nums []int, head *ListNode) *ListNode {
+	Vals := map[int]struct{}{}
+	for _, n := range nums {
+		Vals[n] = struct{}{}
+	}
+
+	h := &ListNode{Next: head}
+	prv := h
+	for n := head; n != nil; n = n.Next {
+		if _, ok := Vals[n.Val]; ok {
+			prv.Next = n.Next
+		} else {
+			prv = n
+		}
+	}
+	return h.Next
+}
