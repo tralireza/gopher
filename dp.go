@@ -36,6 +36,45 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	return D[Rows-1][Cols-1]
 }
 
+// 97m Interleaving String
+func isInterleave(s1, s2, s3 string) bool {
+	Mem := map[[2]string]bool{}
+
+	var Check func(s1, s2, s3 string) bool
+	Check = func(s1, s2, s3 string) bool {
+		if len(s1) == 0 && len(s2) == 0 && len(s3) == 0 {
+			return true
+		}
+
+		if v, ok := Mem[[2]string{s1, s2}]; ok {
+			return v
+		}
+		if v, ok := Mem[[2]string{s2, s1}]; ok {
+			return v
+		}
+
+		log.Printf("%q %q ? %q", s1, s2, s3)
+
+		S := []string{s2, s1}
+		for i, s := range []string{s1, s2} {
+			t := S[i]
+			for i := 1; i <= len(s); i++ {
+				if s[:i] == s3[:i] {
+					if Check(s[i:], t, s3[i:]) {
+						Mem[[2]string{s[i:], t}] = true
+						return true
+					}
+				}
+			}
+		}
+
+		Mem[[2]string{s1, s2}] = false
+		return false
+	}
+
+	return Check(s1, s2, s3)
+}
+
 // 120m Triangle
 func minimumTotal(triangle [][]int) int {
 	t := make([][]int, len(triangle))
