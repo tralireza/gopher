@@ -35,3 +35,28 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
 
 	return Z
 }
+
+// 1367 Linked List in Binary Tree
+func isSubPath(head *ListNode, root *TreeNode) bool {
+	if root == nil {
+		return false
+	}
+
+	var Check func(*ListNode, *TreeNode) bool
+	Check = func(l *ListNode, t *TreeNode) bool {
+		if t == nil || l == nil {
+			return l == nil
+		}
+
+		v := false
+		if l.Val == t.Val {
+			v = Check(l.Next, t.Left) || Check(l.Next, t.Right)
+		}
+		return v
+	}
+
+	if Check(head, root) {
+		return true
+	}
+	return isSubPath(head, root.Left) || isSubPath(head, root.Right)
+}
