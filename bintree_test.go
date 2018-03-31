@@ -28,7 +28,6 @@ func Test1367(t *testing.T) {
 
 			for len(Q) > 0 && len(R) > 0 {
 				t, Q, l, R = Q[len(Q)-1], Q[:len(Q)-1], R[len(R)-1], R[:len(R)-1]
-
 				if t.Val == l.Val {
 					l = l.Next
 					if l != nil {
@@ -38,11 +37,9 @@ func Test1367(t *testing.T) {
 						if t.Right != nil {
 							Q, R = append(Q, t.Right), append(R, l)
 						}
+					} else {
+						return true
 					}
-				}
-
-				if l == nil {
-					return true
 				}
 			}
 
