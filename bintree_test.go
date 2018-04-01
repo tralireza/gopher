@@ -18,6 +18,30 @@ func Test103(t *testing.T) {
 
 // 1367 Linked List in Binary Tree
 func Test1367(t *testing.T) {
+	// Knuth-Morris-Pratt KMP: Failure Function
+	KMP := func(l *ListNode) ([]int, []int) {
+		Vals := []int{l.Val} // ie, Pattern
+		uF := []int{0}
+
+		l = l.Next
+		for pIndex := 0; l != nil; l = l.Next {
+			for pIndex > 0 && l.Val != Vals[pIndex] {
+				pIndex = uF[pIndex-1]
+			}
+
+			if l.Val == Vals[pIndex] {
+				pIndex++
+			} else {
+				pIndex = 0
+			}
+
+			Vals = append(Vals, l.Val)
+			uF = append(uF, pIndex)
+		}
+
+		return uF, Vals
+	}
+
 	Iterative := func(head *ListNode, root *TreeNode) bool {
 		if root == nil {
 			return false
@@ -66,6 +90,9 @@ func Test1367(t *testing.T) {
 
 	type L = ListNode
 	type T = TreeNode
+
+	uF, Pattern := KMP(&L{1, &L{2, &L{1, &L{2, &L{Val: 3}}}}})
+	log.Print("+++ KMP uF & Pattern -> ", uF, Pattern)
 
 	tree := &T{1, &T{4, nil, &T{2, &T{Val: 1}, nil}}, &T{4, &T{2, &T{Val: 6}, &T{8, &T{Val: 1}, &T{Val: 3}}}, nil}}
 
