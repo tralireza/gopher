@@ -42,6 +42,37 @@ func Test1367(t *testing.T) {
 		return uF, Vals
 	}
 
+	KMPSearch := func(haystack []int, needle []int) int {
+		uF, k := []int{0}, 0
+		for j := 1; j < len(needle); j++ {
+			for k > 0 && needle[k] != needle[j] {
+				k = uF[k-1]
+			}
+			if needle[j] == needle[k] {
+				k++
+			} else {
+				k = 0
+			}
+			uF = append(uF, k)
+		}
+
+		log.Print(needle, " -> uF: ", uF)
+
+		k = 0
+		for j := range haystack {
+			for k > 0 && needle[k] != haystack[j] {
+				k = uF[k-1]
+			}
+			if needle[k] == haystack[j] {
+				k++
+				if k == len(needle) {
+					return j - k + 1
+				}
+			}
+		}
+		return -1
+	}
+
 	Iterative := func(head *ListNode, root *TreeNode) bool {
 		if root == nil {
 			return false
@@ -93,6 +124,8 @@ func Test1367(t *testing.T) {
 
 	uF, Pattern := KMP(&L{1, &L{2, &L{1, &L{2, &L{Val: 3}}}}})
 	log.Print("+++ KMP uF & Pattern -> ", uF, Pattern)
+	log.Print("KMP Search :: 2 ?= ", KMPSearch([]int{1, 2, 1, 2, 1, 2, 3}, []int{1, 2, 1, 2, 3}))
+	log.Print("--")
 
 	tree := &T{1, &T{4, nil, &T{2, &T{Val: 1}, nil}}, &T{4, &T{2, &T{Val: 6}, &T{8, &T{Val: 1}, &T{Val: 3}}}, nil}}
 
