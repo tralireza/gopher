@@ -16,9 +16,39 @@ func Test63(t *testing.T) {
 
 // 97m Interleaving String
 func Test97(t *testing.T) {
-	log.Print("true ?= ", isInterleave("aabcc", "dbbca", "aadbbcbcac"))
-	log.Print("false ?= ", isInterleave("aabcc", "dbbca", "aadbbbaccc"))
-	log.Print("true ?= ", isInterleave("", "", ""))
+	Tabulation := func(s1, s2, s3 string) bool {
+		if len(s1)+len(s2) != len(s3) {
+			return false
+		}
+
+		D := make([][]bool, len(s1)+1)
+		for r := range D {
+			D[r] = make([]bool, len(s2)+1)
+		}
+
+		D[0][0] = true
+		for r := 1; r <= len(s1); r++ {
+			D[r][0] = D[r-1][0] && s1[r-1] == s3[r-1]
+		}
+		for c := 1; c <= len(s2); c++ {
+			D[0][c] = D[0][c-1] && s2[c-1] == s3[c-1]
+		}
+
+		for r := 1; r <= len(s1); r++ {
+			for c := 1; c <= len(s2); c++ {
+				D[r][c] = D[r-1][c] && s1[r-1] == s3[r+c-1] || D[r][c-1] && s2[c-1] == s3[r+c-1]
+			}
+		}
+
+		return D[len(s1)][len(s2)]
+	}
+
+	for _, fn := range []func(string, string, string) bool{isInterleave, Tabulation} {
+		log.Print("true ?= ", fn("aabcc", "dbbca", "aadbbcbcac"))
+		log.Print("false ?= ", fn("aabcc", "dbbca", "aadbbbaccc"))
+		log.Print("true ?= ", fn("", "", ""))
+		log.Print("--")
+	}
 }
 
 // 120m Triangle

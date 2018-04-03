@@ -39,6 +39,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 // 97m Interleaving String
 func isInterleave(s1, s2, s3 string) bool {
 	Mem := map[[2]string]bool{}
+	defer log.Print(Mem)
 
 	var Check func(s1, s2, s3 string) bool
 	Check = func(s1, s2, s3 string) bool {
