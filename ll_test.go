@@ -136,6 +136,35 @@ func Test92(t *testing.T) {
 	fmt.Print("\n")
 }
 
+// 725m Split Linked List in Parts
+func Test725(t *testing.T) {
+	type L = ListNode
+
+	Draw := func(Seg []*ListNode) {
+		fmt.Print("[")
+		for _, l := range Seg {
+			if l != nil {
+				fmt.Print(" [")
+				for l != nil {
+					if l.Next != nil {
+						fmt.Printf("{%d *}->", l.Val)
+					} else {
+						fmt.Printf("{%d /}", l.Val)
+					}
+					l = l.Next
+				}
+				fmt.Print("]")
+			} else {
+				fmt.Print(" []")
+			}
+		}
+		fmt.Print(" ]\n")
+	}
+
+	Draw(splitListToParts(&L{1, &L{2, &L{Val: 3}}}, 5))
+	Draw(splitListToParts(&L{1, &L{2, &L{3, &L{4, &L{5, &L{6, &L{7, &L{8, &L{9, &L{Val: 10}}}}}}}}}}, 3))
+}
+
 // 3217m Delete Nodes from Linked List Present in Array
 func Test3217(t *testing.T) {
 	llDraw := func(n *ListNode) string {

@@ -167,6 +167,39 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	return h.Next
 }
 
+// 725m Split Linked List in Parts
+func splitListToParts(head *ListNode, k int) []*ListNode {
+	lZ := 0
+	for n := head; n != nil; n = n.Next {
+		lZ++
+	}
+
+	Seg := []*ListNode{}
+
+	n := head
+	for i := range k {
+		extra := 1
+		if i >= lZ%k {
+			extra = 0
+		}
+
+		h := &ListNode{Next: n}
+		p := h
+		for range lZ/k + extra {
+			if n == nil {
+				break
+			}
+			p.Next, p = n, n
+			n = n.Next
+		}
+		p.Next = nil
+
+		Seg = append(Seg, h.Next)
+	}
+
+	return Seg
+}
+
 // 3217m Delete Nodes from Linked List Present in Array
 func modifiedList(nums []int, head *ListNode) *ListNode {
 	Vals := map[int]struct{}{}
