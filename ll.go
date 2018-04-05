@@ -200,6 +200,60 @@ func splitListToParts(head *ListNode, k int) []*ListNode {
 	return Seg
 }
 
+// 2326m Spiral Matrix IV
+func spiralMatrix(m int, n int, head *ListNode) [][]int {
+	M := make([][]int, m)
+	for r := range M {
+		M[r] = make([]int, n)
+		for c := range M[r] {
+			M[r][c] = -1
+		}
+	}
+
+	const (
+		RIGHT = iota
+		DOWN
+		LEFT
+		UP
+	)
+
+	Dir := []int{0, 1, 0, -1, 0}
+
+	rX, cX, rY, cY := 0, 0, m-1, n-1 // X: top-left, Y: bottom-right
+
+	r, c := 0, 0
+	d := RIGHT
+	rX++
+
+	for head != nil {
+		M[r][c] = head.Val
+
+		r, c = r+Dir[d], c+Dir[d+1]
+
+		if d == RIGHT && c > cY {
+			d = DOWN
+			r, c = r+1, cY
+			cY--
+		} else if d == DOWN && r > rY {
+			d = LEFT
+			r, c = rY, c-1
+			rY--
+		} else if d == LEFT && c < cX {
+			d = UP
+			r, c = r-1, cX
+			cX++
+		} else if d == UP && r < rX {
+			d = RIGHT
+			r, c = rX, c+1
+			rX++
+		}
+
+		head = head.Next
+	}
+
+	return M
+}
+
 // 3217m Delete Nodes from Linked List Present in Array
 func modifiedList(nums []int, head *ListNode) *ListNode {
 	Vals := map[int]struct{}{}

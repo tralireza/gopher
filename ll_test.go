@@ -165,6 +165,14 @@ func Test725(t *testing.T) {
 	Draw(splitListToParts(&L{1, &L{2, &L{3, &L{4, &L{5, &L{6, &L{7, &L{8, &L{9, &L{Val: 10}}}}}}}}}}, 3))
 }
 
+// 2326m Spiral Matrix IV
+func Test2326(t *testing.T) {
+	type L = ListNode
+
+	log.Print("[[3 0 2 6 8] [5 0 -1 -1 1] [5 2 4 9 7]] ?= ", spiralMatrix(3, 5, &L{3, &L{0, &L{2, &L{6, &L{8, &L{1, &L{7, &L{9, &L{4, &L{2, &L{5, &L{5, &L{Val: 0}}}}}}}}}}}}}))
+	log.Print("[[0 1 2 -1]] ?= ", spiralMatrix(1, 4, &L{0, &L{1, &L{Val: 2}}}))
+}
+
 // 3217m Delete Nodes from Linked List Present in Array
 func Test3217(t *testing.T) {
 	llDraw := func(n *ListNode) string {
