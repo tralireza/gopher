@@ -183,6 +183,7 @@ func Test2326(t *testing.T) {
 		r, c := 0, 0
 		for head != nil {
 			M[r][c] = head.Val
+			head = head.Next
 
 			rNxt, cNxt := r+Dir[d], c+Dir[d+1]
 			if cNxt == n || rNxt == m || cNxt < 0 || M[rNxt][cNxt] != -1 {
@@ -191,8 +192,6 @@ func Test2326(t *testing.T) {
 			} else {
 				r, c = rNxt, cNxt
 			}
-
-			head = head.Next
 		}
 
 		return M
