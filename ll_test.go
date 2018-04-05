@@ -167,10 +167,44 @@ func Test725(t *testing.T) {
 
 // 2326m Spiral Matrix IV
 func Test2326(t *testing.T) {
+	// 0 <= Node.Val <= 1000
+
+	Trick := func(m, n int, head *ListNode) [][]int {
+		M := make([][]int, m)
+		for r := range M {
+			M[r] = make([]int, n)
+			for c := range M[r] {
+				M[r][c] = -1
+			}
+		}
+
+		d, Dir := 0, []int{0, 1, 0, -1, 0}
+
+		r, c := 0, 0
+		for head != nil {
+			M[r][c] = head.Val
+
+			rNxt, cNxt := r+Dir[d], c+Dir[d+1]
+			if cNxt == n || rNxt == m || cNxt < 0 || M[rNxt][cNxt] != -1 {
+				d = (d + 1) % 4
+				r, c = r+Dir[d], c+Dir[d+1]
+			} else {
+				r, c = rNxt, cNxt
+			}
+
+			head = head.Next
+		}
+
+		return M
+	}
+
 	type L = ListNode
 
-	log.Print("[[3 0 2 6 8] [5 0 -1 -1 1] [5 2 4 9 7]] ?= ", spiralMatrix(3, 5, &L{3, &L{0, &L{2, &L{6, &L{8, &L{1, &L{7, &L{9, &L{4, &L{2, &L{5, &L{5, &L{Val: 0}}}}}}}}}}}}}))
-	log.Print("[[0 1 2 -1]] ?= ", spiralMatrix(1, 4, &L{0, &L{1, &L{Val: 2}}}))
+	for _, fn := range []func(int, int, *ListNode) [][]int{spiralMatrix, Trick} {
+		log.Print("[[3 0 2 6 8] [5 0 -1 -1 1] [5 2 4 9 7]] ?= ", fn(3, 5, &L{3, &L{0, &L{2, &L{6, &L{8, &L{1, &L{7, &L{9, &L{4, &L{2, &L{5, &L{5, &L{Val: 0}}}}}}}}}}}}}))
+		log.Print("[[0 1 2 -1]] ?= ", fn(1, 4, &L{0, &L{1, &L{Val: 2}}}))
+		log.Print("--")
+	}
 }
 
 // 3217m Delete Nodes from Linked List Present in Array

@@ -201,7 +201,7 @@ func splitListToParts(head *ListNode, k int) []*ListNode {
 }
 
 // 2326m Spiral Matrix IV
-func spiralMatrix(m int, n int, head *ListNode) [][]int {
+func spiralMatrix(m, n int, head *ListNode) [][]int {
 	M := make([][]int, m)
 	for r := range M {
 		M[r] = make([]int, n)
