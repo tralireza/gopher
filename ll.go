@@ -254,6 +254,24 @@ func spiralMatrix(m, n int, head *ListNode) [][]int {
 	return M
 }
 
+// 2807m Insert Greatest Common Divisors in Linked List
+func insertGreatestCommonDivisors(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	a, b := head.Val, head.Next.Val
+	if b > a {
+		a, b = b, a
+	}
+	for b != 0 {
+		a, b = b, a%b
+	}
+
+	head.Next = &ListNode{a, insertGreatestCommonDivisors(head.Next)}
+	return head
+}
+
 // 3217m Delete Nodes from Linked List Present in Array
 func modifiedList(nums []int, head *ListNode) *ListNode {
 	Vals := map[int]struct{}{}

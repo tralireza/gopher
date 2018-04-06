@@ -206,6 +206,31 @@ func Test2326(t *testing.T) {
 	}
 }
 
+// 2807m Insert Greatest Common Divisors in Linked List
+func Test2807(t *testing.T) {
+	llDraw := func(l *ListNode) string {
+		var s string
+		for l != nil {
+			if l.Next != nil {
+				s += fmt.Sprintf("{%d *}->", l.Val)
+			} else {
+				s += fmt.Sprintf("{%d /}", l.Val)
+			}
+			l = l.Next
+		}
+		return s
+	}
+
+	type L = ListNode
+
+	for _, l := range []*L{
+		{18, &L{6, &L{10, &L{Val: 3}}}},
+		{Val: 7},
+	} {
+		log.Print(llDraw(l), "  =>  ", llDraw(insertGreatestCommonDivisors(l)))
+	}
+}
+
 // 3217m Delete Nodes from Linked List Present in Array
 func Test3217(t *testing.T) {
 	llDraw := func(n *ListNode) string {
