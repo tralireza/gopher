@@ -64,6 +64,13 @@ func Test122(t *testing.T) {
 	log.Print("0 ?= ", maxProfit([]int{7, 6, 4, 3, 1}))
 }
 
+// 221m Maximal Square
+func Test221(t *testing.T) {
+	log.Print("4 ?= ", maximalSquare([][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}}))
+	log.Print("1 ?= ", maximalSquare([][]byte{{'0', '1'}, {'1', '0'}}))
+	log.Print("0 ?= ", maximalSquare([][]byte{{'0'}}))
+}
+
 // 264m Ugly Numbers II
 func Test264(t *testing.T) {
 	// Ugly: prime factors [only]: 2, 3, 5

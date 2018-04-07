@@ -109,6 +109,27 @@ func maxProfit(prices []int) int {
 	return profit
 }
 
+// 221m Maximal Square
+func maximalSquare(matrix [][]byte) int {
+	Rows, Cols := len(matrix), len(matrix[0])
+	D := make([][]int, Rows+1)
+	for r := range D {
+		D[r] = make([]int, Cols+1)
+	}
+
+	x := 0
+	for r := range Rows {
+		for c := range Cols {
+			if matrix[r][c] == '1' {
+				D[r+1][c+1] = 1 + min(D[r][c], D[r+1][c], D[r][c+1])
+				x = max(D[r+1][c+1], x)
+			}
+		}
+	}
+
+	return x * x
+}
+
 // 264m Ugly Numbers II
 type PQ264 struct{ sort.IntSlice }
 
