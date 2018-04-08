@@ -25,6 +25,20 @@ func canThreePartsEqualSum(arr []int) bool {
 	return counter >= 3
 }
 
+// 1310m XOR Queries of a Subarray
+func xorQueries(arr []int, queries [][]int) []int {
+	pSum := make([]int, len(arr)+1)
+	for i := range arr {
+		pSum[i+1] = pSum[i] ^ arr[i]
+	}
+
+	R := []int{}
+	for _, query := range queries {
+		R = append(R, pSum[query[1]+1]^pSum[query[0]])
+	}
+	return R
+}
+
 // 1991 Find the Middle Index in Array
 func findMiddleIndex(nums []int) int {
 	rSum := 0
