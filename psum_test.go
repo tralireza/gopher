@@ -53,8 +53,28 @@ func Test1013(t *testing.T) {
 
 // 1310m XOR Queries of a Subarray
 func Test1310(t *testing.T) {
-	log.Print("[2 7 14 8] ?= ", xorQueries([]int{1, 3, 4, 8}, [][]int{{0, 1}, {1, 2}, {0, 3}, {3, 3}}))
-	log.Print("[8 0 4 4] ?= ", xorQueries([]int{4, 8, 2, 10}, [][]int{{2, 3}, {1, 3}, {0, 0}, {0, 3}}))
+	Optimized := func(arr []int, queries [][]int) []int {
+		for i := 1; i < len(arr); i++ {
+			arr[i] ^= arr[i-1]
+		}
+
+		R := []int{}
+		for _, query := range queries {
+			i, j := query[0], query[1]
+			if i > 0 {
+				R = append(R, arr[j]^arr[i-1])
+			} else {
+				R = append(R, arr[j])
+			}
+		}
+		return R
+	}
+
+	for _, fn := range []func([]int, [][]int) []int{xorQueries, Optimized} {
+		log.Print("[2 7 14 8] ?= ", fn([]int{1, 3, 4, 8}, [][]int{{0, 1}, {1, 2}, {0, 3}, {3, 3}}))
+		log.Print("[8 0 4 4] ?= ", fn([]int{4, 8, 2, 10}, [][]int{{2, 3}, {1, 3}, {0, 0}, {0, 3}}))
+		log.Print("--")
+	}
 }
 
 // 1991 Find the Middle Index in Array
