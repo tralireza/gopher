@@ -77,6 +77,12 @@ func Test2022(t *testing.T) {
 	log.Print("[] ?= ", construct2DArray([]int{1, 2}, 1, 1))
 }
 
+// 2419m Longest Subarray With Maximum Bitwise AND
+func Test2419(t *testing.T) {
+	log.Print("2 ?= ", longestSubarray([]int{1, 2, 3, 3, 2, 2}))
+	log.Print("1 ?= ", longestSubarray([]int{1, 2, 3, 4}))
+}
+
 // 2028m Find Missing Observations
 func Test2028(t *testing.T) {
 	log.Print("[6 6] ?= ", missingRolls([]int{3, 2, 4, 3}, 4, 2))

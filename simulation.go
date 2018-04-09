@@ -441,6 +441,25 @@ func missingRolls(rolls []int, mean int, n int) []int {
 	return R
 }
 
+// 2419m Longest Subarray With Maximum Bitwise AND
+func longestSubarray(nums []int) int {
+	xVal, longest, cur := 0, 0, 0
+
+	for _, n := range nums {
+		if xVal < n {
+			xVal = n
+			longest, cur = 1, 1
+		} else if xVal == n {
+			cur++
+			longest = max(cur, longest)
+		} else {
+			cur = 0
+		}
+	}
+
+	return longest
+}
+
 // 3001m Minimum Moves to Capture the Queen
 func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 	Cross := func(dirs [][]int, tgX, tgY, bkX, bkY int) int {
