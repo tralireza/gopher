@@ -14,6 +14,12 @@ func Test63(t *testing.T) {
 	log.Print("0 ?= ", uniquePathsWithObstacles([][]int{{0, 0}, {1, 1}, {0, 0}}))
 }
 
+// 72m Edit Distance
+func Test72(t *testing.T) {
+	log.Print("3 ?= ", minDistance("horse", "ros"))
+	log.Print("5 ?= ", minDistance("intention", "execution"))
+}
+
 // 97m Interleaving String
 func Test97(t *testing.T) {
 	Tabulation := func(s1, s2, s3 string) bool {

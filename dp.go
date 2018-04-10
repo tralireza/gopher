@@ -36,6 +36,33 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	return D[Rows-1][Cols-1]
 }
 
+// 72m Edit Distance
+func minDistance(word1 string, word2 string) int {
+	Dist := make([][]int, len(word1)+1)
+	for r := range Dist {
+		Dist[r] = make([]int, len(word2)+1)
+	}
+
+	for r := 1; r <= len(word1); r++ {
+		Dist[r][0] = r
+	}
+	for c := 1; c <= len(word2); c++ {
+		Dist[0][c] = c
+	}
+
+	for r := 1; r <= len(word1); r++ {
+		for c := 1; c <= len(word2); c++ {
+			Dist[r][c] = Dist[r-1][c-1]
+
+			if word1[r-1] != word2[c-1] {
+				Dist[r][c] = 1 + min(Dist[r-1][c], Dist[r][c-1], Dist[r][c])
+			}
+		}
+	}
+
+	return Dist[len(word1)][len(word2)]
+}
+
 // 97m Interleaving String
 func isInterleave(s1, s2, s3 string) bool {
 	Mem := map[[2]string]bool{}
