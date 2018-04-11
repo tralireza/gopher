@@ -644,3 +644,10 @@ func Test2976(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 3286m Find a Safe Walk Through a Grid
+func Test3286(t *testing.T) {
+	log.Print("true ?= ", findSafeWalk([][]int{{0, 1, 0, 0, 0}, {0, 1, 0, 1, 0}, {0, 0, 0, 1, 0}}, 1))
+	log.Print("false ?= ", findSafeWalk([][]int{{0, 1, 1, 0, 0, 0}, {1, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 0, 1}, {0, 0, 1, 0, 1, 0}}, 3))
+	log.Print("true ?= ", findSafeWalk([][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}}, 5))
+}

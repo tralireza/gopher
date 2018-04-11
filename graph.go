@@ -835,3 +835,45 @@ func minimumCost(source string, target string, original []byte, changed []byte, 
 	}
 	return x
 }
+
+// 3286m Find a Safe Walk Through a Grid
+func findSafeWalk(grid [][]int, health int) bool {
+	Rows, Cols := len(grid), len(grid[0])
+
+	health -= grid[0][0]
+	if health == 0 {
+		return false
+	}
+
+	Vis := make([][]int, Rows)
+	for r := range Vis {
+		Vis[r] = make([]int, Cols)
+	}
+
+	Q := [][]int{{0, 0, health}}
+	Vis[0][0] = health
+
+	Dir := []int{0, 1, 0, -1, 0}
+
+	var v []int
+	for len(Q) > 0 {
+		v, Q = Q[0], Q[1:]
+		r, c, health := v[0], v[1], v[2]
+		if r == Rows-1 && c == Cols-1 {
+			return true
+		}
+
+		for dir := range 4 {
+			r, c := r+Dir[dir], c+Dir[dir+1]
+			if 0 <= r && r < Rows && 0 <= c && c < Cols {
+				health := health - grid[r][c]
+				if health > Vis[r][c] {
+					Vis[r][c] = health
+					Q = append(Q, []int{r, c, health})
+				}
+			}
+		}
+	}
+
+	return false
+}
