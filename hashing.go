@@ -148,6 +148,26 @@ func robotSim(commands []int, obstacles [][]int) int {
 	return dist
 }
 
+// 1372m Find the Longest Substring Containing Vowels in Even Counts
+func findTheLongestSubstring(s string) int {
+	V := map[byte]int{'a': 1, 'e': 2, 'i': 4, 'o': 8, 'u': 16}
+
+	xSub := 0
+
+	mMask := map[int]int{0: -1} // mask -> first index in string
+	mask := 0
+
+	for i := range len(s) {
+		mask ^= V[s[i]]
+		if _, ok := mMask[mask]; !ok && mask > 0 {
+			mMask[mask] = i
+		}
+		xSub = max(i-mMask[mask], xSub)
+	}
+
+	return xSub
+}
+
 // 1460 Make Two Arrays Equal by Reversing Subarrays
 func canBeEqual(target []int, arr []int) bool {
 	hT, hA := make([]int, 10_000+1), make([]int, 10_000+1)

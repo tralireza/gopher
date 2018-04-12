@@ -95,6 +95,13 @@ func Test874(t *testing.T) {
 	log.Print("36 ?= ", robotSim([]int{6, -1, -1, 6}, [][]int{}))
 }
 
+// 1372m Find the Longest Substring Containing Vowels in Even Counts
+func Test1372(t *testing.T) {
+	log.Print("13 ?= ", findTheLongestSubstring("eleetminicoworoep"))
+	log.Print("5 ?= ", findTheLongestSubstring("leetcodeisgreat"))
+	log.Print("6 ?= ", findTheLongestSubstring("bcbcbc"))
+}
+
 // 1460 Make Two Arrays Equal by Reversing Subarrays
 func Test1460(t *testing.T) {
 	// 1 <= Ai <= 10000
