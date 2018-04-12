@@ -152,10 +152,8 @@ func robotSim(commands []int, obstacles [][]int) int {
 func findTheLongestSubstring(s string) int {
 	V := map[byte]int{'a': 1, 'e': 2, 'i': 4, 'o': 8, 'u': 16}
 
-	xSub := 0
-
 	mMask := map[int]int{0: -1} // mask -> first index in string
-	mask := 0
+	mask, xSub := 0, 0
 
 	for i := range len(s) {
 		mask ^= V[s[i]]
