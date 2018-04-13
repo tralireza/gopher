@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"slices"
+	"strconv"
 	"strings"
 )
 
@@ -84,6 +85,26 @@ func largestNumber(nums []int) string {
 		v = strings.Replace(S[i], " ", "", -1) + v
 	}
 	return v
+}
+
+// 539m Minimum Time Difference
+func findMinDifference(timePoints []string) int {
+	Ms := []int{}
+
+	for _, t := range timePoints {
+		hr, _ := strconv.Atoi(t[:2])
+		mn, _ := strconv.Atoi(t[3:])
+		Ms = append(Ms, 60*hr+mn)
+	}
+
+	slices.Sort(Ms)
+	log.Print(Ms)
+
+	mVal := 720
+	for i := range len(Ms) - 1 {
+		mVal = min(Ms[i+1]-Ms[i], mVal)
+	}
+	return min(1440-(Ms[len(Ms)-1]-Ms[0]), mVal)
 }
 
 // 912m Sort an Array

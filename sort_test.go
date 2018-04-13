@@ -50,6 +50,12 @@ func Test179(t *testing.T) {
 	}
 }
 
+// 539m Minimum Time Difference
+func Test539(t *testing.T) {
+	log.Print("1 ?= ", findMinDifference([]string{"23:59", "00:00"}))
+	log.Print("0 ?= ", findMinDifference([]string{"00:00", "23:59", "00:00"}))
+}
+
 // 912m Sort an Array
 func Test912(t *testing.T) {
 	log.Print(" ?= ", sortArray([]int{5, 2, 3, 1}))
