@@ -88,6 +88,12 @@ func Test438(t *testing.T) {
 	log.Print("[0 1 2] ?= ", findAnagrams("abab", "ab"))
 }
 
+// 884 Uncommon Words from Two Sentences
+func Test884(t *testing.T) {
+	log.Print(" ?= ", uncommonFromSentences("this apple is sweet", "this apple is sour"))
+	log.Print(" ?= ", uncommonFromSentences("apple apple", "banana"))
+}
+
 // 874m Walking Robot Simulation
 func Test874(t *testing.T) {
 	log.Print("25 ?= ", robotSim([]int{4, -1, 3}, [][]int{}))

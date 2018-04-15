@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"maps"
+	"strings"
 )
 
 // 30h Substring With Concatenation of All Words
@@ -109,6 +110,24 @@ func findAnagrams(s string, p string) []int {
 		}
 		if fS == fP {
 			R = append(R, i-len(p)+1)
+		}
+	}
+	return R
+}
+
+// 884 Uncommon Words from Two Sentences
+func uncommonFromSentences(s1 string, s2 string) []string {
+	M := map[string]int{}
+	for _, s := range []string{s1, s2} {
+		for _, w := range strings.Split(s, " ") {
+			M[w]++
+		}
+	}
+
+	R := []string{}
+	for w, f := range M {
+		if f == 1 {
+			R = append(R, w)
 		}
 	}
 	return R
