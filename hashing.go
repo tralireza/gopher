@@ -118,10 +118,8 @@ func findAnagrams(s string, p string) []int {
 // 884 Uncommon Words from Two Sentences
 func uncommonFromSentences(s1 string, s2 string) []string {
 	M := map[string]int{}
-	for _, s := range []string{s1, s2} {
-		for _, w := range strings.Split(s, " ") {
-			M[w]++
-		}
+	for _, w := range strings.Split(s1+" "+s2, " ") {
+		M[w]++
 	}
 
 	R := []string{}
