@@ -70,6 +70,12 @@ func Test122(t *testing.T) {
 	log.Print("0 ?= ", maxProfit([]int{7, 6, 4, 3, 1}))
 }
 
+// 198m House Robber
+func Test198(t *testing.T) {
+	log.Print("4 ?= ", rob([]int{1, 2, 3, 1}))
+	log.Print("12 ?= ", rob([]int{2, 7, 9, 3, 1}))
+}
+
 // 221m Maximal Square
 func Test221(t *testing.T) {
 	log.Print("4 ?= ", maximalSquare([][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}}))

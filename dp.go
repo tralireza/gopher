@@ -136,6 +136,21 @@ func maxProfit(prices []int) int {
 	return profit
 }
 
+// 198m House Robber
+func rob(nums []int) int {
+	if len(nums) == 1 {
+		return nums[0]
+	}
+
+	D := make([]int, len(nums))
+
+	D[0], D[1] = nums[0], nums[1]
+	for i := range len(D) - 2 {
+		D[i+2] = max(D[i]+nums[i+2], D[i+1])
+	}
+	return D[len(D)-1]
+}
+
 // 221m Maximal Square
 func maximalSquare(matrix [][]byte) int {
 	Rows, Cols := len(matrix), len(matrix[0])
