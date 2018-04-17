@@ -70,6 +70,12 @@ func Test122(t *testing.T) {
 	log.Print("0 ?= ", maxProfit([]int{7, 6, 4, 3, 1}))
 }
 
+// 139m Word Break
+func Test139(t *testing.T) {
+	log.Print("true ?= ", wordBreak("applepenapple", []string{"apple", "pen"}))
+	log.Print("false ?= ", wordBreak("catsandog", []string{"cats", "dog", "sand", "and", "cat"}))
+}
+
 // 198m House Robber
 func Test198(t *testing.T) {
 	log.Print("4 ?= ", rob([]int{1, 2, 3, 1}))

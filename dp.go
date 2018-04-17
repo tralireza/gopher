@@ -136,6 +136,30 @@ func maxProfit(prices []int) int {
 	return profit
 }
 
+// 139m Word Break
+func wordBreak(s string, wordDict []string) bool {
+	M := map[string]bool{}
+	for _, w := range wordDict {
+		M[w] = true
+	}
+
+	D := make([]bool, len(s)+1)
+
+	D[0] = true
+	for l := range len(s) {
+		for w := range M {
+			lw := len(w)
+			if l+1-lw >= 0 && D[l+1-lw] && w == s[l+1-lw:l+1] {
+				D[l+1] = true
+
+				log.Printf("%s(%d) ~ %s|%s(%d) -> true", w, lw, s[:l+1-lw], s[l+1-lw:l+1], l+1)
+			}
+		}
+	}
+
+	return D[len(s)]
+}
+
 // 198m House Robber
 func rob(nums []int) int {
 	if len(nums) == 1 {
