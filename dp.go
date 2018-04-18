@@ -231,6 +231,27 @@ func nthUglyNumber(n int) int {
 	return u
 }
 
+// 646m Maximum Length of Pair Chain
+func findLongestChain(pairs [][]int) int {
+	slices.SortFunc(pairs, func(a, b []int) int { return a[1] - b[1] })
+	log.Print(pairs)
+
+	D := make([]int, len(pairs))
+	for i := range D {
+		D[i] = 1
+	}
+
+	for r := 1; r < len(D); r++ {
+		for l := 0; l < r; l++ {
+			if pairs[r][0] > pairs[l][1] {
+				D[r] = max(D[l]+1, D[r])
+			}
+		}
+	}
+	log.Print(D)
+	return slices.Max(D)
+}
+
 // 664h Strange Printer
 func strangePrinter(s string) int {
 	Mem := map[[2]int]int{}

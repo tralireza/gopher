@@ -121,6 +121,12 @@ func Test264(t *testing.T) {
 	}
 }
 
+// 646m Maximum Length of Pair Chain
+func Test646(t *testing.T) {
+	log.Print("2 ?= ", findLongestChain([][]int{{1, 2}, {2, 3}, {3, 4}}))
+	log.Print("3 ?= ", findLongestChain([][]int{{1, 2}, {7, 8}, {4, 5}}))
+}
+
 // 664h Strange Printer
 func Test664(t *testing.T) {
 	log.Print("2 ?= ", strangePrinter("aaabbb"))
