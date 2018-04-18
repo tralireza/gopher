@@ -133,6 +133,12 @@ func Test664(t *testing.T) {
 	log.Print("2 ?= ", strangePrinter("aba"))
 }
 
+// 673m Number of Longest Increasing Subsequence
+func Test673(t *testing.T) {
+	log.Print("2 ?= ", findNumberOfLIS([]int{1, 3, 5, 4, 7}))
+	log.Print("5 ?= ", findNumberOfLIS([]int{2, 2, 2, 2, 2}))
+}
+
 // 1014m Best Sightseeing Pair
 func Test1014(t *testing.T) {
 	log.Print("11 ?= ", maxScoreSightseeingPair([]int{8, 1, 5, 2, 6}))

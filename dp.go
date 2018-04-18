@@ -281,6 +281,43 @@ func strangePrinter(s string) int {
 	return MinTurn(0, len(s)-1)
 }
 
+// 673m Number of Longest Increasing Subsequence
+func findNumberOfLIS(nums []int) int {
+	counter := make([]int, len(nums))
+	for i := range counter {
+		counter[i] = 1
+	}
+
+	D := make([]int, len(nums))
+	for i := range D {
+		D[i] = 1
+	}
+
+	for r := 1; r < len(nums); r++ {
+		for l := 0; l < r; l++ {
+			if nums[l] < nums[r] {
+				if D[r] < D[l]+1 {
+					D[r] = D[l] + 1
+					counter[r] = counter[l]
+				} else if D[r] == D[l]+1 {
+					counter[r] += counter[l]
+				}
+			}
+		}
+	}
+
+	log.Print(D, " -> ", counter)
+
+	xVal := slices.Max(D)
+	count := 0
+	for i, n := range D {
+		if n == xVal {
+			count += counter[i]
+		}
+	}
+	return count
+}
+
 // 1014m Best Sightseeing Pair
 func maxScoreSightseeingPair(values []int) int {
 	// Score: i < j :: Vi+Vj - (j-i)
