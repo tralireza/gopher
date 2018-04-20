@@ -121,6 +121,13 @@ func Test264(t *testing.T) {
 	}
 }
 
+// 300m Longest Increasing Subsequence
+func Test300(t *testing.T) {
+	log.Print("4 ?= ", lengthOfLIS([]int{10, 9, 2, 5, 3, 7, 101, 18}))
+	log.Print("4 ?= ", lengthOfLIS([]int{0, 1, 0, 3, 2, 3}))
+	log.Print("1 ?= ", lengthOfLIS([]int{7, 7, 7, 7, 7, 7, 7}))
+}
+
 // 646m Maximum Length of Pair Chain
 func Test646(t *testing.T) {
 	log.Print("2 ?= ", findLongestChain([][]int{{1, 2}, {2, 3}, {3, 4}}))

@@ -231,6 +231,24 @@ func nthUglyNumber(n int) int {
 	return u
 }
 
+// 300m Longest Increasing Subsequence
+func lengthOfLIS(nums []int) int {
+	D := make([]int, len(nums))
+	for i := range D {
+		D[i] = 1
+	}
+
+	for r := 1; r < len(nums); r++ {
+		for l := 0; l < r; l++ {
+			if nums[l] < nums[r] {
+				D[r] = max(D[r], D[l]+1)
+			}
+		}
+	}
+
+	return slices.Max(D)
+}
+
 // 646m Maximum Length of Pair Chain
 func findLongestChain(pairs [][]int) int {
 	slices.SortFunc(pairs, func(a, b []int) int { return a[1] - b[1] })
