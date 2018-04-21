@@ -198,38 +198,52 @@ func maximalSquare(matrix [][]byte) int {
 
 // 241m Different Ways to Add Parentheses
 func diffWaysToCompute(expression string) []int {
-	if len(expression) == 0 {
-		return []int{}
-	}
-	if len(expression) == 1 {
-		return []int{int(expression[0] - '0')}
-	}
-	if len(expression) == 2 {
-		return []int{10*int(expression[0]-'0') + int(expression[1]-'0')}
-	}
+	Mem := map[[2]int][]int{}
+	defer log.Print(" -> ", Mem)
 
-	R := []int{}
-	for i := 0; i < len(expression); i++ {
-		if expression[i] >= '0' && expression[i] <= '9' {
-			continue
+	var Calc func(start, end int) []int
+	Calc = func(start, end int) []int {
+		if start >= end {
+			return []int{}
+		}
+		if end-start == 1 {
+			return []int{int(expression[start] - '0')}
+		}
+		if end-start == 2 {
+			return []int{10*int(expression[start]-'0') + int(expression[start+1]-'0')}
 		}
 
-		lR, rR := diffWaysToCompute(expression[:i]), diffWaysToCompute(expression[i+1:])
+		if mR, ok := Mem[[2]int{start, end}]; ok {
+			log.Printf(" :: Mem[%d:%d] => %v", start, end, mR)
+			return mR
+		}
 
-		for _, l := range lR {
-			for _, r := range rR {
-				switch expression[i] {
-				case '*':
-					R = append(R, l*r)
-				case '+':
-					R = append(R, l+r)
-				case '-':
-					R = append(R, l-r)
+		R := []int{}
+		for i := start; i < end; i++ {
+			if expression[i] >= '0' && expression[i] <= '9' {
+				continue
+			}
+
+			lR, rR := Calc(start, i), Calc(i+1, end)
+			for _, l := range lR {
+				for _, r := range rR {
+					switch expression[i] {
+					case '*':
+						R = append(R, l*r)
+					case '+':
+						R = append(R, l+r)
+					case '-':
+						R = append(R, l-r)
+					}
 				}
 			}
 		}
+
+		Mem[[2]int{start, end}] = R
+		return R
 	}
-	return R
+
+	return Calc(0, len(expression))
 }
 
 // 264m Ugly Numbers II
