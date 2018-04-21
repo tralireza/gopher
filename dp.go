@@ -196,6 +196,42 @@ func maximalSquare(matrix [][]byte) int {
 	return x * x
 }
 
+// 241m Different Ways to Add Parentheses
+func diffWaysToCompute(expression string) []int {
+	if len(expression) == 0 {
+		return []int{}
+	}
+	if len(expression) == 1 {
+		return []int{int(expression[0] - '0')}
+	}
+	if len(expression) == 2 {
+		return []int{10*int(expression[0]-'0') + int(expression[1]-'0')}
+	}
+
+	R := []int{}
+	for i := 0; i < len(expression); i++ {
+		if expression[i] >= '0' && expression[i] <= '9' {
+			continue
+		}
+
+		lR, rR := diffWaysToCompute(expression[:i]), diffWaysToCompute(expression[i+1:])
+
+		for _, l := range lR {
+			for _, r := range rR {
+				switch expression[i] {
+				case '*':
+					R = append(R, l*r)
+				case '+':
+					R = append(R, l+r)
+				case '-':
+					R = append(R, l-r)
+				}
+			}
+		}
+	}
+	return R
+}
+
 // 264m Ugly Numbers II
 type PQ264 struct{ sort.IntSlice }
 

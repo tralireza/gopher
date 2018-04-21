@@ -89,6 +89,12 @@ func Test221(t *testing.T) {
 	log.Print("0 ?= ", maximalSquare([][]byte{{'0'}}))
 }
 
+// 241m Different Ways to Add Parentheses
+func Test241(t *testing.T) {
+	log.Print("[0 2] ?= ", diffWaysToCompute("2-1-1"))
+	log.Print("[-34 -10 -14 -10 10] ?= ", diffWaysToCompute("2*3-4*5"))
+}
+
 // 264m Ugly Numbers II
 func Test264(t *testing.T) {
 	// Ugly: prime factors [only]: 2, 3, 5
