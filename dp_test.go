@@ -94,50 +94,48 @@ func Test241(t *testing.T) {
 	Tabulation := func(expr string) []int {
 		D := make([][][]int, len(expr))
 		for i := range D {
-			D[i] = make([][]int, len(expr))
+			D[i] = make([][]int, len(expr)+1)
 		}
 
 		for i := 0; i < len(expr); i++ {
 			if expr[i] >= '0' && expr[i] <= '9' {
-				j := i
-				v := int(expr[j] - '0')
-				if j+1 < len(expr) && expr[j+1] >= '0' && expr[j+1] <= '9' {
-					v = 10*v + int(expr[j+1]-'0')
+				v := int(expr[i] - '0')
+				j := i + 1
+				if j < len(expr) && expr[j] >= '0' && expr[j] <= '9' {
+					v = 10*v + int(expr[j]-'0')
 					j++
 				}
 				D[i][j] = []int{v}
 			}
 		}
 
-		Calc := func(i, j, lexpr int, Ops byte) {
-			for _, l := range D[i][j-1] {
-				for _, r := range D[j+1][i+lexpr-1] {
-					var v int
-					switch Ops {
-					case '*':
-						v = l * r
-					case '+':
-						v = l + r
-					case '-':
-						v = l - r
+		for lexpr := 3; lexpr <= len(expr); lexpr++ {
+			for i := 0; i <= len(expr)-lexpr; i++ {
+				for j := i + 1; j-i < lexpr; j++ {
+					if expr[j] >= '0' && expr[j] <= '9' {
+						continue
 					}
-					D[i][i+lexpr-1] = append(D[i][i+lexpr-1], v)
+
+					for _, l := range D[i][j] {
+						for _, r := range D[j+1][i+lexpr] {
+							var v int
+							switch expr[j] {
+							case '*':
+								v = l * r
+							case '+':
+								v = l + r
+							case '-':
+								v = l - r
+							}
+							D[i][i+lexpr] = append(D[i][i+lexpr], v)
+						}
+					}
+
 				}
 			}
 		}
 
-		for l := 3; l <= len(expr); l++ {
-			for i := 0; i <= len(expr)-l; i++ {
-				for j := i + 1; j-i < l; j++ {
-					switch expr[j] {
-					case '-', '+', '*':
-						Calc(i, j, l, expr[j])
-					}
-				}
-			}
-		}
-
-		return D[0][len(expr)-1]
+		return D[0][len(expr)]
 	}
 
 	for _, fn := range []func(string) []int{diffWaysToCompute, Tabulation} {
