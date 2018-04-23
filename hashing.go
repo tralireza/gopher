@@ -1,7 +1,9 @@
 package gopher
 
 import (
+	"log"
 	"maps"
+	"slices"
 	"strings"
 )
 
@@ -93,6 +95,22 @@ func minWindow(s string, t string) string {
 		}
 	}
 	return minStr
+}
+
+// 214h Shortest Palindrome
+func shortestPalindrome(s string) string {
+	rs := []byte(s)
+	slices.Reverse(rs)
+
+	log.Printf(" -> %q ~ %q", s, rs)
+
+	for i := range len(s) {
+		if s[:len(s)-i] == string(rs[i:]) {
+			return string(rs[:i]) + s
+		}
+	}
+
+	return ""
 }
 
 // 438m Find All Anagrams in a String

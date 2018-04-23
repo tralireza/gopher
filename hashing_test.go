@@ -16,6 +16,19 @@ func Test30(t *testing.T) {
 	log.Print("[97] ?= ", findSubstring("abbaccaaabcabbbccbabbccabbacabcacbbaabbbbbaaabaccaacbccabcbababbbabccabacbbcabbaacaccccbaabcabaabaaaabcaabcacabaa", []string{"cac", "aaa", "aba", "aab", "abc"}))
 }
 
+// 76h Minimum Window Substring
+func Test76(t *testing.T) {
+	log.Print("BANC ?= ", minWindow("ADOBECODEBANC", "ABC"))
+	log.Print("a ?= ", minWindow("aa", "a"))
+	log.Print(" ?= ", minWindow("a", "aa"))
+}
+
+// 214h Shortest Palindrome
+func Test214(t *testing.T) {
+	log.Print("aaacecaaa ?= ", shortestPalindrome("aacecaaa"))
+	log.Print("dcbabcd ?= ", shortestPalindrome("abcd"))
+}
+
 // 380m Insert Delete GetRandom O(1)
 type RandomizedSet struct {
 	Mem  map[int]int
@@ -73,13 +86,6 @@ func Test380(t *testing.T) {
 	for range 8 {
 		log.Printf("<-G--- %d", mSet.GetRandom())
 	}
-}
-
-// 76h Minimum Window Substring
-func Test76(t *testing.T) {
-	log.Print("BANC ?= ", minWindow("ADOBECODEBANC", "ABC"))
-	log.Print("a ?= ", minWindow("aa", "a"))
-	log.Print(" ?= ", minWindow("a", "aa"))
 }
 
 // 438m Find All Anagrams in a String
