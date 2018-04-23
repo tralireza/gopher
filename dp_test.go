@@ -91,8 +91,60 @@ func Test221(t *testing.T) {
 
 // 241m Different Ways to Add Parentheses
 func Test241(t *testing.T) {
-	log.Print("[0 2] ?= ", diffWaysToCompute("2-1-1"))
-	log.Print("[-34 -10 -14 -10 10] ?= ", diffWaysToCompute("2*3-4*5"))
+	Tabulation := func(expr string) []int {
+		D := make([][][]int, len(expr))
+		for i := range D {
+			D[i] = make([][]int, len(expr))
+		}
+
+		for i := 0; i < len(expr); i++ {
+			if expr[i] >= '0' && expr[i] <= '9' {
+				j := i
+				v := int(expr[j] - '0')
+				if j+1 < len(expr) && expr[j+1] >= '0' && expr[j+1] <= '9' {
+					v = 10*v + int(expr[j+1]-'0')
+					j++
+				}
+				D[i][j] = []int{v}
+			}
+		}
+
+		Calc := func(i, j, lexpr int, Ops byte) {
+			for _, l := range D[i][j-1] {
+				for _, r := range D[j+1][i+lexpr-1] {
+					var v int
+					switch Ops {
+					case '*':
+						v = l * r
+					case '+':
+						v = l + r
+					case '-':
+						v = l - r
+					}
+					D[i][i+lexpr-1] = append(D[i][i+lexpr-1], v)
+				}
+			}
+		}
+
+		for l := 3; l <= len(expr); l++ {
+			for i := 0; i <= len(expr)-l; i++ {
+				for j := i + 1; j-i < l; j++ {
+					switch expr[j] {
+					case '-', '+', '*':
+						Calc(i, j, l, expr[j])
+					}
+				}
+			}
+		}
+
+		return D[0][len(expr)-1]
+	}
+
+	for _, fn := range []func(string) []int{diffWaysToCompute, Tabulation} {
+		log.Print("[0 2] ?= ", fn("2-1-1"))
+		log.Print("[-34 -10 -14 -10 10] ?= ", fn("2*3-4*5"))
+		log.Print("--")
+	}
 }
 
 // 264m Ugly Numbers II
