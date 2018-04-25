@@ -75,6 +75,37 @@ func Test224(t *testing.T) {
 	log.Print("2 ?= ", calculate("13-(1+3+((3+1)+4))+1"))
 }
 
+// 386m Lexicographical Numbers
+func Test386(t *testing.T) {
+	Recursive := func(n int) []int {
+		R := []int{}
+
+		var W func(int)
+		W = func(v int) {
+			if v > n {
+				return
+			}
+
+			R = append(R, v)
+			for r := 0; r <= 9; r++ {
+				W(10*v + r)
+			}
+		}
+
+		for r := 1; r <= 9; r++ {
+			W(r)
+		}
+
+		return R
+	}
+
+	for _, fn := range []func(int) []int{Recursive} {
+		log.Print("[1 10 11 12 13 2 3 4 5 6 7 8 9] ?= ", fn(13))
+		log.Print("[1 2] ?= ", fn(2))
+		log.Print("--")
+	}
+}
+
 // 427m Construct Quad Tree
 func (n *Node427) String() string {
 	tl, tr, bl, br := "/", "/", "/", "/"
