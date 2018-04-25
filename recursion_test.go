@@ -82,17 +82,13 @@ func Test386(t *testing.T) {
 
 		var W func(int)
 		W = func(v int) {
-			if v > n {
-				return
-			}
-
 			R = append(R, v)
-			for r := 0; r <= 9; r++ {
+			for r := 0; r <= 9 && 10*v+r <= n; r++ {
 				W(10*v + r)
 			}
 		}
 
-		for r := 1; r <= 9; r++ {
+		for r := 1; r <= 9 && r <= n; r++ {
 			W(r)
 		}
 
@@ -102,6 +98,8 @@ func Test386(t *testing.T) {
 	for _, fn := range []func(int) []int{Recursive} {
 		log.Print("[1 10 11 12 13 2 3 4 5 6 7 8 9] ?= ", fn(13))
 		log.Print("[1 2] ?= ", fn(2))
+		log.Print(" ?= ", fn(23))
+		log.Print(" ?= ", fn(137)[:57], "...")
 		log.Print("--")
 	}
 }
