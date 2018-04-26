@@ -230,6 +230,27 @@ func calculate(s string) int {
 	return Calc()
 }
 
+// 386m Lexicographical Numbers
+func lexicalOrder(n int) []int {
+	R := []int{}
+
+	v := 1
+	for range n {
+		R = append(R, v)
+
+		if v*10 <= n {
+			v *= 10
+		} else {
+			for v%10 == 9 || v >= n {
+				v /= 10
+			}
+			v++
+		}
+	}
+
+	return R
+}
+
 // 427m Construct Quad Tree
 type Node427 struct {
 	Val, IsLeaf                                bool

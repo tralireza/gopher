@@ -95,9 +95,8 @@ func Test386(t *testing.T) {
 		return R
 	}
 
-	for _, fn := range []func(int) []int{Recursive} {
+	for _, fn := range []func(int) []int{Recursive, lexicalOrder} {
 		log.Print("[1 10 11 12 13 2 3 4 5 6 7 8 9] ?= ", fn(13))
-		log.Print("[1 2] ?= ", fn(2))
 		log.Print(" ?= ", fn(23))
 		log.Print(" ?= ", fn(137)[:57], "...")
 		log.Print("--")
