@@ -175,11 +175,13 @@ func minNumberOfSeconds(mountainHeight int, workerTimes []int) int64 {
 		hCur := mountainHeight
 
 		for i, t := range workerTimes {
-			for x := 2; t <= m; x++ {
+			x := 1
+			for t <= m {
 				hCur--
 				if hCur == 0 {
 					return true
 				}
+				x++
 				t += x * workerTimes[i]
 			}
 		}
@@ -187,7 +189,7 @@ func minNumberOfSeconds(mountainHeight int, workerTimes []int) int64 {
 		return false
 	}
 
-	l, r := 0, math.MaxInt64
+	l, r := 0, math.MaxInt
 	for l < r {
 		m := l + (r-l)>>1
 		if Check(m) {
