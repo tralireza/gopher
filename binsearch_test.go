@@ -70,3 +70,10 @@ func Test3224(t *testing.T) {
 	log.Print("2 ?= ", minChanges([]int{1, 0, 1, 2, 4, 3}, 4))
 	log.Print("2 ?= ", minChanges([]int{0, 1, 2, 3, 3, 6, 5, 4}, 6))
 }
+
+// 3296m Minimum Number of Seconds to Make Mountain Height Zero
+func Test3296(t *testing.T) {
+	log.Print("3 ?= ", minNumberOfSeconds(4, []int{2, 1, 1}))
+	log.Print("12 ?= ", minNumberOfSeconds(10, []int{3, 2, 2, 4}))
+	log.Print("15 ?= ", minNumberOfSeconds(5, []int{1}))
+}

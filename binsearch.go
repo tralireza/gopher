@@ -168,3 +168,33 @@ func minChanges(nums []int, k int) int {
 	}
 	return minOps
 }
+
+// 3296m Minimum Number of Seconds to Make Mountain Height Zero
+func minNumberOfSeconds(mountainHeight int, workerTimes []int) int64 {
+	Check := func(m int) bool {
+		hCur := mountainHeight
+
+		for i, t := range workerTimes {
+			for x := 2; t <= m; x++ {
+				hCur--
+				if hCur == 0 {
+					return true
+				}
+				t += x * workerTimes[i]
+			}
+		}
+
+		return false
+	}
+
+	l, r := 0, math.MaxInt64
+	for l < r {
+		m := l + (r-l)>>1
+		if Check(m) {
+			r = m
+		} else {
+			l = m + 1
+		}
+	}
+	return int64(l)
+}
