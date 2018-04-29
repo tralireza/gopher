@@ -96,3 +96,30 @@ func findWords(board [][]byte, words []string) []string {
 
 	return R
 }
+
+// 440h K-th Smallest in Lexicographical Order
+func findKthNumber(n int, k int) int {
+	v := 1
+	k--
+
+	for k > 0 {
+		count := 0
+
+		start, end := v, v+1
+		for start <= n {
+			count += min(n+1, end) - start
+			start *= 10
+			end *= 10
+		}
+
+		if count <= k {
+			k -= count
+			v++
+		} else {
+			k--
+			v *= 10
+		}
+	}
+
+	return v
+}
