@@ -399,3 +399,10 @@ func Test2016(t *testing.T) {
 	log.Print("-1 ?= ", maximumDifference([]int{9, 4, 3, 2}))
 	log.Print("9 ?= ", maximumDifference([]int{1, 5, 2, 10}))
 }
+
+// 2707m Extra Characters in a String
+func Test2707(t *testing.T) {
+	log.Print("1 ?= ", minExtraChar("leetscode", []string{"leet", "code"}))
+	log.Print("3 ?= ", minExtraChar("sayhelloworld", []string{"hello", "world"}))
+	log.Print(" ?= ", minExtraChar("jqnrwkslbhhkkvveotpfaidoftmgcojcpzcvlctsqyvvobmlzo", []string{"nrwks", "t", "mcgjko", "xm", "vac", "ypqdr", "zwlghw", "gz", "xbsmr", "hhkkv", "qviu", "yvvobml", "cfk", "fxu", "pm", "nwobfce", "eu", "y", "krzbg", "xoktzxa", "doftmgc", "qpcpd", "oj", "bl", "kylslpr", "cpzcvlc", "ogscaz", "l", "nztlq", "ai", "o", "wdhlanl", "ot", "hqe"}))
+}

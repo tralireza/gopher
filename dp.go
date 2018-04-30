@@ -5,6 +5,7 @@ import (
 	"log"
 	"slices"
 	"sort"
+	"strings"
 )
 
 // 63m Unique Paths II
@@ -555,4 +556,40 @@ func maximumDifference(nums []int) int {
 	}
 
 	return xVal
+}
+
+// 2707m Extra Characters in a String
+func minExtraChar(s string, dictionary []string) int {
+	M := map[int]int{}
+	defer log.Print(" -> ", M)
+
+	D := map[string]struct{}{}
+	for _, w := range dictionary {
+		D[w] = struct{}{}
+	}
+
+	var W func(int) int
+	W = func(start int) int {
+		if start >= len(s) {
+			return 0
+		}
+
+		if v, ok := M[start]; ok {
+			return v
+		}
+
+		v := len(s)
+		for i := start; i < len(s); i++ {
+			for w := range D {
+				if strings.HasPrefix(s[i:], w) {
+					v = min(v, i-start+W(i+len(w)))
+				}
+			}
+		}
+
+		M[start] = v
+		return v
+	}
+
+	return W(0)
 }
