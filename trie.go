@@ -1,5 +1,7 @@
 package gopher
 
+import "log"
+
 // 212h Word Search II
 func findWords(board [][]byte, words []string) []string {
 	type Trie struct {
@@ -122,4 +124,32 @@ func findKthNumber(n int, k int) int {
 	}
 
 	return v
+}
+
+// 3043m Find the Length of the Longest Common Prefix
+func longestCommonPrefix(arr1 []int, arr2 []int) int {
+	T := map[int]int{} // trie
+
+	for _, n := range arr1 {
+		l := 0
+		for x := n; x > 0; x /= 10 {
+			l++
+		}
+		for n > 0 {
+			T[n] = l
+			n /= 10
+			l--
+		}
+	}
+
+	log.Print(" -> ", T)
+
+	xVal := 0
+	for _, n := range arr2 {
+		for n > 0 && T[n] == 0 {
+			n /= 10
+		}
+		xVal = max(xVal, T[n])
+	}
+	return xVal
 }

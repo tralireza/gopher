@@ -17,3 +17,9 @@ func Test440(t *testing.T) {
 	log.Print("1 ?= ", findKthNumber(1, 1))
 	log.Print("104 ?= ", findKthNumber(127, 7))
 }
+
+// 3043m Find the Length of the Longest Common Prefix
+func Test3043(t *testing.T) {
+	log.Print("3 ?= ", longestCommonPrefix([]int{1, 10, 100}, []int{1000}))
+	log.Print("0 ?= ", longestCommonPrefix([]int{1, 2, 3}, []int{4, 4, 4}))
+}
