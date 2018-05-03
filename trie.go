@@ -126,9 +126,54 @@ func findKthNumber(n int, k int) int {
 	return v
 }
 
+// 2416h Sum of Prefix Score of Strings
+func sumPrefixScores(words []string) []int {
+	type Trie struct {
+		Child [26]*Trie
+		Score int
+	}
+
+	t := &Trie{}
+	Insert := func(w string) {
+		n := t
+		for i := 0; i < len(w); i++ {
+			c := n.Child[w[i]-'a']
+			if c == nil {
+				c = &Trie{}
+				n.Child[w[i]-'a'] = c
+			}
+			n = c
+			n.Score++
+		}
+	}
+	Search := func(w string) int {
+		score := 0
+		n := t
+		for i := 0; i < len(w); i++ {
+			c := n.Child[w[i]-'a']
+			if c == nil {
+				return 0
+			}
+			n = c
+			score += n.Score
+		}
+		return score
+	}
+
+	for _, w := range words {
+		Insert(w)
+	}
+
+	R := []int{}
+	for _, w := range words {
+		R = append(R, Search(w))
+	}
+	return R
+}
+
 // 3043m Find the Length of the Longest Common Prefix
 func longestCommonPrefix(arr1 []int, arr2 []int) int {
-	T := map[int]int{} // trie
+	T := map[int]int{} // Trie
 
 	for _, n := range arr1 {
 		l := 0

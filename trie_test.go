@@ -18,6 +18,12 @@ func Test440(t *testing.T) {
 	log.Print("104 ?= ", findKthNumber(127, 7))
 }
 
+// 2416h Sum of Prefix Score of Strings
+func Test2416(t *testing.T) {
+	log.Print("[5 4 3 2] ?= ", sumPrefixScores([]string{"abc", "ab", "bc", "b"}))
+	log.Print("[4] ?= ", sumPrefixScores([]string{"abcd"}))
+}
+
 // 3043m Find the Length of the Longest Common Prefix
 func Test3043(t *testing.T) {
 	log.Print("3 ?= ", longestCommonPrefix([]int{1, 10, 100}, []int{1000}))
