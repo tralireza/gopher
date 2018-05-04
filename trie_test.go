@@ -64,10 +64,9 @@ func Test3043(t *testing.T) {
 		xVal := 0
 		for _, n := range arr2 {
 			w := strconv.Itoa(n)
-			for l := len(w) - 1; l > 0; l-- {
+			for l := len(w) - 1; l > xVal; l-- {
 				if Search(w[:l]) {
-					xVal = max(xVal, l)
-					break
+					xVal = l
 				}
 			}
 		}
