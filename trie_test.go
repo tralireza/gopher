@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"strconv"
 	"testing"
 )
 
@@ -26,6 +27,56 @@ func Test2416(t *testing.T) {
 
 // 3043m Find the Length of the Longest Common Prefix
 func Test3043(t *testing.T) {
-	log.Print("3 ?= ", longestCommonPrefix([]int{1, 10, 100}, []int{1000}))
-	log.Print("0 ?= ", longestCommonPrefix([]int{1, 2, 3}, []int{4, 4, 4}))
+	Optimized := func(arr1, arr2 []int) int {
+		type Trie struct {
+			Child [10]*Trie
+		}
+
+		trie := &Trie{}
+		Insert := func(w string) {
+			n := trie
+			for i := 0; i < len(w); i++ {
+				c := n.Child[w[i]-'0']
+				if c == nil {
+					c = &Trie{}
+					n.Child[w[i]-'0'] = c
+				}
+				n = c
+			}
+		}
+		Search := func(w string) bool {
+			n := trie
+			for i := 0; i < len(w); i++ {
+				c := n.Child[w[i]-'0']
+				if c == nil {
+					return false
+				}
+				n = c
+			}
+			return true
+		}
+
+		for _, n := range arr1 {
+			w := strconv.Itoa(n)
+			Insert(w)
+		}
+
+		xVal := 0
+		for _, n := range arr2 {
+			w := strconv.Itoa(n)
+			for l := len(w) - 1; l > 0; l-- {
+				if Search(w[:l]) {
+					xVal = max(xVal, l)
+					break
+				}
+			}
+		}
+		return xVal
+	}
+
+	for _, fn := range []func(a, b []int) int{longestCommonPrefix, Optimized} {
+		log.Print("3 ?= ", fn([]int{1, 10, 100}, []int{1000}))
+		log.Print("0 ?= ", fn([]int{1, 2, 3}, []int{4, 4, 4}))
+		log.Print("--")
+	}
 }

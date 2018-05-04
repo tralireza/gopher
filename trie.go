@@ -172,7 +172,7 @@ func sumPrefixScores(words []string) []int {
 }
 
 // 3043m Find the Length of the Longest Common Prefix
-func longestCommonPrefix(arr1 []int, arr2 []int) int {
+func longestCommonPrefix(arr1, arr2 []int) int {
 	T := map[int]int{} // Trie
 
 	for _, n := range arr1 {
