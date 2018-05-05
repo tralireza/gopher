@@ -402,7 +402,30 @@ func Test2016(t *testing.T) {
 
 // 2707m Extra Characters in a String
 func Test2707(t *testing.T) {
-	log.Print("1 ?= ", minExtraChar("leetscode", []string{"leet", "code"}))
-	log.Print("3 ?= ", minExtraChar("sayhelloworld", []string{"hello", "world"}))
-	log.Print(" ?= ", minExtraChar("jqnrwkslbhhkkvveotpfaidoftmgcojcpzcvlctsqyvvobmlzo", []string{"nrwks", "t", "mcgjko", "xm", "vac", "ypqdr", "zwlghw", "gz", "xbsmr", "hhkkv", "qviu", "yvvobml", "cfk", "fxu", "pm", "nwobfce", "eu", "y", "krzbg", "xoktzxa", "doftmgc", "qpcpd", "oj", "bl", "kylslpr", "cpzcvlc", "ogscaz", "l", "nztlq", "ai", "o", "wdhlanl", "ot", "hqe"}))
+	Tabulation := func(s string, dictionary []string) int {
+		Mem := map[string]struct{}{}
+		for _, w := range dictionary {
+			Mem[w] = struct{}{}
+		}
+
+		D := make([]int, len(s)+1)
+
+		for start := len(s) - 1; start >= 0; start-- {
+			D[start] = 1 + D[start+1]
+			for end := start + 1; end <= len(s); end++ {
+				if _, ok := Mem[s[start:end]]; ok {
+					D[start] = min(D[start], D[end])
+				}
+			}
+		}
+
+		return D[0]
+	}
+
+	for _, fn := range []func(string, []string) int{minExtraChar, Tabulation} {
+		log.Print("1 ?= ", fn("leetscode", []string{"leet", "code"}))
+		log.Print("3 ?= ", fn("sayhelloworld", []string{"hello", "world"}))
+		log.Print(" ?= ", fn("jqnrwkslbhhkkvveotpfaidoftmgcojcpzcvlctsqyvvobmlzo", []string{"nrwks", "t", "mcgjko", "xm", "vac", "ypqdr", "zwlghw", "gz", "xbsmr", "hhkkv", "qviu", "yvvobml", "cfk", "fxu", "pm", "nwobfce", "eu", "y", "krzbg", "xoktzxa", "doftmgc", "qpcpd", "oj", "bl", "kylslpr", "cpzcvlc", "ogscaz", "l", "nztlq", "ai", "o", "wdhlanl", "ot", "hqe"}))
+		log.Print("--")
+	}
 }
