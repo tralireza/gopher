@@ -136,6 +136,23 @@ func Test92(t *testing.T) {
 	fmt.Print("\n")
 }
 
+// 641m Design Circular Deque
+func Test641(t *testing.T) {
+	o := NewCircularDeque641(3)
+
+	log.Print("true ?= ", o.InsertLast(1))
+	log.Print("1 ?= ", o.GetFront())
+	log.Print("1 ?= ", o.GetLast())
+	log.Print("true ?= ", o.InsertLast(2))
+	log.Print("true ?= ", o.InsertFront(3))
+	log.Print("false ?= ", o.InsertFront(4))
+	log.Print("2 ?= ", o.GetLast())
+	log.Print("true ?= ", o.IsFull())
+	log.Print("true ?= ", o.DeleteLast())
+	log.Print("true ?= ", o.InsertFront(4))
+	log.Print("4 ?= ", o.GetFront())
+}
+
 // 725m Split Linked List in Parts
 func Test725(t *testing.T) {
 	type L = ListNode

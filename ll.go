@@ -167,6 +167,88 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	return h.Next
 }
 
+// 641m Design Circular Deque
+type CircularDequer641 interface {
+	IsEmpty() bool
+	IsFull() bool
+	InsertFront(v int) bool
+	InsertLast(v int) bool
+	DeleteFront() bool
+	DeleteLast() bool
+	GetFront() int
+	GetLast() int
+}
+
+type CircularDeque641 struct {
+	vals        []int
+	front, last int
+	size, cap   int
+}
+
+func NewCircularDeque641(cap int) CircularDeque641 {
+	return CircularDeque641{
+		vals: make([]int, cap),
+		cap:  cap,
+		last: cap - 1,
+	}
+}
+func (o *CircularDeque641) IsEmpty() bool { return o.size == 0 }
+func (o *CircularDeque641) IsFull() bool  { return o.size == o.cap }
+func (o *CircularDeque641) InsertFront(v int) bool {
+	if o.IsFull() {
+		return false
+	}
+
+	o.front = (o.front - 1 + o.cap) % o.cap
+	o.vals[o.front] = v
+
+	o.size++
+	return true
+}
+func (o *CircularDeque641) InsertLast(v int) bool {
+	if o.IsFull() {
+		return false
+	}
+
+	o.last = (o.last + 1) % o.cap
+	o.vals[o.last] = v
+
+	o.size++
+	return true
+}
+func (o *CircularDeque641) DeleteFront() bool {
+	if o.IsEmpty() {
+		return false
+	}
+
+	o.front = (o.front + 1) % o.cap
+
+	o.size--
+	return true
+}
+func (o *CircularDeque641) DeleteLast() bool {
+	if o.IsEmpty() {
+		return false
+	}
+
+	o.last = (o.last - 1 + o.cap) % o.cap
+
+	o.size--
+	return true
+}
+func (o *CircularDeque641) GetFront() int {
+	if o.IsEmpty() {
+		return -1
+	}
+	return o.vals[o.front]
+}
+func (o *CircularDeque641) GetLast() int {
+	if o.IsEmpty() {
+		return -1
+	}
+	return o.vals[o.last]
+}
+
 // 725m Split Linked List in Parts
 func splitListToParts(head *ListNode, k int) []*ListNode {
 	lZ := 0
