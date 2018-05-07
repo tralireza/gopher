@@ -386,3 +386,61 @@ func stoneGameII(piles []int) int {
 	log.Print(p, xdelta, Mem)
 	return (p + xdelta) / 2
 }
+
+// 3302m Find the Lexicographically Smallest Valid Sequence
+func validSequence(word1, word2 string) []int {
+	R := []int{}
+
+	Mem := map[[3]int]struct{}{}
+
+	var v []int
+	var Search func(start, pstart, flag int) bool
+	Search = func(start, pstart, flag int) bool {
+		if pstart == len(word2) {
+			R = append(R, v...)
+			return true
+		}
+		if start == len(word1) {
+			return false
+		}
+
+		if _, ok := Mem[[3]int{start, pstart, flag}]; ok {
+			return false
+		}
+
+		if word1[start] == word2[pstart] {
+			v = append(v, start)
+			if Search(start+1, pstart+1, flag) {
+				return true
+			}
+			v = v[:len(v)-1]
+		} else {
+			if flag == 0 {
+				v = append(v, start)
+				if Search(start+1, pstart+1, 1) {
+					return true
+				}
+				v = v[:len(v)-1]
+			}
+
+			for start < len(word1) && word1[start] != word2[pstart] {
+				start++
+			}
+			if start < len(word1) {
+				v = append(v, start)
+				if Search(start+1, pstart+1, flag) {
+					return true
+				}
+				v = v[:len(v)-1]
+			}
+		}
+
+		Mem[[3]int{start, pstart, flag}] = struct{}{}
+		return false
+	}
+
+	v = []int{}
+	Search(0, 0, 0)
+
+	return R
+}

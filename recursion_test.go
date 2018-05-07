@@ -170,3 +170,11 @@ func Test1140(t *testing.T) {
 	log.Print("10 ?= ", stoneGameII([]int{2, 7, 9, 4, 4}))
 	log.Print("104 ?= ", stoneGameII([]int{1, 2, 3, 4, 5, 100}))
 }
+
+// 3302m Find the Lexicographically Smallest Valid Sequence
+func Test3302(t *testing.T) {
+	log.Print("[0 1 2] ?= ", validSequence("vbcca", "abc"))
+	log.Print("[1 2 4] ?= ", validSequence("bacdc", "abc"))
+	log.Print("[] ?= ", validSequence("aaaaaa", "aaabc"))
+	log.Print("[0 1] ?= ", validSequence("abc", "ab"))
+}
