@@ -198,3 +198,10 @@ func Test2418(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 3301m Maximize the Total Height of Unique Towers
+func Test3301(t *testing.T) {
+	log.Print("10 ?= ", maximumTotalSum([]int{2, 3, 4, 3}))
+	log.Print("25 ?= ", maximumTotalSum([]int{10, 15}))
+	log.Print("-1 ?= ", maximumTotalSum([]int{2, 2, 1}))
+}

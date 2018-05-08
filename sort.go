@@ -183,3 +183,25 @@ func sortPeople(names []string, heights []int) []string {
 	}
 	return names
 }
+
+// 3301m Maximize the Total Height of Unique Towers
+func maximumTotalSum(maximumHeight []int) int64 {
+	R := []int{}
+
+	slices.SortFunc(maximumHeight, func(a, b int) int { return b - a })
+	log.Print(" -> ", maximumHeight)
+
+	R = append(R, maximumHeight[0])
+	for i, h := range maximumHeight[1:] {
+		R = append(R, min(h, R[i]-1))
+	}
+
+	t := int64(0)
+	for _, h := range R {
+		if h < 1 {
+			return -1
+		}
+		t += int64(h)
+	}
+	return t
+}
