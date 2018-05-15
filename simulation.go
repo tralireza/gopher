@@ -517,3 +517,14 @@ func checkTwoChessboards(coordinate1, coordinate2 string) bool {
 	return Chess[7-coordinate1[1]+'1'][coordinate1[0]-'a'] ==
 		Chess[7-coordinate2[1]+'1'][coordinate2[0]-'a']
 }
+
+// 3304 Find the K-th Character in String Game I
+func kthCharacter(k int) byte {
+	s := []byte{'a'}
+	for len(s) < k {
+		for i := range len(s) {
+			s = append(s, 'a'+(s[i]-'a'+1)%26)
+		}
+	}
+	return s[k-1]
+}

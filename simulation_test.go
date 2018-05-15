@@ -119,3 +119,9 @@ func Test3274(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 3304 Find the K-th Character in String Game I
+func Test3304(t *testing.T) {
+	log.Printf("b ?= %c [%[1]v]", kthCharacter(5))
+	log.Printf("c ?= %c [%[1]v]", kthCharacter(10))
+}
