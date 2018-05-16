@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"bytes"
 	"log"
 	"maps"
 	"slices"
@@ -102,14 +103,14 @@ func shortestPalindrome(s string) string {
 	rs := []byte(s)
 	slices.Reverse(rs)
 
-	log.Printf(" -> %q ~ %q", s, rs)
+	fs := []byte(s)
+	log.Printf(" -> %q ~ %q", fs, rs)
 
 	for i := range len(s) {
-		if s[:len(s)-i] == string(rs[i:]) {
+		if bytes.Equal(fs[:len(s)-i], rs[i:]) {
 			return string(rs[:i]) + s
 		}
 	}
-
 	return ""
 }
 
