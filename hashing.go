@@ -217,3 +217,42 @@ func canBeEqual(target []int, arr []int) bool {
 	}
 	return true
 }
+
+// 3305m Count of Substrings Containing Every Vowel and K Consonants I
+func countOfSubstrings(word string, k int) int {
+	Mask := [6]int{}
+	Vows := []byte("aeiou")
+
+	Update := func(letter byte, diff int) {
+		i := 0
+		for i < 5 && letter != Vows[i] {
+			i++
+		}
+		Mask[i] += diff
+	}
+	Good := func() bool {
+		for i := range 5 {
+			if Mask[i] == 0 {
+				return false
+			}
+		}
+		return Mask[5] == k
+	}
+
+	t := 0
+	for r := range len(word) {
+		Update(word[r], 1)
+
+		M := Mask
+		for l := 0; l <= r-5-k+1; l++ {
+			if Good() {
+				t++
+			}
+			Update(word[l], -1)
+		}
+
+		Mask = M
+	}
+
+	return t
+}

@@ -140,3 +140,10 @@ func Test1460(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 3305m Count of Substrings Containing Every Vowel and K Consonants I
+func Test3305(t *testing.T) {
+	log.Print("0 ?= ", countOfSubstrings("aeioqq", 1))
+	log.Print("1 ?= ", countOfSubstrings("aeiou", 0))
+	log.Print("3 ?= ", countOfSubstrings("ieaouqqieaouqq", 1))
+}
