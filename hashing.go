@@ -256,3 +256,40 @@ func countOfSubstrings(word string, k int) int {
 
 	return t
 }
+
+// 3306m Count of Substrings Containing Every Vowel and K Consonants II
+func countOfSubstringsII(word string, k int) int64 {
+	AtMost := func(k int) int64 {
+		t := int64(0)
+		M := map[byte]int{}
+
+		l, consts := 0, 0
+		for r := range len(word) {
+			switch word[r] {
+			case 'a', 'e', 'i', 'o', 'u':
+				M[word[r]]++
+			default:
+				consts++
+			}
+
+			for len(M) == 5 && consts >= k {
+				t += int64(len(word) - r)
+
+				switch word[l] {
+				case 'a', 'e', 'i', 'o', 'u':
+					M[word[l]]--
+					if M[word[l]] == 0 {
+						delete(M, word[l])
+					}
+				default:
+					consts--
+				}
+
+				l++
+			}
+		}
+		return t
+	}
+
+	return AtMost(k) - AtMost(k+1)
+}
