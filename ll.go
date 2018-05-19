@@ -167,6 +167,114 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	return h.Next
 }
 
+// 432h All O'one Data Structure
+type AllOne432 struct {
+	Nodes      map[string]*LNode432
+	Head, Tail *LNode432
+}
+
+func NewAllOne432() AllOne432 {
+	o := AllOne432{
+		Nodes: map[string]*LNode432{},
+		Head:  &LNode432{}, Tail: &LNode432{},
+	}
+	o.Head.Next, o.Tail.Prev = o.Tail, o.Head
+	return o
+}
+
+type LNode432 struct {
+	Count      int
+	Keys       map[string]struct{}
+	Prev, Next *LNode432
+}
+
+func (o *AllOne432) Inc(key string) {
+	if _, ok := o.Nodes[key]; !ok {
+		c := o.Head.Next
+		if c == o.Tail || c.Count != 1 {
+			n := &LNode432{Count: 1, Keys: map[string]struct{}{}}
+			n.Keys[key] = struct{}{}
+			n.Next, n.Prev = c, o.Head
+			o.Head.Next = n
+			c.Prev = n
+			o.Nodes[key] = n
+		} else {
+			c.Keys[key] = struct{}{}
+			o.Nodes[key] = c
+		}
+
+		return
+	}
+
+	c := o.Nodes[key]
+	delete(c.Keys, key)
+
+	if c.Next == o.Tail || c.Next.Count != c.Count+1 {
+		n := &LNode432{Count: c.Count + 1, Keys: map[string]struct{}{}}
+		n.Keys[key] = struct{}{}
+		n.Next, n.Prev = c.Next, c
+		c.Next, c.Next.Prev = n, n
+		o.Nodes[key] = n
+	} else {
+		c.Next.Keys[key] = struct{}{}
+		o.Nodes[key] = c.Next
+	}
+
+	if len(c.Keys) == 0 {
+		c.Prev.Next, c.Next.Prev = c.Next, c.Prev
+	}
+}
+
+func (o *AllOne432) Dec(key string) {
+	if _, ok := o.Nodes[key]; !ok {
+		return
+	}
+
+	n := o.Nodes[key]
+	delete(n.Keys, key)
+
+	if n.Count == 1 {
+		delete(o.Nodes, key)
+	} else {
+		if n.Prev == o.Head || n.Prev.Count != n.Count-1 {
+			p := &LNode432{Count: n.Count - 1, Keys: map[string]struct{}{}}
+			p.Keys[key] = struct{}{}
+			p.Next, p.Prev = n, n.Prev
+			n.Prev.Next, n.Prev = p, p
+			o.Nodes[key] = p
+		} else {
+			n.Prev.Keys[key] = struct{}{}
+			o.Nodes[key] = n.Prev
+		}
+	}
+
+	if len(n.Keys) == 0 {
+		n.Prev.Next, n.Next.Prev = n.Next, n.Prev
+	}
+}
+
+func (o *AllOne432) GetMaxKey() string {
+	if o.Tail.Prev == o.Head {
+		return ""
+	}
+
+	for k := range o.Tail.Prev.Keys {
+		return k
+	}
+	return ""
+}
+
+func (o *AllOne432) GetMinKey() string {
+	if o.Head.Next == o.Tail {
+		return ""
+	}
+
+	for k := range o.Head.Next.Keys {
+		return k
+	}
+	return ""
+}
+
 // 641m Design Circular Deque
 type CircularDequer641 interface {
 	IsEmpty() bool

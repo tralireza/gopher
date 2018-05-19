@@ -136,6 +136,19 @@ func Test92(t *testing.T) {
 	fmt.Print("\n")
 }
 
+// 432h All O'one Data Structure
+func Test432(t *testing.T) {
+	o := NewAllOne432()
+
+	o.Inc("hello")
+	o.Inc("hello")
+	log.Print("hello ?= ", o.GetMaxKey())
+	log.Print("hello ?= ", o.GetMinKey())
+	o.Inc("leet")
+	log.Print("hello ?= ", o.GetMaxKey())
+	log.Print("leet ?= ", o.GetMinKey())
+}
+
 // 641m Design Circular Deque
 func Test641(t *testing.T) {
 	o := NewCircularDeque641(3)
