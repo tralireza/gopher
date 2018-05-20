@@ -29,3 +29,47 @@ func simplifyPath(path string) string {
 
 	return "/" + strings.Join(Q, "/")
 }
+
+// 1381m Design a Stack with Increment Operation
+type CustomStack1381 struct {
+	Q, I []int
+	top  int
+}
+
+func Constructor1381(maxSize int) CustomStack1381 {
+	return CustomStack1381{
+		make([]int, maxSize), make([]int, maxSize),
+		-1,
+	}
+}
+
+func (o *CustomStack1381) Push(x int) {
+	if o.top+1 == len(o.Q) {
+		return
+	}
+	o.top++
+	o.Q[o.top] = x
+}
+
+func (o *CustomStack1381) Pop() int {
+	if o.top == -1 {
+		return -1
+	}
+
+	v := o.Q[o.top] + o.I[o.top]
+
+	if o.top > 0 {
+		o.I[o.top-1] += o.I[o.top]
+	}
+	o.I[o.top] = 0
+
+	o.top--
+	return v
+}
+
+func (o *CustomStack1381) Inc(k, v int) {
+	if o.top == -1 {
+		return
+	}
+	o.I[min(o.top, k-1)] = v
+}
