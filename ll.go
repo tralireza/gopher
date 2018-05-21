@@ -293,7 +293,7 @@ type CircularDeque641 struct {
 	size, cap   int
 }
 
-func NewCircularDeque641(cap int) CircularDeque641 {
+func NewArrayQ641(cap int) CircularDeque641 {
 	return CircularDeque641{
 		vals: make([]int, cap),
 		cap:  cap,

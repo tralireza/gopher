@@ -150,20 +150,124 @@ func Test432(t *testing.T) {
 }
 
 // 641m Design Circular Deque
-func Test641(t *testing.T) {
-	o := NewCircularDeque641(3)
+type DLCircularDeque641 struct {
+	Head, Tail *LNode641
+	Size, Cap  int
+}
+type LNode641 struct {
+	Val        int
+	Prev, Next *LNode641
+}
 
-	log.Print("true ?= ", o.InsertLast(1))
-	log.Print("1 ?= ", o.GetFront())
-	log.Print("1 ?= ", o.GetLast())
-	log.Print("true ?= ", o.InsertLast(2))
-	log.Print("true ?= ", o.InsertFront(3))
-	log.Print("false ?= ", o.InsertFront(4))
-	log.Print("2 ?= ", o.GetLast())
-	log.Print("true ?= ", o.IsFull())
-	log.Print("true ?= ", o.DeleteLast())
-	log.Print("true ?= ", o.InsertFront(4))
-	log.Print("4 ?= ", o.GetFront())
+func NewDlQ641(cap int) DLCircularDeque641 {
+	return DLCircularDeque641{Cap: cap}
+}
+
+func (o *DLCircularDeque641) IsEmpty() bool { return o.Size == 0 }
+func (o *DLCircularDeque641) IsFull() bool  { return o.Size == o.Cap }
+func (o *DLCircularDeque641) InsertFront(v int) bool {
+	if o.IsFull() {
+		return false
+	}
+
+	n := &LNode641{Val: v}
+	if o.Head != nil {
+		o.Head, n.Next, o.Head.Prev = n, o.Head, n
+	} else {
+		o.Head, o.Tail = n, n
+	}
+	o.Size++
+	return true
+}
+func (o *DLCircularDeque641) InsertLast(v int) bool {
+	if o.IsFull() {
+		return false
+	}
+
+	n := &LNode641{Val: v}
+	if o.Tail != nil {
+		o.Tail, n.Prev, o.Tail.Prev = n, o.Tail, n
+	} else {
+		o.Tail, o.Head = n, n
+	}
+	o.Size++
+	return true
+}
+func (o *DLCircularDeque641) DeleteFront() bool {
+	if o.IsEmpty() {
+		return false
+	}
+
+	if o.Size == 1 {
+		o.Head, o.Tail = nil, nil
+	} else {
+		o.Head = o.Head.Next
+	}
+	o.Size--
+	return true
+}
+func (o *DLCircularDeque641) DeleteLast() bool {
+	if o.IsEmpty() {
+		return false
+	}
+
+	if o.Size == 1 {
+		o.Head, o.Tail = nil, nil
+	} else {
+		o.Tail = o.Tail.Prev
+	}
+	o.Size--
+	return true
+}
+func (o *DLCircularDeque641) GetFront() int {
+	if o.IsEmpty() {
+		return -1
+	}
+	return o.Head.Val
+}
+func (o *DLCircularDeque641) GetLast() int {
+	if o.IsEmpty() {
+		return -1
+	}
+	return o.Tail.Val
+}
+
+func Test641(t *testing.T) {
+	type Q = DLCircularDeque641
+
+	Draw := func(q *Q) {
+		for n := q.Head; n != nil; n = n.Next {
+			l, r := '/', '/'
+			if n.Next != nil {
+				r = '*'
+			}
+			if n.Prev != nil {
+				l = '*'
+			}
+			fmt.Printf("{%c %d %c}", l, n.Val, r)
+		}
+		fmt.Print("\n")
+	}
+
+	aQ := NewArrayQ641(3) // array as backing store
+	dlQ := NewDlQ641(3)   // doubly linked list as backing store
+
+	for _, o := range []CircularDequer641{&aQ, &dlQ} {
+		log.Print("true ?= ", o.InsertLast(1))
+		log.Print("1 ?= ", o.GetFront())
+		log.Print("1 ?= ", o.GetLast())
+		log.Print("true ?= ", o.InsertLast(2))
+		log.Print("true ?= ", o.InsertFront(3))
+		log.Print("false ?= ", o.InsertFront(4))
+		log.Print("2 ?= ", o.GetLast())
+		log.Print("true ?= ", o.IsFull())
+		log.Print("true ?= ", o.DeleteLast())
+		log.Print("true ?= ", o.InsertFront(4))
+		log.Print("4 ?= ", o.GetFront())
+		log.Print("--")
+	}
+
+	Draw(&dlQ)
 }
 
 // 725m Split Linked List in Parts
