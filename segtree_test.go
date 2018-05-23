@@ -36,3 +36,14 @@ func Test307(t *testing.T) {
 	log.Print("8 ?= ", o.SumRange(0, 2))
 	log.Print("7 ?= ", o.SumRange(1, 2))
 }
+
+// 731m My Calendar II
+func Test731(t *testing.T) {
+	events := [][]int{{10, 20}, {50, 60}, {10, 40}, {5, 15}, {5, 10}, {25, 55}}
+	results := []bool{true, true, true, false, true, true}
+
+	o := Constructor731()
+	for i, e := range events {
+		log.Printf("%t ?= %t", results[i], o.Book(e[0], e[1]))
+	}
+}

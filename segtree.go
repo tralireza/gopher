@@ -1,5 +1,11 @@
 package gopher
 
+import (
+	"log"
+	"maps"
+	"slices"
+)
+
 // 307m Range Sum Query - Mutable
 type NumArray struct {
 	Tree *SNode307
@@ -70,4 +76,43 @@ func (o *NumArray) SumRange(left, right int) int {
 	}
 
 	return Sum(o.Tree, left, right)
+}
+
+// 731m My Calendar II
+type MyCalendarTwo struct {
+	Mem map[int]int
+}
+
+func Constructor731() MyCalendarTwo {
+	return MyCalendarTwo{map[int]int{}}
+}
+
+func (o *MyCalendarTwo) Book(start, end int) bool {
+	Mem := o.Mem
+
+	Mem[start] += 1
+	Mem[end] -= 1
+
+	K := []int{}
+	for k := range maps.Keys(o.Mem) {
+		K = append(K, k)
+	}
+	slices.Sort(K)
+
+	log.Print(" -> ", K)
+
+	xVal, e := 0, 0
+	for _, k := range K {
+		e += Mem[k]
+		xVal = max(e, xVal)
+	}
+
+	if xVal <= 2 {
+		return true
+	}
+
+	Mem[start] -= 1
+	Mem[end] += 1
+
+	return false
 }
