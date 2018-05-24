@@ -141,6 +141,13 @@ func Test1460(t *testing.T) {
 	}
 }
 
+// 1590m Make Sum Divisible by P
+func Test1590(t *testing.T) {
+	log.Print("1 ?= ", minSubarray([]int{3, 1, 4, 2}, 6))
+	log.Print("2 ?= ", minSubarray([]int{6, 3, 5, 2}, 9))
+	log.Print("0 ?= ", minSubarray([]int{1, 2, 3}, 3))
+}
+
 // 3305m Count of Substrings Containing Every Vowel and K Consonants I
 func Test3305(t *testing.T) {
 	// 5 <= word <= 250

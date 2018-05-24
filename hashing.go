@@ -218,6 +218,39 @@ func canBeEqual(target []int, arr []int) bool {
 	return true
 }
 
+// 1590m Make Sum Divisible by P
+func minSubarray(nums []int, p int) int {
+	tSum := 0
+	for _, n := range nums {
+		tSum = (tSum + n) % p
+	}
+
+	t := tSum % p
+	if t == 0 {
+		return 0
+	}
+
+	Mem := map[int]int{0: -1}
+
+	nVal := len(nums)
+	curSum := 0
+	for i, n := range nums {
+		curSum = (curSum + n) % p
+
+		r := (curSum - t + p) % p
+		if j, ok := Mem[r]; ok {
+			nVal = min(nVal, i-j)
+		}
+
+		Mem[curSum] = i
+	}
+
+	if nVal == len(nums) {
+		return -1
+	}
+	return nVal
+}
+
 // 3305m Count of Substrings Containing Every Vowel and K Consonants I
 func countOfSubstrings(word string, k int) int {
 	Mask := [6]int{}
