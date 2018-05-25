@@ -142,7 +142,50 @@ func Test1460(t *testing.T) {
 }
 
 // 1590m Make Sum Divisible by P
+func NewHashMap1590(capacity int) HashMap1590 {
+	return HashMap1590{
+		make([][]MapEntry1590, capacity),
+	}
+}
+
+const MP8 = 0x7fffffff // 2^31-1 (8th Mersenne Prime)
+
+type HashMap1590 struct {
+	Store [][]MapEntry1590
+}
+
+type MapEntry1590 struct {
+	Key, Value int
+}
+
+func (o *HashMap1590) Hash(k int) int {
+	m := len(o.Store)
+	return (k*MP8%m + m) % m
+}
+func (o *HashMap1590) Set(k, v int) {
+	o.Store[o.Hash(k)] = append(o.Store[o.Hash(k)], MapEntry1590{k, v})
+}
+func (o *HashMap1590) Get(k int) (int, bool) {
+	for _, e := range o.Store[o.Hash(k)] {
+		if e.Key == k {
+			return e.Value, true
+		}
+	}
+	return 0, false
+}
+
 func Test1590(t *testing.T) {
+	h := NewHashMap1590(9)
+	for i := range 5 {
+		h.Set(i, i)
+	}
+	h.Set(14345923, 14345923)
+	log.Print(h.Get(0))
+	log.Print(h.Get(14345923))
+	log.Print(h.Get(5))
+	log.Print(h.Store)
+	log.Print("--")
+
 	log.Print("1 ?= ", minSubarray([]int{3, 1, 4, 2}, 6))
 	log.Print("2 ?= ", minSubarray([]int{6, 3, 5, 2}, 9))
 	log.Print("0 ?= ", minSubarray([]int{1, 2, 3}, 3))
