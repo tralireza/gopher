@@ -251,6 +251,26 @@ func minSubarray(nums []int, p int) int {
 	return nVal
 }
 
+// 2491m Divide Players Into Teams of Equal Skill
+func dividePlayers(skill []int) int64 {
+	F := map[int]int{}
+	for _, s := range skill {
+		F[s]++
+	}
+
+	log.Print(" -> ", F)
+
+	t := slices.Min(skill) + slices.Max(skill)
+	chemistry := int64(0)
+	for s, f := range F {
+		if F[t-s] != f {
+			return -1
+		}
+		chemistry += int64(s * (t - s) * f)
+	}
+	return chemistry / 2
+}
+
 // 3305m Count of Substrings Containing Every Vowel and K Consonants I
 func countOfSubstrings(word string, k int) int {
 	Mask := [6]int{}

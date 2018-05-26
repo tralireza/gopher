@@ -148,8 +148,6 @@ func NewHashMap1590(capacity int) HashMap1590 {
 	}
 }
 
-const MP8 = 0x7fffffff // 2^31-1 (8th Mersenne Prime)
-
 type HashMap1590 struct {
 	Store [][]MapEntry1590
 }
@@ -159,6 +157,7 @@ type MapEntry1590 struct {
 }
 
 func (o *HashMap1590) Hash(k int) int {
+	const MP8 = 0x7fffffff // 2^31-1 (8th Mersenne Prime)
 	m := len(o.Store)
 	return (k*MP8%m + m) % m
 }
@@ -189,6 +188,13 @@ func Test1590(t *testing.T) {
 	log.Print("1 ?= ", minSubarray([]int{3, 1, 4, 2}, 6))
 	log.Print("2 ?= ", minSubarray([]int{6, 3, 5, 2}, 9))
 	log.Print("0 ?= ", minSubarray([]int{1, 2, 3}, 3))
+}
+
+// 2491m Divide Players Into Teams of Equal Skill
+func Test2491(t *testing.T) {
+	log.Print("22 ?= ", dividePlayers([]int{3, 2, 5, 1, 3, 4}))
+	log.Print("12 ?= ", dividePlayers([]int{3, 4}))
+	log.Print("-1 ?= ", dividePlayers([]int{1, 1, 2, 3}))
 }
 
 // 3305m Count of Substrings Containing Every Vowel and K Consonants I
