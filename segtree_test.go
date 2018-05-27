@@ -7,31 +7,27 @@ import (
 )
 
 // 307m Range Sum Query - Mutable
-type FenwickSum307 struct {
-	Tree []int
-}
+type FenwickSum307 []int
 
-func NewFenwickSum307(arr []int) FenwickSum307 {
-	o := FenwickSum307{
-		make([]int, len(arr)),
-	}
+func (fws *FenwickSum307) Build(arr []int) {
+	*fws = FenwickSum307(arr)
 
-	for i := 0; i < len(o.Tree); i++ {
-		o.Update(i, arr[i])
-	}
-	return o
-}
-
-func (o *FenwickSum307) Update(i, delta int) {
-	for ; i < len(o.Tree); i |= i + 1 {
-		o.Tree[i] += delta
+	for i := 0; i < len(*fws); i++ {
+		fws.Update(i, arr[i])
 	}
 }
 
-func (o *FenwickSum307) Sum(i int) int {
+func (fws *FenwickSum307) Update(i, delta int) {
+	for i < len(*fws) {
+		(*fws)[i] += delta
+		i |= i + 1
+	}
+}
+
+func (fws *FenwickSum307) Sum(i int) int {
 	v := 0
 	for i >= 0 {
-		v += o.Tree[i]
+		v += (*fws)[i]
 		i &= i + 1
 		i--
 	}
@@ -59,7 +55,7 @@ func Test307(t *testing.T) {
 		}
 	}
 
-	fws := NewFenwickSum307([]int{1, 3, 5})
+	fws := FenwickSum307([]int{1, 3, 5})
 	log.Print(" -> FenwickTree Sum (0..2) :: ", fws.Sum(2))
 	log.Print(" -> FenwickTree Sum (1..2) :: ", fws.Sum(2)-fws.Sum(0))
 	fws.Update(1, -1) // N[1] :: 3 --[delta: -1]-> 2
