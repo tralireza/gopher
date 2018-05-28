@@ -7,14 +7,19 @@ import (
 )
 
 // 307m Range Sum Query - Mutable
+/*
+(1-based index)
+BIT[i] :: [N_(i-1<<LSB(i)+1) ... N_i]
+*/
 type FenwickSum307 []int
 
-func (fws *FenwickSum307) Build(arr []int) {
-	*fws = FenwickSum307(arr)
-
-	for i := 0; i < len(*fws); i++ {
+func NewFenwickSum307(arr []int) FenwickSum307 {
+	fws := FenwickSum307(make([]int, len(arr)))
+	log.Printf(" ++ %T %[1]p %[1]v", fws)
+	for i := 0; i < len(fws); i++ {
 		fws.Update(i, arr[i])
 	}
+	return fws
 }
 
 func (fws *FenwickSum307) Update(i, delta int) {
@@ -35,6 +40,15 @@ func (fws *FenwickSum307) Sum(i int) int {
 }
 
 func Test307(t *testing.T) {
+	// FenwickTree :: Sum
+	fws := NewFenwickSum307([]int{1, 2, 3, 4, 5})
+	log.Printf(" -> %T %[1]p %[1]v", fws)
+	log.Print(" -> FenwickTree Sum (0..4) :: ", fws.Sum(4))
+	log.Print(" -> FenwickTree Sum (3..4) :: ", fws.Sum(4)-fws.Sum(2))
+	fws.Update(2, -1) // N[2] :: 3 --[delta: -1]-> 2
+	log.Printf(" -> %T %[1]p %[1]v", fws)
+	log.Print(" -> FenwickTree Sum (1..2) :: ", fws.Sum(2)-fws.Sum(0))
+
 	Draw := func(n *SNode307) {
 		Q := []*SNode307{n}
 		for len(Q) > 0 {
@@ -54,12 +68,6 @@ func Test307(t *testing.T) {
 			fmt.Print("\n")
 		}
 	}
-
-	fws := FenwickSum307([]int{1, 3, 5})
-	log.Print(" -> FenwickTree Sum (0..2) :: ", fws.Sum(2))
-	log.Print(" -> FenwickTree Sum (1..2) :: ", fws.Sum(2)-fws.Sum(0))
-	fws.Update(1, -1) // N[1] :: 3 --[delta: -1]-> 2
-	log.Print(" -> FenwickTree Sum (1..2) :: ", fws.Sum(2)-fws.Sum(0))
 
 	o := Constructor307([]int{1, 3, 5})
 	Draw(o.Tree)
