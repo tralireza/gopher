@@ -26,3 +26,19 @@ func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 
 	return true
 }
+
+// 2405m Optimal Partition of String
+func partitionString(s string) int {
+	t := 1
+
+	mask := 0
+	for i := 0; i < len(s); i++ {
+		if mask&(1<<(s[i]-'a')) != 0 {
+			t++
+			mask = 0
+		}
+		mask |= 1 << (s[i] - 'a')
+	}
+
+	return t
+}
