@@ -460,6 +460,22 @@ func longestSubarray(nums []int) int {
 	return longest
 }
 
+// 2696 Minimum String Length After Removing Substrings
+func minLength(s string) int {
+	Q := []rune{}
+
+	for _, c := range s {
+		if len(Q) > 0 &&
+			(Q[len(Q)-1] == 'A' && c == 'B' || Q[len(Q)-1] == 'C' && c == 'D') {
+			Q = Q[:len(Q)-1]
+			continue
+		}
+		Q = append(Q, c)
+	}
+
+	return len(Q)
+}
+
 // 3001m Minimum Moves to Capture the Queen
 func minMovesToCaptureTheQueen(a int, b int, c int, d int, e int, f int) int {
 	Cross := func(dirs [][]int, tgX, tgY, bkX, bkY int) int {

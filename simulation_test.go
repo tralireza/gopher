@@ -90,6 +90,12 @@ func Test2028(t *testing.T) {
 	log.Print("[] ?= ", missingRolls([]int{1, 2, 3, 4}, 6, 4))
 }
 
+// 2696 Minimum String Length After Removing Substrings
+func Test2696(t *testing.T) {
+	log.Print("2 ?= ", minLength("ABFCACDB"))
+	log.Print("5 ?= ", minLength("ACBBD"))
+}
+
 // 3001m Minimum Moves to Capture the Queen
 func Test3001(t *testing.T) {
 	log.Print("2 ?= ", minMovesToCaptureTheQueen(1, 1, 8, 8, 2, 3))
