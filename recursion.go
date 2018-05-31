@@ -1,9 +1,11 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"math"
 	"slices"
+	"strconv"
 	"strings"
 )
 
@@ -443,4 +445,37 @@ func validSequence(word1, word2 string) []int {
 	Search(0, 0, 0)
 
 	return R
+}
+
+// 3309m Maximum Possible Number by Binary Concatenation
+func maxGoodNumber(nums []int) int {
+	xVal := 0
+
+	r := []int{}
+
+	var W func(int)
+	W = func(start int) {
+		if start == len(nums) {
+			s := "0b"
+			for _, n := range r {
+				s += fmt.Sprintf("%b", n)
+			}
+			v, _ := strconv.ParseInt(s, 0, 0)
+			xVal = max(int(v), xVal)
+
+			log.Print(" -> ", r)
+		}
+
+		for i := start; i < len(nums); i++ {
+			nums[start], nums[i] = nums[i], nums[start]
+			r = append(r, nums[start])
+			W(start + 1)
+			r = r[:len(r)-1]
+			nums[start], nums[i] = nums[i], nums[start]
+		}
+	}
+
+	W(0)
+
+	return xVal
 }

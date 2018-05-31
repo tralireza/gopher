@@ -178,3 +178,9 @@ func Test3302(t *testing.T) {
 	log.Print("[] ?= ", validSequence("aaaaaa", "aaabc"))
 	log.Print("[0 1] ?= ", validSequence("abc", "ab"))
 }
+
+// 3309m Maximum Possible Number by Binary Concatenation
+func Test3309(t *testing.T) {
+	log.Print("30 ?= ", maxGoodNumber([]int{1, 2, 3}))
+	log.Print("1296 ?= ", maxGoodNumber([]int{2, 8, 16}))
+}
