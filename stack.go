@@ -73,3 +73,23 @@ func (o *CustomStack1381) Inc(k, v int) {
 	}
 	o.I[min(o.top, k-1)] = v
 }
+
+// 1963m Minimum Number of Swaps to Make the String Balanced
+func minSwapsToBalance(s string) int {
+	qSize := 0
+	u := 0
+
+	for _, l := range s {
+		if l == '[' {
+			qSize++
+		} else { // l == ']'
+			if qSize > 0 {
+				qSize-- // .Pop()
+			} else {
+				u++
+			}
+		}
+	}
+
+	return (u + 1) / 2
+}

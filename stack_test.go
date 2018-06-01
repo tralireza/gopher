@@ -31,3 +31,10 @@ func Test1381(t *testing.T) {
 	log.Print("201 ?= ", o.Pop())
 	log.Print("-1 ?= ", o.Pop())
 }
+
+// 1963m Minimum Number of Swaps to Make the String Balanced
+func Test1963(t *testing.T) {
+	log.Print("1 ?= ", minSwapsToBalance("][]["))
+	log.Print("2 ?= ", minSwapsToBalance("]]][[["))
+	log.Print("0 ?= ", minSwapsToBalance("[]"))
+}
