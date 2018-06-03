@@ -30,6 +30,25 @@ func simplifyPath(path string) string {
 	return "/" + strings.Join(Q, "/")
 }
 
+// 921m Minimum Add to Make Parentheses Valid
+func minAddToMakeValid(s string) int {
+	qSize, ops := 0, 0
+
+	for _, l := range s {
+		if l == '(' {
+			qSize++ // .Push()
+		} else { // )
+			if qSize > 0 {
+				qSize-- // .Pop()
+			} else {
+				ops++
+			}
+		}
+	}
+
+	return qSize + ops
+}
+
 // 1381m Design a Stack with Increment Operation
 type CustomStack1381 struct {
 	Q, I []int

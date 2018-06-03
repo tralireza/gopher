@@ -14,6 +14,12 @@ func Test71(t *testing.T) {
 	log.Print("/.../b/d ?= ", simplifyPath("/.../a/../b/c/../d/./"))
 }
 
+// 921m Minimum Add to Make Parentheses Valid
+func Test921(t *testing.T) {
+	log.Print("1 ?= ", minAddToMakeValid("())"))
+	log.Print("3 ?= ", minAddToMakeValid("((("))
+}
+
 // 1381m Design a Stack with Increment Operation
 func Test1381(t *testing.T) {
 	o := Constructor1381(3)
