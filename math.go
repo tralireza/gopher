@@ -40,7 +40,6 @@ func gcdValues(nums []int, queries []int64) []int {
 	log.Print(" -> GCD[g] :: ", GCD)
 
 	pSum := make([]int64, xVal+1)
-	pSum[0] = int64(GCD[0])
 	for g := 1; g <= xVal; g++ {
 		pSum[g] = pSum[g-1] + int64(GCD[g])
 	}
