@@ -15,6 +15,15 @@ func Test319(t *testing.T) {
 	log.Print("5 ?= ", bulbSwitch(27))
 }
 
+// 1998h GCD Sort of an Array
+func Test1998(t *testing.T) {
+	// 2 <= N_i <= 10^5, N.length <= 3*10^4
+
+	log.Println("true ?= ", gcdSort([]int{7, 21, 3}))
+	log.Println("false ?= ", gcdSort([]int{5, 2, 6, 2}))
+	log.Println("true ?= ", gcdSort([]int{10, 5, 9, 3, 15}))
+}
+
 // 3312h Sorted GCD Pair Queries
 func Test3312(t *testing.T) {
 	// 1 <= N_i <= 5*10^4, N.length <= 10^5
