@@ -1,6 +1,31 @@
 package gopher
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
+
+// 412 Fizz Buzz
+func fizzBuzz(n int) []string {
+	S := []string{}
+
+	for i := 1; i <= n; i++ {
+		var s string
+		switch {
+		case i%15 == 0:
+			s = "FizzBuzz"
+		case i%3 == 0:
+			s = "Fizz"
+		case i%5 == 0:
+			s = "Buzz"
+		default:
+			s = strconv.Itoa(i)
+		}
+		S = append(S, s)
+	}
+
+	return S
+}
 
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {

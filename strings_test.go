@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+// 412 Fizz Buzz
+func Test412(t *testing.T) {
+	log.Print(" ?= ", fizzBuzz(3))
+	log.Print(" ?= ", fizzBuzz(5))
+	log.Print(" ?= ", fizzBuzz(15))
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))
