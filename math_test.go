@@ -15,6 +15,14 @@ func Test319(t *testing.T) {
 	log.Print("5 ?= ", bulbSwitch(27))
 }
 
+// 326 Power of Three
+func Test326(t *testing.T) {
+	log.Print("true ? ", isPowerOfThree(27))
+	log.Print("false ? ", isPowerOfThree(0))
+	log.Print("false ? ", isPowerOfThree(-1))
+	log.Print("true ? ", isPowerOfThree(1))
+}
+
 // 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4

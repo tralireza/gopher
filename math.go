@@ -14,6 +14,15 @@ func bulbSwitch(n int) int {
 	return q - 1
 }
 
+// 326 Power of Three
+func isPowerOfThree(n int) bool {
+	p := 1
+	for p < n {
+		p *= 3
+	}
+	return p == n
+}
+
 // 1998h GCD Sort of an Array
 func gcdSort(nums []int) bool {
 	xVal := slices.Max(nums)
