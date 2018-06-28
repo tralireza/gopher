@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"slices"
 	"strings"
 )
 
@@ -47,6 +48,31 @@ func minAddToMakeValid(s string) int {
 	}
 
 	return qSize + ops
+}
+
+// 962m Maximum Width Ramp
+func maxWidthRamp(nums []int) int {
+	indices := make([]int, len(nums))
+	for i := range indices {
+		indices[i] = i
+	}
+
+	slices.SortFunc(indices, func(x, y int) int {
+		if nums[x] == nums[y] {
+			return x - y
+		}
+		return nums[x] - nums[y]
+	})
+
+	log.Print(" -> ", indices)
+
+	xWid := 0
+	i := len(nums)
+	for _, j := range indices { // Kadane's
+		xWid = max(j-i, xWid)
+		i = min(j, i)
+	}
+	return xWid
 }
 
 // 1381m Design a Stack with Increment Operation

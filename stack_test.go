@@ -20,6 +20,12 @@ func Test921(t *testing.T) {
 	log.Print("3 ?= ", minAddToMakeValid("((("))
 }
 
+// 962m Maximum Width Ramp
+func Test962(t *testing.T) {
+	log.Print("4 ?= ", maxWidthRamp([]int{6, 0, 8, 2, 1, 5}))
+	log.Print("7 ?= ", maxWidthRamp([]int{9, 8, 1, 0, 1, 9, 4, 0, 4, 1}))
+}
+
 // 1381m Design a Stack with Increment Operation
 func Test1381(t *testing.T) {
 	o := Constructor1381(3)
