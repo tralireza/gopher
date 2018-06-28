@@ -46,7 +46,25 @@ func Test962(t *testing.T) {
 		return xWid
 	}
 
-	for _, fn := range []func([]int) int{maxWidthRamp, TwoPointers} {
+	MonotonicStack := func(nums []int) int {
+		Q := []int{0}
+		for i := 1; i < len(nums); i++ {
+			if nums[i] < nums[Q[len(Q)-1]] {
+				Q = append(Q, i)
+			}
+		}
+
+		xWid := 0
+		for j := len(nums) - 1; j >= 0; j-- {
+			for len(Q) > 0 && nums[j] >= nums[Q[len(Q)-1]] {
+				xWid = max(xWid, j-Q[len(Q)-1])
+				Q = Q[:len(Q)-1]
+			}
+		}
+		return xWid
+	}
+
+	for _, fn := range []func([]int) int{maxWidthRamp, TwoPointers, MonotonicStack} {
 		log.Print("4 ?= ", fn([]int{6, 0, 8, 2, 1, 5}))
 		log.Print("7 ?= ", fn([]int{9, 8, 1, 0, 1, 9, 4, 0, 4, 1}))
 		log.Print("--")
