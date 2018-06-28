@@ -22,8 +22,35 @@ func Test921(t *testing.T) {
 
 // 962m Maximum Width Ramp
 func Test962(t *testing.T) {
-	log.Print("4 ?= ", maxWidthRamp([]int{6, 0, 8, 2, 1, 5}))
-	log.Print("7 ?= ", maxWidthRamp([]int{9, 8, 1, 0, 1, 9, 4, 0, 4, 1}))
+	TwoPointers := func(nums []int) int {
+		N := len(nums)
+
+		rightMax := make([]int, N)
+		rightMax[N-1] = nums[N-1]
+		for i := N - 1 - 1; i >= 0; i-- {
+			rightMax[i] = max(rightMax[i+1], nums[i])
+		}
+
+		log.Print(" -> rightMax :: ", rightMax)
+
+		xWid := 0
+
+		l := 0
+		for r := range nums {
+			for l < r && nums[l] > rightMax[r] {
+				l++
+			}
+			xWid = max(r-l, xWid)
+		}
+
+		return xWid
+	}
+
+	for _, fn := range []func([]int) int{maxWidthRamp, TwoPointers} {
+		log.Print("4 ?= ", fn([]int{6, 0, 8, 2, 1, 5}))
+		log.Print("7 ?= ", fn([]int{9, 8, 1, 0, 1, 9, 4, 0, 4, 1}))
+		log.Print("--")
+	}
 }
 
 // 1381m Design a Stack with Increment Operation
