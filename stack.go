@@ -31,6 +31,36 @@ func simplifyPath(path string) string {
 	return "/" + strings.Join(Q, "/")
 }
 
+// 316m Remove Duplicate Letters
+func removeDuplicateLetters(s string) string {
+	Q := []byte{}
+
+	lPos := map[byte]int{}
+	for i := range len(s) {
+		lPos[s[i]] = i
+	}
+
+	Seen := map[byte]bool{}
+
+	for i := range len(s) {
+		if Seen[s[i]] {
+			continue
+		}
+
+		for len(Q) > 0 && s[i] < Q[len(Q)-1] && lPos[Q[len(Q)-1]] > i {
+			Seen[Q[len(Q)-1]] = false
+			Q = Q[:len(Q)-1]
+		}
+
+		if !Seen[s[i]] {
+			Q = append(Q, s[i])
+			Seen[s[i]] = true
+		}
+	}
+
+	return string(Q)
+}
+
 // 921m Minimum Add to Make Parentheses Valid
 func minAddToMakeValid(s string) int {
 	qSize, ops := 0, 0

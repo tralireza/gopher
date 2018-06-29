@@ -14,6 +14,12 @@ func Test71(t *testing.T) {
 	log.Print("/.../b/d ?= ", simplifyPath("/.../a/../b/c/../d/./"))
 }
 
+// 316m Remove Duplicate Letters
+func Test316(t *testing.T) {
+	log.Print("abc ?= ", removeDuplicateLetters("bcabc"))
+	log.Print("acdb ?= ", removeDuplicateLetters("cbacdcbc"))
+}
+
 // 921m Minimum Add to Make Parentheses Valid
 func Test921(t *testing.T) {
 	log.Print("1 ?= ", minAddToMakeValid("())"))
