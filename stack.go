@@ -105,6 +105,27 @@ func maxWidthRamp(nums []int) int {
 	return xWid
 }
 
+// 1081m Smallest Subsequence of Distinct Characters
+func smallestSubsequence(s string) string {
+	lPos := [26]int{}
+	for i := range len(s) {
+		lPos[s[i]-'a'] = i
+	}
+
+	Q := []byte{}
+
+	for i := range len(s) {
+		if slices.Index(Q, s[i]) == -1 {
+			for len(Q) > 0 && s[i] < Q[len(Q)-1] && lPos[Q[len(Q)-1]-'a'] > i {
+				Q = Q[:len(Q)-1]
+			}
+			Q = append(Q, s[i])
+		}
+	}
+
+	return string(Q)
+}
+
 // 1381m Design a Stack with Increment Operation
 type CustomStack1381 struct {
 	Q, I []int

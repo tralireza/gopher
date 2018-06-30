@@ -1,7 +1,9 @@
 package gopher
 
 import (
+	"bytes"
 	"log"
+	"slices"
 	"testing"
 )
 
@@ -16,6 +18,9 @@ func Test71(t *testing.T) {
 
 // 316m Remove Duplicate Letters
 func Test316(t *testing.T) {
+	log.Print(" -> b ? abcd :: ", slices.Index([]byte("abcd"), 'b'))
+	log.Print(" -> b ? abcd :: ", bytes.Index([]byte("abcd"), []byte("b")))
+
 	log.Print("abc ?= ", removeDuplicateLetters("bcabc"))
 	log.Print("acdb ?= ", removeDuplicateLetters("cbacdcbc"))
 }
@@ -75,6 +80,12 @@ func Test962(t *testing.T) {
 		log.Print("7 ?= ", fn([]int{9, 8, 1, 0, 1, 9, 4, 0, 4, 1}))
 		log.Print("--")
 	}
+}
+
+// 1081m Smallest Subsequence of Distinct Characters
+func Test1081(t *testing.T) {
+	log.Print("abc ?= ", smallestSubsequence("bcabc"))
+	log.Print("acdb ?= ", smallestSubsequence("cbacdcbc"))
 }
 
 // 1381m Design a Stack with Increment Operation
