@@ -151,20 +151,20 @@ func (h *PQ1942) Pop() any {
 }
 
 func smallestChair(times [][]int, targetFriend int) int {
-	D := [][3]int{}
-	for friend, time := range times {
-		D = append(D, [3]int{time[0], time[1], friend})
+	D := []int{}
+	for f := range times {
+		D = append(D, f)
 	}
 
-	slices.SortFunc(D, func(x, y [3]int) int { return x[0] - y[0] })
+	slices.SortFunc(D, func(a, b int) int { return times[a][0] - times[b][0] })
 	log.Print(" -> D :: ", D)
 
 	Q, E := PQ1942{}, PQ1942{} // Occupied, Empty
 
-	for _, d := range D {
-		arrive, leave, friend := d[0], d[1], d[2]
+	for _, f := range D {
+		arrive, leave := times[f][0], times[f][1]
 
-		log.Printf(" -> %2d %d %d :: %v", friend, arrive, leave, Q)
+		log.Printf(" -> %2d %d %d :: %v", f, arrive, leave, Q)
 
 		for Q.Len() > 0 && Q[0].time <= arrive {
 			chair := heap.Pop(&Q).(Chair1942)
@@ -177,7 +177,7 @@ func smallestChair(times [][]int, targetFriend int) int {
 		}
 
 		chair := heap.Pop(&E).(Chair1942)
-		if friend == targetFriend {
+		if f == targetFriend {
 			return chair.n
 		}
 
