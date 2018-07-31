@@ -131,6 +131,63 @@ func rangeSum(nums []int, n int, left int, right int) int {
 	return x
 }
 
+// 1942m The Number of the Smallest Unoccupied Chair
+type Chair1942 struct{ n, time int }
+type PQ1942 []Chair1942
+
+func (h PQ1942) Len() int { return len(h) }
+func (h PQ1942) Less(i, j int) bool {
+	if h[i].time == h[j].time {
+		return h[i].n < h[j].n
+	}
+	return h[i].time < h[j].time
+}
+func (h PQ1942) Swap(i int, j int) { h[i], h[j] = h[j], h[i] }
+func (h *PQ1942) Push(x any)       { *h = append(*h, x.(Chair1942)) }
+func (h *PQ1942) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func smallestChair(times [][]int, targetFriend int) int {
+	D := [][3]int{}
+	for friend, time := range times {
+		D = append(D, [3]int{time[0], time[1], friend})
+	}
+
+	slices.SortFunc(D, func(x, y [3]int) int { return x[0] - y[0] })
+	log.Print(" -> D :: ", D)
+
+	Q, E := PQ1942{}, PQ1942{} // Occupied, Empty
+
+	for _, d := range D {
+		arrive, leave, friend := d[0], d[1], d[2]
+
+		log.Printf(" -> %2d %d %d :: %v", friend, arrive, leave, Q)
+
+		for Q.Len() > 0 && Q[0].time <= arrive {
+			chair := heap.Pop(&Q).(Chair1942)
+			chair.time = 0
+			heap.Push(&E, chair)
+		}
+
+		if E.Len() == 0 {
+			heap.Push(&E, Chair1942{Q.Len(), 0})
+		}
+
+		chair := heap.Pop(&E).(Chair1942)
+		if friend == targetFriend {
+			return chair.n
+		}
+
+		chair.time = leave
+		heap.Push(&Q, chair)
+	}
+
+	return -1
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 type E3256 struct{ col, score int }
 type PQ3256 []E3256

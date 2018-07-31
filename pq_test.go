@@ -80,6 +80,13 @@ func Test1508(t *testing.T) {
 	}
 }
 
+// 1942m The Number of the Smallest Unoccupied Chair
+func Test1942(t *testing.T) {
+	log.Print("1 ?= ", smallestChair([][]int{{1, 4}, {2, 3}, {4, 6}}, 1))
+	log.Print("2 ?= ", smallestChair([][]int{{3, 10}, {1, 5}, {2, 6}}, 0))
+	log.Print("2 ?= ", smallestChair([][]int{{33889, 98676}, {80071, 89737}, {44118, 52565}, {52992, 84310}, {78492, 88209}, {21695, 67063}, {84622, 95452}, {98048, 98856}, {98411, 99433}, {55333, 56548}, {65375, 88566}, {55011, 62821}, {48548, 48656}, {87396, 94825}, {55273, 81868}, {75629, 91467}}, 6))
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 func Test3256(t *testing.T) {
 	// 3 <= Rows, Cols <= 100
