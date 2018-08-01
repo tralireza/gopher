@@ -18,3 +18,9 @@ func Test476(t *testing.T) {
 	log.Print("0 ?= ", findComplement(1))
 	log.Print("1 ?= ", findComplement(2))
 }
+
+// 3315m Construct the Minimum Bitwise Array II
+func Test3315(t *testing.T) {
+	log.Print("[-1 1 4 3] ?= ", minBitwiseArray([]int{2, 3, 5, 7}))
+	log.Print("[9 12 15] ?= ", minBitwiseArray([]int{11, 13, 31}))
+}
