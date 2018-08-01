@@ -16,11 +16,6 @@ func minBitwiseArray(nums []int) []int {
 	R := []int{}
 
 	for _, p := range nums {
-		if p == 2 {
-			R = append(R, -1)
-			continue
-		}
-
 		r := -1
 		for i := 31; i >= 0; i-- {
 			if p&(1<<i) != 0 {
