@@ -5,6 +5,7 @@ import (
 	"log"
 	"math"
 	"slices"
+	"sort"
 )
 
 // 239h Sliding Window Maximum
@@ -186,6 +187,30 @@ func smallestChair(times [][]int, targetFriend int) int {
 	}
 
 	return -1
+}
+
+// 2406m Divide Intervals Into Minimum Number of Groups
+type PQ2406 struct{ sort.IntSlice }
+
+func (h *PQ2406) Push(x any) { h.IntSlice = append(h.IntSlice, x.(int)) }
+func (h *PQ2406) Pop() any   { return 0 }
+
+func minGroups(intervals [][]int) int {
+	slices.SortFunc(intervals, func(a, b []int) int { return a[0] - b[0] })
+	log.Print(" -> ", intervals)
+
+	Q := PQ2406{}
+	for _, e := range intervals {
+		left, right := e[0], e[1]
+		if Q.Len() > 0 && Q.IntSlice[0] < left {
+			Q.IntSlice[0] = right
+			heap.Fix(&Q, 0)
+		} else {
+			heap.Push(&Q, right)
+		}
+		log.Print(" -> PQ :: ", Q)
+	}
+	return Q.Len()
 }
 
 // 3256h Maximum Value Sum by Placing Three Rooks I
