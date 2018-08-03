@@ -544,3 +544,39 @@ func kthCharacter(k int) byte {
 	}
 	return s[k-1]
 }
+
+// 3318 Find X-Sum of All K-Long Subarrays I
+func findXSum(nums []int, k int, x int) []int {
+	FQ := make([]int, 50+1)
+
+	R := []int{}
+	for i, n := range nums {
+		FQ[n]++
+
+		if i+1 >= k {
+			h := [][]int{}
+			for n, f := range FQ {
+				if f > 0 {
+					h = append(h, []int{n, f})
+				}
+			}
+			slices.SortFunc(h, func(a, b []int) int {
+				if a[1] == b[1] {
+					return b[0] - a[0]
+				}
+				return b[1] - a[1]
+			})
+
+			log.Print(" -> ", i, h)
+
+			FQ[nums[i+1-k]]--
+
+			r := 0
+			for i := range min(len(h), x) {
+				r += h[i][0] * h[i][1]
+			}
+			R = append(R, r)
+		}
+	}
+	return R
+}

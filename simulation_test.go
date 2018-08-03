@@ -131,3 +131,11 @@ func Test3304(t *testing.T) {
 	log.Printf("b ?= %c [%[1]v]", kthCharacter(5))
 	log.Printf("c ?= %c [%[1]v]", kthCharacter(10))
 }
+
+// 3318 Find X-Sum of All K-Long Subarrays I
+func Test3318(t *testing.T) {
+	// 1 <= N_i <= 50
+
+	log.Print("[6 10 12] ?= ", findXSum([]int{1, 1, 2, 2, 3, 4, 2, 3}, 6, 2))
+	log.Print("[11 15 15 15 12] ?= ", findXSum([]int{3, 8, 7, 8, 7, 5}, 2, 2))
+}
