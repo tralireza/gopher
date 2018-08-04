@@ -23,6 +23,49 @@ func Test373(t *testing.T) {
 	log.Print(" ?= ", kSmallestPairs([]int{1, 2, 4, 5, 6}, []int{3, 5, 7, 9}, 20))
 }
 
+// 632h Smallest Range Covering Elements from K Lists
+func Test632(t *testing.T) {
+	// -10^5 <= N_ij <= 10^5, 1 <= N.length <= 3500, 1 <=N_i.length <= 50
+
+	BruteForce := func(nums [][]int) []int {
+		Idx := make([]int, len(nums))
+		start, end := -100_000, 100_000
+
+		for {
+			curMin, curMax := 100_000, -100_000
+			var curI int // minimum value index
+
+			for i := range len(nums) {
+				v := nums[i][Idx[i]]
+				if v < curMin {
+					curMin = v
+					curI = i
+				}
+				if v > curMax {
+					curMax = v
+				}
+			}
+
+			if curMax-curMin < end-start {
+				start, end = curMin, curMax
+			}
+
+			Idx[curI]++
+			if Idx[curI] == len(nums[curI]) { // one list (interval) is complete
+				return []int{start, end}
+			}
+		}
+
+		return []int{}
+	}
+
+	for _, fn := range []func([][]int) []int{BruteForce} {
+		log.Print("[20 24] ?= ", fn([][]int{{4, 10, 15, 24, 26}, {0, 9, 12, 20}, {5, 18, 22, 30}}))
+		log.Print("[1 1] ?= ", fn([][]int{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}}))
+		log.Print("--")
+	}
+}
+
 // 1508m Range Sum of Sorted Subarray Sums
 func Test1508(t *testing.T) {
 	// 1 <= left, right <= n*(n+1)/2
