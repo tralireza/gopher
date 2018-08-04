@@ -90,6 +90,53 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
 	return R
 }
 
+// 632h Smallest Range Covering Elements from K Lists
+type Value632 struct{ v, i, ls int } // Value, Index, List#
+type PQ632 []Value632
+
+func (h PQ632) Len() int           { return len(h) }
+func (h PQ632) Less(i, j int) bool { return h[i].v < h[j].v } // MinHeap
+func (h PQ632) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ632) Push(x any)        { *h = append(*h, x.(Value632)) }
+func (h *PQ632) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func smallestRange(nums [][]int) []int {
+	Q := PQ632{}
+
+	curMax := -100_000
+	for i := range nums {
+		heap.Push(&Q, Value632{nums[i][0], 0, i})
+		curMax = max(nums[i][0], curMax)
+	}
+
+	start, end := -100_000, 100_000
+	for Q.Len() == len(nums) {
+		log.Print(" -> ", Q)
+		V := heap.Pop(&Q).(Value632)
+		if V.v > curMax {
+			curMax = V.v
+		}
+
+		if curMax-V.v < end-start {
+			start, end = V.v, curMax
+		}
+
+		V.i++
+		if V.i < len(nums[V.ls]) {
+			V.v = nums[V.ls][V.i]
+			heap.Push(&Q, V)
+
+			curMax = max(V.v, curMax)
+		}
+	}
+
+	return []int{start, end}
+}
+
 // 1508m Range Sum of Sorted Subarray Sums
 type E1508 struct{ n, i int }
 type PQ1508 []E1508
@@ -208,7 +255,7 @@ func minGroups(intervals [][]int) int {
 		} else {
 			heap.Push(&Q, right)
 		}
-		log.Print(" -> PQ :: ", Q)
+		log.Printf(" %v -> PQ :: %v", e, Q)
 	}
 	return Q.Len()
 }

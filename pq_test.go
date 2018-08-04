@@ -59,7 +59,7 @@ func Test632(t *testing.T) {
 		return []int{}
 	}
 
-	for _, fn := range []func([][]int) []int{BruteForce} {
+	for _, fn := range []func([][]int) []int{BruteForce, smallestRange} {
 		log.Print("[20 24] ?= ", fn([][]int{{4, 10, 15, 24, 26}, {0, 9, 12, 20}, {5, 18, 22, 30}}))
 		log.Print("[1 1] ?= ", fn([][]int{{1, 2, 3}, {1, 2, 3}, {1, 2, 3}}))
 		log.Print("--")
