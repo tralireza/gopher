@@ -260,6 +260,29 @@ func minGroups(intervals [][]int) int {
 	return Q.Len()
 }
 
+// 2530m Maximal Score After Applying K Operations
+type PQ2530 struct{ sort.IntSlice }
+
+func (h PQ2530) Less(i, j int) bool { return h.IntSlice[j] < h.IntSlice[i] }
+func (h *PQ2530) Push(_ any)        {}
+func (h *PQ2530) Pop() any          { return 0 }
+
+func maxKelements(nums []int, k int) int64 {
+	h := PQ2530{nums}
+	heap.Init(&h)
+
+	score := int64(0)
+	for range k {
+		log.Print(" -> ", h)
+
+		score += int64(h.IntSlice[0])
+		h.IntSlice[0] += 2
+		h.IntSlice[0] /= 3
+		heap.Fix(&h, 0)
+	}
+	return score
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 type E3256 struct{ col, score int }
 type PQ3256 []E3256
