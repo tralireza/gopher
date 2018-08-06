@@ -115,3 +115,10 @@ func Test2280(t *testing.T) {
 	log.Print("3 ?= ", minimumLines([][]int{{1, 7}, {2, 6}, {3, 5}, {4, 4}, {5, 4}, {6, 3}, {7, 2}, {8, 1}}))
 	log.Print("1 ?= ", minimumLines([][]int{{3, 4}, {1, 2}, {7, 8}, {2, 3}}))
 }
+
+// 2938m Separate Black and White Balls
+func Test2938(t *testing.T) {
+	log.Print("1 ?= ", minimumSteps("101"))
+	log.Print("2 ?= ", minimumSteps("100"))
+	log.Print("0 ?= ", minimumSteps("0111"))
+}

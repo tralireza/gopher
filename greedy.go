@@ -305,3 +305,19 @@ func minimumLines(stockPrices [][]int) int {
 	}
 	return t
 }
+
+// 2938m Separate Black and White Balls
+func minimumSteps(s string) int64 {
+	steps := int64(0)
+
+	zeros := 0
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == '0' {
+			zeros++
+		} else {
+			steps += int64(zeros)
+		}
+	}
+
+	return steps
+}
