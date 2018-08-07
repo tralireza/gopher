@@ -66,6 +66,12 @@ func Test632(t *testing.T) {
 	}
 }
 
+// 1405m Longest Happy String
+func Test1405(t *testing.T) {
+	log.Printf(`"ccaccbcc" ?= %q`, longestDiverseString(1, 1, 7))
+	log.Printf(`"aabaa" ?= %q`, longestDiverseString(7, 1, 0))
+}
+
 // 1508m Range Sum of Sorted Subarray Sums
 func Test1508(t *testing.T) {
 	// 1 <= left, right <= n*(n+1)/2

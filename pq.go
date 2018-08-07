@@ -137,6 +137,62 @@ func smallestRange(nums [][]int) []int {
 	return []int{start, end}
 }
 
+// 1405m Longest Happy String
+type Letter1405 struct {
+	chr   byte
+	count int
+}
+type PQ1405 []Letter1405
+
+func (h PQ1405) Len() int           { return len(h) }
+func (h PQ1405) Less(i, j int) bool { return h[i].count > h[j].count }
+func (h PQ1405) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ1405) Push(x any)        { *h = append(*h, x.(Letter1405)) }
+func (h *PQ1405) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func longestDiverseString(a int, b int, c int) string {
+	pq := PQ1405{}
+
+	for i, count := range []int{a, b, c} {
+		if count > 0 {
+			heap.Push(&pq, Letter1405{'a' + byte(i), count})
+		}
+	}
+
+	happy := []byte{}
+	for pq.Len() > 0 {
+		log.Print(" -> ", pq)
+		l := heap.Pop(&pq).(Letter1405)
+
+		if len(happy) >= 2 && l.chr == happy[len(happy)-1] && l.chr == happy[len(happy)-2] {
+			if pq.Len() == 0 {
+				return string(happy)
+			}
+
+			n := heap.Pop(&pq).(Letter1405)
+			happy = append(happy, n.chr)
+			n.count--
+			if n.count > 0 {
+				heap.Push(&pq, n)
+			}
+
+			heap.Push(&pq, l)
+		} else {
+			happy = append(happy, l.chr)
+			l.count--
+			if l.count > 0 {
+				heap.Push(&pq, l)
+			}
+		}
+	}
+
+	return string(happy)
+}
+
 // 1508m Range Sum of Sorted Subarray Sums
 type E1508 struct{ n, i int }
 type PQ1508 []E1508
