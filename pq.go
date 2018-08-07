@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"container/heap"
+	"fmt"
 	"log"
 	"math"
 	"slices"
@@ -142,6 +143,9 @@ type Letter1405 struct {
 	chr   byte
 	count int
 }
+
+func (o Letter1405) String() string { return fmt.Sprintf("{%q %d}", o.chr, o.count) }
+
 type PQ1405 []Letter1405
 
 func (h PQ1405) Len() int           { return len(h) }
