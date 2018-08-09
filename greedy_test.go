@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"slices"
 	"testing"
 )
 
@@ -61,6 +62,40 @@ func Test167(t *testing.T) {
 	log.Print("[1 2] ?= ", twoSum([]int{2, 7, 11, 15}, 9))
 	log.Print("[1 3] ?= ", twoSum([]int{2, 3, 4}, 6))
 	log.Print("[1 2] ?= ", twoSum([]int{-1, 0}, -1))
+}
+
+// 670m Maximum Swap
+func Test670(t *testing.T) {
+	BruteForce := func(num int) int {
+		xVal := num
+
+		D := []int{}
+		for num > 0 {
+			D = append(D, num%10)
+			num /= 10
+		}
+		slices.Reverse(D)
+		log.Print(" -> ", D)
+
+		for i := 0; i < len(D)-1; i++ {
+			for j := i + 1; j < len(D); j++ {
+				if D[i] < D[j] {
+					D[i], D[j] = D[j], D[i]
+					v := 0
+					for _, d := range D {
+						v = 10*v + d
+					}
+					xVal = max(v, xVal)
+					D[i], D[j] = D[j], D[i]
+				}
+			}
+		}
+
+		return xVal
+	}
+
+	log.Print("7236 ?= ", BruteForce(2736))
+	log.Print("9973 ?= ", BruteForce(9973))
 }
 
 // 918m Maximum Sum Circular Subarray
