@@ -221,6 +221,40 @@ func twoSum(numbers []int, target int) []int {
 	return []int{0, 0}
 }
 
+// 670m Maximum Swap
+func maximumSwap(num int) int {
+	D := []int{}
+	for n := num; n > 0; n /= 10 {
+		D = append(D, n%10)
+	}
+	slices.Reverse(D)
+	log.Print(" -> ", D)
+
+	rMax := make([]int, len(D)) // RightMax
+	rMax[len(D)-1] = len(D) - 1
+	for i := len(D) - 2; i >= 0; i-- {
+		rMax[i] = rMax[i+1]
+		if D[i] > D[rMax[i+1]] {
+			rMax[i] = i
+		}
+	}
+
+	log.Print(" -> rMax (D_i) :: ", rMax)
+
+	for i := 0; i < len(D)-1; i++ {
+		if D[i] < D[rMax[i+1]] {
+			D[i], D[rMax[i+1]] = D[rMax[i+1]], D[i]
+			x := 0
+			for _, d := range D {
+				x = 10*x + d
+			}
+			return x
+		}
+	}
+
+	return num
+}
+
 // 918m Maximum Sum Circular Subarray
 func maxSubarraySumCircular(nums []int) int {
 	// Kadane's

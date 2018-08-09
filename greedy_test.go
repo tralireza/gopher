@@ -94,8 +94,11 @@ func Test670(t *testing.T) {
 		return xVal
 	}
 
-	log.Print("7236 ?= ", BruteForce(2736))
-	log.Print("9973 ?= ", BruteForce(9973))
+	for _, fn := range []func(int) int{BruteForce, maximumSwap} {
+		log.Print("7236 ?= ", fn(2736))
+		log.Print("9973 ?= ", fn(9973))
+		log.Print("--")
+	}
 }
 
 // 918m Maximum Sum Circular Subarray
