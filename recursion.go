@@ -389,6 +389,28 @@ func stoneGameII(piles []int) int {
 	return (p + xdelta) / 2
 }
 
+// 2044m Count Number of Maximum Bitwise-OR Subsets
+func countMaxOrSubsets(nums []int) int {
+	xVal := 0
+	for _, n := range nums {
+		xVal |= n
+	}
+
+	var W func(start, v int) int
+	W = func(start, v int) int {
+		if start == len(nums) {
+			if v == xVal {
+				return 1
+			}
+			return 0
+		}
+
+		return W(start+1, v) + W(start+1, v|nums[start])
+	}
+
+	return W(0, 0)
+}
+
 // 3302m Find the Lexicographically Smallest Valid Sequence
 func validSequence(word1, word2 string) []int {
 	R := []int{}

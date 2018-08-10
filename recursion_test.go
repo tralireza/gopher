@@ -171,6 +171,15 @@ func Test1140(t *testing.T) {
 	log.Print("104 ?= ", stoneGameII([]int{1, 2, 3, 4, 5, 100}))
 }
 
+// 2044m Count Number of Maximum Bitwise-OR Subsets
+func Test2044(t *testing.T) {
+	// 1 <= N_i <= 10^5, N.length <= 16
+
+	log.Print("2 ?= ", countMaxOrSubsets([]int{3, 1}))
+	log.Print("7 ?= ", countMaxOrSubsets([]int{2, 2, 2}))
+	log.Print("6 ?= ", countMaxOrSubsets([]int{3, 2, 1, 5}))
+}
+
 // 3302m Find the Lexicographically Smallest Valid Sequence
 func Test3302(t *testing.T) {
 	log.Print("[0 1 2] ?= ", validSequence("vbcca", "abc"))
