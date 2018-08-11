@@ -175,9 +175,35 @@ func Test1140(t *testing.T) {
 func Test2044(t *testing.T) {
 	// 1 <= N_i <= 10^5, N.length <= 16
 
-	log.Print("2 ?= ", countMaxOrSubsets([]int{3, 1}))
-	log.Print("7 ?= ", countMaxOrSubsets([]int{2, 2, 2}))
-	log.Print("6 ?= ", countMaxOrSubsets([]int{3, 2, 1, 5}))
+	PowerSet := func(nums []int) int {
+		orVal := 0
+		for _, n := range nums {
+			orVal |= n
+		}
+
+		count := 0
+		for mask := range 1 << len(nums) {
+			v := 0
+			for i := range len(nums) {
+				if mask&(1<<i) != 0 {
+					v |= nums[i]
+				}
+			}
+
+			if v == orVal {
+				count++
+			}
+		}
+
+		return count
+	}
+
+	for _, fn := range []func([]int) int{countMaxOrSubsets, PowerSet} {
+		log.Print("2 ?= ", fn([]int{3, 1}))
+		log.Print("7 ?= ", fn([]int{2, 2, 2}))
+		log.Print("6 ?= ", fn([]int{3, 2, 1, 5}))
+		log.Print("--")
+	}
 }
 
 // 3302m Find the Lexicographically Smallest Valid Sequence
