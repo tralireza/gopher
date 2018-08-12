@@ -198,7 +198,29 @@ func Test2044(t *testing.T) {
 		return count
 	}
 
-	for _, fn := range []func([]int) int{countMaxOrSubsets, PowerSet} {
+	Tabulation := func(nums []int) int {
+		xVal := 0
+		for _, n := range nums {
+			xVal |= n
+		}
+
+		D := make([]int, xVal|(xVal-1)+1)
+		D[0] = 1 // 1 empty subset -> max OR of values: 0
+
+		orVal := 0
+		for _, n := range nums {
+			for v := orVal; v >= 0; v-- {
+				D[n|v] += D[v]
+			}
+			orVal |= n
+		}
+
+		log.Print(" -> ", D)
+
+		return D[orVal]
+	}
+
+	for _, fn := range []func([]int) int{countMaxOrSubsets, PowerSet, Tabulation} {
 		log.Print("2 ?= ", fn([]int{3, 1}))
 		log.Print("7 ?= ", fn([]int{2, 2, 2}))
 		log.Print("6 ?= ", fn([]int{3, 2, 1, 5}))
