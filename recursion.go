@@ -390,7 +390,7 @@ func stoneGameII(piles []int) int {
 }
 
 // 1545m Find Kth Bit in Nth Binary String
-func findKthBit(n int, k int) byte {
+func findKthBit(n, k int) byte {
 	if n == 1 {
 		return '0'
 	}

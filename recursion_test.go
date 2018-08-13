@@ -173,8 +173,34 @@ func Test1140(t *testing.T) {
 
 // 1545m Find Kth Bit in Nth Binary String
 func Test1545(t *testing.T) {
-	log.Printf("'0' ?= %q", findKthBit(3, 1))
-	log.Printf("'1' ?= %q", findKthBit(4, 11))
+	Iterative := func(n, k int) byte {
+		inverts := 0
+
+		lStr := 1<<n - 1
+		for range n {
+			log.Print(k, lStr)
+			if k-1 == lStr/2 {
+				if inverts&1 == 1 {
+					return '1'
+				}
+				return '0'
+			}
+
+			if k-1 > lStr/2 {
+				k = lStr - (k - 1)
+				inverts++
+			}
+
+			lStr = lStr / 2
+		}
+		return '0'
+	}
+
+	for _, fn := range []func(int, int) byte{findKthBit, Iterative} {
+		log.Printf("'0' ?= %q", fn(3, 1))
+		log.Printf("'1' ?= %q", fn(4, 11))
+		log.Print("--")
+	}
 }
 
 // 2044m Count Number of Maximum Bitwise-OR Subsets
