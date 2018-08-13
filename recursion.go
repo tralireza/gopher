@@ -389,6 +389,25 @@ func stoneGameII(piles []int) int {
 	return (p + xdelta) / 2
 }
 
+// 1545m Find Kth Bit in Nth Binary String
+func findKthBit(n int, k int) byte {
+	if n == 1 {
+		return '0'
+	}
+
+	lStr := 1<<n - 1
+	if k-1 == lStr/2 {
+		return '1'
+	} else if k-1 < lStr/2 {
+		return findKthBit(n-1, k)
+	}
+
+	if findKthBit(n-1, lStr-(k-1)) == '0' {
+		return '1'
+	}
+	return '0'
+}
+
 // 2044m Count Number of Maximum Bitwise-OR Subsets
 func countMaxOrSubsets(nums []int) int {
 	xVal := 0

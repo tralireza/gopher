@@ -171,6 +171,12 @@ func Test1140(t *testing.T) {
 	log.Print("104 ?= ", stoneGameII([]int{1, 2, 3, 4, 5, 100}))
 }
 
+// 1545m Find Kth Bit in Nth Binary String
+func Test1545(t *testing.T) {
+	log.Printf("'0' ?= %q", findKthBit(3, 1))
+	log.Printf("'1' ?= %q", findKthBit(4, 11))
+}
+
 // 2044m Count Number of Maximum Bitwise-OR Subsets
 func Test2044(t *testing.T) {
 	// 1 <= N_i <= 10^5, N.length <= 16
