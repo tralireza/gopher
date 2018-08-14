@@ -177,7 +177,7 @@ func Test1545(t *testing.T) {
 		inverts := 0
 
 		lStr := 1<<n - 1
-		for range n {
+		for range n - 1 {
 			log.Print(k, lStr)
 			if k-1 == lStr/2 {
 				if inverts&1 == 1 {
@@ -193,7 +193,11 @@ func Test1545(t *testing.T) {
 
 			lStr = lStr / 2
 		}
-		return '0'
+
+		if inverts&1 == 0 {
+			return '0'
+		}
+		return '1'
 	}
 
 	for _, fn := range []func(int, int) byte{findKthBit, Iterative} {
