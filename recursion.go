@@ -383,6 +383,7 @@ func parseBoolExpr(expression string) bool {
 					Vals = append(Vals, Parse())
 				}
 			}
+			p++
 
 			v := Vals[0]
 			if andOr {
