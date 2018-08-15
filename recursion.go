@@ -353,30 +353,8 @@ func minSteps(n int) int {
 // 1106h Parsing a Boolean Expression
 func parseBoolExpr(expression string) bool {
 	p := 0
+
 	var Parse func() bool
-
-	OpParse := func(op byte) bool {
-		v := false
-		if op == '&' {
-			v = true
-		}
-
-		for expression[p] != ')' {
-			switch expression[p] {
-			case ',':
-				p++
-			default:
-				w := Parse()
-				if op == '&' {
-					v = v && w
-				} else {
-					v = v || w
-				}
-			}
-		}
-		return v
-	}
-
 	Parse = func() bool {
 		log.Printf(" -> %q", expression[p])
 
@@ -393,9 +371,29 @@ func parseBoolExpr(expression string) bool {
 			p++
 			return v
 		default: // &(expr[,expr]), |(expr[,expr])
+			andOr := expression[p] == '&'
+			Vals := []bool{}
+
 			p += 2
-			v := OpParse(expression[p-2])
-			p++
+			for expression[p] != ')' {
+				switch expression[p] {
+				case ',':
+					p++
+				default:
+					Vals = append(Vals, Parse())
+				}
+			}
+
+			v := Vals[0]
+			if andOr {
+				for _, b := range Vals[1:] {
+					v = v && b
+				}
+			} else {
+				for _, b := range Vals[1:] {
+					v = v || b
+				}
+			}
 			return v
 		}
 	}
