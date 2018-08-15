@@ -165,6 +165,14 @@ func Test650(t *testing.T) {
 	}
 }
 
+// 1106h Parsing a Boolean Expression
+func Test1106(t *testing.T) {
+	log.Print("false ?= ", parseBoolExpr("&(|(f))"))
+	log.Print("true ?= ", parseBoolExpr("|(f,f,f,t)"))
+	log.Print("true ?= ", parseBoolExpr("!(&(f,t))"))
+	log.Print("false ?= ", parseBoolExpr("!(!(!(t)))"))
+}
+
 // 1140m Stone Games II
 func Test1140(t *testing.T) {
 	log.Print("10 ?= ", stoneGameII([]int{2, 7, 9, 4, 4}))

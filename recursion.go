@@ -350,6 +350,59 @@ func minSteps(n int) int {
 	return ops
 }
 
+// 1106h Parsing a Boolean Expression
+func parseBoolExpr(expression string) bool {
+	p := 0
+	var Parse func() bool
+
+	OpParse := func(op byte) bool {
+		v := false
+		if op == '&' {
+			v = true
+		}
+
+		for expression[p] != ')' {
+			switch expression[p] {
+			case ',':
+				p++
+			default:
+				w := Parse()
+				if op == '&' {
+					v = v && w
+				} else {
+					v = v || w
+				}
+			}
+		}
+		return v
+	}
+
+	Parse = func() bool {
+		log.Printf(" -> %q", expression[p])
+
+		switch expression[p] {
+		case 't':
+			p++
+			return true
+		case 'f':
+			p++
+			return false
+		case '!': // !(expr)
+			p += 2
+			v := !Parse()
+			p++
+			return v
+		default: // &(expr[,expr]), |(expr[,expr])
+			p += 2
+			v := OpParse(expression[p-2])
+			p++
+			return v
+		}
+	}
+
+	return Parse()
+}
+
 // 1140m Stone Games II
 func stoneGameII(piles []int) int {
 	// A_score + B_score = Total_score
