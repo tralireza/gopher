@@ -171,7 +171,7 @@ func Test1106(t *testing.T) {
 	log.Print("true ?= ", parseBoolExpr("|(f,f,f,t)"))
 	log.Print("true ?= ", parseBoolExpr("!(&(f,t))"))
 	log.Print("false ?= ", parseBoolExpr("!(!(!(t)))"))
-	log.Print("true ?= ", parseBoolExpr("|(&(t,f,t),t)"))
+	log.Print("true ?= ", parseBoolExpr("|(&(t,!(t),&(t,!(t)),t),t)"))
 }
 
 // 1140m Stone Games II

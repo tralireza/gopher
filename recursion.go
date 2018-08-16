@@ -386,12 +386,10 @@ func parseBoolExpr(expression string) bool {
 			p++
 
 			v := Vals[0]
-			if andOr {
-				for _, b := range Vals[1:] {
+			for _, b := range Vals[1:] {
+				if andOr {
 					v = v && b
-				}
-			} else {
-				for _, b := range Vals[1:] {
+				} else {
 					v = v || b
 				}
 			}
