@@ -580,3 +580,21 @@ func findXSum(nums []int, k int, x int) []int {
 	}
 	return R
 }
+
+// 3324m Find the Sequence of Strings Appeared on the Screen
+func stringSequence(target string) []string {
+	R := []string{}
+
+	w := []rune{}
+	for _, t := range target {
+		w = append(w, 'a')
+		for l := 'a'; l <= t; l++ {
+			w[len(w)-1] = l
+			R = append(R, string(w))
+		}
+	}
+
+	log.Printf(" -> %q", w)
+
+	return R
+}
