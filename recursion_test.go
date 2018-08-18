@@ -216,6 +216,15 @@ func Test1545(t *testing.T) {
 	}
 }
 
+// 1593m Split a String Into the Max Number of Unique Substrings
+func Test(t *testing.T) {
+	// 1 <= s.length <= 16
+
+	log.Print("5 ?= ", maxUniqueSplit("ababccc"))
+	log.Print("2 ?= ", maxUniqueSplit("aba"))
+	log.Print("1 ?= ", maxUniqueSplit("aa"))
+}
+
 // 2044m Count Number of Maximum Bitwise-OR Subsets
 func Test2044(t *testing.T) {
 	// 1 <= N_i <= 10^5, N.length <= 16
