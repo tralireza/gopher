@@ -461,27 +461,26 @@ func findKthBit(n, k int) byte {
 // 1593m Split a String Into the Max Number of Unique Substrings
 func maxUniqueSplit(s string) int {
 	Subs := map[string]struct{}{}
-	xlen := 0
 
-	var W func(start, l int)
-	W = func(start, l int) {
+	var W func(int) int
+	W = func(start int) int {
 		if start == len(s) {
-			log.Printf(" -> %d:%d %v", l, len(Subs), Subs)
-			xlen = max(l, xlen)
+			log.Printf(" -> %d %v", len(Subs), Subs)
+			return 0
 		}
 
+		xlen := 0
 		for end := start + 1; end <= len(s); end++ {
 			if _, ok := Subs[s[start:end]]; !ok {
 				Subs[s[start:end]] = struct{}{}
-				W(end, l+1)
+				xlen = max(W(end)+1, xlen)
 				delete(Subs, s[start:end])
 			}
 		}
+		return xlen
 	}
 
-	W(0, 0)
-
-	return xlen
+	return W(0)
 }
 
 // 2044m Count Number of Maximum Bitwise-OR Subsets
