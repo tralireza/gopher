@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"container/heap"
 	"slices"
 )
 
@@ -64,8 +65,20 @@ func isSubPath(head *ListNode, root *TreeNode) bool {
 }
 
 // 2583m Kth Largest Sum in a Binary Tree
+type PQ2583 []int64
+
+func (h PQ2583) Len() int           { return len(h) }
+func (h PQ2583) Less(i, j int) bool { return h[i] > h[j] }
+func (h PQ2583) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ2583) Push(_ any)        {}
+func (h *PQ2583) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
 func kthLargestLevelSum(root *TreeNode, k int) int64 {
-	S := []int64{}
+	S := PQ2583{}
 
 	Q := []*TreeNode{}
 	n := root
@@ -86,10 +99,13 @@ func kthLargestLevelSum(root *TreeNode, k int) int64 {
 		S = append(S, lSum)
 	}
 
-	if len(S) < k {
+	if S.Len() < k {
 		return -1
 	}
 
-	slices.Sort(S)
-	return S[len(S)-k]
+	heap.Init(&S)
+	for range k - 1 {
+		heap.Pop(&S)
+	}
+	return heap.Pop(&S).(int64)
 }
