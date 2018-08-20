@@ -136,3 +136,11 @@ func Test1367(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 2583m Kth Largest Sum in a Binary Tree
+func Test2583(t *testing.T) {
+	type T = TreeNode
+
+	log.Print("13 ?= ", kthLargestLevelSum(&T{5, &T{8, &T{2, &T{Val: 4}, &T{Val: 6}}, &T{Val: 1}}, &T{9, &T{Val: 3}, &T{Val: 7}}}, 2))
+	log.Print("3 ?= ", kthLargestLevelSum(&T{1, &T{2, &T{Val: 3}, nil}, nil}, 1))
+}

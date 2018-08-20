@@ -60,3 +60,35 @@ func isSubPath(head *ListNode, root *TreeNode) bool {
 	}
 	return isSubPath(head, root.Left) || isSubPath(head, root.Right)
 }
+
+// 2583m Kth Largest Sum in a Binary Tree
+func kthLargestLevelSum(root *TreeNode, k int) int64 {
+	S := []int64{}
+
+	Q := []*TreeNode{}
+	n := root
+
+	Q = append(Q, n)
+	for len(Q) > 0 {
+		lSum := int64(0)
+		for range len(Q) {
+			n, Q = Q[0], Q[1:]
+			lSum += int64(n.Val)
+
+			if n.Left != nil {
+				Q = append(Q, n.Left)
+			}
+			if n.Right != nil {
+				Q = append(Q, n.Right)
+			}
+		}
+		S = append(S, lSum)
+	}
+
+	if len(S) < k {
+		return -1
+	}
+
+	slices.Sort(S)
+	return S[len(S)-k]
+}
