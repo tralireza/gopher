@@ -1,6 +1,8 @@
 package gopher
 
-import "slices"
+import (
+	"slices"
+)
 
 // 103 Binary Tree Zigzag Level Order Traversal
 func zigzagLevelOrder(root *TreeNode) [][]int {
@@ -75,11 +77,10 @@ func kthLargestLevelSum(root *TreeNode, k int) int64 {
 			n, Q = Q[0], Q[1:]
 			lSum += int64(n.Val)
 
-			if n.Left != nil {
-				Q = append(Q, n.Left)
-			}
-			if n.Right != nil {
-				Q = append(Q, n.Right)
+			for _, c := range []*TreeNode{n.Left, n.Right} {
+				if c != nil {
+					Q = append(Q, c)
+				}
 			}
 		}
 		S = append(S, lSum)
