@@ -144,3 +144,35 @@ func Test2583(t *testing.T) {
 	log.Print("13 ?= ", kthLargestLevelSum(&T{5, &T{8, &T{2, &T{Val: 4}, &T{Val: 6}}, &T{Val: 1}}, &T{9, &T{Val: 3}, &T{Val: 7}}}, 2))
 	log.Print("3 ?= ", kthLargestLevelSum(&T{1, &T{2, &T{Val: 3}, nil}, nil}, 1))
 }
+
+// 2641m Cousins in Binary Tree II
+func Test2641(t *testing.T) {
+	// 1 <= Node.Val <= 10^4
+
+	Pack := func(n *TreeNode) []int {
+		R := []int{}
+		Q := []*TreeNode{n}
+		for len(Q) > 0 {
+			for range len(Q) {
+				n, Q = Q[0], Q[1:]
+				if n == nil {
+					R = append(R, -1)
+					continue
+				}
+				R = append(R, n.Val)
+				Q = append(Q, n.Left)
+				Q = append(Q, n.Right)
+			}
+		}
+		return R
+	}
+
+	type T = TreeNode
+
+	for _, t := range []*T{
+		&T{5, &T{4, &T{Val: 1}, &T{Val: 10}}, &T{9, nil, &T{Val: 7}}},
+		&T{3, &T{Val: 1}, &T{Val: 2}},
+	} {
+		log.Printf("%v -> %v", Pack(t), Pack(replaceValueInTree(t)))
+	}
+}

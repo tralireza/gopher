@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"container/heap"
+	"log"
 	"slices"
 )
 
@@ -108,4 +109,49 @@ func kthLargestLevelSum(root *TreeNode, k int) int64 {
 		heap.Pop(&S)
 	}
 	return heap.Pop(&S).(int64)
+}
+
+// 2641m Cousins in Binary Tree II
+func replaceValueInTree(root *TreeNode) *TreeNode {
+	lSums := map[int]int{}
+
+	Q := []*TreeNode{root}
+	var n *TreeNode
+
+	l := 0
+	for len(Q) > 0 {
+		lSum := 0
+		for range len(Q) {
+			n, Q = Q[0], Q[1:]
+			lSum += n.Val
+			for _, c := range []*TreeNode{n.Left, n.Right} {
+				if c != nil {
+					Q = append(Q, c)
+				}
+			}
+		}
+		lSums[l] = lSum
+		l++
+	}
+
+	log.Print(" -> lSums :: ", lSums)
+
+	var W func(n *TreeNode, sVal, l int)
+	W = func(n *TreeNode, sVal, l int) {
+		if n != nil {
+			n.Val = lSums[l] - sVal
+
+			v := 0
+			for _, c := range []*TreeNode{n.Left, n.Right} {
+				if c != nil {
+					v += c.Val
+				}
+			}
+			W(n.Left, v, l+1)
+			W(n.Right, v, l+1)
+		}
+	}
+
+	W(root, root.Val, 0)
+	return root
 }
