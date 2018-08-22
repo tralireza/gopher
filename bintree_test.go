@@ -167,12 +167,50 @@ func Test2641(t *testing.T) {
 		return R
 	}
 
+	OnePass := func(root *TreeNode) *TreeNode {
+		Q := []*TreeNode{root}
+		lSum := root.Val
+
+		var n *TreeNode
+		for len(Q) > 0 {
+			nSum := 0
+			for range len(Q) {
+				n, Q = Q[0], Q[1:]
+				n.Val = lSum - n.Val
+
+				fSum := 0
+				if n.Left != nil {
+					fSum += n.Left.Val
+				}
+				if n.Right != nil {
+					fSum += n.Right.Val
+				}
+				nSum += fSum
+
+				if n.Left != nil {
+					Q = append(Q, n.Left)
+					n.Left.Val = fSum
+				}
+				if n.Right != nil {
+					Q = append(Q, n.Right)
+					n.Right.Val = fSum
+				}
+			}
+			lSum = nSum
+		}
+
+		return root
+	}
+
 	type T = TreeNode
 
-	for _, t := range []*T{
-		&T{5, &T{4, &T{Val: 1}, &T{Val: 10}}, &T{9, nil, &T{Val: 7}}},
-		&T{3, &T{Val: 1}, &T{Val: 2}},
-	} {
-		log.Printf("%v -> %v", Pack(t), Pack(replaceValueInTree(t)))
+	for _, fn := range []func(*TreeNode) *TreeNode{replaceValueInTree, OnePass} {
+		for _, t := range []*T{
+			&T{5, &T{4, &T{Val: 1}, &T{Val: 10}}, &T{9, nil, &T{Val: 7}}},
+			&T{3, &T{Val: 1}, &T{Val: 2}},
+		} {
+			log.Printf("%v -> %v", Pack(t), Pack(fn(t)))
+		}
+		log.Print("--")
 	}
 }
