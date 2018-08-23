@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"container/heap"
+	"fmt"
 	"log"
 	"slices"
 )
@@ -42,6 +43,7 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
 
 // 951m Flip Equivalent Binary Trees
 func flipEquiv(root1 *TreeNode, root2 *TreeNode) bool {
+	fmt.Print(".")
 	if root1 == nil && root2 == nil {
 		return true
 	}
