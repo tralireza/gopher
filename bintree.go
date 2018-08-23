@@ -40,6 +40,24 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
 	return Z
 }
 
+// 951m Flip Equivalent Binary Trees
+func flipEquiv(root1 *TreeNode, root2 *TreeNode) bool {
+	if root1 == nil && root2 == nil {
+		return true
+	}
+	if root1 == nil || root2 == nil {
+		return false
+	}
+
+	if root1.Val != root2.Val {
+		return false
+	}
+	if flipEquiv(root1.Left, root2.Left) && flipEquiv(root1.Right, root2.Right) {
+		return true
+	}
+	return flipEquiv(root1.Left, root2.Right) && flipEquiv(root1.Right, root2.Left)
+}
+
 // 1367 Linked List in Binary Tree
 func isSubPath(head *ListNode, root *TreeNode) bool {
 	if root == nil {

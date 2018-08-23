@@ -16,6 +16,16 @@ func Test103(t *testing.T) {
 	log.Print("[[1] [3 2] [4 5]] ?= ", zigzagLevelOrder(&T{1, &T{2, &T{Val: 4}, &T{Val: 5}}, &T{Val: 3}}))
 }
 
+// 951m Flip Equivalent Binary Trees
+
+func Test951(t *testing.T) {
+	type T = TreeNode
+
+	log.Print("true ?= ", flipEquiv(&T{1, &T{2, &T{Val: 4}, &T{5, &T{Val: 7}, &T{Val: 8}}}, &T{3, &T{Val: 6}, nil}}, &T{1, &T{3, nil, &T{Val: 6}}, &T{2, &T{Val: 4}, &T{5, &T{Val: 8}, &T{Val: 7}}}}))
+	log.Print("true ?= ", flipEquiv(nil, nil))
+	log.Print("false ?= ", flipEquiv(nil, &T{Val: 1}))
+}
+
 // 1367 Linked List in Binary Tree
 func Test1367(t *testing.T) {
 	// Knuth-Morris-Pratt KMP: Failure Function
