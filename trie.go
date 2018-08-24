@@ -135,18 +135,11 @@ func removeSubfolders(folder []string) []string {
 	slices.Sort(folder)
 	log.Print(" -> ", folder)
 
-	M := map[string]struct{}{}
-	prv := ""
-	for i := range folder {
-		if prv == "" || !strings.HasPrefix(folder[i], prv+"/") {
-			M[folder[i]] = struct{}{}
-			prv = folder[i]
+	R := []string{folder[0]}
+	for _, f := range folder[1:] {
+		if !strings.HasPrefix(f, R[len(R)-1]+"/") {
+			R = append(R, f)
 		}
-	}
-
-	R := []string{}
-	for k := range M {
-		R = append(R, k)
 	}
 	return R
 }
