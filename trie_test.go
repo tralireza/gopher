@@ -19,6 +19,13 @@ func Test440(t *testing.T) {
 	log.Print("104 ?= ", findKthNumber(127, 7))
 }
 
+// 1233m Remove Sub-Folders from the Filesystem
+func Test1233(t *testing.T) {
+	log.Printf(`["/a" "/c/d" "/c/f"] ?= %q`, removeSubfolders([]string{"/a", "/a/b", "/c/d", "/c/d/e", "/c/f"}))
+	log.Printf(`["/a"] ?= %q`, removeSubfolders([]string{"/a", "/a/b/c", "/a/b/d"}))
+	log.Printf(`["/a/b/c" "/a/b/ca" "/a/b/d"] ?= %q`, removeSubfolders([]string{"/a/b/c", "/a/b/ca", "/a/b/d"}))
+}
+
 // 2416h Sum of Prefix Score of Strings
 func Test2416(t *testing.T) {
 	log.Print("[5 4 3 2] ?= ", sumPrefixScores([]string{"abc", "ab", "bc", "b"}))
