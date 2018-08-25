@@ -21,9 +21,102 @@ func Test440(t *testing.T) {
 
 // 1233m Remove Sub-Folders from the Filesystem
 func Test1233(t *testing.T) {
-	log.Printf(`["/a" "/c/d" "/c/f"] ?= %q`, removeSubfolders([]string{"/a", "/a/b", "/c/d", "/c/d/e", "/c/f"}))
-	log.Printf(`["/a"] ?= %q`, removeSubfolders([]string{"/a", "/a/b/c", "/a/b/d"}))
-	log.Printf(`["/a/b/c" "/a/b/ca" "/a/b/d"] ?= %q`, removeSubfolders([]string{"/a/b/c", "/a/b/ca", "/a/b/d"}))
+	WithTrie := func(folder []string) []string {
+		type Trie struct {
+			Child  [26 + 1]*Trie // [a..z/]
+			IsNode bool
+		}
+
+		Insert := func(t *Trie, w string) {
+			n := t
+			for i := 0; i < len(w); i++ {
+				var c *Trie
+				var index int
+				if w[i] == '/' {
+					c = n.Child[26]
+					index = 26
+				} else {
+					c = n.Child[w[i]-'a']
+					index = int(w[i] - 'a')
+				}
+				if c == nil {
+					c = &Trie{}
+					n.Child[index] = c
+				}
+				n = c
+			}
+			n.IsNode = true
+		}
+
+		HasPrefix := func(t *Trie, w string) bool {
+			n := t
+			for i := 0; i < len(w); i++ {
+				var c *Trie
+				if w[i] == '/' {
+					c = n.Child[26]
+				} else {
+					c = n.Child[w[i]-'a']
+				}
+				n = c
+
+				if n == nil {
+					return false
+				}
+				if n.IsNode && i < len(w)-1 && w[i+1] == '/' {
+					return true
+				}
+			}
+			return false
+		}
+
+		var Dictionary func(t *Trie) []string
+		Dictionary = func(t *Trie) []string {
+			W := []string{}
+
+			n := t
+			for i := 0; i <= 26; i++ {
+				if n.Child[i] != nil {
+					var l byte
+					if i == 26 {
+						l = '/'
+					} else {
+						l = 'a' + byte(i)
+					}
+
+					for _, w := range Dictionary(n.Child[i]) {
+						W = append(W, string(l)+w)
+					}
+					if n.Child[i].IsNode {
+						W = append(W, string(l))
+					}
+				}
+			}
+
+			return W
+		}
+
+		trie := &Trie{}
+		for _, f := range folder {
+			Insert(trie, f)
+		}
+		log.Printf(" -> Dict :: %q", Dictionary(trie))
+
+		R := []string{}
+		for _, f := range folder {
+			if !HasPrefix(trie, f) {
+				R = append(R, f)
+			}
+		}
+
+		return R
+	}
+
+	for _, fn := range []func([]string) []string{removeSubfolders, WithTrie} {
+		log.Printf(`["/a" "/c/d" "/c/f"] ?= %q`, fn([]string{"/a", "/a/b", "/c/d", "/c/d/e", "/c/f"}))
+		log.Printf(`["/a"] ?= %q`, fn([]string{"/a", "/a/b/c", "/a/b/d"}))
+		log.Printf(`["/a/b/c" "/a/b/ca" "/a/b/d"] ?= %q`, fn([]string{"/a/b/c", "/a/b/ca", "/a/b/d"}))
+		log.Print("--")
+	}
 }
 
 // 2416h Sum of Prefix Score of Strings
