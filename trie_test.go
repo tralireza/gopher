@@ -136,13 +136,12 @@ func Test1233(t *testing.T) {
 		HasPrefix := func(t *Trie, w string) bool {
 			fs := strings.Split(w[1:], "/")
 			for i, f := range fs {
-				c := t.Child[f]
-				if c == nil {
+				t = t.Child[f]
+
+				if t == nil {
 					return false
 				}
-				t = c
-
-				if c.IsNode && i < len(fs)-1 {
+				if t.IsNode && i < len(fs)-1 {
 					return true
 				}
 			}
