@@ -3,6 +3,7 @@ package gopher
 import (
 	"log"
 	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -21,7 +22,8 @@ func Test440(t *testing.T) {
 
 // 1233m Remove Sub-Folders from the Filesystem
 func Test1233(t *testing.T) {
-	WithTrie := func(folder []string) []string {
+	// Trie (with array for Children)
+	arrayTrie := func(folder []string) []string {
 		type Trie struct {
 			Child  [26 + 1]*Trie // [a..z/]
 			IsNode bool
@@ -107,11 +109,60 @@ func Test1233(t *testing.T) {
 				R = append(R, f)
 			}
 		}
-
 		return R
 	}
 
-	for _, fn := range []func([]string) []string{removeSubfolders, WithTrie} {
+	// Trie (with maps for Children)
+	mapTrie := func(folder []string) []string {
+		type Trie struct {
+			Child  map[string]*Trie
+			IsNode bool
+		}
+
+		trie := &Trie{Child: map[string]*Trie{}}
+
+		Insert := func(t *Trie, w string) {
+			for _, f := range strings.Split(w[1:], "/") {
+				c := t.Child[f]
+				if c == nil {
+					c = &Trie{Child: map[string]*Trie{}}
+					t.Child[f] = c
+				}
+				t = c
+			}
+			t.IsNode = true
+		}
+
+		HasPrefix := func(t *Trie, w string) bool {
+			fs := strings.Split(w[1:], "/")
+			for i, f := range fs {
+				c := t.Child[f]
+				if c == nil {
+					return false
+				}
+				t = c
+
+				if c.IsNode && i < len(fs)-1 {
+					return true
+				}
+			}
+			return false
+		}
+
+		for _, f := range folder {
+			Insert(trie, f)
+		}
+
+		R := []string{}
+		for _, f := range folder {
+			if !HasPrefix(trie, f) {
+				R = append(R, f)
+			}
+		}
+		return R
+	}
+
+	for _, fn := range []func([]string) []string{removeSubfolders, arrayTrie, mapTrie} {
 		log.Printf(`["/a" "/c/d" "/c/f"] ?= %q`, fn([]string{"/a", "/a/b", "/c/d", "/c/d/e", "/c/f"}))
 		log.Printf(`["/a"] ?= %q`, fn([]string{"/a", "/a/b/c", "/a/b/d"}))
 		log.Printf(`["/a/b/c" "/a/b/ca" "/a/b/d"] ?= %q`, fn([]string{"/a/b/c", "/a/b/ca", "/a/b/d"}))
