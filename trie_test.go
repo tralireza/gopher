@@ -30,41 +30,33 @@ func Test1233(t *testing.T) {
 		}
 
 		Insert := func(t *Trie, w string) {
-			n := t
 			for i := 0; i < len(w); i++ {
-				var c *Trie
-				var index int
-				if w[i] == '/' {
-					c = n.Child[26]
-					index = 26
-				} else {
-					c = n.Child[w[i]-'a']
+				c, index := t.Child[26], 26
+				if 'a' <= w[i] && w[i] <= 'z' {
+					c = t.Child[w[i]-'a']
 					index = int(w[i] - 'a')
 				}
 				if c == nil {
 					c = &Trie{}
-					n.Child[index] = c
+					t.Child[index] = c
 				}
-				n = c
+				t = c
 			}
-			n.IsNode = true
+			t.IsNode = true
 		}
 
 		HasPrefix := func(t *Trie, w string) bool {
-			n := t
 			for i := 0; i < len(w); i++ {
-				var c *Trie
-				if w[i] == '/' {
-					c = n.Child[26]
+				if w[i] != '/' {
+					t = t.Child[w[i]-'a']
 				} else {
-					c = n.Child[w[i]-'a']
+					t = t.Child[26]
 				}
-				n = c
 
-				if n == nil {
+				if t == nil {
 					return false
 				}
-				if n.IsNode && i < len(w)-1 && w[i+1] == '/' {
+				if t.IsNode && i < len(w)-1 && w[i+1] == '/' {
 					return true
 				}
 			}
@@ -74,26 +66,16 @@ func Test1233(t *testing.T) {
 		var Dictionary func(t *Trie) []string
 		Dictionary = func(t *Trie) []string {
 			W := []string{}
-
-			n := t
-			for i := 0; i <= 26; i++ {
-				if n.Child[i] != nil {
-					var l byte
-					if i == 26 {
-						l = '/'
-					} else {
-						l = 'a' + byte(i)
-					}
-
-					for _, w := range Dictionary(n.Child[i]) {
+			for i, l := range []byte("abcdefghijklmnopqrstuvwxyz/") {
+				if t.Child[i] != nil {
+					for _, w := range Dictionary(t.Child[i]) {
 						W = append(W, string(l)+w)
 					}
-					if n.Child[i].IsNode {
+					if t.Child[i].IsNode {
 						W = append(W, string(l))
 					}
 				}
 			}
-
 			return W
 		}
 
@@ -118,8 +100,6 @@ func Test1233(t *testing.T) {
 			Child  map[string]*Trie
 			IsNode bool
 		}
-
-		trie := &Trie{Child: map[string]*Trie{}}
 
 		Insert := func(t *Trie, w string) {
 			for _, f := range strings.Split(w[1:], "/") {
@@ -148,6 +128,7 @@ func Test1233(t *testing.T) {
 			return false
 		}
 
+		trie := &Trie{Child: map[string]*Trie{}}
 		for _, f := range folder {
 			Insert(trie, f)
 		}
