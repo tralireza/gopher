@@ -464,6 +464,27 @@ func numRollsToTarget(n, k, target int) int {
 	return D[n-1][target]
 }
 
+// 1277m Count Square Submatrices with All Ones
+func countSquares(matrix [][]int) int {
+	Rows, Cols := len(matrix), len(matrix[0])
+
+	D := make([][]int, Rows+1)
+	for r := range D {
+		D[r] = make([]int, Cols+1)
+	}
+
+	count := 0
+	for r := range Rows {
+		for c := range Cols {
+			if matrix[r][c] == 1 {
+				D[r+1][c+1] = 1 + min(D[r+1][c], D[r][c+1], D[r][c])
+				count += D[r+1][c+1]
+			}
+		}
+	}
+	return count
+}
+
 // 1395m Count Number of Teams
 func numTeams(rating []int) int {
 	x := 0

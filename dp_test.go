@@ -271,6 +271,20 @@ func Test1155(t *testing.T) {
 	}
 }
 
+// 1277m Count Square Submatrices with All Ones
+func Test1277(t *testing.T) {
+	log.Print("15 ?= ", countSquares([][]int{
+		{0, 1, 1, 1},
+		{1, 1, 1, 1},
+		{0, 1, 1, 1},
+	}))
+	log.Print("7 ?= ", countSquares([][]int{
+		{1, 0, 1},
+		{1, 1, 0},
+		{1, 1, 0},
+	}))
+}
+
 // 1395m Count Number of Teams
 func Test1395(t *testing.T) {
 	// 1 <= Rating[i] <= 10^5
