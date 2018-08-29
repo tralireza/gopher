@@ -273,16 +273,57 @@ func Test1155(t *testing.T) {
 
 // 1277m Count Square Submatrices with All Ones
 func Test1277(t *testing.T) {
-	log.Print("15 ?= ", countSquares([][]int{
-		{0, 1, 1, 1},
-		{1, 1, 1, 1},
-		{0, 1, 1, 1},
-	}))
-	log.Print("7 ?= ", countSquares([][]int{
-		{1, 0, 1},
-		{1, 1, 0},
-		{1, 1, 0},
-	}))
+	Recursion := func(matrix [][]int) int {
+		Rows, Cols := len(matrix), len(matrix[0])
+
+		D := make([][]int, Rows)
+		for r := range D {
+			D[r] = make([]int, Cols)
+			for c := range D[r] {
+				D[r][c] = -1
+			}
+		}
+
+		var W func(r, c int) int
+		W = func(r, c int) int {
+			if r >= Rows || c >= Cols {
+				return 0
+			}
+
+			if matrix[r][c] == 0 {
+				return 0
+			}
+
+			if D[r][c] != -1 {
+				return D[r][c]
+			}
+
+			D[r][c] = 1 + min(W(r+1, c), W(r, c+1), W(r+1, c+1))
+			return D[r][c]
+		}
+
+		count := 0
+		for r := range Rows {
+			for c := range Cols {
+				count += W(r, c)
+			}
+		}
+		return count
+	}
+
+	for _, fn := range []func([][]int) int{countSquares, Recursion} {
+		log.Print("15 ?= ", fn([][]int{
+			{0, 1, 1, 1},
+			{1, 1, 1, 1},
+			{0, 1, 1, 1},
+		}))
+		log.Print("7 ?= ", fn([][]int{
+			{1, 0, 1},
+			{1, 1, 0},
+			{1, 1, 0},
+		}))
+		log.Print("--")
+	}
 }
 
 // 1395m Count Number of Teams
