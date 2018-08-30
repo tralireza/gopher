@@ -140,6 +140,7 @@ func Test1942(t *testing.T) {
 func Test2406(t *testing.T) {
 	log.Print("3 ?= ", minGroups([][]int{{5, 10}, {6, 8}, {1, 5}, {2, 3}, {1, 10}}))
 	log.Print("1 ?= ", minGroups([][]int{{1, 3}, {5, 6}, {8, 10}, {11, 13}}))
+}
 
 // 2530m Maximal Score After Applying K Operations
 func Test2530(t *testing.T) {

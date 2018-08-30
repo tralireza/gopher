@@ -105,6 +105,35 @@ func nearestPalindromic(n string) string {
 	return strconv.Itoa(next)
 }
 
+// 1760m Minimum Limit of Balls in a Bag
+func minimumSize(nums []int, maxOperations int) int {
+	Possible := func(m int) bool {
+		ops := 0
+		for _, n := range nums {
+			if n > m {
+				ops += (n - 1) / m
+			}
+			if ops > maxOperations {
+				return false
+			}
+		}
+		return true
+	}
+
+	l, r := 1, slices.Max(nums)
+	for l < r {
+		m := l + (r-l)>>1
+		log.Print(" -> ", l, m, r, Possible(m))
+
+		if Possible(m) {
+			r = m
+		} else {
+			l = m + 1
+		}
+	}
+	return l
+}
+
 // 1894m Find the Student that Will Replace the Chalk
 func chalkReplacer(chalk []int, k int) int {
 	pSum := make([]int, len(chalk))

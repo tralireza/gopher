@@ -22,6 +22,13 @@ func Test564(t *testing.T) {
 	log.Print("99799 ?= ", nearestPalindromic("99800"))
 }
 
+// 1760m Minimum Limit of Balls in a Bag
+func Test1760(t *testing.T) {
+	log.Print("3 ?= ", minimumSize([]int{9}, 2))
+	log.Print("2 ?= ", minimumSize([]int{2, 4, 8, 2}, 4))
+	log.Print("7 ?= ", minimumSize([]int{7, 17}, 2))
+}
+
 // 1894m Find the Student that Will Replace the Chalk
 func Test1894(t *testing.T) {
 	// left-most BinSearch
