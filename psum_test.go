@@ -105,6 +105,12 @@ func Test2680(t *testing.T) {
 	log.Print("[-2 -1 0 2 3] ?= ", distinctDifferenceArray([]int{3, 2, 3, 4, 2}))
 }
 
+// 3152m Special Array II
+func Test3152(t *testing.T) {
+	log.Print("[false] ?= ", isArraySpecial([]int{3, 4, 1, 2, 6}, [][]int{{0, 4}}))
+	log.Print("[false true] ?= ", isArraySpecial([]int{4, 3, 1, 6}, [][]int{{0, 2}, {2, 3}}))
+}
+
 // 3179m Find the N-th Value After K Seconds
 func Test3179(t *testing.T) {
 	log.Print("56 ?= ", valueAfterKSeconds(4, 5))

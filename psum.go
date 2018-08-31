@@ -130,6 +130,27 @@ func distinctDifferenceArray(nums []int) []int {
 	return R
 }
 
+// 3152m Special Array II
+func isArraySpecial(nums []int, queries [][]int) []bool {
+	pSum := make([]int, len(nums))
+	for i := 1; i < len(nums); i++ {
+		if nums[i]&1 != nums[i-1]&1 {
+			pSum[i] = pSum[i-1] + 1
+		}
+	}
+
+	R := []bool{}
+	for _, v := range queries {
+		start, end := v[0], v[1]
+		v := false
+		if pSum[end]-pSum[start] == end-start {
+			v = true
+		}
+		R = append(R, v)
+	}
+	return R
+}
+
 // 3179m Find the N-th Value After K Seconds
 func valueAfterKSeconds(n int, k int) int {
 	pSum := make([]int, n)
