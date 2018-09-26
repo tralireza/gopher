@@ -107,8 +107,31 @@ func Test2680(t *testing.T) {
 
 // 3152m Special Array II
 func Test3152(t *testing.T) {
-	log.Print("[false] ?= ", isArraySpecial([]int{3, 4, 1, 2, 6}, [][]int{{0, 4}}))
-	log.Print("[false true] ?= ", isArraySpecial([]int{4, 3, 1, 6}, [][]int{{0, 2}, {2, 3}}))
+	SlidingWindow := func(nums []int, queries [][]int) []bool {
+		xReach := make([]int, len(nums))
+
+		end := 0
+		for start := range nums {
+			end = max(start, end)
+			for end < len(nums)-1 && nums[end]&1 != nums[end+1]&1 {
+				end++
+			}
+			xReach[start] = end
+		}
+
+		R := []bool{}
+		for _, v := range queries {
+			start, end := v[0], v[1]
+			R = append(R, end <= xReach[start])
+		}
+		return R
+	}
+
+	for _, fn := range []func([]int, [][]int) []bool{isArraySpecial, SlidingWindow} {
+		log.Print("[false] ?= ", fn([]int{3, 4, 1, 2, 6}, [][]int{{0, 4}}))
+		log.Print("[false true] ?= ", fn([]int{4, 3, 1, 6}, [][]int{{0, 2}, {2, 3}}))
+		log.Print("--")
+	}
 }
 
 // 3179m Find the N-th Value After K Seconds
