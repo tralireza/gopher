@@ -271,6 +271,36 @@ func dividePlayers(skill []int) int64 {
 	return chemistry / 2
 }
 
+// 2981m Find Longest Special Substring That Counts Thrice I
+func maximumLength(s string) int {
+	Count := map[string]int{}
+
+	for start := 0; start < len(s); start++ {
+		B := []byte{}
+
+		for end := start; end < len(s); end++ {
+			if len(B) == 0 || B[len(B)-1] == s[end] {
+				B = append(B, s[end])
+				Count[string(B)]++
+			} else {
+				break
+			}
+		}
+	}
+
+	lMax := 0
+	for s, count := range Count {
+		if count >= 3 && len(s) > lMax {
+			lMax = len(s)
+		}
+	}
+
+	if lMax == 0 {
+		return -1
+	}
+	return lMax
+}
+
 // 3305m Count of Substrings Containing Every Vowel and K Consonants I
 func countOfSubstrings(word string, k int) int {
 	Mask := [6]int{}

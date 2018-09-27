@@ -197,6 +197,13 @@ func Test2491(t *testing.T) {
 	log.Print("-1 ?= ", dividePlayers([]int{1, 1, 2, 3}))
 }
 
+// 2981m Find Longest Special Substring That Counts Thrice I
+func Test2981(t *testing.T) {
+	log.Print("2 ?= ", maximumLength("aaaa"))
+	log.Print("-1 ?= ", maximumLength("abcdef"))
+	log.Print("1 ?= ", maximumLength("abcaba"))
+}
+
 // 3305m Count of Substrings Containing Every Vowel and K Consonants I
 func Test3305(t *testing.T) {
 	// 5 <= word <= 250
