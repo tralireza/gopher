@@ -199,9 +199,40 @@ func Test2491(t *testing.T) {
 
 // 2981m Find Longest Special Substring That Counts Thrice I
 func Test2981(t *testing.T) {
-	log.Print("2 ?= ", maximumLength("aaaa"))
-	log.Print("-1 ?= ", maximumLength("abcdef"))
-	log.Print("1 ?= ", maximumLength("abcaba"))
+	Optimized := func(s string) int {
+		Count := map[[2]int]int{}
+
+		for start := 0; start < len(s); start++ {
+			l := 0
+			for end := start; end < len(s); end++ {
+				if s[start] == s[end] {
+					l++
+					Count[[2]int{int(s[start]), l}]++
+				} else {
+					break
+				}
+			}
+		}
+
+		lMax := 0
+		for e, count := range Count {
+			if count >= 3 {
+				lMax = max(e[1], lMax)
+			}
+		}
+
+		if lMax == 0 {
+			return -1
+		}
+		return lMax
+	}
+
+	for _, fn := range []func(string) int{maximumLength, Optimized} {
+		log.Print("2 ?= ", fn("aaaa"))
+		log.Print("-1 ?= ", fn("abcdef"))
+		log.Print("1 ?= ", fn("abcaba"))
+		log.Print("--")
+	}
 }
 
 // 3305m Count of Substrings Containing Every Vowel and K Consonants I
