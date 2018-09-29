@@ -199,6 +199,45 @@ func Test2491(t *testing.T) {
 
 // 2981m Find Longest Special Substring That Counts Thrice I
 func Test2981(t *testing.T) {
+	// O(n)
+	OnePass := func(s string) int {
+		Count := map[[2]int]int{}
+
+		start := 0
+		for start < len(s) {
+			l := 0
+
+			end := start
+			for end < len(s) && s[start] == s[end] {
+				l++
+				end++
+			}
+			Count[[2]int{int(s[start]), l}]++
+
+			for l > 1 {
+				l--
+				Count[[2]int{int(s[start]), l}] += Count[[2]int{int(s[start]), l + 1}] + 1
+			}
+
+			start = end
+		}
+
+		log.Print(" -> ", Count)
+
+		lMax := 0
+		for e, count := range Count {
+			if count >= 3 {
+				lMax = max(e[1], lMax)
+			}
+		}
+
+		if lMax == 0 {
+			return -1
+		}
+		return lMax
+	}
+
+	// O(n^2)
 	Optimized := func(s string) int {
 		Count := map[[2]int]int{}
 
@@ -227,10 +266,11 @@ func Test2981(t *testing.T) {
 		return lMax
 	}
 
-	for _, fn := range []func(string) int{maximumLength, Optimized} {
+	for _, fn := range []func(string) int{maximumLength, Optimized, OnePass} {
 		log.Print("2 ?= ", fn("aaaa"))
 		log.Print("-1 ?= ", fn("abcdef"))
 		log.Print("1 ?= ", fn("abcaba"))
+		log.Print("4 ?= ", fn("cddedeedccedcedecdedcdeededdddcdddddcdeecdcddeecdc"))
 		log.Print("--")
 	}
 }
