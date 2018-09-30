@@ -343,6 +343,32 @@ func maxKelements(nums []int, k int) int64 {
 	return score
 }
 
+// 2558 Take Gifts From the Richest Pile
+type PQ2558 struct{ sort.IntSlice }
+
+func (h PQ2558) Less(i, j int) bool { return h.IntSlice[j] < h.IntSlice[i] }
+func (h *PQ2558) Push(v any)        { h.IntSlice = append(h.IntSlice, v.(int)) }
+func (h *PQ2558) Pop() any {
+	v := h.IntSlice[h.Len()-1]
+	h.IntSlice = h.IntSlice[:h.Len()-1]
+	return v
+}
+
+func pickGifts(gifts []int, k int) int64 {
+	h := PQ2558{IntSlice: gifts}
+
+	for range k {
+		v := heap.Pop(&h).(int)
+		heap.Push(&h, int(math.Sqrt(float64(v))))
+	}
+
+	t := int64(0)
+	for _, g := range h.IntSlice {
+		t += int64(g)
+	}
+	return t
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 type E3256 struct{ col, score int }
 type PQ3256 []E3256

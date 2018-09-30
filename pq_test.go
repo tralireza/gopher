@@ -148,6 +148,12 @@ func Test2530(t *testing.T) {
 	log.Print("17 ?= ", maxKelements([]int{1, 10, 3, 3, 3}, 3))
 }
 
+// 2558 Take Gifts From the Richest Pile
+func Test2558(t *testing.T) {
+	log.Print("29 ?= ", pickGifts([]int{25, 64, 9, 4, 100}, 4))
+	log.Print("4 ?= ", pickGifts([]int{1, 1, 1, 1}, 4))
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 func Test3256(t *testing.T) {
 	// 3 <= Rows, Cols <= 100
