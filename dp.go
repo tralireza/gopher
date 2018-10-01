@@ -8,6 +8,19 @@ import (
 	"strings"
 )
 
+// 10h Regular Expression Matching
+func isMatch(s string, p string) bool {
+	if p == "" {
+		return s == ""
+	}
+
+	fmatch := len(s) > 0 && (p[0] == s[0] || p[0] == '.')
+	if len(p) >= 2 && p[1] == '*' {
+		return isMatch(s, p[2:]) || fmatch && isMatch(s[1:], p)
+	}
+	return fmatch && isMatch(s[1:], p[1:])
+}
+
 // 63m Unique Paths II
 func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	Rows, Cols := len(obstacleGrid), len(obstacleGrid[0])

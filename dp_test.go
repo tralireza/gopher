@@ -5,6 +5,16 @@ import (
 	"testing"
 )
 
+// 10h Regular Expression Matching
+func Test10(t *testing.T) {
+	// 1 <= s/p Length <= 20
+
+	log.Print("false ?= ", isMatch("aa", "a"))
+	log.Print("true ?= ", isMatch("aa", "a*"))
+	log.Print("true ?= ", isMatch("ab", ".*"))
+	log.Print("true ?= ", isMatch("aab", "c*a*b"))
+}
+
 // 63m Unique Paths II
 func Test63(t *testing.T) {
 	log.Print("2 ?= ", uniquePathsWithObstacles([][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}))
