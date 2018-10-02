@@ -3,16 +3,60 @@ package gopher
 import (
 	"log"
 	"testing"
+	"time"
 )
 
 // 10h Regular Expression Matching
 func Test10(t *testing.T) {
-	// 1 <= s/p Length <= 20
+	// 1 <= T|P Length <= 20
 
-	log.Print("false ?= ", isMatch("aa", "a"))
-	log.Print("true ?= ", isMatch("aa", "a*"))
-	log.Print("true ?= ", isMatch("ab", ".*"))
-	log.Print("true ?= ", isMatch("aab", "c*a*b"))
+	DP := func(s, p string) bool {
+		M := map[[2]int]bool{}
+
+		var Match func(i, j int) bool
+		Match = func(i, j int) bool {
+			if j >= len(p) {
+				return i >= len(s)
+			}
+
+			if found, ok := M[[2]int{i, j}]; ok {
+				return found
+			}
+
+			fmatch := i < len(s) && (p[j] == s[i] || p[j] == '.')
+
+			found := false
+			if j+2 <= len(p) && p[j+1] == '*' {
+				found = Match(i, j+2) || fmatch && Match(i+1, j)
+			} else {
+				found = fmatch && Match(i+1, j+1)
+			}
+
+			M[[2]int{i, j}] = found
+			return found
+		}
+
+		return Match(0, 0)
+	}
+
+	for _, fn := range []func(string, string) bool{isMatch, DP} {
+		ts := time.Now()
+		log.Print("false ?= ", fn("aa", "a"))
+		log.Print("true ?= ", fn("aa", "a*"))
+		log.Print("true ?= ", fn("ab", ".*"))
+		log.Print("true ?= ", fn("aab", "c*a*b"))
+		log.Print(" -> ", time.Since(ts))
+		log.Print("--")
+	}
+}
+
+// 44h Wildcard Matching
+func Test44(t *testing.T) {
+	// 0 <= T|P Length <= 2000
+
+	log.Print("false ?= ", isWildcardMatch("aa", "a"))
+	log.Print("true ?= ", isWildcardMatch("aa", "*"))
+	log.Print("false ?= ", isWildcardMatch("cb", "?a"))
 }
 
 // 63m Unique Paths II

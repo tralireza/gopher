@@ -9,7 +9,7 @@ import (
 )
 
 // 10h Regular Expression Matching
-func isMatch(s string, p string) bool {
+func isMatch(s, p string) bool {
 	if p == "" {
 		return s == ""
 	}
@@ -19,6 +19,34 @@ func isMatch(s string, p string) bool {
 		return isMatch(s, p[2:]) || fmatch && isMatch(s[1:], p)
 	}
 	return fmatch && isMatch(s[1:], p[1:])
+}
+
+// 44h Wildcard Matching
+func isWildcardMatch(s, p string) bool {
+	M := map[[2]int]bool{}
+
+	var Match func(i, j int) bool
+	Match = func(i, j int) bool {
+		if j >= len(p) {
+			return i >= len(s)
+		}
+
+		if found, ok := M[[2]int{i, j}]; ok {
+			return found
+		}
+
+		found := false
+		if p[j] == '*' {
+			found = Match(i, j+1) || i < len(s) && Match(i+1, j)
+		} else if i < len(s) {
+			found = (s[i] == p[j] || p[j] == '?') && Match(i+1, j+1)
+		}
+
+		M[[2]int{i, j}] = found
+		return found
+	}
+
+	return Match(0, 0)
 }
 
 // 63m Unique Paths II
