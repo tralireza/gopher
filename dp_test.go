@@ -54,9 +54,20 @@ func Test10(t *testing.T) {
 func Test44(t *testing.T) {
 	// 0 <= T|P Length <= 2000
 
-	log.Print("false ?= ", isWildcardMatch("aa", "a"))
-	log.Print("true ?= ", isWildcardMatch("aa", "*"))
-	log.Print("false ?= ", isWildcardMatch("cb", "?a"))
+	for _, c := range []struct {
+		r bool
+		P [2]string
+	}{
+		{false, [2]string{"aa", "a"}},
+		{true, [2]string{"aa", "*"}},
+		{false, [2]string{"cb", "?a"}},
+	} {
+		t.Run("", func(t *testing.T) {
+			if c.r != isWildcardMatch(c.P[0], c.P[1]) {
+				t.Fail()
+			}
+		})
+	}
 }
 
 // 63m Unique Paths II
