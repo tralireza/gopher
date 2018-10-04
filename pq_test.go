@@ -129,6 +129,24 @@ func Test1508(t *testing.T) {
 	}
 }
 
+// 1792m Maximum Average Pass Ratio
+func Test1792(t *testing.T) {
+	for _, c := range []struct {
+		r             float64
+		classes       [][]int
+		extraStudents int
+	}{
+		{0.78333, [][]int{{1, 2}, {3, 5}, {2, 2}}, 2},
+		{0.53484, [][]int{{2, 4}, {3, 9}, {4, 5}, {2, 10}}, 4},
+	} {
+		t.Run("", func(t *testing.T) {
+			if maxAverageRatio(c.classes, c.extraStudents)-c.r >= 0.00001 {
+				t.Fail()
+			}
+		})
+	}
+}
+
 // 1942m The Number of the Smallest Unoccupied Chair
 func Test1942(t *testing.T) {
 	log.Print("1 ?= ", smallestChair([][]int{{1, 4}, {2, 3}, {4, 6}}, 1))

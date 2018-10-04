@@ -239,6 +239,53 @@ func rangeSum(nums []int, n int, left int, right int) int {
 	return x
 }
 
+// 1792m Maximum Average Pass Ratio
+type PQ1792 []Class1792
+type Class1792 struct {
+	r, rNext    float64 // Ratio, NextRatio
+	pass, total int
+}
+
+func (o PQ1792) Len() int           { return len(o) }
+func (o PQ1792) Less(i, j int) bool { return o[i].rNext-o[i].r > o[j].rNext-o[j].r }
+func (o PQ1792) Swap(i, j int)      { o[i], o[j] = o[j], o[i] }
+
+func (o *PQ1792) Push(_ any) {}
+func (o PQ1792) Pop() any    { return Class1792{} }
+
+func maxAverageRatio(classes [][]int, extraStudents int) float64 {
+	pq := PQ1792{}
+
+	for _, v := range classes {
+		pq = append(pq, Class1792{
+			float64(v[0]) / float64(v[1]),
+			float64(v[0]+1) / float64(v[1]+1),
+			v[0],
+			v[1],
+		})
+	}
+	heap.Init(&pq)
+
+	for extraStudents > 0 {
+		pq[0].pass++
+		pq[0].total++
+
+		pq[0].r = float64(pq[0].pass) / float64(pq[0].total)
+		pq[0].rNext = float64(pq[0].pass+1) / float64(pq[0].total+1) // Diff or r & rNext is Grain
+
+		heap.Fix(&pq, 0)
+
+		extraStudents--
+	}
+
+	mar := float64(0)
+	for _, e := range pq {
+		mar += float64(e.r)
+	}
+
+	return mar / float64(pq.Len())
+}
+
 // 1942m The Number of the Smallest Unoccupied Chair
 type Chair1942 struct{ n, time int }
 type PQ1942 []Chair1942
