@@ -266,6 +266,7 @@ func maxAverageRatio(classes [][]int, extraStudents int) float64 {
 	}
 	heap.Init(&pq)
 
+	log.Print(" -> PQ :: ", pq)
 	for extraStudents > 0 {
 		pq[0].pass++
 		pq[0].total++
@@ -276,6 +277,7 @@ func maxAverageRatio(classes [][]int, extraStudents int) float64 {
 		heap.Fix(&pq, 0)
 
 		extraStudents--
+		log.Print(" -> PQ :: ", pq)
 	}
 
 	mar := float64(0)
