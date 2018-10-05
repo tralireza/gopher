@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"slices"
 	"testing"
 )
@@ -188,4 +189,23 @@ func Test3257(t *testing.T) {
 	log.Print("4 ?= ", maximumValueSum2([][]int{{-3, 1, 1, 1}, {-3, 1, -3, 1}, {-3, 2, 1, 1}}))
 	log.Print("15 ?= ", maximumValueSum2([][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}))
 	log.Print("3 ?= ", maximumValueSum2([][]int{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}))
+}
+
+// 3264 Final Array State After K Multiplication Operations I
+func Test3264(t *testing.T) {
+	for _, c := range []struct {
+		r          []int
+		nums       []int
+		k          int
+		multiplier int
+	}{
+		{[]int{8, 4, 6, 5, 6}, []int{2, 1, 3, 5, 6}, 5, 2},
+		{[]int{16, 8}, []int{1, 2}, 3, 4},
+	} {
+		t.Run("", func(t *testing.T) {
+			if !reflect.DeepEqual(c.r, getFinalState(c.nums, c.k, c.multiplier)) {
+				t.Fail()
+			}
+		})
+	}
 }

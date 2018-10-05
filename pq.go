@@ -503,3 +503,41 @@ func maximumValueSum2(board [][]int) int64 {
 	}
 	return int64(xScore)
 }
+
+// 3264 Final Array State After K Multiplication Operations I
+type PQ3264 []State3264
+type State3264 struct {
+	v, i int
+}
+
+func (h PQ3264) Len() int { return len(h) }
+func (h PQ3264) Less(i, j int) bool {
+	if h[i].v == h[j].v {
+		return h[i].i < h[j].i
+	}
+	return h[i].v < h[j].v
+}
+func (h PQ3264) Swap(i, j int) { h[i], h[j] = h[j], h[i] }
+func (h *PQ3264) Push(_ any)   {}
+func (h *PQ3264) Pop() any     { return State3264{} }
+
+func getFinalState(nums []int, k int, multiplier int) []int {
+	pq := PQ3264{}
+	for i, v := range nums {
+		pq = append(pq, State3264{v: v, i: i})
+	}
+	heap.Init(&pq)
+
+	for k > 0 {
+		pq[0].v *= multiplier
+		heap.Fix(&pq, 0)
+
+		k--
+	}
+
+	for _, s := range pq {
+		nums[s.i] = s.v
+	}
+
+	return nums
+}
