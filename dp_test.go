@@ -85,6 +85,24 @@ func Test72(t *testing.T) {
 	log.Print("5 ?= ", minDistance("intention", "execution"))
 }
 
+// 87h Scramble String
+func Test87(t *testing.T) {
+	for _, c := range []struct {
+		r      bool
+		s1, s2 string
+	}{
+		{true, "great", "rgeat"},
+		{false, "abcde", "caebd"},
+		{true, "a", "a"},
+	} {
+		t.Run("", func(t *testing.T) {
+			if c.r != isScramble(c.s1, c.s2) {
+				t.Fail()
+			}
+		})
+	}
+}
+
 // 97m Interleaving String
 func Test97(t *testing.T) {
 	Tabulation := func(s1, s2, s3 string) bool {

@@ -105,6 +105,34 @@ func minDistance(word1 string, word2 string) int {
 	return Dist[len(word1)][len(word2)]
 }
 
+// 87h Scramble String
+func isScramble(s1, s2 string) bool {
+	M := map[[2]string]bool{}
+	defer log.Print(" -> Map :: ", M)
+
+	var Check func(s1, s2 string) bool
+	Check = func(s1, s2 string) bool {
+		if len(s1) == 1 && s1 == s2 {
+			return true
+		}
+		if v, ok := M[[2]string{s1, s2}]; ok {
+			return v
+		}
+
+		for i := 1; i < len(s1); i++ {
+			if Check(s1[i:], s2[i:]) && Check(s1[:i], s2[:i]) || Check(s1[:i], s2[len(s2)-i:]) && Check(s1[i:], s2[:len(s2)-i]) {
+				M[[2]string{s1, s2}] = false
+				return true
+			}
+		}
+
+		M[[2]string{s1, s2}] = false
+		return false
+	}
+
+	return Check(s1, s2)
+}
+
 // 97m Interleaving String
 func isInterleave(s1, s2, s3 string) bool {
 	Mem := map[[2]string]bool{}
