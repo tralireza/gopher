@@ -87,19 +87,54 @@ func Test72(t *testing.T) {
 
 // 87h Scramble String
 func Test87(t *testing.T) {
-	for _, c := range []struct {
-		r      bool
-		s1, s2 string
-	}{
-		{true, "great", "rgeat"},
-		{false, "abcde", "caebd"},
-		{true, "a", "a"},
-	} {
-		t.Run("", func(t *testing.T) {
-			if c.r != isScramble(c.s1, c.s2) {
-				t.Fail()
+	Iterative := func(s1, s2 string) bool {
+		N := len(s1) // || len(s2)!
+
+		D := make([][][]bool, N+1)
+		for x := range D {
+			D[x] = make([][]bool, N)
+			for y := range D[x] {
+				D[x][y] = make([]bool, N)
 			}
-		})
+		}
+
+		for i := 0; i < N; i++ {
+			for j := 0; j < N; j++ {
+				D[1][i][j] = s1[i] == s2[j]
+			}
+		}
+
+		for l := 2; l <= N; l++ {
+			for i := 0; i <= N-l; i++ {
+				for j := 0; j <= N-l; j++ {
+					for x := 1; x < l; x++ { // Split Index
+						lSplit := D[x][i]
+						rSplit := D[l-x][i+x]
+
+						D[l][i][j] = lSplit[j] && rSplit[j+x] || lSplit[j+l-x] && rSplit[j]
+					}
+				}
+			}
+		}
+
+		return D[N][0][0]
+	}
+
+	for _, fn := range []func(string, string) bool{isScramble, Iterative} {
+		for _, c := range []struct {
+			r      bool
+			s1, s2 string
+		}{
+			{true, "great", "rgeat"},
+			{false, "abcde", "caebd"},
+			{true, "a", "a"},
+		} {
+			t.Run("", func(t *testing.T) {
+				if c.r != fn(c.s1, c.s2) {
+					t.Fail()
+				}
+			})
+		}
 	}
 }
 
