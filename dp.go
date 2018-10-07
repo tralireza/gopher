@@ -133,6 +133,30 @@ func isScramble(s1, s2 string) bool {
 	return Check(s1, s2)
 }
 
+// 91m Decode Ways
+func numDecodings(s string) int {
+	D := make([]int, len(s)+1)
+
+	if s[0] == '0' {
+		return 0
+	}
+
+	D[0], D[1] = 1, 1
+	for i := 2; i <= len(s); i++ {
+		v1 := s[i-1] - '0'
+		v2 := (s[i-2]-'0')*10 + v1
+
+		if v1 >= 1 && v1 <= 9 {
+			D[i] += D[i-1]
+		}
+		if v2 >= 10 && v2 <= 26 {
+			D[i] += D[i-2]
+		}
+	}
+
+	return D[len(s)]
+}
+
 // 97m Interleaving String
 func isInterleave(s1, s2, s3 string) bool {
 	Mem := map[[2]string]bool{}

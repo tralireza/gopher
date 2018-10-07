@@ -138,6 +138,13 @@ func Test87(t *testing.T) {
 	}
 }
 
+// 91m Decode Ways
+func Test91(t *testing.T) {
+	log.Print("2 ?= ", numDecodings("12"))
+	log.Print("3 ?= ", numDecodings("226"))
+	log.Print("0 ?= ", numDecodings("06"))
+}
+
 // 97m Interleaving String
 func Test97(t *testing.T) {
 	Tabulation := func(s1, s2, s3 string) bool {
