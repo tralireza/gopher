@@ -381,7 +381,9 @@ func repeatLimitedString(s string, repeatLimit int) string {
 	bfr := strings.Builder{}
 	for pq.Len() > 0 {
 		v := heap.Pop(&pq).(Char2182)
-		bfr.WriteString(strings.Repeat(string(v.l), min(v.count, repeatLimit)))
+		for range min(v.count, repeatLimit) {
+			bfr.WriteByte(v.l)
+		}
 		v.count -= repeatLimit
 
 		if v.count > 0 && pq.Len() > 0 {
