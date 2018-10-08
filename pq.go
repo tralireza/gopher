@@ -7,6 +7,7 @@ import (
 	"math"
 	"slices"
 	"sort"
+	"strings"
 )
 
 // 239h Sliding Window Maximum
@@ -343,6 +344,59 @@ func smallestChair(times [][]int, targetFriend int) int {
 	}
 
 	return -1
+}
+
+// 2182m Construct String With Repeat Limit
+type PQ2182 []Char2182
+type Char2182 struct {
+	l     byte
+	count int
+}
+
+func (h PQ2182) Len() int           { return len(h) }
+func (h PQ2182) Less(i, j int) bool { return h[i].l > h[j].l } // MaxHeap
+func (h PQ2182) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *PQ2182) Push(x any) { *h = append(*h, x.(Char2182)) }
+func (h *PQ2182) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func repeatLimitedString(s string, repeatLimit int) string {
+	F := [26]int{}
+	for i := 0; i < len(s); i++ {
+		F[s[i]-'a']++
+	}
+
+	pq := PQ2182{}
+	for l, count := range F {
+		if count > 0 {
+			pq = append(pq, Char2182{byte(l + 'a'), count})
+		}
+	}
+	heap.Init(&pq)
+
+	bfr := strings.Builder{}
+	for pq.Len() > 0 {
+		v := heap.Pop(&pq).(Char2182)
+		bfr.WriteString(strings.Repeat(string(v.l), min(v.count, repeatLimit)))
+		v.count -= repeatLimit
+
+		if v.count > 0 && pq.Len() > 0 {
+			u := heap.Pop(&pq).(Char2182)
+			bfr.WriteByte(u.l)
+			u.count--
+			if u.count > 0 {
+				heap.Push(&pq, u)
+			}
+
+			heap.Push(&pq, v)
+		}
+	}
+
+	return bfr.String()
 }
 
 // 2406m Divide Intervals Into Minimum Number of Groups

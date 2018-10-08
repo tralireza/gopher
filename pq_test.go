@@ -155,6 +155,12 @@ func Test1942(t *testing.T) {
 	log.Print("2 ?= ", smallestChair([][]int{{33889, 98676}, {80071, 89737}, {44118, 52565}, {52992, 84310}, {78492, 88209}, {21695, 67063}, {84622, 95452}, {98048, 98856}, {98411, 99433}, {55333, 56548}, {65375, 88566}, {55011, 62821}, {48548, 48656}, {87396, 94825}, {55273, 81868}, {75629, 91467}}, 6))
 }
 
+// 2182m Construct String With Repeat Limit
+func Test2182(t *testing.T) {
+	log.Print("zzcccac ?= ", repeatLimitedString("cczazcc", 3))
+	log.Print("bbabaa ?= ", repeatLimitedString("ababab", 2))
+}
+
 // 2406m Divide Intervals Into Minimum Number of Groups
 func Test2406(t *testing.T) {
 	log.Print("3 ?= ", minGroups([][]int{{5, 10}, {6, 8}, {1, 5}, {2, 3}, {1, 10}}))
