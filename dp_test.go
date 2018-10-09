@@ -145,6 +145,12 @@ func Test91(t *testing.T) {
 	log.Print("0 ?= ", numDecodings("06"))
 }
 
+// 96m Unique Binary Search Trees
+func Test96(t *testing.T) {
+	log.Print("5 ?= ", numTrees(3))
+	log.Print("1 ?= ", numTrees(1))
+}
+
 // 97m Interleaving String
 func Test97(t *testing.T) {
 	Tabulation := func(s1, s2, s3 string) bool {

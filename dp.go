@@ -157,6 +157,21 @@ func numDecodings(s string) int {
 	return D[len(s)]
 }
 
+// 96m Unique Binary Search Trees
+func numTrees(n int) int {
+	D := []int{1, 1}
+
+	for x := 2; x <= n; x++ {
+		v := 0
+		for i := 1; i <= x; i++ {
+			v += D[i-1] * D[x-i]
+		}
+		D = append(D, v)
+	}
+
+	return D[n]
+}
+
 // 97m Interleaving String
 func isInterleave(s1, s2, s3 string) bool {
 	Mem := map[[2]string]bool{}
