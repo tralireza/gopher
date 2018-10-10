@@ -170,6 +170,23 @@ func (o *CustomStack1381) Inc(k, v int) {
 	o.I[min(o.top, k-1)] = v
 }
 
+// 1475 Final Prices With a Special Discount in a Shop
+func finalPrices(prices []int) []int {
+	R := make([]int, len(prices))
+	copy(R, prices)
+
+	Q := []int{}
+	for i := 0; i < len(prices); i++ {
+		for len(Q) > 0 && prices[Q[len(Q)-1]] >= prices[i] {
+			R[Q[len(Q)-1]] -= prices[i]
+			Q = Q[:len(Q)-1]
+		}
+		Q = append(Q, i)
+	}
+
+	return R
+}
+
 // 1963m Minimum Number of Swaps to Make the String Balanced
 func minSwapsToBalance(s string) int {
 	qSize := 0

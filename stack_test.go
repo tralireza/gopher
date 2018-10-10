@@ -106,6 +106,13 @@ func Test1381(t *testing.T) {
 	log.Print("-1 ?= ", o.Pop())
 }
 
+// 1475 Final Prices With a Special Discount in a Shop
+func Test1475(t *testing.T) {
+	log.Print(" ?= ", finalPrices([]int{8, 4, 6, 2, 3}))
+	log.Print(" ?= ", finalPrices([]int{1, 2, 3, 4, 5}))
+	log.Print(" ?= ", finalPrices([]int{10, 1, 1, 6}))
+}
+
 // 1963m Minimum Number of Swaps to Make the String Balanced
 func Test1963(t *testing.T) {
 	log.Print("1 ?= ", minSwapsToBalance("][]["))
