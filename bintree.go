@@ -85,7 +85,7 @@ func isSubPath(head *ListNode, root *TreeNode) bool {
 	return isSubPath(head, root.Left) || isSubPath(head, root.Right)
 }
 
-// 2415m Reverse Odd Levels Of Binary Tree
+// 2415m Reverse Odd Levels of Binary Tree
 func reverseOddLevels(root *TreeNode) *TreeNode {
 	var Swap func(l, r *TreeNode, level int)
 	Swap = func(l, r *TreeNode, level int) {

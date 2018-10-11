@@ -146,7 +146,7 @@ func Test1367(t *testing.T) {
 	}
 }
 
-// 2415m Reverse Odd Levels Of Binary Tree
+// 2415m Reverse Odd Levels of Binary Tree
 func Test2415(t *testing.T) {
 	type T = TreeNode
 
