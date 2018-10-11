@@ -146,6 +146,34 @@ func Test1367(t *testing.T) {
 	}
 }
 
+// 2415m Reverse Odd Levels Of Binary Tree
+func Test2415(t *testing.T) {
+	type T = TreeNode
+
+	preOrder := func(n *TreeNode) []int {
+		v := []int{}
+		Q := []*TreeNode{n}
+		for len(Q) > 0 {
+			n, Q = Q[0], Q[1:]
+			v = append(v, n.Val)
+			if n.Left != nil {
+				Q = append(Q, n.Left)
+			}
+			if n.Right != nil {
+				Q = append(Q, n.Right)
+			}
+		}
+		return v
+	}
+
+	for _, tree := range []*T{
+		&T{2, &T{3, &T{Val: 8}, &T{Val: 13}}, &T{5, &T{Val: 21}, &T{Val: 34}}},
+		&T{7, &T{Val: 13}, &T{Val: 11}},
+	} {
+		log.Print(preOrder(tree), " -> ", preOrder(reverseOddLevels(tree)))
+	}
+}
+
 // 2583m Kth Largest Sum in a Binary Tree
 func Test2583(t *testing.T) {
 	type T = TreeNode

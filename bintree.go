@@ -85,6 +85,25 @@ func isSubPath(head *ListNode, root *TreeNode) bool {
 	return isSubPath(head, root.Left) || isSubPath(head, root.Right)
 }
 
+// 2415m Reverse Odd Levels Of Binary Tree
+func reverseOddLevels(root *TreeNode) *TreeNode {
+	var Swap func(l, r *TreeNode, level int)
+	Swap = func(l, r *TreeNode, level int) {
+		if l == nil || r == nil {
+			return
+		}
+
+		if level&1 == 1 {
+			l.Val, r.Val = r.Val, l.Val
+		}
+		Swap(l.Left, r.Right, level+1)
+		Swap(l.Right, r.Left, level+1)
+	}
+
+	Swap(root.Left, root.Right, 1)
+	return root
+}
+
 // 2583m Kth Largest Sum in a Binary Tree
 type PQ2583 []int64
 
