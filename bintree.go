@@ -194,3 +194,39 @@ func replaceValueInTree(root *TreeNode) *TreeNode {
 	W(root, root.Val, 0)
 	return root
 }
+
+// 2872h Maximum Number of K-Divisible Components
+func maxKDivisibleComponents(n int, edges [][]int, values []int, k int) int {
+	cmps := 0
+
+	G := make([][]int, n)
+	for _, e := range edges {
+		G[e[0]] = append(G[e[0]], e[1])
+		G[e[1]] = append(G[e[1]], e[0])
+	}
+
+	var Search func(v, p int) int
+	Search = func(v, p int) int {
+		tSum := 0
+
+		for _, u := range G[v] {
+			if u != p {
+				tSum += Search(u, v)
+				tSum %= k
+			}
+		}
+
+		tSum += values[v]
+		tSum %= k
+
+		if tSum == 0 {
+			cmps++
+		}
+
+		return tSum
+	}
+
+	Search(0, -1)
+
+	return cmps
+}
