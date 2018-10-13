@@ -27,8 +27,32 @@ func Test316(t *testing.T) {
 
 // 503m Next Greater Element II
 func Test503(t *testing.T) {
-	log.Print("[2 -1 2] ?= ", nextGreaterElements([]int{1, 2, 1}))
-	log.Print("[2 3 4 -1 4] ?= ", nextGreaterElements([]int{1, 2, 3, 4, 3}))
+	WithStack := func(nums []int) []int {
+		R := make([]int, len(nums))
+
+		Q := []int{}
+		for i := 2*len(nums) - 1; i >= 0; i-- {
+			for len(Q) > 0 && nums[Q[len(Q)-1]] <= nums[i%len(nums)] {
+				Q = Q[:len(Q)-1]
+			}
+
+			if len(Q) > 0 {
+				R[i%len(nums)] = nums[Q[len(Q)-1]]
+			} else {
+				R[i%len(nums)] = -1
+			}
+
+			Q = append(Q, i%len(nums))
+		}
+
+		return R
+	}
+
+	for _, fn := range []func([]int) []int{nextGreaterElements, WithStack} {
+		log.Print("[2 -1 2] ?= ", fn([]int{1, 2, 1}))
+		log.Print("[2 3 4 -1 4] ?= ", fn([]int{1, 2, 3, 4, 3}))
+		log.Print("--")
+	}
 }
 
 // 921m Minimum Add to Make Parentheses Valid
