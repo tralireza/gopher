@@ -61,6 +61,24 @@ func removeDuplicateLetters(s string) string {
 	return string(Q)
 }
 
+// 503m Next Greater Element II
+func nextGreaterElements(nums []int) []int {
+	R := make([]int, len(nums))
+
+	for i := 0; i < len(nums); i++ {
+		R[i] = -1
+
+		for j := 1; j < len(nums); j++ {
+			if nums[(i+j)%len(nums)] > nums[i] {
+				R[i] = nums[(i+j)%len(nums)]
+				break
+			}
+		}
+	}
+
+	return R
+}
+
 // 921m Minimum Add to Make Parentheses Valid
 func minAddToMakeValid(s string) int {
 	qSize, ops := 0, 0

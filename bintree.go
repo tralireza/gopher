@@ -218,7 +218,6 @@ func maxKDivisibleComponents(n int, edges [][]int, values []int, k int) int {
 
 		tSum += values[v]
 		tSum %= k
-
 		if tSum == 0 {
 			cmps++
 		}
@@ -227,6 +226,5 @@ func maxKDivisibleComponents(n int, edges [][]int, values []int, k int) int {
 	}
 
 	Search(0, -1)
-
 	return cmps
 }

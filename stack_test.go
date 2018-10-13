@@ -25,6 +25,12 @@ func Test316(t *testing.T) {
 	log.Print("acdb ?= ", removeDuplicateLetters("cbacdcbc"))
 }
 
+// 503m Next Greater Element II
+func Test503(t *testing.T) {
+	log.Print("[2 -1 2] ?= ", nextGreaterElements([]int{1, 2, 1}))
+	log.Print("[2 3 4 -1 4] ?= ", nextGreaterElements([]int{1, 2, 3, 4, 3}))
+}
+
 // 921m Minimum Add to Make Parentheses Valid
 func Test921(t *testing.T) {
 	log.Print("1 ?= ", minAddToMakeValid("())"))
