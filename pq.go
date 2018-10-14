@@ -474,6 +474,57 @@ func pickGifts(gifts []int, k int) int64 {
 	return t
 }
 
+// 2940m Find Building Where Alice and Bob Can Meet
+type PQ2940 [][2]int
+
+func (h PQ2940) Len() int           { return len(h) }
+func (h PQ2940) Less(i, j int) bool { return h[i][0] < h[j][0] }
+func (h PQ2940) Swap(i int, j int)  { h[i], h[j] = h[j], h[i] }
+
+func (h *PQ2940) Push(x any) { *h = append(*h, x.([2]int)) }
+func (h *PQ2940) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func leftmostBuildingQueries(heights []int, queries [][]int) []int {
+	R := make([]int, len(queries))
+	for i := range R {
+		R[i] = -1
+	}
+
+	Q := make([][][2]int, len(heights))
+	for i, query := range queries {
+		a, b := query[0], query[1] // Alice, Bob
+		if a > b {
+			a, b = b, a
+		}
+
+		if heights[b] > heights[a] || a == b {
+			R[i] = b
+		} else {
+			Q[b] = append(Q[b], [2]int{heights[a], i})
+		}
+	}
+
+	log.Print(" -> Q :: ", Q)
+
+	pq := PQ2940{}
+	for i, h := range heights {
+		for pq.Len() > 0 && pq[0][0] < h {
+			e := heap.Pop(&pq).([2]int)
+			R[e[1]] = i
+		}
+
+		for _, e := range Q[i] {
+			heap.Push(&pq, e)
+		}
+	}
+
+	return R
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 type E3256 struct{ col, score int }
 type PQ3256 []E3256

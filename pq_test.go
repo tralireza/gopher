@@ -179,6 +179,12 @@ func Test2558(t *testing.T) {
 	log.Print("4 ?= ", pickGifts([]int{1, 1, 1, 1}, 4))
 }
 
+// 2940m Find Building Where Alice and Bob Can Meet
+func Test2940(t *testing.T) {
+	log.Print("[2 5 -1 5 2] ?= ", leftmostBuildingQueries([]int{6, 4, 8, 5, 2, 7}, [][]int{{0, 1}, {0, 3}, {2, 4}, {3, 4}, {2, 2}}))
+	log.Print("[7 6 -1 4 6] ?= ", leftmostBuildingQueries([]int{5, 3, 8, 2, 6, 1, 4, 6}, [][]int{{0, 7}, {3, 5}, {5, 2}, {3, 0}, {1, 6}}))
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 func Test3256(t *testing.T) {
 	// 3 <= Rows, Cols <= 100
