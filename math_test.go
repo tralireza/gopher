@@ -23,6 +23,13 @@ func Test326(t *testing.T) {
 	log.Print("true ? ", isPowerOfThree(1))
 }
 
+// 342 Power of Four
+func Test342(t *testing.T) {
+	log.Print("true ?= ", isPowerOfFour(16))
+	log.Print("false ?= ", isPowerOfFour(5))
+	log.Print("true ?= ", isPowerOfFour(1))
+}
+
 // 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4

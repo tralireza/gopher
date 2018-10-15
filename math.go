@@ -23,6 +23,18 @@ func isPowerOfThree(n int) bool {
 	return p == n
 }
 
+// 342 Power of Four
+func isPowerOfFour(n int) bool {
+	if n == 0 {
+		return false
+	}
+
+	for n%4 == 0 {
+		n /= 4
+	}
+	return n == 1
+}
+
 // 1998h GCD Sort of an Array
 func gcdSort(nums []int) bool {
 	xVal := slices.Max(nums)
