@@ -93,6 +93,30 @@ func TestClosure(t *testing.T) {
 	log.Print("+ ", Fib(45))
 }
 
+func TestChannelWG(t *testing.T) {
+	ch := make(chan int)
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	go func(cin <-chan int) {
+		defer wg.Done()
+
+		for v := range cin {
+			log.Print("Reading...", v)
+		}
+	}(ch)
+
+	go func(cout chan<- int) {
+		for range 5 {
+			cout <- rand.Intn(3)
+		}
+		close(cout)
+	}(ch)
+
+	wg.Wait()
+}
+
 func TestChannel(t *testing.T) {
 	defer func() {
 		if err := recover(); err != nil {
