@@ -174,6 +174,15 @@ func Test2415(t *testing.T) {
 	}
 }
 
+// 2471m Minimum Number of Operations to Sort a Binary Tree by Level
+func Test2471(t *testing.T) {
+	// 1 <= Node.Val <= 10^5
+	type T = TreeNode
+
+	log.Print("3 ?= ", minimumOperations(&T{1, &T{4, &T{Val: 7}, &T{Val: 6}}, &T{3, &T{Val: 8, Left: &T{Val: 9}}, &T{Val: 5, Left: &T{Val: 10}}}}))
+	log.Print("3 ?= ", minimumOperations(&T{1, &T{3, &T{Val: 7}, &T{Val: 6}}, &T{2, &T{Val: 5}, &T{Val: 4}}}))
+}
+
 // 2583m Kth Largest Sum in a Binary Tree
 func Test2583(t *testing.T) {
 	type T = TreeNode

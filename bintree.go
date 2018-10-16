@@ -104,6 +104,46 @@ func reverseOddLevels(root *TreeNode) *TreeNode {
 	return root
 }
 
+// 2471m Minimum Number of Operations to Sort a Binary Tree by Level
+func minimumOperations(root *TreeNode) int {
+	ops := 0
+
+	M := make([]int, 100_000+1)
+	Q := []*TreeNode{root}
+
+	for len(Q) > 0 {
+		lVals := []int{}
+		for i := range Q {
+			n := Q[i]
+
+			M[n.Val] = i
+			lVals = append(lVals, n.Val)
+
+			if n.Left != nil {
+				Q = append(Q, n.Left)
+			}
+			if n.Right != nil {
+				Q = append(Q, n.Right)
+			}
+		}
+		Q = Q[len(lVals):]
+
+		sVals := append([]int{}, lVals...)
+		slices.Sort(sVals)
+
+		for i, sVal := range sVals {
+			if sVal != lVals[i] {
+				ops++
+
+				M[lVals[i]] = M[sVal]
+				lVals[M[sVal]] = lVals[i]
+			}
+		}
+	}
+
+	return ops
+}
+
 // 2583m Kth Largest Sum in a Binary Tree
 type PQ2583 []int64
 
