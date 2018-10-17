@@ -6,6 +6,15 @@ import (
 	"testing"
 )
 
+// 401 Binary Watch
+func Test401(t *testing.T) {
+	// 0 <= N <= 9
+
+	log.Printf(" ?= %q", readBinaryWatch(1))
+	log.Printf(" ?= %q", readBinaryWatch(8))
+	log.Printf(" ?= %q", readBinaryWatch(9))
+}
+
 // 476 Number Complement
 func Test476(t *testing.T) {
 	// 1 <= n <= 2^31

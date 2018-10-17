@@ -1,6 +1,40 @@
 package gopher
 
-import "log"
+import (
+	"fmt"
+	"log"
+)
+
+// 401 Binary Watch
+func readBinaryWatch(turnedOn int) []string {
+	R := []string{}
+
+	for H := 0; H < 12; H++ {
+		for MM := 0; MM < 60; MM++ {
+			var mask int
+
+			leds := 0
+
+			mask = 1
+			for p := range 4 {
+				leds += (H & mask) >> p
+				mask *= 2
+			}
+
+			mask = 1
+			for p := range 6 {
+				leds += (MM & mask) >> p
+				mask *= 2
+			}
+
+			if leds == turnedOn {
+				R = append(R, fmt.Sprintf("%d:%02d", H, MM))
+			}
+		}
+	}
+
+	return R
+}
 
 // 476 Number Complement
 func findComplement(num int) int {
