@@ -9,7 +9,10 @@ import (
 func readBinaryWatch(turnedOn int) []string {
 	R := []string{}
 
+HOUR:
 	for H := 0; H < 12; H++ {
+
+	MINUTE:
 		for MM := 0; MM < 60; MM++ {
 			var mask int
 
@@ -19,12 +22,20 @@ func readBinaryWatch(turnedOn int) []string {
 			for p := range 4 {
 				leds += (H & mask) >> p
 				mask *= 2
+
+				if leds > turnedOn {
+					continue HOUR
+				}
 			}
 
 			mask = 1
 			for p := range 6 {
 				leds += (MM & mask) >> p
 				mask *= 2
+
+				if leds > turnedOn {
+					continue MINUTE
+				}
 			}
 
 			if leds == turnedOn {
