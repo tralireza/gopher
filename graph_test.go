@@ -645,6 +645,12 @@ func Test2976(t *testing.T) {
 	}
 }
 
+// 3203h Find Minimum Distance After Merging Two Trees
+func Test3203(t *testing.T) {
+	log.Print("3 ?= ", minimumDiameterAfterMerge([][]int{{0, 1}, {0, 2}, {0, 3}}, [][]int{{0, 1}}))
+	log.Print("5 ?= ", minimumDiameterAfterMerge([][]int{{0, 1}, {0, 2}, {0, 3}, {2, 4}, {2, 5}, {3, 6}, {2, 7}}, [][]int{{0, 1}, {0, 2}, {0, 3}, {2, 4}, {2, 5}, {3, 6}, {2, 7}}))
+}
+
 // 3286m Find a Safe Walk Through a Grid
 func Test3286(t *testing.T) {
 	log.Print("true ?= ", findSafeWalk([][]int{{0, 1, 0, 0, 0}, {0, 1, 0, 1, 0}, {0, 0, 0, 1, 0}}, 1))

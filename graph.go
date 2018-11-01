@@ -836,6 +836,49 @@ func minimumCost(source string, target string, original []byte, changed []byte, 
 	return x
 }
 
+// 3203h Find Minimum Distance After Merging Two Trees
+func minimumDiameterAfterMerge(edges1 [][]int, edges2 [][]int) int {
+	lAdj := func(edges [][]int) [][]int {
+		G := make([][]int, len(edges)+1)
+		for _, e := range edges {
+			G[e[0]] = append(G[e[0]], e[1])
+			G[e[1]] = append(G[e[1]], e[0])
+		}
+		return G
+	}
+
+	fDiameter := func(G [][]int) int {
+		nSearch := func(n int) (int, int) {
+			Q := []int{n}
+			Vis := make([]bool, len(G))
+			Vis[n] = true
+
+			xdis := -1
+			for len(Q) > 0 {
+				for range len(Q) {
+					n, Q = Q[0], Q[1:]
+					for _, u := range G[n] {
+						if !Vis[u] {
+							Vis[u] = true
+							Q = append(Q, u)
+						}
+					}
+				}
+				xdis++
+			}
+
+			return n, xdis
+		}
+
+		fNode, _ := nSearch(0)
+		_, diameter := nSearch(fNode)
+		return diameter
+	}
+
+	d1, d2 := fDiameter(lAdj(edges1)), fDiameter(lAdj(edges2))
+	return slices.Max([]int{d1, d2, (d1+1)/2 + (d2+1)/2 + 1})
+}
+
 // 3286m Find a Safe Walk Through a Grid
 func findSafeWalk(grid [][]int, health int) bool {
 	Rows, Cols := len(grid), len(grid[0])
