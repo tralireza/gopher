@@ -16,6 +16,14 @@ func Test103(t *testing.T) {
 	log.Print("[[1] [3 2] [4 5]] ?= ", zigzagLevelOrder(&T{1, &T{2, &T{Val: 4}, &T{Val: 5}}, &T{Val: 3}}))
 }
 
+// 515m Find Largest Value in Each Tree Row
+func Test515(t *testing.T) {
+	type T = TreeNode
+
+	log.Println("[1 3 9] ?= ", largestValues(&T{1, &T{3, &T{Val: 5}, &T{Val: 3}}, &T{Val: 2, Right: &T{Val: 9}}}))
+	log.Println("[1 3] ?= ", largestValues(&T{1, &T{Val: 2}, &T{Val: 3}}))
+}
+
 // 951m Flip Equivalent Binary Trees
 func Test951(t *testing.T) {
 	type T = TreeNode

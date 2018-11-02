@@ -2,8 +2,10 @@ package gopher
 
 import (
 	"container/heap"
+	"container/list"
 	"fmt"
 	"log"
+	"math"
 	"slices"
 )
 
@@ -39,6 +41,39 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
 	}
 
 	return Z
+}
+
+// 515m Find Largest Value in Each Tree Row
+func largestValues(root *TreeNode) []int {
+	R := []int{}
+	if root == nil {
+		return R
+	}
+
+	Q := list.New()
+	Q.PushBack(root)
+
+	for Q.Len() > 0 {
+		xVal := math.MinInt
+
+		for range Q.Len() {
+			n := Q.Remove(Q.Front()).(*TreeNode)
+			if n.Val > xVal {
+				xVal = n.Val
+			}
+
+			if n.Left != nil {
+				Q.PushBack(n.Left)
+			}
+			if n.Right != nil {
+				Q.PushBack(n.Right)
+			}
+		}
+
+		R = append(R, xVal)
+	}
+
+	return R
 }
 
 // 951m Flip Equivalent Binary Trees
