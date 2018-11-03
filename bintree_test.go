@@ -2,7 +2,6 @@ package gopher
 
 import (
 	"log"
-	"math"
 	"testing"
 )
 
@@ -28,20 +27,19 @@ func Test515(t *testing.T) {
 				return
 			}
 
-			if level > len(R) {
-				R = append(R, math.MinInt)
-			}
-
-			if n.Val > R[level-1] {
-				R[level-1] = n.Val
+			if level == len(R) {
+				R = append(R, n.Val)
+			} else {
+				if n.Val > R[level] {
+					R[level] = n.Val
+				}
 			}
 
 			Run(n.Left, level+1)
 			Run(n.Right, level+1)
 		}
 
-		Run(root, 1)
-
+		Run(root, 0)
 		return R
 	}
 
