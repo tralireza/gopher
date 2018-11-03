@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"math"
 	"testing"
 )
 
@@ -18,10 +19,39 @@ func Test103(t *testing.T) {
 
 // 515m Find Largest Value in Each Tree Row
 func Test515(t *testing.T) {
+	DFS := func(root *TreeNode) []int {
+		R := []int{}
+
+		var Run func(*TreeNode, int)
+		Run = func(n *TreeNode, level int) {
+			if n == nil {
+				return
+			}
+
+			if level > len(R) {
+				R = append(R, math.MinInt)
+			}
+
+			if n.Val > R[level-1] {
+				R[level-1] = n.Val
+			}
+
+			Run(n.Left, level+1)
+			Run(n.Right, level+1)
+		}
+
+		Run(root, 1)
+
+		return R
+	}
+
 	type T = TreeNode
 
-	log.Println("[1 3 9] ?= ", largestValues(&T{1, &T{3, &T{Val: 5}, &T{Val: 3}}, &T{Val: 2, Right: &T{Val: 9}}}))
-	log.Println("[1 3] ?= ", largestValues(&T{1, &T{Val: 2}, &T{Val: 3}}))
+	for _, fn := range []func(*TreeNode) []int{largestValues, DFS} {
+		t.Log("[1 3 9] ?= ", fn(&T{1, &T{3, &T{Val: 5}, &T{Val: 3}}, &T{Val: 2, Right: &T{Val: 9}}}))
+		t.Log("[1 3] ?= ", fn(&T{1, &T{Val: 2}, &T{Val: 3}}))
+		t.Log("--")
+	}
 }
 
 // 951m Flip Equivalent Binary Trees
