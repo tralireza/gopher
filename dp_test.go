@@ -325,13 +325,17 @@ func Test494(t *testing.T) {
 			tSum += n
 		}
 
+		if target > tSum {
+			return 0
+		}
+
 		D := make([][]int, len(nums))
 		for r := range D {
 			D[r] = make([]int, 2*tSum+1)
 		}
 
-		D[0][tSum+nums[0]] = 1
-		D[0][tSum-nums[0]] = 1
+		D[0][tSum+nums[0]] += 1
+		D[0][tSum-nums[0]] += 1
 
 		for i := 1; i < len(nums); i++ {
 			for t := -tSum; t <= tSum; t++ {
@@ -344,15 +348,13 @@ func Test494(t *testing.T) {
 
 		log.Print(D)
 
-		if target > tSum {
-			return 0
-		}
 		return D[len(nums)-1][target+tSum]
 	}
 
 	for _, f := range []func([]int, int) int{findTargetSumWays, Iterative} {
 		log.Print("5 ?= ", f([]int{1, 1, 1, 1, 1}, 3))
 		log.Print("1 ?= ", f([]int{1}, 1))
+		log.Print("256 ?= ", f([]int{0, 0, 0, 0, 0, 0, 0, 0, 1}, 1))
 		log.Print("--")
 	}
 }
