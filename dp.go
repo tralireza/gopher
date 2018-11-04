@@ -408,6 +408,30 @@ func lengthOfLIS(nums []int) int {
 	return slices.Max(D)
 }
 
+// 494m Target Sum
+func findTargetSumWays(nums []int, target int) int {
+	M := map[[2]int]int{}
+
+	var Search func(i, t int) int
+	Search = func(i, t int) int {
+		if i >= len(nums) {
+			if t == 0 {
+				return 1
+			}
+			return 0
+		}
+
+		if v, ok := M[[2]int{i, t}]; ok {
+			return v
+		}
+
+		M[[2]int{i, t}] = Search(i+1, t+nums[i]) + Search(i+1, t-nums[i])
+		return M[[2]int{i, t}]
+	}
+
+	return Search(0, target)
+}
+
 // 646m Maximum Length of Pair Chain
 func findLongestChain(pairs [][]int) int {
 	slices.SortFunc(pairs, func(a, b []int) int { return a[1] - b[1] })

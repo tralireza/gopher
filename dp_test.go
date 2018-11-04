@@ -315,6 +315,12 @@ func Test300(t *testing.T) {
 	log.Print("1 ?= ", lengthOfLIS([]int{7, 7, 7, 7, 7, 7, 7}))
 }
 
+// 494m Target Sum
+func Test494(t *testing.T) {
+	log.Print("5 ?= ", findTargetSumWays([]int{1, 1, 1, 1, 1}, 3))
+	log.Print("1 ?= ", findTargetSumWays([]int{1}, 1))
+}
+
 // 646m Maximum Length of Pair Chain
 func Test646(t *testing.T) {
 	log.Print("2 ?= ", findLongestChain([][]int{{1, 2}, {2, 3}, {3, 4}}))
