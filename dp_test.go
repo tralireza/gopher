@@ -379,8 +379,23 @@ func Test673(t *testing.T) {
 
 // 1014m Best Sightseeing Pair
 func Test1014(t *testing.T) {
-	log.Print("11 ?= ", maxScoreSightseeingPair([]int{8, 1, 5, 2, 6}))
-	log.Print("2 ?= ", maxScoreSightseeingPair([]int{1, 2}))
+	Kadane := func(values []int) int {
+		xScore := 0
+
+		lScore := values[0] + 0
+		for i := 1; i < len(values); i++ {
+			xScore = max(lScore+values[i]-i, xScore)
+			lScore = max(values[i]+i, lScore)
+		}
+
+		return xScore
+	}
+
+	for _, f := range []func([]int) int{maxScoreSightseeingPair, Kadane} {
+		log.Print("11 ?= ", f([]int{8, 1, 5, 2, 6}))
+		log.Print("2 ?= ", f([]int{1, 2}))
+		log.Print("--")
+	}
 }
 
 // 1105m Filling Bookcase Shelves
