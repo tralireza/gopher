@@ -377,6 +377,12 @@ func Test673(t *testing.T) {
 	log.Print("5 ?= ", findNumberOfLIS([]int{2, 2, 2, 2, 2}))
 }
 
+// 689h Maximum Sum of 3 Non-Overlapping Subarrays
+func Test689(t *testing.T) {
+	log.Print("[0 3 5] ?= ", maxSumOfThreeSubarrays([]int{1, 2, 1, 2, 6, 7, 5, 1}, 2))
+	log.Print("[0 2 4] ?= ", maxSumOfThreeSubarrays([]int{1, 2, 1, 2, 1, 2, 1, 2, 1}, 2))
+}
+
 // 1014m Best Sightseeing Pair
 func Test1014(t *testing.T) {
 	Kadane := func(values []int) int {

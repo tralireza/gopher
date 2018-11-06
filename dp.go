@@ -3,6 +3,7 @@ package gopher
 import (
 	"container/heap"
 	"log"
+	"math"
 	"slices"
 	"sort"
 	"strings"
@@ -517,6 +518,70 @@ func findNumberOfLIS(nums []int) int {
 		}
 	}
 	return count
+}
+
+// 689h Maximum Sum of 3 Non-Overlapping Subarrays
+func maxSumOfThreeSubarrays(nums []int, k int) []int {
+	kSums := []int{}
+
+	rSum := 0
+	for i := range nums {
+		rSum += nums[i]
+		if i+1 >= k {
+			kSums = append(kSums, rSum)
+			rSum -= nums[i-k+1]
+		}
+	}
+
+	log.Print(" -> ", kSums)
+
+	D := make([][4]int, len(kSums))
+	for i := range D {
+		for r := range 4 {
+			D[i][r] = -1
+		}
+	}
+
+	var KS func(i, r int) int // 0:1 Knapsack
+	KS = func(i, r int) int {
+		if r == 0 {
+			return 0
+		}
+		if i >= len(kSums) {
+			return math.MinInt32
+		}
+
+		if D[i][r] != -1 {
+			return D[i][r]
+		}
+		D[i][r] = max(kSums[i]+KS(i+k, r-1), KS(i+1, r))
+		return D[i][r]
+	}
+
+	KS(0, 3)
+
+	log.Print(" -> ", D)
+
+	R := []int{}
+
+	var Trace func(i, r int)
+	Trace = func(i, r int) {
+		if i >= len(kSums) || r == 0 {
+			return
+		}
+
+		take, ntake := kSums[i]+KS(i+k, r-1), KS(i+1, r)
+		if take >= ntake {
+			R = append(R, i)
+			Trace(i+k, r-1)
+		} else {
+			Trace(i+1, r)
+		}
+	}
+
+	Trace(0, 3)
+
+	return R
 }
 
 // 1014m Best Sightseeing Pair
