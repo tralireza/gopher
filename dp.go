@@ -560,7 +560,7 @@ func maxSumOfThreeSubarrays(nums []int, k int) []int {
 
 	KS(0, 3)
 
-	log.Print(" -> ", D)
+	log.Print(" -> Mem :: ", D)
 
 	R := []int{}
 

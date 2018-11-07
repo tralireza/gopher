@@ -2,6 +2,8 @@ package gopher
 
 import (
 	"log"
+	"reflect"
+	"slices"
 	"testing"
 	"time"
 )
@@ -379,8 +381,73 @@ func Test673(t *testing.T) {
 
 // 689h Maximum Sum of 3 Non-Overlapping Subarrays
 func Test689(t *testing.T) {
-	log.Print("[0 3 5] ?= ", maxSumOfThreeSubarrays([]int{1, 2, 1, 2, 6, 7, 5, 1}, 2))
-	log.Print("[0 2 4] ?= ", maxSumOfThreeSubarrays([]int{1, 2, 1, 2, 1, 2, 1, 2, 1}, 2))
+	Tabulation := func(nums []int, k int) []int {
+		kSums := []int{}
+
+		rSum := 0
+		for i := range nums {
+			rSum += nums[i]
+			if i+1 >= k {
+				kSums = append(kSums, rSum)
+				rSum -= nums[i-k+1]
+			}
+		}
+
+		log.Print(" -> kSums :: ", kSums)
+
+		D := make([][4]int, len(kSums)) // DP
+		T := make([][4]int, len(kSums)) // Trace
+
+		for i := 0; i < len(kSums); i++ {
+			for r := 1; r <= 3; r++ {
+				if i > 0 {
+					T[i][r] = T[i-1][r]
+					if i-k >= 0 {
+						D[i][r] = max(kSums[i]+D[i-k][r-1], D[i-1][r])
+						if D[i][r] > D[i-1][r] {
+							T[i][r] = i
+						}
+					} else {
+						D[i][r] = max(kSums[i], D[i-1][r])
+						if kSums[i] > D[i-1][r] {
+							T[i][r] = i
+						}
+					}
+				} else {
+					D[i][r] = kSums[i]
+					T[i][r] = i
+				}
+			}
+		}
+
+		log.Print(" -> DP :: ", D)
+		log.Print(" -> Trace :: ", T)
+
+		R := []int{}
+		i := T[len(kSums)-1][3]
+		for r := 3; r > 0; r-- {
+			R = append(R, T[i][r])
+			i = T[i][r] - k
+		}
+		slices.Reverse(R)
+
+		log.Print(" -> ", R)
+
+		return R
+	}
+
+	for _, f := range []func([]int, int) []int{maxSumOfThreeSubarrays, Tabulation} {
+		if !reflect.DeepEqual([]int{0, 3, 5}, f([]int{1, 2, 1, 2, 6, 7, 5, 1}, 2)) {
+			t.Error("!")
+		}
+		if !reflect.DeepEqual([]int{0, 2, 4}, f([]int{1, 2, 1, 2, 1, 2, 1, 2, 1}, 2)) {
+			t.Error("!")
+		}
+		if !reflect.DeepEqual([]int{1, 4, 7}, f([]int{7, 13, 20, 19, 19, 2, 10, 1, 1, 19}, 3)) {
+			t.Error("!")
+		}
+		log.Print("--")
+	}
 }
 
 // 1014m Best Sightseeing Pair
