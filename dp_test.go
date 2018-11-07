@@ -424,7 +424,7 @@ func Test689(t *testing.T) {
 		log.Print(" -> Trace :: ", T)
 
 		R := []int{}
-		i := T[len(kSums)-1][3]
+		i := len(kSums) - 1
 		for r := 3; r > 0; r-- {
 			R = append(R, T[i][r])
 			i = T[i][r] - k
