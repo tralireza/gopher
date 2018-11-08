@@ -708,6 +708,44 @@ func numTeams(rating []int) int {
 	return x
 }
 
+// 1639h Number of Ways to Form a Target String Given a Dictionary
+func numWays(words []string, target string) int {
+	const MOD = 1e9 + 7
+
+	W := len(words[0])
+	F := make([][26]int, W)
+	for p := 0; p < W; p++ {
+		for w := range words {
+			F[p][words[w][p]-'a']++
+		}
+	}
+
+	Mem := map[[2]int]int64{}
+
+	var Search func(w, t int) int64
+	Search = func(w, t int) int64 {
+		if t == len(target) {
+			return 1
+		}
+		if w == W {
+			return 0
+		}
+
+		if v, ok := Mem[[2]int{w, t}]; ok {
+			return v
+		}
+
+		cSum := Search(w+1, t) % MOD
+		cSum += int64(F[w][target[t]-'a']) * Search(w+1, t+1) % MOD
+		cSum %= MOD
+
+		Mem[[2]int{w, t}] = cSum
+		return cSum
+	}
+
+	return int(Search(0, 0))
+}
+
 // 1653m Minimum Deletions to Make String Balanced
 func minimumDeletions(s string) int {
 	A := make([]int, len(s))

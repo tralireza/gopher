@@ -678,6 +678,12 @@ func Test1395(t *testing.T) {
 	}
 }
 
+// 1639h Number of Ways to Form a Target String Given a Dictionary
+func Test1639(t *testing.T) {
+	log.Print("6 ?= ", numWays([]string{"acca", "bbbb", "caca"}, "aba"))
+	log.Print("4 ?= ", numWays([]string{"abba", "baab"}, "bab"))
+}
+
 // 1653m Minimum Deletions to Make String Balanced
 func Test1653(t *testing.T) {
 	WithStack := func(s string) int {
