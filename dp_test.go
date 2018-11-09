@@ -680,8 +680,42 @@ func Test1395(t *testing.T) {
 
 // 1639h Number of Ways to Form a Target String Given a Dictionary
 func Test1639(t *testing.T) {
-	log.Print("6 ?= ", numWays([]string{"acca", "bbbb", "caca"}, "aba"))
-	log.Print("4 ?= ", numWays([]string{"abba", "baab"}, "bab"))
+	Tabulation := func(words []string, target string) int {
+		F := make([][26]int, len(words[0])) // i-th Letter Frequency in Words[]
+		for p := 0; p < len(words[0]); p++ {
+			for w := range words {
+				F[p][words[w][p]-'a']++
+			}
+		}
+
+		D := make([][]int, len(words[0])+1)
+		for w := range D {
+			D[w] = make([]int, len(target)+1)
+		}
+
+		for w := 0; w <= len(words[0]); w++ {
+			D[w][0] = 1 // only one way to form an empty "target" string
+		}
+
+		const MOD = 1e9 + 7
+		for w := 1; w <= len(words[0]); w++ {
+			for t := 1; t <= len(target); t++ {
+				D[w][t] = D[w-1][t]
+				D[w][t] += (F[w-1][target[t-1]-'a'] * D[w-1][t-1]) % MOD
+				D[w][t] %= MOD
+			}
+		}
+
+		log.Print(D)
+
+		return D[len(words[0])][len(target)]
+	}
+
+	for _, f := range []func([]string, string) int{numWays, Tabulation} {
+		log.Print("6 ?= ", f([]string{"acca", "bbbb", "caca"}, "aba"))
+		log.Print("4 ?= ", f([]string{"abba", "baab"}, "bab"))
+		log.Print("--")
+	}
 }
 
 // 1653m Minimum Deletions to Make String Balanced
