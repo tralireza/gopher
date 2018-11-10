@@ -758,6 +758,12 @@ func Test2016(t *testing.T) {
 	log.Print("9 ?= ", maximumDifference([]int{1, 5, 2, 10}))
 }
 
+// 2466m Count Ways to Build Good Strings
+func Test2466(t *testing.T) {
+	log.Print("8 ?= ", countGoodStrings(3, 3, 1, 1))
+	log.Print("5 ?= ", countGoodStrings(2, 3, 1, 2))
+}
+
 // 2707m Extra Characters in a String
 func Test2707(t *testing.T) {
 	Tabulation := func(s string, dictionary []string) int {

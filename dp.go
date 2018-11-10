@@ -814,6 +814,33 @@ func maximumDifference(nums []int) int {
 	return xVal
 }
 
+// 2466m Count Ways to Build Good Strings
+func countGoodStrings(low int, high int, zero int, one int) int {
+	const MOD = 1e9 + 7
+
+	D := make([]int, high+1)
+	D[0] = 1
+
+	for l := 0; l <= high; l++ {
+		if l >= zero {
+			D[l] += D[l-zero]
+		}
+		if l >= one {
+			D[l] += D[l-one]
+		}
+
+		D[l] %= MOD
+	}
+
+	tWays := 0
+	for l := low; l <= high; l++ {
+		tWays += D[l]
+		tWays %= MOD
+	}
+
+	return tWays
+}
+
 // 2707m Extra Characters in a String
 func minExtraChar(s string, dictionary []string) int {
 	M := map[int]int{}
