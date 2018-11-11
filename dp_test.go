@@ -760,8 +760,46 @@ func Test2016(t *testing.T) {
 
 // 2466m Count Ways to Build Good Strings
 func Test2466(t *testing.T) {
-	log.Print("8 ?= ", countGoodStrings(3, 3, 1, 1))
-	log.Print("5 ?= ", countGoodStrings(2, 3, 1, 2))
+	Recursive := func(low, high, zero, one int) int {
+		const MOD = 1e9 + 7
+		Mem := map[int]int{}
+
+		var Search func(int) int
+		Search = func(l int) int {
+			if l == 0 {
+				return 1
+			}
+
+			if v, ok := Mem[l]; ok {
+				return v
+			}
+
+			tWays := 0
+			if l >= zero {
+				tWays += Search(l - zero)
+			}
+			if l >= one {
+				tWays += Search(l - one)
+			}
+			tWays %= MOD
+
+			Mem[l] = tWays
+			return tWays
+		}
+
+		tWays := 0
+		for l := low; l <= high; l++ {
+			tWays += Search(l)
+			tWays %= MOD
+		}
+		return tWays
+	}
+
+	for _, f := range []func(int, int, int, int) int{countGoodStrings, Recursive} {
+		log.Print("8 ?= ", f(3, 3, 1, 1))
+		log.Print("5 ?= ", f(2, 3, 1, 2))
+		log.Print("--")
+	}
 }
 
 // 2707m Extra Characters in a String

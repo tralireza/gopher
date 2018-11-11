@@ -815,7 +815,7 @@ func maximumDifference(nums []int) int {
 }
 
 // 2466m Count Ways to Build Good Strings
-func countGoodStrings(low int, high int, zero int, one int) int {
+func countGoodStrings(low, high, zero, one int) int {
 	const MOD = 1e9 + 7
 
 	D := make([]int, high+1)
