@@ -584,6 +584,44 @@ func maxSumOfThreeSubarrays(nums []int, k int) []int {
 	return R
 }
 
+// 983m Minimum Cost For Tickets
+func mincostTickets(days []int, costs []int) int {
+	Mem := map[int]int{}
+
+	TDays := make([]int, 365+1)
+	for _, day := range days {
+		TDays[day] = day
+	}
+
+	tday := 365 + 1
+	for day := 365; day >= 1; day-- {
+		if TDays[day] == 0 {
+			TDays[day] = tday
+		}
+		tday = TDays[day]
+	}
+
+	var Search func(d int) int
+	Search = func(d int) int {
+		if d > 365 || TDays[d] > 365 {
+			return 0
+		}
+		d = TDays[d]
+
+		if v, ok := Mem[d]; ok {
+			return v
+		}
+
+		mCost := 0
+		mCost = min(costs[0]+Search(d+1), costs[1]+Search(d+7), costs[2]+Search(d+30))
+
+		Mem[d] = mCost
+		return mCost
+	}
+
+	return Search(days[0])
+}
+
 // 1014m Best Sightseeing Pair
 func maxScoreSightseeingPair(values []int) int {
 	// Score: i < j :: Vi+Vj - (j-i)
