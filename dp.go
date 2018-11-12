@@ -588,25 +588,20 @@ func maxSumOfThreeSubarrays(nums []int, k int) []int {
 func mincostTickets(days []int, costs []int) int {
 	Mem := map[int]int{}
 
-	TDays := make([]int, 365+1)
+	TDays := make([]bool, 365+1)
 	for _, day := range days {
-		TDays[day] = day
-	}
-
-	tday := 365 + 1
-	for day := 365; day >= 1; day-- {
-		if TDays[day] == 0 {
-			TDays[day] = tday
-		}
-		tday = TDays[day]
+		TDays[day] = true
 	}
 
 	var Search func(d int) int
 	Search = func(d int) int {
-		if d > 365 || TDays[d] > 365 {
+		if d > 365 {
 			return 0
 		}
-		d = TDays[d]
+
+		if !TDays[d] {
+			return Search(d + 1)
+		}
 
 		if v, ok := Mem[d]; ok {
 			return v
