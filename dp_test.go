@@ -458,6 +458,87 @@ func Test983(t *testing.T) {
 	log.Print("1780 ?= ", mincostTickets([]int{2, 7, 8, 10, 12, 13, 14, 17, 25, 28, 29, 34, 35, 37, 43, 44, 45, 53, 54, 58, 60, 61, 62, 63, 64, 65, 66, 71, 74, 82, 86, 88, 95, 97, 98, 102, 105, 106, 115, 117, 119, 120, 125, 129, 135, 136, 142, 143, 152, 153, 155, 158, 165, 166, 168, 181, 187, 189, 191, 192, 193, 194, 196, 197, 198, 201, 208, 209, 211, 212, 215, 224, 226, 236, 242, 243, 244, 245, 248, 252, 260, 261, 263, 266, 269, 272, 273, 274, 280, 284, 286, 287, 292, 297, 300, 303, 304, 312, 317, 323, 326, 328, 329, 332, 333, 337, 341, 348, 349, 351, 352, 355, 361, 364}, []int{16, 82, 359}))
 }
 
+func Benchmark983(b *testing.B) {
+	MinCostTickets1 := func(days []int, costs []int) int {
+		Mem := map[int]int{}
+
+		TDays := make([]bool, 365+1)
+		for _, day := range days {
+			TDays[day] = true
+		}
+
+		var Search func(int) int
+		Search = func(day int) int {
+			if day > 365 {
+				return 0
+			}
+
+			if !TDays[day] {
+				return Search(day + 1)
+			}
+
+			if v, ok := Mem[day]; ok {
+				return v
+			}
+
+			mCost := min(costs[0]+Search(day+1), costs[1]+Search(day+7), costs[2]+Search(day+30))
+			Mem[day] = mCost
+			return mCost
+		}
+		return Search(days[0])
+	}
+
+	MinCostTickets2 := func(days []int, costs []int) int {
+		Mem := map[int]int{}
+
+		TDays := make([]int, 365+1)
+		for _, day := range days {
+			TDays[day] = day
+		}
+		nday := 365 + 1
+		for day := 365; day >= 1; day-- {
+			if TDays[day] == 0 {
+				TDays[day] = nday
+			}
+			nday = TDays[day]
+		}
+
+		var Search func(int) int
+		Search = func(day int) int {
+			if day > 365 {
+				return 0
+			}
+
+			day = TDays[day]
+			if day > 365 {
+				return 0
+			}
+
+			if v, ok := Mem[day]; ok {
+				return v
+			}
+
+			mCost := min(costs[0]+Search(day+1), costs[1]+Search(day+7), costs[2]+Search(day+30))
+			Mem[day] = mCost
+			return mCost
+		}
+		return Search(days[0])
+	}
+
+	Noop := func(days []int, costs []int) int { return 0 }
+
+	days := []int{2, 7, 8, 10, 12, 13, 14, 17, 25, 28, 29, 34, 35, 37, 43, 44, 45, 53, 54, 58, 60, 61, 62, 63, 64, 65, 66, 71, 74, 82, 86, 88, 95, 97, 98, 102, 105, 106, 115, 117, 119, 120, 125, 129, 135, 136, 142, 143, 152, 153, 155, 158, 165, 166, 168, 181, 187, 189, 191, 192, 193, 194, 196, 197, 198, 201, 208, 209, 211, 212, 215, 224, 226, 236, 242, 243, 244, 245, 248, 252, 260, 261, 263, 266, 269, 272, 273, 274, 280, 284, 286, 287, 292, 297, 300, 303, 304, 312, 317, 323, 326, 328, 329, 332, 333, 337, 341, 348, 349, 351, 352, 355, 361, 364}
+	costs := []int{16, 82, 359}
+
+	for _, fn := range []func([]int, []int) int{MinCostTickets1, MinCostTickets2, Noop} {
+		b.Run("", func(b *testing.B) {
+			for range b.N {
+				fn(days, costs)
+			}
+		})
+	}
+}
+
 // 1014m Best Sightseeing Pair
 func Test1014(t *testing.T) {
 	Kadane := func(values []int) int {
