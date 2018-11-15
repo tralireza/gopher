@@ -77,6 +77,12 @@ func Test1310(t *testing.T) {
 	}
 }
 
+// 1422 Maximum Score After Splitting a String
+func Test1422(t *testing.T) {
+	log.Print("5 ?= ", maxScore("011101"))
+	log.Print("5 ?= ", maxScore("00111"))
+}
+
 // 1991 Find the Middle Index in Array
 func Test1991(t *testing.T) {
 	log.Print("3 ?= ", findMiddleIndex([]int{2, 3, -1, 8, 4}))

@@ -1,3 +1,4 @@
+// gopher :: Prefix Sum
 package gopher
 
 import "log"
@@ -37,6 +38,31 @@ func xorQueries(arr []int, queries [][]int) []int {
 		R = append(R, pSum[query[1]+1]^pSum[query[0]])
 	}
 	return R
+}
+
+// 1422 Maximum Score After Splitting a String
+func maxScore(s string) int {
+	rone := 0
+	for r := len(s) - 1; r >= 0; r-- {
+		if s[r] == '1' {
+			rone++
+		}
+	}
+
+	xScore := 0
+
+	lzero := int((s[0] - '0') ^ 1)
+	for i := 1; i < len(s)-1; i++ {
+		xScore = max(xScore, lzero+rone)
+		switch s[i] {
+		case '0':
+			lzero++
+		case '1':
+			rone--
+		}
+	}
+
+	return xScore
 }
 
 // 1991 Find the Middle Index in Array
