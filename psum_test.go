@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"math"
 	"testing"
 )
 
@@ -79,8 +80,35 @@ func Test1310(t *testing.T) {
 
 // 1422 Maximum Score After Splitting a String
 func Test1422(t *testing.T) {
-	log.Print("5 ?= ", maxScore("011101"))
-	log.Print("5 ?= ", maxScore("00111"))
+	OnePass := func(s string) int {
+		xScore := math.MinInt
+
+		zeros, ones := 0, 0
+		for i := 0; i < len(s)-1; i++ {
+			switch s[i] {
+			case '1':
+				ones++
+			case '0':
+				zeros++
+			}
+
+			xScore = max(xScore, zeros-ones)
+		}
+
+		if s[len(s)-1] == '1' {
+			ones++
+		}
+
+		return xScore + ones
+	}
+
+	for _, f := range []func(string) int{maxScore, OnePass} {
+		log.Print("5 ?= ", f("011101"))
+		log.Print("5 ?= ", f("00111"))
+		log.Print("1 ?= ", f("00"))
+		log.Print("2 ?= ", f("01"))
+		log.Print("--")
+	}
 }
 
 // 1991 Find the Middle Index in Array

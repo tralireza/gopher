@@ -52,7 +52,7 @@ func maxScore(s string) int {
 	xScore := 0
 
 	lzero := int((s[0] - '0') ^ 1)
-	for i := 1; i < len(s)-1; i++ {
+	for i := 1; i < len(s); i++ {
 		xScore = max(xScore, lzero+rone)
 		switch s[i] {
 		case '0':
