@@ -26,6 +26,12 @@ func Test289(t *testing.T) {
 	gameOfLife([][]int{{1, 1}, {1, 0}})
 }
 
+// 495 Teemo Attacking
+func Test495(t *testing.T) {
+	log.Print("4 ?= ", findPoisonedDuration([]int{1, 4}, 2))
+	log.Print("3 ?= ", findPoisonedDuration([]int{1, 2}, 2))
+}
+
 // 566 Reshape the Matrix
 func Test566(t *testing.T) {
 	log.Print("[[1 2 3 4]] ?= ", matrixReshape([][]int{{1, 2}, {3, 4}}, 1, 4))

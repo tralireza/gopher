@@ -146,6 +146,16 @@ func gameOfLife(board [][]int) {
 	log.Print(" -> ", board)
 }
 
+// 495 Teemo Attacking
+func findPoisonedDuration(timeSeries []int, duration int) int {
+	td := 0
+	for i := 0; i < len(timeSeries)-1; i++ {
+		td += min(timeSeries[i+1]-timeSeries[i], duration)
+	}
+
+	return td + duration
+}
+
 // 566 Reshape the Matrix
 func matrixReshape(mat [][]int, r int, c int) [][]int {
 	if len(mat)*len(mat[0]) != r*c {
