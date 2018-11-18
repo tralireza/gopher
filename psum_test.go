@@ -127,6 +127,12 @@ func Test2134(t *testing.T) {
 	log.Print("0 ?= ", minSwaps([]int{1, 1, 0, 0, 1}))
 }
 
+// 2559m Count Vowel Strings in Ranges
+func Test2559(t *testing.T) {
+	log.Print("[2 3 0] ?= ", vowelStrings([]string{"aba", "bcb", "ece", "aa", "e"}, [][]int{{0, 2}, {1, 4}, {1, 1}}))
+	log.Print("[3 2 1] ?= ", vowelStrings([]string{"a", "e", "i"}, [][]int{{0, 2}, {0, 1}, {2, 2}}))
+}
+
 // 2574 Left and Right Sum Difference
 func Test2574(t *testing.T) {
 	log.Print("[15 1 11 22] ?= ", leftRightDifference([]int{10, 4, 8, 3}))

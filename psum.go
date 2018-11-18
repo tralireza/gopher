@@ -112,6 +112,30 @@ func minSwaps(nums []int) int {
 	return ops
 }
 
+// 2559m Count Vowel Strings in Ranges
+func vowelStrings(words []string, queries [][]int) []int {
+	M := [26]bool{}
+	for i := 0; i < 5; i++ {
+		M["aeiou"[i]-'a'] = true
+	}
+
+	pSum := make([]int, len(words)+1)
+	for i, w := range words {
+		pSum[i+1] = pSum[i]
+		if M[w[0]-'a'] && M[w[len(w)-1]-'a'] {
+			pSum[i+1]++
+		}
+	}
+
+	log.Print(" -> ", pSum)
+
+	R := []int{}
+	for _, Q := range queries {
+		R = append(R, pSum[Q[1]+1]-pSum[Q[0]])
+	}
+	return R
+}
+
 // 2574 Left and Right Sum Difference
 func leftRightDifference(nums []int) []int {
 	lSum, rSum := 0, 0
