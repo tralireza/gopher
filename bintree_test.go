@@ -52,6 +52,15 @@ func Test515(t *testing.T) {
 	}
 }
 
+// 563 Binary Tree Tilt
+func Test563(t *testing.T) {
+	type T = TreeNode
+
+	log.Print("1 ?= ", findTilt(&T{1, &T{Val: 2}, &T{Val: 3}}))
+	log.Print("15 ?= ", findTilt(&T{4, &T{2, &T{Val: 3}, &T{Val: 5}}, &T{Val: 9, Right: &T{Val: 7}}}))
+	log.Print("9 ?= ", findTilt(&T{21, &T{7, &T{1, &T{Val: 1}, &T{Val: 1}}, &T{Val: 1}}, &T{14, &T{Val: 2}, &T{Val: 2}}}))
+}
+
 // 951m Flip Equivalent Binary Trees
 func Test951(t *testing.T) {
 	type T = TreeNode

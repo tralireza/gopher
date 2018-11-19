@@ -76,6 +76,28 @@ func largestValues(root *TreeNode) []int {
 	return R
 }
 
+// 563 Binary Tree Tilt
+func findTilt(root *TreeNode) int {
+	tilt := 0
+	var PostOrder func(*TreeNode) int
+	PostOrder = func(n *TreeNode) int {
+		if n == nil {
+			return 0
+		}
+
+		l, r := PostOrder(n.Left), PostOrder(n.Right)
+		if l > r {
+			l, r = r, l
+		}
+
+		tilt += r - l
+		return n.Val + l + r
+	}
+
+	PostOrder(root)
+	return tilt
+}
+
 // 951m Flip Equivalent Binary Trees
 func flipEquiv(root1 *TreeNode, root2 *TreeNode) bool {
 	fmt.Print(".")

@@ -217,7 +217,7 @@ func Test1545(t *testing.T) {
 }
 
 // 1593m Split a String Into the Max Number of Unique Substrings
-func Test(t *testing.T) {
+func Test1593(t *testing.T) {
 	// 1 <= s.length <= 16
 
 	log.Print("5 ?= ", maxUniqueSplit("ababccc"))
