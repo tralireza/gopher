@@ -148,6 +148,13 @@ func NewHashMap1590(capacity int) HashMap1590 {
 	}
 }
 
+// 1930m Unique Length-3 Palindromic Subsequences
+func Test1930(t *testing.T) {
+	log.Print("3 ?= ", countPalindromicSubsequence("aabca"))
+	log.Print("0 ?= ", countPalindromicSubsequence("abc"))
+	log.Print("4 ?= ", countPalindromicSubsequence("bbcbaba"))
+}
+
 type HashMap1590 struct {
 	Store [][]MapEntry1590
 }
