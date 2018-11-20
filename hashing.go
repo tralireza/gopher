@@ -253,35 +253,33 @@ func minSubarray(nums []int, p int) int {
 
 // 1930m Unique Length-3 Palindromic Subsequences
 func countPalindromicSubsequence(s string) int {
-	F := [26]int{}
-	for i := 0; i < len(s); i++ {
-		F[s[i]-'a']++
+	Left, Right := [26]int{}, [26]int{}
+	for l := range Left {
+		Left[l] = -1
 	}
 
+	for l := 0; l < len(s); l++ {
+		if Left[s[l]-'a'] == -1 {
+			Left[s[l]-'a'] = l
+		}
+	}
+	for r := len(s) - 1; r >= 0; r-- {
+		if Right[s[r]-'a'] == 0 {
+			Right[s[r]-'a'] = r
+		}
+	}
+
+	log.Print(" -> ", Left)
+	log.Print(" -> ", Right)
+
 	tCount := 0
-	M := map[[2]byte]bool{}
-
-	for v := byte('a'); v <= byte('z'); v++ {
-		if F[v-'a'] < 2 {
-			continue
-		}
-		X := F
-
-		l, r := 0, len(s)-1
-		for s[l] != v {
-			X[s[l]-'a']--
-			l++
-		}
-		for s[r] != v {
-			X[s[r]-'a']--
-			r--
-		}
-
-		for i := l + 1; i < r; i++ {
-			if X[s[i]-'a'] > 0 && !M[[2]byte{v, s[i]}] {
-				M[[2]byte{v, s[i]}] = true
-				tCount++
+	for v := 0; v < 26; v++ {
+		if Left[v] != -1 {
+			M := map[byte]bool{}
+			for i := Left[v] + 1; i < Right[v]; i++ {
+				M[s[i]] = true
 			}
+			tCount += len(M)
 		}
 	}
 
