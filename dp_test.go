@@ -583,6 +583,12 @@ func Test1014(t *testing.T) {
 	}
 }
 
+// 1025 Divisor Game
+func Test1025(t *testing.T) {
+	log.Print("true ?= ", divisorGame(2))
+	log.Print("false ?= ", divisorGame(3))
+}
+
 // 1105m Filling Bookcase Shelves
 func Test1105(t *testing.T) {
 	//Book[i]: Width, Height

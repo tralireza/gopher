@@ -635,6 +635,25 @@ func maxScoreSightseeingPair(values []int) int {
 	return xVal
 }
 
+// 1025 Divisor Game
+func divisorGame(n int) bool {
+	D := make([]bool, n+1)
+
+	for N := 2; N <= n; N++ {
+		for x := N / 2; x >= 1; x-- {
+			if N%x != 0 {
+				continue
+			}
+
+			if !D[N-x] {
+				D[N] = true
+			}
+		}
+	}
+
+	return D[n]
+}
+
 // 1105m Filling Bookcase Shelves
 func minHeightShelves(books [][]int, shelfWidth int) int {
 	rCalls, Mem := 0, map[[3]int]int{}
