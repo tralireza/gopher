@@ -129,8 +129,38 @@ func Test2134(t *testing.T) {
 
 // 2381m Shifting Letters II
 func Test2381(t *testing.T) {
-	log.Print("ace ?= ", shiftingLetters("abc", [][]int{{0, 1, 0}, {1, 2, 1}, {0, 2, 1}}))
-	log.Print("catz ?= ", shiftingLetters("dztz", [][]int{{0, 0, 0}, {1, 1, 1}}))
+	DiffArray := func(s string, shifts [][]int) string {
+		D := make([]int, len(s)) // Diff Array
+		for _, v := range shifts {
+			x := v[2]
+			if x == 0 {
+				x = -1
+			}
+
+			D[v[0]] += x
+			if v[1] < len(s)-1 {
+				D[v[1]+1] -= x
+			}
+		}
+
+		log.Print(" -> ", D)
+
+		bfr := make([]byte, 0, len(s))
+
+		r := 0
+		for i := 0; i < len(s); i++ {
+			r += D[i] % 26
+			bfr = append(bfr, 'a'+(s[i]-'a'+byte(r))%26)
+		}
+
+		return string(bfr)
+	}
+
+	for _, f := range []func(string, [][]int) string{shiftingLetters, DiffArray} {
+		log.Print("ace ?= ", f("abc", [][]int{{0, 1, 0}, {1, 2, 1}, {0, 2, 1}}))
+		log.Print("catz ?= ", f("dztz", [][]int{{0, 0, 0}, {1, 1, 1}}))
+		log.Print("--")
+	}
 }
 
 // 2559m Count Vowel Strings in Ranges
