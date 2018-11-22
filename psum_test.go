@@ -127,6 +127,12 @@ func Test2134(t *testing.T) {
 	log.Print("0 ?= ", minSwaps([]int{1, 1, 0, 0, 1}))
 }
 
+// 2381m Shifting Letters II
+func Test2381(t *testing.T) {
+	log.Print("ace ?= ", shiftingLetters("abc", [][]int{{0, 1, 0}, {1, 2, 1}, {0, 2, 1}}))
+	log.Print("catz ?= ", shiftingLetters("dztz", [][]int{{0, 0, 0}, {1, 1, 1}}))
+}
+
 // 2559m Count Vowel Strings in Ranges
 func Test2559(t *testing.T) {
 	log.Print("[2 3 0] ?= ", vowelStrings([]string{"aba", "bcb", "ece", "aa", "e"}, [][]int{{0, 2}, {1, 4}, {1, 1}}))

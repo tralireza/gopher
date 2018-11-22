@@ -1,7 +1,10 @@
 // gopher :: Prefix Sum
 package gopher
 
-import "log"
+import (
+	"log"
+	"slices"
+)
 
 // 1013 Partition Array Into Three Parts With Equal Sum
 func canThreePartsEqualSum(arr []int) bool {
@@ -110,6 +113,37 @@ func minSwaps(nums []int) int {
 		ops = min(pSum[r+1]-pSum[r-ones+1], ops)
 	}
 	return ops
+}
+
+// 2381m Shifting Letters II
+func shiftingLetters(s string, shifts [][]int) string {
+	S := [][2]int{}
+	for _, v := range shifts {
+		x := v[2]
+		if x == 0 {
+			x = -1
+		}
+		S = append(S, [2]int{v[0], x})
+		S = append(S, [2]int{v[1] + 1, -x})
+	}
+
+	slices.SortFunc(S, func(x, y [2]int) int { return x[0] - y[0] })
+	log.Print(" -> ", S)
+
+	bfr := make([]byte, 0, len(s))
+	p, r := 0, 0
+
+	for i := 0; i < len(s); i++ {
+		for p < len(S) && S[p][0] <= i {
+			r += S[p][1]
+			p++
+		}
+
+		r = (r%26 + 26) % 26
+		bfr = append(bfr, 'a'+(s[i]-'a'+byte(r)+26)%26)
+	}
+
+	return string(bfr)
 }
 
 // 2559m Count Vowel Strings in Ranges
