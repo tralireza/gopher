@@ -130,7 +130,7 @@ func Test2134(t *testing.T) {
 // 2381m Shifting Letters II
 func Test2381(t *testing.T) {
 	DiffArray := func(s string, shifts [][]int) string {
-		D := make([]int, len(s)) // Diff Array
+		D := make([]int, len(s)+1) // Diff Array
 		for _, v := range shifts {
 			x := v[2]
 			if x == 0 {
@@ -138,9 +138,7 @@ func Test2381(t *testing.T) {
 			}
 
 			D[v[0]] += x
-			if v[1] < len(s)-1 {
-				D[v[1]+1] -= x
-			}
+			D[v[1]+1] -= x
 		}
 
 		log.Print(" -> ", D)
@@ -150,7 +148,7 @@ func Test2381(t *testing.T) {
 		r := 0
 		for i := 0; i < len(s); i++ {
 			r += D[i] % 26
-			bfr = append(bfr, 'a'+(s[i]-'a'+byte(r))%26)
+			bfr = append(bfr, 'a'+(s[i]-'a'+byte(r+26))%26)
 		}
 
 		return string(bfr)
