@@ -68,6 +68,35 @@ func maxScore(s string) int {
 	return xScore
 }
 
+// 1769m Minimum Number of Operations to Move All Balls to Each Box
+func minMoveOperations(boxes string) []int {
+	N := len(boxes)
+
+	rBs, rOps := make([]int, N+1), make([]int, N+1)
+	for i := N - 1; i >= 0; i-- {
+		rBs[i] = rBs[i+1] + int(boxes[i]-'0')
+		rOps[i] = rBs[i] + rOps[i+1]
+	}
+
+	lBs, lOps := make([]int, N+1), make([]int, N+1)
+	for i := 1; i <= N; i++ {
+		lBs[i] = lBs[i-1] + int(boxes[i-1]-'0')
+		lOps[i] = lBs[i] + lOps[i-1]
+	}
+
+	log.Print(" >>> ", lBs, lOps)
+	log.Print(" <<< ", rBs, rOps)
+
+	R := []int{}
+	for i := 0; i < N; i++ {
+		R = append(R, lOps[i]+rOps[i+1])
+	}
+
+	log.Print(" -> ", R)
+
+	return R
+}
+
 // 1991 Find the Middle Index in Array
 func findMiddleIndex(nums []int) int {
 	rSum := 0

@@ -3,6 +3,7 @@ package gopher
 import (
 	"log"
 	"math"
+	"reflect"
 	"testing"
 )
 
@@ -108,6 +109,29 @@ func Test1422(t *testing.T) {
 		log.Print("1 ?= ", f("00"))
 		log.Print("2 ?= ", f("01"))
 		log.Print("--")
+	}
+}
+
+// 1769m Minimum Number of Operations to Move All Balls to Each Box
+func Test1769(t *testing.T) {
+	for _, tc := range []struct {
+		rst   []int
+		input string
+	}{
+		{
+			rst:   []int{1, 1, 3},
+			input: "110",
+		},
+		{
+			rst:   []int{11, 8, 5, 4, 3, 4},
+			input: "001011",
+		},
+	} {
+		t.Run("", func(t *testing.T) {
+			if !reflect.DeepEqual(tc.rst, minMoveOperations(tc.input)) {
+				t.Fail()
+			}
+		})
 	}
 }
 
