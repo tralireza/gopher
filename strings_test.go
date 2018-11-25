@@ -24,3 +24,10 @@ func Test2405(t *testing.T) {
 	log.Print("4 ?= ", partitionString("abacaba"))
 	log.Print("6 ?= ", partitionString("ssssss"))
 }
+
+// 3042 Count Prefix and Suffix Pairs I
+func Test3042(t *testing.T) {
+	log.Print("4 ?= ", countPrefixSuffixPairs([]string{"a", "aba", "ababa", "aa"}))
+	log.Print("2 ?= ", countPrefixSuffixPairs([]string{"pa", "papa", "ma", "mama"}))
+	log.Print("0 ?= ", countPrefixSuffixPairs([]string{"abab", "ab"}))
+}

@@ -67,3 +67,18 @@ func partitionString(s string) int {
 
 	return t
 }
+
+// 3042 Count Prefix and Suffix Pairs I
+func countPrefixSuffixPairs(words []string) int {
+	pairs := 0
+
+	for i, n := range words { //Needle
+		for _, h := range words[i+1:] { // Haystack
+			if strings.HasPrefix(h, n) && strings.HasSuffix(h, n) {
+				pairs++
+			}
+		}
+	}
+
+	return pairs
+}
