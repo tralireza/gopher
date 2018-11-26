@@ -19,6 +19,12 @@ func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Eating right now", "Eating"))
 }
 
+// 2185 Counting Words With a Given Prefix
+func Test2185(t *testing.T) {
+	log.Print("2 ?= ", prefixCount([]string{"pay", "attention", "practice", "attend"}, "at"))
+	log.Print("0 ?= ", prefixCount([]string{"leetcode", "win", "loops", "success"}, "code"))
+}
+
 // 2405m Optimal Partition of String
 func Test2405(t *testing.T) {
 	log.Print("4 ?= ", partitionString("abacaba"))

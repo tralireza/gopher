@@ -52,6 +52,18 @@ func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	return true
 }
 
+// 2185 Counting Words With a Given Prefix
+func prefixCount(words []string, pref string) int {
+    count := 0
+    for _, w := range words {
+        if strings.HasPrefix(w, pref) {
+            count++
+        }
+    }
+
+    return count
+}
+
 // 2405m Optimal Partition of String
 func partitionString(s string) int {
 	t := 1
