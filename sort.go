@@ -92,16 +92,12 @@ func thirdMax(nums []int) int {
 	f, s, t := 0, -1, 1 // First, Second & Third Max
 
 	for i, n := range nums {
-		if n == nums[f] || s > -1 && n == nums[s] || t > -1 && n == nums[t] {
-			continue
-		}
-
 		switch {
 		case n > nums[f]:
 			f, s, t = i, f, s
-		case s == -1 || n > nums[s]:
+		case n < nums[f] && (s == -1 || n > nums[s]):
 			s, t = i, s
-		case t == -1 || n > nums[t]:
+		case s > -1 && n < nums[s] && (t == -1 || n > nums[t]):
 			t = i
 		}
 	}
