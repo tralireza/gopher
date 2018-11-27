@@ -87,6 +87,31 @@ func largestNumber(nums []int) string {
 	return v
 }
 
+// 414 Third Maximum Number
+func thirdMax(nums []int) int {
+	f, s, t := 0, -1, 1 // First, Second & Third Max
+
+	for i, n := range nums {
+		if n == nums[f] || s > -1 && n == nums[s] || t > -1 && n == nums[t] {
+			continue
+		}
+
+		switch {
+		case n > nums[f]:
+			f, s, t = i, f, s
+		case s == -1 || n > nums[s]:
+			s, t = i, s
+		case t == -1 || n > nums[t]:
+			t = i
+		}
+	}
+
+	if t > -1 {
+		return nums[t]
+	}
+	return nums[f]
+}
+
 // 539m Minimum Time Difference
 func findMinDifference(timePoints []string) int {
 	Ms := []int{}

@@ -50,6 +50,14 @@ func Test179(t *testing.T) {
 	}
 }
 
+// 414 Third Maximum Number
+func Test414(t *testing.T) {
+	log.Print("1 ?= ", thirdMax([]int{3, 2, 1}))
+	log.Print("2 ?= ", thirdMax([]int{1, 2}))
+	log.Print("1 ?= ", thirdMax([]int{2, 2, 3, 1}))
+
+}
+
 // 539m Minimum Time Difference
 func Test539(t *testing.T) {
 	log.Print("1 ?= ", findMinDifference([]string{"23:59", "00:00"}))
