@@ -15,6 +15,12 @@ func Test401(t *testing.T) {
 	log.Printf(" ?= %q", readBinaryWatch(9))
 }
 
+// 461 Hamming Distance
+func Test461(t *testing.T) {
+	log.Print("2 ?= ", hammingDistance(1, 4))
+	log.Print("1 ?= ", hammingDistance(3, 1))
+}
+
 // 476 Number Complement
 func Test476(t *testing.T) {
 	// 1 <= n <= 2^31

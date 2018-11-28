@@ -1,3 +1,4 @@
+// Bitwise
 package gopher
 
 import (
@@ -54,6 +55,19 @@ func findComplement(num int) int {
 		bits++
 	}
 	return (1<<bits - 1) ^ num
+}
+
+// 461 Hamming Distance
+func hammingDistance(x, y int) int {
+	dist := 0
+
+	for x > 0 || y > 0 {
+		dist += x&1 ^ y&1
+		x >>= 1
+		y >>= 1
+	}
+
+	return dist
 }
 
 // 3315m Construct the Minimum Bitwise Array II
