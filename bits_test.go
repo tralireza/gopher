@@ -17,8 +17,15 @@ func Test401(t *testing.T) {
 
 // 461 Hamming Distance
 func Test461(t *testing.T) {
-	log.Print("2 ?= ", hammingDistance(1, 4))
-	log.Print("1 ?= ", hammingDistance(3, 1))
+	Bits := func(x, y int) int {
+		return bits.OnesCount(uint(x|y)) - bits.OnesCount(uint(x&y))
+	}
+
+	for _, f := range []func(int, int) int{Bits, hammingDistance} {
+		log.Print("2 ?= ", f(1, 4))
+		log.Print("1 ?= ", f(3, 1))
+		log.Print("--")
+	}
 }
 
 // 476 Number Complement
