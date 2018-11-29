@@ -202,6 +202,25 @@ func findTheLongestSubstring(s string) int {
 	return xSub
 }
 
+// 1400m Construct K Palindrome Strings
+func canConstruct(s string, k int) bool {
+	if len(s) < k {
+		return false
+	}
+
+	F := [26]int{}
+	for i := 0; i < len(s); i++ {
+		F[s[i]-'a']++
+	}
+
+	oCount := 0
+	for _, f := range F {
+		oCount += f & 1
+	}
+
+	return oCount <= k
+}
+
 // 1460 Make Two Arrays Equal by Reversing Subarrays
 func canBeEqual(target []int, arr []int) bool {
 	hT, hA := make([]int, 10_000+1), make([]int, 10_000+1)

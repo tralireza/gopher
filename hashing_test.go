@@ -114,6 +114,13 @@ func Test1372(t *testing.T) {
 	log.Print("6 ?= ", findTheLongestSubstring("bcbcbc"))
 }
 
+// 1400m Construct K Palindrome Strings
+func Test1400(t *testing.T) {
+	log.Print("true ?= ", canConstruct("annabelle", 2))
+	log.Print("false ?= ", canConstruct("leetcode", 3))
+	log.Print("true ?= ", canConstruct("true", 4))
+}
+
 // 1460 Make Two Arrays Equal by Reversing Subarrays
 func Test1460(t *testing.T) {
 	// 1 <= Ai <= 10000
