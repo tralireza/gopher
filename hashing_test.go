@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"math/bits"
 	"math/rand"
 	"testing"
 )
@@ -116,9 +117,27 @@ func Test1372(t *testing.T) {
 
 // 1400m Construct K Palindrome Strings
 func Test1400(t *testing.T) {
-	log.Print("true ?= ", canConstruct("annabelle", 2))
-	log.Print("false ?= ", canConstruct("leetcode", 3))
-	log.Print("true ?= ", canConstruct("true", 4))
+	Bits := func(s string, k int) bool {
+		if len(s) < k {
+			return false
+		}
+		if len(s) == k {
+			return true
+		}
+
+		oCount := uint(0)
+		for i := 0; i < len(s); i++ {
+			oCount ^= 1 << (s[i] - 'a')
+		}
+		return bits.OnesCount(oCount) < k
+	}
+
+	for _, f := range []func(string, int) bool{canConstruct, Bits} {
+		log.Print("true ?= ", f("annabelle", 2))
+		log.Print("false ?= ", f("leetcode", 3))
+		log.Print("true ?= ", f("true", 4))
+		log.Print("--")
+	}
 }
 
 // 1460 Make Two Arrays Equal by Reversing Subarrays
