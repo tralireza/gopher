@@ -7,6 +7,19 @@ import (
 	"strconv"
 )
 
+// 492 Construct the Rectangle
+func constructRectangle(area int) []int {
+	x, w := 1, 1
+	for (x+1)*(x+1) <= area {
+		x++
+		if area%x == 0 {
+			w = x
+		}
+	}
+
+	return []int{area / w, w}
+}
+
 // 274m H-Index
 func hIndex(citations []int) int {
 	slices.Sort(citations)

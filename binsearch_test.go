@@ -13,6 +13,13 @@ func Test274(t *testing.T) {
 	log.Print("0 ?= ", hIndex([]int{0}))
 }
 
+// 492 Construct the Rectangle
+func Test492(t *testing.T) {
+	log.Print("[2 2] ?= ", constructRectangle(4))
+	log.Print("[37 1] ?= ", constructRectangle(37))
+	log.Print("[427 286] ?= ", constructRectangle(122122))
+}
+
 // 564h Find the Closest Palindrome
 func Test564(t *testing.T) {
 	// 1 <= N <= 10^18-1
