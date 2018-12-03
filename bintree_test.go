@@ -16,6 +16,14 @@ func Test103(t *testing.T) {
 	log.Print("[[1] [3 2] [4 5]] ?= ", zigzagLevelOrder(&T{1, &T{2, &T{Val: 4}, &T{Val: 5}}, &T{Val: 3}}))
 }
 
+// 501 Find Mode in Binary Search Tree
+func Test501(t *testing.T) {
+	type T = TreeNode
+
+	log.Print("[2] ?= ", findMode(&T{1, nil, &T{2, &T{Val: 2}, nil}}))
+	log.Print("[0] ?= ", findMode(&T{Val: 0}))
+}
+
 // 515m Find Largest Value in Each Tree Row
 func Test515(t *testing.T) {
 	DFS := func(root *TreeNode) []int {

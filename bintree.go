@@ -43,6 +43,40 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
 	return Z
 }
 
+// 501 Find Mode in Binary Search Tree
+func findMode(root *TreeNode) []int {
+	fMap := map[int]int{}
+
+	var Walk func(*TreeNode)
+	Walk = func(n *TreeNode) {
+		if n != nil {
+			Walk(n.Left)
+			Walk(n.Right)
+			fMap[n.Val]++
+		}
+	}
+
+	Walk(root)
+
+	log.Print(" -> ", fMap)
+
+	fMax := math.MinInt
+	for _, f := range fMap {
+		if f > fMax {
+			fMax = f
+		}
+	}
+
+	R := []int{}
+	for v, f := range fMap {
+		if f == fMax {
+			R = append(R, v)
+		}
+	}
+
+	return R
+}
+
 // 515m Find Largest Value in Each Tree Row
 func largestValues(root *TreeNode) []int {
 	R := []int{}
