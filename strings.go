@@ -27,6 +27,11 @@ func fizzBuzz(n int) []string {
 	return S
 }
 
+// 520 Detect Capital
+func detectCapitalUse(word string) bool {
+	return word[1:] == strings.ToLower(word[1:]) || word == strings.ToUpper(word)
+}
+
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	Source, Pattern := strings.Split(sentence1, " "), strings.Split(sentence2, " ")
@@ -54,14 +59,14 @@ func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 
 // 2185 Counting Words With a Given Prefix
 func prefixCount(words []string, pref string) int {
-    count := 0
-    for _, w := range words {
-        if strings.HasPrefix(w, pref) {
-            count++
-        }
-    }
+	count := 0
+	for _, w := range words {
+		if strings.HasPrefix(w, pref) {
+			count++
+		}
+	}
 
-    return count
+	return count
 }
 
 // 2405m Optimal Partition of String

@@ -12,6 +12,12 @@ func Test412(t *testing.T) {
 	log.Print(" ?= ", fizzBuzz(15))
 }
 
+// 520 Detect Capital
+func Test520(t *testing.T) {
+	log.Print("true ?= ", detectCapitalUse("USA"))
+	log.Print("false ?= ", detectCapitalUse("FlaG"))
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))
