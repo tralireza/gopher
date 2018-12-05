@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"log"
 	"strconv"
 	"strings"
 )
@@ -34,6 +35,16 @@ func detectCapitalUse(word string) bool {
 
 // 557 Reverse Words in a String III
 func reverseWords(s string) string {
+	S := []string{}
+	for _, sstr := range strings.Fields(s) {
+		rstr := make([]byte, len(sstr))
+		for l, r := 0, len(sstr)-1; l <= r; l, r = l+1, r-1 {
+			rstr[l], rstr[r] = sstr[r], sstr[l]
+		}
+		S = append(S, string(rstr))
+	}
+	log.Print(" -> ", strings.Join(S, " "))
+
 	bfr := []byte{}
 
 	s = s + " "
