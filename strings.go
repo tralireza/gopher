@@ -32,6 +32,27 @@ func detectCapitalUse(word string) bool {
 	return word[1:] == strings.ToLower(word[1:]) || word == strings.ToUpper(word)
 }
 
+// 557 Reverse Words in a String III
+func reverseWords(s string) string {
+	bfr := []byte{}
+
+	s = s + " "
+	l, r := 0, 0
+	for r < len(s) {
+		if s[r] == ' ' {
+			for x := 0; x < r-l; x++ {
+				bfr = append(bfr, s[r-x-1])
+			}
+			bfr = append(bfr, ' ')
+			l = r + 1
+		}
+		r++
+	}
+	bfr = bfr[:len(bfr)-1]
+
+	return string(bfr)
+}
+
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	Source, Pattern := strings.Split(sentence1, " "), strings.Split(sentence2, " ")

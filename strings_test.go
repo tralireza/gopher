@@ -18,6 +18,12 @@ func Test520(t *testing.T) {
 	log.Print("false ?= ", detectCapitalUse("FlaG"))
 }
 
+// 557 Reverse Words in a String III
+func Test557(t *testing.T) {
+	log.Printf(`"s'teL ekat edoCteeL tsetnoc" ?= %q`, reverseWords("Let's take LeetCode contest"))
+	log.Printf(`"rM gniD" ?= %q`, reverseWords("Mr Ding"))
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))
