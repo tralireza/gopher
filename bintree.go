@@ -110,6 +110,30 @@ func largestValues(root *TreeNode) []int {
 	return R
 }
 
+// 559 Maximum Depth of N-ary Tree
+type NTreeNode struct {
+	Val      int
+	Children []*NTreeNode
+}
+
+func maxDepth(root *NTreeNode) int {
+	depth := 1
+
+	var Walk func(*NTreeNode, int)
+	Walk = func(n *NTreeNode, d int) {
+		if n != nil {
+			depth = max(d, depth)
+			for _, cn := range n.Children {
+				Walk(cn, d+1)
+			}
+		}
+	}
+
+	Walk(root, 1)
+
+	return depth
+}
+
 // 563 Binary Tree Tilt
 func findTilt(root *TreeNode) int {
 	tilt := 0

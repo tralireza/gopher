@@ -69,6 +69,22 @@ func Test563(t *testing.T) {
 	log.Print("9 ?= ", findTilt(&T{21, &T{7, &T{1, &T{Val: 1}, &T{Val: 1}}, &T{Val: 1}}, &T{14, &T{Val: 2}, &T{Val: 2}}}))
 }
 
+// 559 Maximum Depth of N-ary Tree
+func Test559(t *testing.T) {
+	type T = NTreeNode
+
+	log.Print("3 ?= ", maxDepth(&T{1, []*T{&T{3, []*T{&T{Val: 5}, &T{Val: 6}}}, &T{Val: 2}, &T{Val: 4}}}))
+	log.Print("5 ?= ", maxDepth(&T{1,
+		[]*T{
+			&T{Val: 2},
+			&T{3,
+				[]*T{
+					&T{Val: 6},
+					&T{7, []*T{&T{11, []*T{&T{Val: 14}}}}}}},
+			&T{4, []*T{&T{8, []*T{&T{Val: 12}}}}},
+			&T{5, nil}}}))
+}
+
 // 951m Flip Equivalent Binary Trees
 func Test951(t *testing.T) {
 	type T = TreeNode
