@@ -35,6 +35,17 @@ func isPowerOfFour(n int) bool {
 	return n == 1
 }
 
+// 598 Range Addition II
+func maxCount(m int, n int, ops [][]int) int {
+	x, y := m, n
+	for _, o := range ops {
+		x = min(o[0], x)
+		y = min(o[1], y)
+	}
+
+	return x * y
+}
+
 // 1998h GCD Sort of an Array
 func gcdSort(nums []int) bool {
 	xVal := slices.Max(nums)

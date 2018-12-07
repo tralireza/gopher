@@ -30,6 +30,13 @@ func Test342(t *testing.T) {
 	log.Print("true ?= ", isPowerOfFour(1))
 }
 
+// 598 Range Addition II
+func Test598(t *testing.T) {
+	log.Print("4 ?= ", maxCount(3, 3, [][]int{{2, 2}, {3, 3}}))
+	log.Print("4 ?= ", maxCount(3, 3, [][]int{{2, 2}, {3, 3}, {3, 3}, {3, 3}, {2, 2}, {3, 3}, {3, 3}, {3, 3}, {2, 2}, {3, 3}, {3, 3}, {3, 3}}))
+	log.Print("9 ?= ", maxCount(3, 3, [][]int{}))
+}
+
 // 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4
