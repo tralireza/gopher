@@ -134,6 +134,16 @@ func findAnagrams(s string, p string) []int {
 	return R
 }
 
+// 575 Distribute Candies
+func distributeCandies(candyType []int) int {
+	M := map[int]int{}
+	for _, n := range candyType {
+		M[n]++
+	}
+
+	return min(len(M), len(candyType)/2)
+}
+
 // 884 Uncommon Words from Two Sentences
 func uncommonFromSentences(s1 string, s2 string) []string {
 	M := map[string]int{}

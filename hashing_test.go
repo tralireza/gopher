@@ -95,6 +95,13 @@ func Test438(t *testing.T) {
 	log.Print("[0 1 2] ?= ", findAnagrams("abab", "ab"))
 }
 
+// 575 Distribute Candies
+func Test575(t *testing.T) {
+	log.Print("3 ?= ", distributeCandies([]int{1, 1, 2, 2, 3, 3}))
+	log.Print("2 ?= ", distributeCandies([]int{1, 1, 2, 3}))
+	log.Print("1 ?= ", distributeCandies([]int{6, 6, 6, 6}))
+}
+
 // 884 Uncommon Words from Two Sentences
 func Test884(t *testing.T) {
 	log.Print(" ?= ", uncommonFromSentences("this apple is sweet", "this apple is sour"))
