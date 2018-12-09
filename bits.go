@@ -4,6 +4,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"math/bits"
 )
 
 // 401 Binary Watch
@@ -68,6 +69,21 @@ func hammingDistance(x, y int) int {
 	}
 
 	return dist
+}
+
+// 2657m Find the Prefix Common Array of Two Arrays
+func findThePrefixCommonArray(A []int, B []int) []int {
+	R := []int{}
+
+	amask, bmask := uint(0), uint(0)
+	for i := range A {
+		amask += 1 << A[i]
+		bmask += 1 << B[i]
+
+		R = append(R, bits.OnesCount(amask&bmask))
+	}
+
+	return R
 }
 
 // 3315m Construct the Minimum Bitwise Array II
