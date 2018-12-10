@@ -16,3 +16,21 @@ func findMaxConsecutiveOnes(nums []int) int {
 
 	return tMax
 }
+
+// 1437 Check If All 1's Are at Least Length K Places Away
+func kLengthApart(nums []int, k int) bool {
+	dist := k
+	for _, n := range nums {
+		switch n {
+		case 1:
+			if dist < k {
+				return false
+			}
+			dist = 0
+		case 0:
+			dist++
+		}
+	}
+
+	return true
+}
