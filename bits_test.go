@@ -41,6 +41,12 @@ func Test476(t *testing.T) {
 	log.Print("1 ?= ", findComplement(2))
 }
 
+// 2429m Minimize XOR
+func Test2429(t *testing.T) {
+	log.Print("3 ?= ", minimizeXor(3, 5))
+	log.Print("3 ?= ", minimizeXor(1, 12))
+}
+
 // 2657m Find the Prefix Common Array of Two Arrays
 func Test2657(t *testing.T) {
 	log.Print("[0 2 3 4] ?= ", findThePrefixCommonArray([]int{1, 3, 2, 4}, []int{3, 1, 2, 4}))

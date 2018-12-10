@@ -71,6 +71,43 @@ func hammingDistance(x, y int) int {
 	return dist
 }
 
+// 2429m Minimize XOR
+func minimizeXor(num1, num2 int) int {
+	CountSetBits := func(n int) int {
+		bitsSet := 0
+		for n > 0 {
+			bitsSet += n & 1
+			n >>= 1
+		}
+		return bitsSet
+	}
+
+	x := num1
+	bitsSet := CountSetBits(x)
+
+	log.Print(" -> ", bitsSet, bits.OnesCount(uint(x)))
+
+	p := 0 // Bit Position
+
+	for bitsSet < CountSetBits(num2) {
+		if x&(1<<p) == 0 {
+			x |= 1 << p // Set at <p>
+			bitsSet++
+		}
+		p++
+	}
+
+	for bitsSet > CountSetBits(num2) {
+		if x&(1<<p) != 0 {
+			x &= ^(1 << p) // Unset at <p>
+			bitsSet--
+		}
+		p++
+	}
+
+	return x
+}
+
 // 2657m Find the Prefix Common Array of Two Arrays
 func findThePrefixCommonArray(A []int, B []int) []int {
 	R := []int{}
