@@ -315,6 +315,26 @@ func countPalindromicSubsequence(s string) int {
 	return tCount
 }
 
+// 2425m Bitwise XOR of All Parings
+func xorAllNums(nums1 []int, nums2 []int) int {
+	F := map[int]int{}
+
+	for _, n := range nums1 {
+		F[n] += len(nums2)
+	}
+	for _, n := range nums2 {
+		F[n] += len(nums1)
+	}
+
+	x := 0
+	for n, f := range F {
+		if f&1 == 1 {
+			x ^= n
+		}
+	}
+	return x
+}
+
 // 2491m Divide Players Into Teams of Equal Skill
 func dividePlayers(skill []int) int64 {
 	F := map[int]int{}

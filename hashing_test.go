@@ -230,6 +230,12 @@ func Test1590(t *testing.T) {
 	log.Print("0 ?= ", minSubarray([]int{1, 2, 3}, 3))
 }
 
+// 2425m Bitwise XOR of All Parings
+func Test2425(t *testing.T) {
+	log.Print("13 ?= ", xorAllNums([]int{2, 1, 3}, []int{10, 2, 5, 0}))
+	log.Print("0 ?= ", xorAllNums([]int{1, 2}, []int{3, 4}))
+}
+
 // 2491m Divide Players Into Teams of Equal Skill
 func Test2491(t *testing.T) {
 	log.Print("22 ?= ", dividePlayers([]int{3, 2, 5, 1, 3, 4}))
