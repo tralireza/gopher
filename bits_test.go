@@ -53,6 +53,13 @@ func Test2657(t *testing.T) {
 	log.Print("[0 1 3] ?= ", findThePrefixCommonArray([]int{2, 3, 1}, []int{3, 1, 2}))
 }
 
+// 2683m Neighboring Bitwise XOR
+func Test2683(t *testing.T) {
+	log.Print("true ?= ", doesValidArrayExist([]int{1, 1, 0}))
+	log.Print("true ?= ", doesValidArrayExist([]int{1, 1}))
+	log.Print("false ?= ", doesValidArrayExist([]int{1, 0}))
+}
+
 // 3315m Construct the Minimum Bitwise Array II
 func Test3315(t *testing.T) {
 	// 2 <= N_i <= 10^9

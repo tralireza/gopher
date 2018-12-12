@@ -123,6 +123,16 @@ func findThePrefixCommonArray(A []int, B []int) []int {
 	return R
 }
 
+// 2683m Neighboring Bitwise XOR
+func doesValidArrayExist(derived []int) bool {
+    v := 0
+    for _, d := range derived[:len(derived)-1] {
+        v ^= d
+    }
+
+    return derived[len(derived)-1] ^ v == 0
+}
+
 // 3315m Construct the Minimum Bitwise Array II
 func minBitwiseArray(nums []int) []int {
 	R := []int{}
