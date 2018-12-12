@@ -41,6 +41,13 @@ func Test476(t *testing.T) {
 	log.Print("1 ?= ", findComplement(2))
 }
 
+// 693 Binary Number with Alternating Bits
+func Test693(t *testing.T) {
+	log.Print("true ?= ", hasAlternatingBits(5))
+	log.Print("false ?= ", hasAlternatingBits(7))
+	log.Print("false ?= ", hasAlternatingBits(11))
+}
+
 // 2429m Minimize XOR
 func Test2429(t *testing.T) {
 	log.Print("3 ?= ", minimizeXor(3, 5))

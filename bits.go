@@ -71,6 +71,19 @@ func hammingDistance(x, y int) int {
 	return dist
 }
 
+// 693 Binary Number with Alternating Bits
+func hasAlternatingBits(n int) bool {
+	p := ^(n & 1)
+	for n > 0 {
+		if p^(n&1) == 0 {
+			return false
+		}
+		p = n & 1
+		n >>= 1
+	}
+	return true
+}
+
 // 2429m Minimize XOR
 func minimizeXor(num1, num2 int) int {
 	CountSetBits := func(n int) int {
@@ -125,12 +138,12 @@ func findThePrefixCommonArray(A []int, B []int) []int {
 
 // 2683m Neighboring Bitwise XOR
 func doesValidArrayExist(derived []int) bool {
-    v := 0
-    for _, d := range derived[:len(derived)-1] {
-        v ^= d
-    }
+	v := 0
+	for _, d := range derived[:len(derived)-1] {
+		v ^= d
+	}
 
-    return derived[len(derived)-1] ^ v == 0
+	return derived[len(derived)-1]^v == 0
 }
 
 // 3315m Construct the Minimum Bitwise Array II
