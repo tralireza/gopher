@@ -24,6 +24,12 @@ func Test557(t *testing.T) {
 	log.Printf(`"rM gniD" ?= %q`, reverseWords("Mr Ding"))
 }
 
+// 696 Count Binary Substrings
+func Test696(t *testing.T) {
+	log.Print("6 ?= ", countBinarySubstrings("00110011"))
+	log.Print("4 ?= ", countBinarySubstrings("10101"))
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))

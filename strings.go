@@ -64,6 +64,21 @@ func reverseWords(s string) string {
 	return string(bfr)
 }
 
+// 696 Count Binary Substrings
+func countBinarySubstrings(s string) int {
+	count, prv, cur := 0, 0, 1
+	for i := 1; i < len(s); i++ {
+		if s[i-1] != s[i] {
+			count += min(prv, cur)
+			prv, cur = cur, 1
+		} else {
+			cur++
+		}
+	}
+
+	return count + min(prv, cur)
+}
+
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	Source, Pattern := strings.Split(sentence1, " "), strings.Split(sentence2, " ")
