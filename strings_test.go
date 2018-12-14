@@ -30,6 +30,16 @@ func Test696(t *testing.T) {
 	log.Print("4 ?= ", countBinarySubstrings("10101"))
 }
 
+// 824 Goat Latin
+func Test824(t *testing.T) {
+	if toGoatLatin("I speak Goat Latin") != "Imaa peaksmaaa oatGmaaaa atinLmaaaaa" {
+		t.Fail()
+	}
+	if toGoatLatin("The quick brown fox jumped over the lazy dog") != "heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa" {
+		t.Fail()
+	}
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))

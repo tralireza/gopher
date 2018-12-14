@@ -79,6 +79,25 @@ func countBinarySubstrings(s string) int {
 	return count + min(prv, cur)
 }
 
+// 824 Goat Latin
+func toGoatLatin(sentence string) string {
+	W := []string{}
+	ending := []byte{'a'}
+	for _, w := range strings.Fields(sentence) {
+		switch w[0] {
+		case 'A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u':
+			W = append(W, w+"ma"+string(ending))
+		default:
+			W = append(W, w[1:]+string(w[0])+"ma"+string(ending))
+		}
+		ending = append(ending, 'a')
+	}
+
+	log.Print(" -> ", strings.Join(W, " "))
+
+	return strings.Join(W, " ")
+}
+
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	Source, Pattern := strings.Split(sentence1, " "), strings.Split(sentence2, " ")
