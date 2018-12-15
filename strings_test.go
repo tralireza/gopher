@@ -32,6 +32,8 @@ func Test696(t *testing.T) {
 
 // 824 Goat Latin
 func Test824(t *testing.T) {
+	// 1 <= S.Length
+
 	if toGoatLatin("I speak Goat Latin") != "Imaa peaksmaaa oatGmaaaa atinLmaaaaa" {
 		t.Fail()
 	}

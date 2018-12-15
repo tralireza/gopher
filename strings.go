@@ -95,7 +95,33 @@ func toGoatLatin(sentence string) string {
 
 	log.Print(" -> ", strings.Join(W, " "))
 
-	return strings.Join(W, " ")
+	sentence += " "
+	bfr, w, a := []byte{}, []byte{}, []byte{'a'}
+	for i := 0; i < len(sentence); i++ {
+		switch sentence[i] {
+		case ' ':
+			switch w[0] {
+			case 'A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u':
+			default:
+				chr := w[0]
+				copy(w, w[1:])
+				w[len(w)-1] = chr
+			}
+			bfr = append(bfr, w...)
+
+			bfr = append(bfr, []byte("ma")...)
+			bfr = append(bfr, a...)
+			bfr = append(bfr, ' ')
+
+			w = []byte{}
+			a = append(a, 'a')
+
+		default:
+			w = append(w, sentence[i])
+		}
+	}
+
+	return string(bfr[:len(bfr)-1])
 }
 
 // 1813m Sentence Similarity III
