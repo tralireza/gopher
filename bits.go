@@ -84,6 +84,24 @@ func hasAlternatingBits(n int) bool {
 	return true
 }
 
+// 868 Binary Gap
+func binaryGap(n int) int {
+	dist, cur := 0, -32
+	for n > 0 {
+		cur++
+		if cur > dist {
+			dist = cur
+		}
+
+		if n&1 == 1 {
+			cur = 0
+		}
+		n >>= 1
+	}
+
+	return dist
+}
+
 // 2429m Minimize XOR
 func minimizeXor(num1, num2 int) int {
 	CountSetBits := func(n int) int {
