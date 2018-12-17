@@ -65,6 +65,12 @@ func Test539(t *testing.T) {
 	log.Print("0 ?= ", findMinDifference([]string{"00:00", "01:01", "10:30", "11:00", "23:31"}))
 }
 
+// 905 Sort Array By Parity
+func Test905(t *testing.T) {
+	log.Print(" ?= ", sortArrayByParity([]int{3, 1, 2, 4}))
+	log.Print(" ?= ", sortArrayByParity([]int{0}))
+}
+
 // 912m Sort an Array
 func Test912(t *testing.T) {
 	log.Print(" ?= ", sortArray([]int{5, 2, 3, 1}))

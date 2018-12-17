@@ -128,6 +128,24 @@ func findMinDifference(timePoints []string) int {
 	return min(1440-(Ms[len(Ms)-1]-Ms[0]), mVal)
 }
 
+// 905 Sort Array By Parity
+func sortArrayByParity(nums []int) []int {
+	R := make([]int, 0, len(nums))
+
+	for _, n := range nums {
+		if n&1 == 0 {
+			R = append(R, n)
+		}
+	}
+	for _, n := range nums {
+		if n&1 == 1 {
+			R = append(R, n)
+		}
+	}
+
+	return R
+}
+
 // 912m Sort an Array
 func sortArray(nums []int) []int {
 	t := make([]int, len(nums)) // temporary merge storage
