@@ -168,6 +168,72 @@ func Test947(t *testing.T) {
 	log.Print("0 ?= ", removeStones([][]int{{0, 0}}))
 }
 
+// 1192h Critical Connections in a Network
+func Test1192(t *testing.T) {
+	Tarjan := func(n int, edges [][]int) [][]int {
+		R := [][]int{}
+
+		G := make([][]int, n)
+		for _, e := range edges {
+			v, u := e[0], e[1]
+			G[v] = append(G[v], u)
+			G[u] = append(G[u], v)
+		}
+
+		log.Print("Graph :: ", G)
+
+		Index := make([]int, n)
+		Lowest := make([]int, n)
+		OnStack := make([]bool, n)
+
+		Q := []int{}
+		index := 1 // discovery time
+
+		var Tarjan func(int)
+		Tarjan = func(v int) {
+			Index[v], Lowest[v], OnStack[v] = index, index, true
+			index++
+			Q = append(Q, v)
+
+			for _, u := range G[v] {
+				if Index[u] == 0 {
+					Tarjan(u)
+					Lowest[v] = min(Lowest[v], Lowest[u])
+				} else if OnStack[u] {
+					Lowest[v] = min(Lowest[v], Index[u])
+				}
+			}
+
+			if Index[v] == Lowest[v] {
+				Scc := []int{} // Strongly-Connected-Components
+				var u int
+				for {
+					u, Q = Q[len(Q)-1], Q[:len(Q)-1]
+					OnStack[u] = false
+					Scc = append(Scc, u)
+					if u == v {
+						break
+					}
+				}
+				R = append(R, Scc)
+			}
+		}
+
+		for v := range n { // Nodes [0...n-1]
+			if Index[v] == 0 {
+				Tarjan(v)
+			}
+		}
+
+		return R
+	}
+
+	log.Print("Tarjan :: ", Tarjan(4, [][]int{{0, 1}, {2, 3}}))
+
+	log.Print("[[1 3]] ?= ", criticalConnections(4, [][]int{{0, 1}, {1, 2}, {2, 0}, {1, 3}}))
+	log.Print("[[0 1]] ?= ", criticalConnections(2, [][]int{{0, 1}}))
+}
+
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
 func Test1334(t *testing.T) {
 	// 1 <= Weight_i <= 10^4
@@ -310,70 +376,11 @@ func Test1334(t *testing.T) {
 	}
 }
 
-// 1192h Critical Connections in a Network
-func Test1192(t *testing.T) {
-	Tarjan := func(n int, edges [][]int) [][]int {
-		R := [][]int{}
-
-		G := make([][]int, n)
-		for _, e := range edges {
-			v, u := e[0], e[1]
-			G[v] = append(G[v], u)
-			G[u] = append(G[u], v)
-		}
-
-		log.Print("Graph :: ", G)
-
-		Index := make([]int, n)
-		Lowest := make([]int, n)
-		OnStack := make([]bool, n)
-
-		Q := []int{}
-		index := 1 // discovery time
-
-		var Tarjan func(int)
-		Tarjan = func(v int) {
-			Index[v], Lowest[v], OnStack[v] = index, index, true
-			index++
-			Q = append(Q, v)
-
-			for _, u := range G[v] {
-				if Index[u] == 0 {
-					Tarjan(u)
-					Lowest[v] = min(Lowest[v], Lowest[u])
-				} else if OnStack[u] {
-					Lowest[v] = min(Lowest[v], Index[u])
-				}
-			}
-
-			if Index[v] == Lowest[v] {
-				Scc := []int{} // Strongly-Connected-Components
-				var u int
-				for {
-					u, Q = Q[len(Q)-1], Q[:len(Q)-1]
-					OnStack[u] = false
-					Scc = append(Scc, u)
-					if u == v {
-						break
-					}
-				}
-				R = append(R, Scc)
-			}
-		}
-
-		for v := range n { // Nodes [0...n-1]
-			if Index[v] == 0 {
-				Tarjan(v)
-			}
-		}
-
-		return R
-	}
-
-	log.Print("Tarjan :: ", Tarjan(4, [][]int{{0, 1}, {2, 3}}))
-
-	log.Print("[[1 3]] ?= ", criticalConnections(4, [][]int{{0, 1}, {1, 2}, {2, 0}, {1, 3}}))
-	log.Print("[[0 1]] ?= ", criticalConnections(2, [][]int{{0, 1}}))
+// 1368h Minimum Cost to Make at Least One Valid Path in a Grid
+func Test1368(t *testing.T) {
+	log.Print("3 ?= ", minCost([][]int{{1, 1, 1, 1}, {2, 2, 2, 2}, {1, 1, 1, 1}, {2, 2, 2, 2}}))
+	log.Print("0 ?= ", minCost([][]int{{1, 1, 3}, {3, 2, 2}, {1, 1, 4}}))
+	log.Print("1 ?= ", minCost([][]int{{1, 2}, {4, 3}}))
 }
 
 // 1514m Path with Maximum Probability

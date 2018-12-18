@@ -493,6 +493,54 @@ func criticalConnections(n int, connections [][]int) [][]int {
 	return R
 }
 
+// 1368h Minimum Cost to Make at Least One Valid Path in a Grid
+func minCost(grid [][]int) int {
+	const MAX = 1000_000_000
+	Rows, Cols := len(grid), len(grid[0])
+
+	Cost := make([][]int, Rows)
+	for r := range Cost {
+		Cost[r] = make([]int, Cols)
+		for c := range Cost[r] {
+			Cost[r][c] = MAX
+		}
+	}
+
+	cost := 0
+	Dirs := [][2]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
+
+	Q := [][2]int{}
+
+	var DFS func(r, c, cost int)
+	DFS = func(r, c, cost int) {
+		if 0 <= r && r < Rows && 0 <= c && c < Cols && Cost[r][c] == MAX {
+			Cost[r][c] = cost
+
+			Q = append(Q, [2]int{r, c})
+
+			dir := Dirs[grid[r][c]-1]
+			DFS(r+dir[0], c+dir[1], cost)
+		}
+	}
+
+	DFS(0, 0, cost)
+	var coord [2]int
+
+	for len(Q) > 0 {
+		cost++
+		for range len(Q) {
+			coord, Q = Q[0], Q[1:]
+
+			r, c := coord[0], coord[1]
+			for _, dir := range Dirs {
+				DFS(r+dir[0], c+dir[1], cost)
+			}
+		}
+	}
+
+	return Cost[Rows-1][Cols-1]
+}
+
 // 1514m Path with Maximum Probability
 type E1514 struct {
 	n int
