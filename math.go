@@ -46,6 +46,24 @@ func maxCount(m int, n int, ops [][]int) int {
 	return x * y
 }
 
+// 989 Add to Array-Form of Integer
+func addToArrayForm(num []int, k int) []int {
+	R := []int{}
+
+	carry, p := k, len(num)
+	for carry > 0 || p > 0 {
+		if p > 0 {
+			p--
+			carry += num[p]
+		}
+		R = append(R, carry%10)
+		carry /= 10
+	}
+
+	slices.Reverse(R)
+	return R
+}
+
 // 1998h GCD Sort of an Array
 func gcdSort(nums []int) bool {
 	xVal := slices.Max(nums)

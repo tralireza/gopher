@@ -37,6 +37,13 @@ func Test598(t *testing.T) {
 	log.Print("9 ?= ", maxCount(3, 3, [][]int{}))
 }
 
+// 989 Add to Array-Form of Integer
+func Test989(t *testing.T) {
+	log.Print("[1 2 3 4] ?= ", addToArrayForm([]int{1, 2, 0, 0}, 34))
+	log.Print("[4 5 5] ?= ", addToArrayForm([]int{2, 7, 4}, 181))
+	log.Print("[1 0 2 1] ?= ", addToArrayForm([]int{2, 1, 5}, 806))
+}
+
 // 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4
