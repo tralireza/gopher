@@ -46,6 +46,11 @@ func maxCount(m int, n int, ops [][]int) int {
 	return x * y
 }
 
+// 908 Smallest Range I
+func smallestRangeI(nums []int, k int) int {
+    return max(0, slices.Max(nums) - slices.Min(nums) - 2*k)    
+}
+
 // 989 Add to Array-Form of Integer
 func addToArrayForm(num []int, k int) []int {
 	R := []int{}

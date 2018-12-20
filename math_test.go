@@ -37,6 +37,13 @@ func Test598(t *testing.T) {
 	log.Print("9 ?= ", maxCount(3, 3, [][]int{}))
 }
 
+// 908 Smallest Range I
+func Test908(t *testing.T) {
+	log.Print("0 ?= ", smallestRangeI([]int{1}, 0))
+	log.Print("6 ?= ", smallestRangeI([]int{0, 10}, 2))
+	log.Print("0 ?= ", smallestRangeI([]int{1, 3, 6}, 3))
+}
+
 // 989 Add to Array-Form of Integer
 func Test989(t *testing.T) {
 	log.Print("[1 2 3 4] ?= ", addToArrayForm([]int{1, 2, 0, 0}, 34))
