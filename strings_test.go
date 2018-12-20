@@ -42,6 +42,12 @@ func Test824(t *testing.T) {
 	}
 }
 
+// 917 Reverse Only Letters
+func Test917(t *testing.T) {
+	log.Printf(`"j-Ih-gfE-dCba" ?= %q`, reverseOnlyLetters("a-bC-dEf-ghIj"))
+	log.Printf(`"Qedo1ct-eeLg=ntse-T!" ?= %q`, reverseOnlyLetters("Test1ng-Leet=code-Q!"))
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))

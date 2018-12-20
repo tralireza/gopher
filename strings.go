@@ -4,6 +4,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 // 412 Fizz Buzz
@@ -122,6 +123,27 @@ func toGoatLatin(sentence string) string {
 	}
 
 	return string(bfr[:len(bfr)-1])
+}
+
+// 917 Reverse Only Letters
+func reverseOnlyLetters(s string) string {
+	rs := []rune(s)
+
+	l, r := 0, len(s)-1
+	for l < r {
+		switch {
+		case !unicode.IsLetter(rs[l]):
+			l++
+		case !unicode.IsLetter(rs[r]):
+			r--
+		default:
+			rs[l], rs[r] = rs[r], rs[l]
+			l++
+			r--
+		}
+	}
+
+	return string(rs)
 }
 
 // 1813m Sentence Similarity III
