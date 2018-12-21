@@ -80,6 +80,23 @@ func countBinarySubstrings(s string) int {
 	return count + min(prv, cur)
 }
 
+// 806 Number of Lines To Write String
+func numberOfLines(widths []int, s string) []int {
+	lw, l := 0, 1
+	for i := 0; i < len(s); i++ {
+		w := widths[s[i]-'a']
+		switch lw+w > 100 {
+		case true:
+			l++
+			lw = w
+		default:
+			lw += w
+		}
+	}
+
+	return []int{l, lw}
+}
+
 // 824 Goat Latin
 func toGoatLatin(sentence string) string {
 	W := []string{}

@@ -30,6 +30,12 @@ func Test696(t *testing.T) {
 	log.Print("4 ?= ", countBinarySubstrings("10101"))
 }
 
+// 806 Number of Lines To Write String
+func Test806(t *testing.T) {
+	log.Print("[3 60] ?= ", numberOfLines([]int{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "abcdefghijklmnopqrstuvwxyz"))
+	log.Print("[2 4] ?= ", numberOfLines([]int{4, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "bbbcccdddaaa"))
+}
+
 // 824 Goat Latin
 func Test824(t *testing.T) {
 	// 1 <= S.Length
