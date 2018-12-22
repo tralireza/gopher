@@ -3,6 +3,8 @@ package gopher
 import (
 	"log"
 	"slices"
+	"strconv"
+	"strings"
 )
 
 // 319m Bulb Switcher
@@ -48,7 +50,7 @@ func maxCount(m int, n int, ops [][]int) int {
 
 // 908 Smallest Range I
 func smallestRangeI(nums []int, k int) int {
-    return max(0, slices.Max(nums) - slices.Min(nums) - 2*k)    
+	return max(0, slices.Max(nums)-slices.Min(nums)-2*k)
 }
 
 // 989 Add to Array-Form of Integer
@@ -67,6 +69,28 @@ func addToArrayForm(num []int, k int) []int {
 
 	slices.Reverse(R)
 	return R
+}
+
+// 1154 Day of the Year
+func dayOfYear(date string) int {
+	Days := []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+
+	D := [3]int{}
+	for i, sval := range strings.Split(date, "-") {
+		D[i], _ = strconv.Atoi(sval)
+	}
+
+	y, m, d := D[0], D[1], D[2]
+	if y%4 == 0 && (y%100 != 0 || y%400 == 0) {
+		Days[1] += 1
+	}
+
+	dy := d
+	for i := 0; i < m-1; i++ {
+		dy += Days[i]
+	}
+
+	return dy
 }
 
 // 1998h GCD Sort of an Array

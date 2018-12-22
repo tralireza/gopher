@@ -51,6 +51,12 @@ func Test989(t *testing.T) {
 	log.Print("[1 0 2 1] ?= ", addToArrayForm([]int{2, 1, 5}, 806))
 }
 
+// 1154 Day of the Year
+func Test1154(t *testing.T) {
+	log.Print("9 ?= ", dayOfYear("2019-01-09"))
+	log.Print("41 ?= ", dayOfYear("2019-02-10"))
+}
+
 // 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4
