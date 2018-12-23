@@ -24,6 +24,12 @@ func Test373(t *testing.T) {
 	log.Print(" ?= ", kSmallestPairs([]int{1, 2, 4, 5, 6}, []int{3, 5, 7, 9}, 20))
 }
 
+// 407h Trapping Rain Water II
+func Test407(t *testing.T) {
+	log.Print("4 ?= ", trapRainWater([][]int{{1, 4, 3, 1, 3, 2}, {3, 2, 1, 3, 2, 4}, {2, 3, 3, 2, 3, 1}}))
+	log.Print("10 ?= ", trapRainWater([][]int{{3, 3, 3, 3, 3}, {3, 2, 2, 2, 3}, {3, 2, 1, 2, 3}, {3, 2, 2, 2, 3}, {3, 3, 3, 3, 3}}))
+}
+
 // 632h Smallest Range Covering Elements from K Lists
 func Test632(t *testing.T) {
 	// -10^5 <= N_ij <= 10^5, 1 <= N.length <= 3500, 1 <=N_i.length <= 50

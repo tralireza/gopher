@@ -92,6 +92,68 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
 	return R
 }
 
+// 407h Trapping Rain Water II
+type Cell407 struct {
+	height, r, c int
+}
+type PQ407 []Cell407
+
+func (h PQ407) Len() int           { return len(h) }
+func (h PQ407) Less(i, j int) bool { return h[i].height < h[j].height }
+func (h PQ407) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ407) Push(x any)        { *h = append(*h, x.(Cell407)) }
+func (h *PQ407) Pop() any {
+	x := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return x
+}
+
+func trapRainWater(heightMap [][]int) int {
+	Rows, Cols := len(heightMap), len(heightMap[0])
+
+	Vis := make([][]bool, Rows)
+	for r := range Vis {
+		Vis[r] = make([]bool, Cols)
+	}
+
+	pq := &PQ407{}
+	for r := range Rows {
+		heap.Push(pq, Cell407{heightMap[r][0], r, 0})
+		heap.Push(pq, Cell407{heightMap[r][Cols-1], r, Cols - 1})
+
+		Vis[r][0], Vis[r][Cols-1] = true, true
+	}
+	for c := range Cols {
+		heap.Push(pq, Cell407{heightMap[0][c], 0, c})
+		heap.Push(pq, Cell407{heightMap[Rows-1][c], Rows - 1, c})
+
+		Vis[0][c], Vis[Rows-1][c] = true, true
+	}
+
+	log.Print(" -> ", pq)
+
+	totalWater := 0
+	Dir := []int{1, 0, -1, 0, 1}
+
+	for pq.Len() > 0 {
+		cell := heap.Pop(pq).(Cell407)
+
+		for i := range 4 {
+			r, c := cell.r+Dir[i], cell.c+Dir[i+1]
+			if 0 <= r && r < Rows && 0 <= c && c < Cols && !Vis[r][c] {
+				Vis[r][c] = true
+				h := heightMap[r][c]
+				if h < cell.height {
+					totalWater += cell.height - h
+				}
+				heap.Push(pq, Cell407{max(h, cell.height), r, c})
+			}
+		}
+	}
+
+	return totalWater
+}
+
 // 632h Smallest Range Covering Elements from K Lists
 type Value632 struct{ v, i, ls int } // Value, Index, List#
 type PQ632 []Value632
