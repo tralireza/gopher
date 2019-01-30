@@ -178,6 +178,25 @@ func sortArray(nums []int) []int {
 	return nums
 }
 
+// 922 Sort Array By Parity II
+func sortArrayByParityII(nums []int) []int {
+	R := make([]int, len(nums))
+
+	e, o := 0, 1
+	for _, n := range nums {
+		switch n & 1 {
+		case 0:
+			R[e] = n
+			e += 2
+		case 1:
+			R[o] = n
+			o += 2
+		}
+	}
+
+	return R
+}
+
 // 2191m Sort the Jumbled Numbers
 func sortJumbled(mapping []int, nums []int) []int {
 	// 0 <= nums[i] < 10^9

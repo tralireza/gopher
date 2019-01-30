@@ -77,6 +77,12 @@ func Test912(t *testing.T) {
 	log.Print(" ?= ", sortArray([]int{5, 1, 1, 2, 0, 0}))
 }
 
+// 922 Sort Array By Parity II
+func Test922(t *testing.T) {
+	log.Print(" ?= ", sortArrayByParityII([]int{4, 2, 5, 7}))
+	log.Print(" ?= ", sortArrayByParityII([]int{2, 3}))
+}
+
 // 2191m Sort the Jumbled Numbers
 func Test2191(t *testing.T) {
 	BucketSort := func(mapping []int, nums []int) []int {
