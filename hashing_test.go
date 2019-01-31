@@ -243,6 +243,12 @@ func Test2491(t *testing.T) {
 	log.Print("-1 ?= ", dividePlayers([]int{1, 1, 2, 3}))
 }
 
+// 2661m First Completely Painted Row or Column
+func Test2661(t *testing.T) {
+	log.Print("2 ?= ", firstCompleteIndex([]int{1, 3, 4, 2}, [][]int{{1, 4}, {2, 3}}))
+	log.Print("3 ?= ", firstCompleteIndex([]int{2, 8, 7, 4, 1, 3, 5, 6, 9}, [][]int{{3, 2, 5}, {1, 4, 6}, {8, 7, 9}}))
+}
+
 // 2981m Find Longest Special Substring That Counts Thrice I
 func Test2981(t *testing.T) {
 	// O(n)

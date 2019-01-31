@@ -355,6 +355,33 @@ func dividePlayers(skill []int) int64 {
 	return chemistry / 2
 }
 
+// 2661m First Completely Painted Row or Column
+func firstCompleteIndex(arr []int, mat [][]int) int {
+	M := map[int][2]int{}
+
+	Rows, Cols := len(mat), len(mat[0])
+	for r := range Rows {
+		for c := range Cols {
+			M[mat[r][c]] = [2]int{r, c}
+		}
+	}
+
+	log.Print(" -> ", M)
+
+	rCount, cCount := make([]int, Rows), make([]int, Cols)
+	for i, n := range arr {
+		r, c := M[n][0], M[n][1]
+		rCount[r]++
+		cCount[c]++
+
+		if rCount[r] == Cols || cCount[c] == Rows {
+			return i
+		}
+	}
+
+	return -1
+}
+
 // 2981m Find Longest Special Substring That Counts Thrice I
 func maximumLength(s string) int {
 	Count := map[string]int{}
