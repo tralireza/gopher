@@ -3,6 +3,7 @@ package gopher
 
 import (
 	"log"
+	"math"
 	"slices"
 )
 
@@ -113,6 +114,23 @@ func findMiddleIndex(nums []int) int {
 		lSum += n
 	}
 	return -1
+}
+
+// 2017m Grid Game
+func gridGame(grid [][]int) int64 {
+	top, bottom := int64(0), int64(0)
+	for _, n := range grid[0] {
+		top += int64(n)
+	}
+
+	xVal := int64(math.MaxInt64)
+	for i := range grid[0] {
+		top -= int64(grid[0][i])
+		xVal = min(max(top, bottom), xVal)
+		bottom += int64(grid[1][i])
+	}
+
+	return xVal
 }
 
 // 2134m Minimum Swaps to Group All 1's Together II

@@ -142,6 +142,13 @@ func Test1991(t *testing.T) {
 	log.Print("-1 ?= ", findMiddleIndex([]int{2, 5}))
 }
 
+// 2017m Grid Game
+func Test2017(t *testing.T) {
+	log.Print("4 ?= ", gridGame([][]int{{2, 5, 4}, {1, 5, 1}}))
+	log.Print("4 ?= ", gridGame([][]int{{3, 3, 1}, {8, 5, 2}}))
+	log.Print("7 ?= ", gridGame([][]int{{1, 3, 1, 15}, {1, 3, 3, 1}}))
+}
+
 // 2134m Minimum Swaps to Group All 1's Together II
 func Test2134(t *testing.T) {
 	// Ai e {0, 1}
