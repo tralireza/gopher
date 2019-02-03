@@ -524,8 +524,8 @@ func minCost(grid [][]int) int {
 	}
 
 	DFS(0, 0, cost)
-	var coord [2]int
 
+	var coord [2]int
 	for len(Q) > 0 {
 		cost++
 		for range len(Q) {
@@ -670,6 +670,43 @@ func isPrintable(targetGrid [][]int) bool {
 	slices.Reverse(tSort)
 	log.Print("TopoSort :: ", tSort)
 	return true
+}
+
+// 1765m Map of Highest Peak
+func highestPeak(isWater [][]int) [][]int {
+	Rows, Cols := len(isWater), len(isWater[0])
+	M, Vis := make([][]int, Rows), make([][]bool, Rows)
+	for r := range M {
+		M[r] = make([]int, Cols)
+		Vis[r] = make([]bool, Cols)
+	}
+
+	Q := [][3]int{}
+	for r := range Rows {
+		for c := range Cols {
+			if isWater[r][c] == 1 {
+				Q = append(Q, [3]int{r, c, 0})
+				Vis[r][c] = true
+			}
+		}
+	}
+
+	Dirs := []int{-1, 0, 1, 0, -1}
+
+	var v [3]int
+	for len(Q) > 0 {
+		v, Q = Q[0], Q[1:]
+		for i := range 4 {
+			r, c, h := v[0]+Dirs[i], v[1]+Dirs[i+1], v[2]
+			if 0 <= r && r < Rows && 0 <= c && c < Cols && !Vis[r][c] {
+				Vis[r][c] = true
+				M[r][c] = h + 1
+				Q = append(Q, [3]int{r, c, h + 1})
+			}
+		}
+	}
+
+	return M
 }
 
 // 1905m Count Sub Islands

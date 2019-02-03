@@ -450,6 +450,12 @@ func Test1591(t *testing.T) {
 	log.Print("false ?= ", isPrintable([][]int{{1, 2, 1}, {2, 1, 2}, {1, 2, 1}}))
 }
 
+// 1765m Map of Highest Peak
+func Test1767(t *testing.T) {
+	log.Print("[[1 0] [2 1]] ?= ", highestPeak([][]int{{0, 1}, {0, 0}}))
+	log.Print("[[1 1 0] [0 1 1] [1 2 2]] ?= ", highestPeak([][]int{{0, 0, 1}, {1, 0, 0}, {0, 0, 0}}))
+}
+
 // 1905m Count Sub Islands
 func Test1905(t *testing.T) {
 	log.Print("3 ?= ", countSubIslands([][]int{{1, 1, 1, 0, 0}, {0, 1, 1, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 0, 0, 0}, {1, 1, 0, 1, 1}}, [][]int{{1, 1, 1, 0, 0}, {0, 0, 1, 1, 1}, {0, 1, 0, 0, 0}, {1, 0, 1, 1, 0}, {0, 1, 0, 1, 0}}))
