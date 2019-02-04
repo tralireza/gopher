@@ -234,6 +234,13 @@ func Test1192(t *testing.T) {
 	log.Print("[[0 1]] ?= ", criticalConnections(2, [][]int{{0, 1}}))
 }
 
+// 1267m Count Servers that Communicate
+func Test1267(t *testing.T) {
+	log.Print("0 ?= ", countServers([][]int{{1, 0}, {0, 1}}))
+	log.Print("3 ?= ", countServers([][]int{{1, 0}, {1, 1}}))
+	log.Print("4 ?= ", countServers([][]int{{1, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}))
+}
+
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
 func Test1334(t *testing.T) {
 	// 1 <= Weight_i <= 10^4

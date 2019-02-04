@@ -493,6 +493,32 @@ func criticalConnections(n int, connections [][]int) [][]int {
 	return R
 }
 
+// 1267m Count Servers that Communicate
+func countServers(grid [][]int) int {
+	Rows, Cols := len(grid), len(grid[0])
+
+	xCount, yCount := make([]int, Rows), make([]int, Cols)
+	for r := range Rows {
+		for c := range Cols {
+			if grid[r][c] == 1 {
+				xCount[r]++
+				yCount[c]++
+			}
+		}
+	}
+
+	tServers := 0
+	for r := range Rows {
+		for c := range Cols {
+			if grid[r][c] == 1 && (xCount[r] > 1 || yCount[c] > 1) {
+				tServers++
+			}
+		}
+	}
+
+	return tServers
+}
+
 // 1368h Minimum Cost to Make at Least One Valid Path in a Grid
 func minCost(grid [][]int) int {
 	const MAX = 1000_000_000
