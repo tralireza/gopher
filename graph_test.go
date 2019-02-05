@@ -153,8 +153,58 @@ func Test733(t *testing.T) {
 
 // 802m Find Eventual Safe States
 func Test802(t *testing.T) {
-	log.Print("[2 4 5 6] ?= ", eventualSafeNodes([][]int{{1, 2}, {2, 3}, {5}, {0}, {5}, {}, {}}))
-	log.Print("[4] ?= ", eventualSafeNodes([][]int{{1, 2, 3, 4}, {1, 2}, {3, 4}, {0, 4}, {}}))
+	Kahn := func(graph [][]int) []int {
+		N := len(graph)
+
+		In := make([]int, N)
+
+		G := make([][]int, N)
+		for v := range N {
+			for _, u := range graph[v] {
+				G[u] = append(G[u], v)
+				In[v]++
+			}
+		}
+
+		log.Print(" -> ", G)
+		log.Print(" -> ", In)
+
+		S := make([]bool, N)
+
+		Q := []int{}
+		for v := range N {
+			if In[v] == 0 {
+				Q = append(Q, v)
+			}
+		}
+
+		var v int
+		for len(Q) > 0 {
+			v, Q = Q[0], Q[1:]
+			S[v] = true
+
+			for _, u := range G[v] {
+				In[u]--
+				if In[u] == 0 {
+					Q = append(Q, u)
+				}
+			}
+		}
+
+		R := []int{}
+		for v := range N {
+			if S[v] {
+				R = append(R, v)
+			}
+		}
+		return R
+	}
+
+	for _, f := range []func([][]int) []int{eventualSafeNodes, Kahn} {
+		log.Print("[2 4 5 6] ?= ", f([][]int{{1, 2}, {2, 3}, {5}, {0}, {5}, {}, {}}))
+		log.Print("[4] ?= ", f([][]int{{1, 2, 3, 4}, {1, 2}, {3, 4}, {0, 4}, {}}))
+		log.Print("--")
+	}
 }
 
 // 909m Snakes & Ladders
