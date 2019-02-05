@@ -151,6 +151,12 @@ func Test733(t *testing.T) {
 	log.Print(floodFill([][]int{{0, 0, 0}, {0, 0, 0}}, 0, 0, 0))
 }
 
+// 802m Find Eventual Safe States
+func Test802(t *testing.T) {
+	log.Print("[2 4 5 6] ?= ", eventualSafeNodes([][]int{{1, 2}, {2, 3}, {5}, {0}, {5}, {}, {}}))
+	log.Print("[4] ?= ", eventualSafeNodes([][]int{{1, 2, 3, 4}, {1, 2}, {3, 4}, {0, 4}, {}}))
+}
+
 // 909m Snakes & Ladders
 func Test909(t *testing.T) {
 	// 'Boustrophedon' style

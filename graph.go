@@ -377,6 +377,44 @@ func floodFill(image [][]int, sr int, sc int, color int) [][]int {
 	return image
 }
 
+// 802m Find Eventual Safe States
+func eventualSafeNodes(graph [][]int) []int {
+	N := len(graph)
+	Vis, S := make([]bool, N), make([]bool, N)
+
+	var DFS func(int) bool
+	DFS = func(v int) bool {
+		if S[v] {
+			return true
+		}
+		if Vis[v] {
+			return false
+		}
+
+		Vis[v], S[v] = true, true
+		for _, u := range graph[v] {
+			if DFS(u) {
+				return true
+			}
+		}
+
+		S[v] = false
+		return false
+	}
+
+	for v := range N {
+		DFS(v)
+	}
+
+	R := []int{}
+	for v := range N {
+		if !S[v] {
+			R = append(R, v)
+		}
+	}
+	return R
+}
+
 // 909m Snakes & Ladders
 func snakesAndLadders(board [][]int) int {
 	Rows, Cols := len(board), len(board[0])
