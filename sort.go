@@ -262,9 +262,9 @@ func lexicographicallySmallestArray(nums []int, limit int) []int {
 		if Val[i][1] > Val[i-1][1]+limit {
 			slices.Sort(G)
 
+			var g int
 			for len(G) > 0 {
-				g := G[0]
-				G = G[1:]
+				g, G = G[0], G[1:]
 
 				R[g] = Val[p][1]
 				p++
