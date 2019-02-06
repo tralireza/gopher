@@ -219,6 +219,13 @@ func Test2418(t *testing.T) {
 	}
 }
 
+// 2948m Make Lexicographically Smallest Array by Swapping Elements
+func Test2948(t *testing.T) {
+	log.Print("[1 3 5 8 9] ?= ", lexicographicallySmallestArray([]int{1, 5, 3, 9, 8}, 2))
+	log.Print("[1 6 7 18 1 2] ?= ", lexicographicallySmallestArray([]int{1, 7, 6, 18, 2, 1}, 3))
+	log.Print("[1 7 28 19 10] ?= ", lexicographicallySmallestArray([]int{1, 7, 28, 19, 10}, 3))
+}
+
 // 3301m Maximize the Total Height of Unique Towers
 func Test3301(t *testing.T) {
 	log.Print("10 ?= ", maximumTotalSum([]int{2, 3, 4, 3}))

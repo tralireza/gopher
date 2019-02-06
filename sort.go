@@ -3,6 +3,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"math"
 	"slices"
 	"strconv"
 	"strings"
@@ -240,6 +241,40 @@ func sortPeople(names []string, heights []int) []string {
 		names[i] = D[i].name
 	}
 	return names
+}
+
+// 2948m Make Lexicographically Smallest Array by Swapping Elements
+func lexicographicallySmallestArray(nums []int, limit int) []int {
+	Val := make([][2]int, 0, len(nums))
+	for i, n := range nums {
+		Val = append(Val, [2]int{i, n})
+	}
+	slices.SortFunc(Val, func(a, b [2]int) int { return a[1] - b[1] })
+	Val = append(Val, [2]int{len(Val) + 1, math.MaxInt})
+
+	log.Print(" -> ", Val)
+
+	p := 0
+	G := []int{Val[0][0]}
+	R := make([]int, len(Val))
+
+	for i := 1; i < len(Val); i++ {
+		if Val[i][1] > Val[i-1][1]+limit {
+			slices.Sort(G)
+
+			for len(G) > 0 {
+				g := G[0]
+				G = G[1:]
+
+				R[g] = Val[p][1]
+				p++
+			}
+		}
+
+		G = append(G, Val[i][0])
+	}
+
+	return R[:len(R)-1]
 }
 
 // 3301m Maximize the Total Height of Unique Towers
