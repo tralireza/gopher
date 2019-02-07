@@ -166,7 +166,7 @@ func Test802(t *testing.T) {
 			}
 		}
 
-		log.Print(" -> ", G)
+		log.Print(" ", graph, " -> ", G)
 		log.Print(" -> ", In)
 
 		S := make([]bool, N)
@@ -593,6 +593,13 @@ func Test1976(t *testing.T) {
 		log.Print("2 ?= ", f(5, [][]int{{3, 0, 5}, {0, 1, 1}, {1, 2, 4}, {0, 4, 3}, {3, 2, 5}, {3, 4, 1}, {1, 3, 1}}))
 		log.Print("--")
 	}
+}
+
+// 2127h Maximum Employees to Be Invited to a Meeting
+func Test2127(t *testing.T) {
+	log.Print("3 ?= ", maximumInvitations([]int{2, 2, 1, 2}))
+	log.Print("3 ?= ", maximumInvitations([]int{1, 2, 0}))
+	log.Print("4 ?= ", maximumInvitations([]int{3, 0, 1, 4, 1}))
 }
 
 // 2392h Build a Matrix With Conditions

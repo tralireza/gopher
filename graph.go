@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"container/heap"
+	"container/list"
 	"log"
 	"math"
 	"slices"
@@ -885,6 +886,66 @@ func countPaths(n int, roads [][]int) int {
 	log.Print(" Count -> ", Count)
 
 	return Count[n-1] % M
+}
+
+// 2127h Maximum Employees to Be Invited to a Meeting
+func maximumInvitations(favorite []int) int {
+	N := len(favorite)
+
+	Din := make([]int, N) // InDegree
+	for _, f := range favorite {
+		Din[f]++
+	}
+
+	log.Print(" -> ", Din)
+
+	dq := list.List{}
+	for p, fcount := range Din {
+		if fcount == 0 {
+			dq.PushBack(p)
+		}
+	}
+
+	Depth := make([]int, N)
+	for p := range Depth {
+		Depth[p] = 1
+	}
+
+	for dq.Len() > 0 {
+		p := dq.Remove(dq.Front()).(int)
+		f := favorite[p]
+
+		Depth[f] = max(Depth[p]+1, Depth[f])
+		Din[f]--
+		if Din[f] == 0 {
+			dq.PushBack(f)
+		}
+	}
+
+	log.Print(" -> ", Depth)
+
+	longestCycle, twoCycles := 0, 0
+	for p := range N {
+		if Din[p] == 0 {
+			continue
+		}
+
+		lCycle, cur := 0, p
+		for Din[cur] != 0 {
+			Din[cur] = 0
+			lCycle++
+			cur = favorite[cur]
+		}
+
+		switch lCycle {
+		case 2:
+			twoCycles += Depth[p] + Depth[favorite[p]]
+		default:
+			longestCycle = max(longestCycle, lCycle)
+		}
+	}
+
+	return max(longestCycle, twoCycles)
 }
 
 // 2392h Build a Matrix With Conditions
