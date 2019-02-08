@@ -446,6 +446,13 @@ func Test1368(t *testing.T) {
 	log.Print("1 ?= ", minCost([][]int{{1, 2}, {4, 3}}))
 }
 
+// 1462m Course Schedule IV
+func Test1462(t *testing.T) {
+	log.Println("[false true] ?= ", checkIfPrerequisite(2, [][]int{{1, 0}}, [][]int{{0, 1}, {1, 0}}))
+	log.Println("[false false] ?= ", checkIfPrerequisite(2, [][]int{}, [][]int{{0, 1}, {1, 0}}))
+	log.Println("[true true] ?= ", checkIfPrerequisite(3, [][]int{{1, 2}, {1, 0}, {2, 0}}, [][]int{{1, 0}, {1, 2}}))
+}
+
 // 1514m Path with Maximum Probability
 func Test1514(t *testing.T) {
 	BellmanFord := func(n int, edges [][]int, succProb []float64, start_node, end_node int) float64 {

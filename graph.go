@@ -606,6 +606,36 @@ func minCost(grid [][]int) int {
 	return Cost[Rows-1][Cols-1]
 }
 
+// 1462m Course Schedule IV
+func checkIfPrerequisite(numCourses int, prerequisites [][]int, queries [][]int) []bool {
+
+	FW := make([][]bool, numCourses) // Floyd-Warshall
+	for r := range FW {
+		FW[r] = make([]bool, numCourses)
+	}
+
+	for d := range numCourses {
+		FW[d][d] = true
+	}
+	for _, e := range prerequisites {
+		FW[e[0]][e[1]] = true
+	}
+
+	for src := range numCourses {
+		for dst := range numCourses {
+			for via := range numCourses {
+				FW[src][dst] = FW[src][dst] || FW[src][via] && FW[via][dst]
+			}
+		}
+	}
+
+	R := make([]bool, 0, numCourses)
+	for _, q := range queries {
+		R = append(R, FW[q[0]][q[1]])
+	}
+	return R
+}
+
 // 1514m Path with Maximum Probability
 type E1514 struct {
 	n int
