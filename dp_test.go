@@ -949,3 +949,9 @@ func Test2707(t *testing.T) {
 		log.Print("--")
 	}
 }
+
+// 2836h Maximize Value of Function in a Ball Passing Game
+func Test2836(t *testing.T) {
+	log.Print("6 ?= ", getMaxFunctionValue([]int{2, 0, 1}, 4))
+	log.Print("10 ?= ", getMaxFunctionValue([]int{1, 1, 1, 2, 3}, 3))
+}

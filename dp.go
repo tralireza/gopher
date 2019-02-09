@@ -928,3 +928,50 @@ func minExtraChar(s string, dictionary []string) int {
 
 	return W(0)
 }
+
+// 2836h Maximize Value of Function in a Ball Passing Game
+func getMaxFunctionValue(receiver []int, k int64) int64 {
+	B := 0 // bits
+	for x := k; x > 0; x >>= 1 {
+		B++
+	}
+
+	N := len(receiver)
+
+	// Jumps & Scores
+	far, score := make([][]int, N), make([][]int64, N)
+	for n := range N {
+		far[n] = make([]int, B)
+		score[n] = make([]int64, B)
+	}
+
+	for p := range B {
+		for i := range N {
+			switch p {
+			case 0:
+				far[i][0] = receiver[i]
+				score[i][0] = int64(receiver[i])
+			default:
+				far[i][p] = far[far[i][p-1]][p-1]
+				score[i][p] = score[i][p-1] + score[far[i][p-1]][p-1]
+			}
+		}
+	}
+
+	log.Print(" -> ", far)
+	log.Print(" -> ", score)
+
+	xScore := int64(0)
+	for istart := range N {
+		iScore, i := int64(0), istart
+		for p := range B {
+			if 1<<p&k != 0 {
+				iScore += score[i][p]
+				i = far[i][p]
+			}
+		}
+		xScore = max(iScore+int64(istart), xScore)
+	}
+
+	return xScore
+}
