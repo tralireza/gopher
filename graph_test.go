@@ -448,9 +448,9 @@ func Test1368(t *testing.T) {
 
 // 1462m Course Schedule IV
 func Test1462(t *testing.T) {
-	log.Println("[false true] ?= ", checkIfPrerequisite(2, [][]int{{1, 0}}, [][]int{{0, 1}, {1, 0}}))
-	log.Println("[false false] ?= ", checkIfPrerequisite(2, [][]int{}, [][]int{{0, 1}, {1, 0}}))
-	log.Println("[true true] ?= ", checkIfPrerequisite(3, [][]int{{1, 2}, {1, 0}, {2, 0}}, [][]int{{1, 0}, {1, 2}}))
+	log.Print("[false true] ?= ", checkIfPrerequisite(2, [][]int{{1, 0}}, [][]int{{0, 1}, {1, 0}}))
+	log.Print("[false false] ?= ", checkIfPrerequisite(2, [][]int{}, [][]int{{0, 1}, {1, 0}}))
+	log.Print("[true true] ?= ", checkIfPrerequisite(3, [][]int{{1, 2}, {1, 0}, {2, 0}}, [][]int{{1, 0}, {1, 2}}))
 }
 
 // 1514m Path with Maximum Probability
@@ -657,6 +657,12 @@ func Test2392(t *testing.T) {
 
 	log.Print("[[3 0 0] [0 0 1] [0 2 0]] ?= ", buildMatrix(3, [][]int{{1, 2}, {3, 2}}, [][]int{{2, 1}, {3, 2}}))
 	log.Print("[] ?= ", buildMatrix(3, [][]int{{1, 2}, {2, 3}, {3, 1}, {2, 3}}, [][]int{{2, 1}}))
+}
+
+// 2658m Maximum Number of Fish in a Grid
+func Test2658(t *testing.T) {
+	log.Print("7 ?= ", findMaxFish([][]int{{0, 2, 1, 0}, {4, 0, 0, 3}, {1, 0, 0, 4}, {0, 3, 2, 0}}))
+	log.Print("1 ?= ", findMaxFish([][]int{{1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 1}}))
 }
 
 // 2976m Minimum Cost to Convert String I

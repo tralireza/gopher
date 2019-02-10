@@ -608,7 +608,6 @@ func minCost(grid [][]int) int {
 
 // 1462m Course Schedule IV
 func checkIfPrerequisite(numCourses int, prerequisites [][]int, queries [][]int) []bool {
-
 	FW := make([][]bool, numCourses) // Floyd-Warshall
 	for r := range FW {
 		FW[r] = make([]bool, numCourses)
@@ -1036,6 +1035,30 @@ func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 		}
 	}
 	return M
+}
+
+// 2658m Maximum Number of Fish in a Grid
+func findMaxFish(grid [][]int) int {
+	Rows, Cols := len(grid), len(grid[0])
+
+	var Catch func(r, c int) int
+	Catch = func(r, c int) int {
+		if r < 0 || c < 0 || Rows <= r || Cols <= c || grid[r][c] == 0 {
+			return 0
+		}
+
+		fish := grid[r][c]
+		grid[r][c] = 0
+		return fish + Catch(r-1, c) + Catch(r+1, c) + Catch(r, c-1) + Catch(r, c+1)
+	}
+
+	xFish := 0
+	for r := range Rows {
+		for c := range Cols {
+			xFish = max(Catch(r, c), xFish)
+		}
+	}
+	return xFish
 }
 
 // 2976m Minimum Cost to Convert String I
