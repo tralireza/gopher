@@ -353,6 +353,29 @@ func regionsBySlashes(grid []string) int {
 	return regions
 }
 
+// 695m Max Area of Island
+func maxAreaOfIsland(grid [][]int) int {
+	Rows, Cols := len(grid), len(grid[0])
+
+	var Island func(r, c int) int
+	Island = func(r, c int) int {
+		if r < 0 || r >= Rows || c < 0 || c >= Cols || grid[r][c] == 0 {
+			return 0
+		}
+
+		grid[r][c] = 0
+		return 1 + Island(r+1, c) + Island(r-1, c) + Island(r, c+1) + Island(r, c-1)
+	}
+
+	xArea := 0
+	for r := range Rows {
+		for c := range Cols {
+			xArea = max(Island(r, c), xArea)
+		}
+	}
+	return xArea
+}
+
 // 733 Flood Fill
 func floodFill(image [][]int, sr int, sc int, color int) [][]int {
 	Rows, Cols := len(image), len(image[0])
