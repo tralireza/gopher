@@ -711,8 +711,47 @@ func Test2392(t *testing.T) {
 
 // 2658m Maximum Number of Fish in a Grid
 func Test2658(t *testing.T) {
-	log.Print("7 ?= ", findMaxFish([][]int{{0, 2, 1, 0}, {4, 0, 0, 3}, {1, 0, 0, 4}, {0, 3, 2, 0}}))
-	log.Print("1 ?= ", findMaxFish([][]int{{1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 1}}))
+	BFS := func(grid [][]int) int {
+		xFish := 0
+
+		for r := range grid {
+			for c := range grid[r] {
+				if grid[r][c] != 0 {
+					fish := 0
+					q := list.List{}
+
+					q.PushBack([2]int{r, c})
+					for q.Len() > 0 {
+						coord := q.Remove(q.Front()).([2]int)
+						r, c := coord[0], coord[1]
+
+						fish += grid[r][c]
+						grid[r][c] = 0
+
+						Dir := []int{-1, 0, 1, 0, -1}
+						for i := range 4 {
+							r, c := r+Dir[i], c+Dir[i+1]
+							if 0 <= r && r < len(grid) && 0 <= c && c < len(grid[r]) && grid[r][c] != 0 {
+								q.PushBack([2]int{r, c})
+							}
+						}
+					}
+
+					xFish = max(fish, xFish)
+				}
+			}
+		}
+
+		return xFish
+	}
+
+	for _, f := range []func([][]int) int{findMaxFish, BFS} {
+		log.Print("7 ?= ", f([][]int{{0, 2, 1, 0}, {4, 0, 0, 3}, {1, 0, 0, 4}, {0, 3, 2, 0}}))
+		log.Print("1 ?= ", f([][]int{{1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 1}}))
+
+		log.Print("24 ?= ", f([][]int{{4, 5, 5}, {0, 10, 0}}))
+		log.Print("--")
+	}
 }
 
 // 2976m Minimum Cost to Convert String I
