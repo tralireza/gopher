@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"container/heap"
+	"container/list"
 	"log"
 	"math"
 	"slices"
@@ -147,16 +148,51 @@ func Test595(t *testing.T) {
 
 // 695m Max Area of Island
 func Test695(t *testing.T) {
-	log.Print("6 ?= ", maxAreaOfIsland([][]int{
-		{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-		{0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0},
-		{0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}}))
-	log.Print("0 ?= ", maxAreaOfIsland([][]int{{0, 0, 0, 0, 0, 0, 0, 0}}))
+	BFS := func(grid [][]int) int {
+		xArea := 0
+		for r := range grid {
+			for c := range grid[r] {
+				if grid[r][c] != 0 {
+					q := list.List{}
+					q.PushBack([2]int{r, c})
+
+					area := 0
+					for q.Len() > 0 {
+						coord := q.Remove(q.Front()).([2]int)
+						r, c := coord[0], coord[1]
+						grid[r][c] = 0
+						area++
+
+						Dir := []int{-1, 0, 1, 0, -1}
+						for d := range 4 {
+							r, c := r+Dir[d], c+Dir[d+1]
+							if 0 <= r && r < len(grid) && 0 <= c && c < len(grid[r]) && grid[r][c] != 0 {
+								q.PushBack([2]int{r, c})
+							}
+						}
+					}
+
+					xArea = max(area, xArea)
+				}
+			}
+		}
+
+		return xArea
+	}
+
+	for _, f := range []func([][]int) int{maxAreaOfIsland, BFS} {
+		log.Print("6 ?= ", f([][]int{
+			{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+			{0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0},
+			{0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}}))
+		log.Print("0 ?= ", f([][]int{{0, 0, 0, 0, 0, 0, 0, 0}}))
+		log.Print("--")
+	}
 }
 
 // 733 Flood Fill
