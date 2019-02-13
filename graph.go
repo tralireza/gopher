@@ -1060,6 +1060,49 @@ func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	return M
 }
 
+// 2608m Shortest Cycle in a Graph
+func findShortestCycle(n int, edges [][]int) int {
+	G := make([][]int, n)
+	for _, e := range edges {
+		G[e[0]] = append(G[e[0]], e[1])
+		G[e[1]] = append(G[e[1]], e[0])
+	}
+
+	log.Print(" -> Graph :: ", G)
+
+	mCycle := math.MaxInt
+	for src := range G {
+		Dist := make([]int, n)
+		for i := range Dist {
+			Dist[i] = math.MaxInt
+		}
+
+		Q := list.List{}
+		Q.PushBack(src)
+		Dist[src] = 0
+
+		for Q.Len() > 0 {
+			v := Q.Remove(Q.Front()).(int)
+			for _, u := range G[v] {
+				switch Dist[u] {
+				case math.MaxInt:
+					Dist[u] = Dist[v] + 1
+					Q.PushBack(u)
+				default:
+					if Dist[v] <= Dist[u] {
+						mCycle = min(Dist[u]+Dist[v]+1, mCycle)
+					}
+				}
+			}
+		}
+	}
+
+	if mCycle == math.MaxInt {
+		return -1
+	}
+	return mCycle
+}
+
 // 2658m Maximum Number of Fish in a Grid
 func findMaxFish(grid [][]int) int {
 	Rows, Cols := len(grid), len(grid[0])

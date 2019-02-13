@@ -709,6 +709,12 @@ func Test2392(t *testing.T) {
 	log.Print("[] ?= ", buildMatrix(3, [][]int{{1, 2}, {2, 3}, {3, 1}, {2, 3}}, [][]int{{2, 1}}))
 }
 
+// 2608m Shortest Cycle in a Graph
+func Test2608(t *testing.T) {
+	log.Print("3 ?= ", findShortestCycle(7, [][]int{{0, 1}, {1, 2}, {2, 0}, {3, 4}, {4, 5}, {5, 6}, {6, 3}}))
+	log.Print("-1 ?= ", findShortestCycle(4, [][]int{{0, 1}, {0, 2}}))
+}
+
 // 2658m Maximum Number of Fish in a Grid
 func Test2658(t *testing.T) {
 	BFS := func(grid [][]int) int {
