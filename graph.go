@@ -439,6 +439,92 @@ func eventualSafeNodes(graph [][]int) []int {
 	return R
 }
 
+// 827h Making a Large Island
+type DJSet827 struct {
+	Parent []int
+	Size   []int
+}
+
+func (o DJSet827) Find(v int) int {
+	if v != o.Parent[v] {
+		o.Parent[v] = o.Find(o.Parent[v])
+	}
+	return o.Parent[v]
+}
+func (o DJSet827) Union(v, u int) bool {
+	v, u = o.Find(v), o.Find(u)
+	if u == v {
+		return false
+	}
+
+	if o.Size[u] > o.Size[v] {
+		v, u = u, v
+	}
+	o.Parent[u] = v
+	o.Size[v] += o.Size[u]
+	return true
+}
+
+func largestIsland(grid [][]int) int {
+	Rows, Cols := len(grid), len(grid[0])
+
+	djset := DJSet827{
+		Parent: make([]int, Rows*Cols),
+		Size:   make([]int, Rows*Cols),
+	}
+	for i := range Rows * Cols {
+		djset.Parent[i], djset.Size[i] = i, 1
+	}
+
+	Dir := []int{-1, 0, 1, 0, -1}
+	for r := range Rows {
+		for c := range Cols {
+			if grid[r][c] == 1 {
+				cellId := r*Cols + c
+				for i := range 4 {
+					r, c := r+Dir[i], c+Dir[i+1]
+					if 0 <= r && r < Rows && 0 <= c && c < Cols && grid[r][c] == 1 {
+						djset.Union(cellId, r*Cols+c)
+					}
+				}
+			}
+		}
+	}
+
+	log.Print(" -> ", djset)
+
+	xArea := 0
+	wCells := true // Water Cells
+
+	for r := range Rows {
+		for c := range Cols {
+			if grid[r][c] == 0 {
+				wCells = true
+
+				M := map[int]struct{}{}
+				for i := range 4 {
+					r, c := r+Dir[i], c+Dir[i+1]
+					if 0 <= r && r < Rows && 0 <= c && c < Cols && grid[r][c] == 1 {
+						M[djset.Find(r*Cols+c)] = struct{}{}
+					}
+				}
+
+				area := 1
+				for root := range M {
+					area += djset.Size[root]
+				}
+
+				xArea = max(xArea, area)
+			}
+		}
+	}
+
+	if !wCells {
+		return Rows * Cols
+	}
+	return xArea
+}
+
 // 909m Snakes & Ladders
 func snakesAndLadders(board [][]int) int {
 	Rows, Cols := len(board), len(board[0])

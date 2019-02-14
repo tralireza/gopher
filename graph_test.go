@@ -257,6 +257,13 @@ func Test802(t *testing.T) {
 	}
 }
 
+// 827h Making a Large Island
+func Test827(t *testing.T) {
+	log.Print("3 ?= ", largestIsland([][]int{{1, 0}, {0, 1}}))
+	log.Print("4 ?= ", largestIsland([][]int{{1, 1}, {1, 0}}))
+	log.Print("4 ?= ", largestIsland([][]int{{1, 1}, {1, 1}}))
+}
+
 // 909m Snakes & Ladders
 func Test909(t *testing.T) {
 	// 'Boustrophedon' style
@@ -711,8 +718,13 @@ func Test2392(t *testing.T) {
 
 // 2608m Shortest Cycle in a Graph
 func Test2608(t *testing.T) {
-	log.Print("3 ?= ", findShortestCycle(7, [][]int{{0, 1}, {1, 2}, {2, 0}, {3, 4}, {4, 5}, {5, 6}, {6, 3}}))
-	log.Print("-1 ?= ", findShortestCycle(4, [][]int{{0, 1}, {0, 2}}))
+	for _, f := range []func(int, [][]int) int{findShortestCycle} {
+		log.Print("3 ?= ", f(7, [][]int{{0, 1}, {1, 2}, {2, 0}, {3, 4}, {4, 5}, {5, 6}, {6, 3}}))
+		log.Print("-1 ?= ", f(4, [][]int{{0, 1}, {0, 2}}))
+
+		log.Print("4 ?= ", f(6, [][]int{{4, 1}, {3, 2}, {5, 0}, {3, 0}, {4, 0}, {2, 1}, {5, 1}}))
+		log.Print("--")
+	}
 }
 
 // 2658m Maximum Number of Fish in a Grid
