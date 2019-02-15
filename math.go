@@ -170,6 +170,17 @@ func gcdSort(nums []int) bool {
 	return true
 }
 
+// 3151 Special Array I
+func isArraySpecialI(nums []int) bool {
+	for i := 1; i < len(nums); i++ {
+		if (nums[i-1]^nums[i])&1 == 0 {
+			return false
+		}
+	}
+
+	return true
+}
+
 // 3312h Sorted GCD Pair Queries
 func gcdValues(nums []int, queries []int64) []int {
 	xVal := slices.Max(nums)

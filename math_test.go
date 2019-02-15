@@ -66,6 +66,13 @@ func Test1998(t *testing.T) {
 	log.Println("true ?= ", gcdSort([]int{10, 5, 9, 3, 15}))
 }
 
+// 3151 Special Array I
+func Test3151(t *testing.T) {
+	log.Print("true ?= ", isArraySpecialI([]int{1}))
+	log.Print("true ?= ", isArraySpecialI([]int{2, 1, 4}))
+	log.Print("false ?= ", isArraySpecialI([]int{4, 3, 1, 6}))
+}
+
 // 3312h Sorted GCD Pair Queries
 func Test3312(t *testing.T) {
 	// 1 <= N_i <= 5*10^4, N.length <= 10^5
