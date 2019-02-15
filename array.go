@@ -34,3 +34,18 @@ func kLengthApart(nums []int, k int) bool {
 
 	return true
 }
+
+// 1752 Check If Array Is Sorted and Rotated
+func check(nums []int) bool {
+	inversions := 0
+	if nums[0] < nums[len(nums)-1] {
+		inversions++
+	}
+
+	for i := 1; i < len(nums); i++ {
+		if nums[i] < nums[i-1] {
+			inversions++
+		}
+	}
+	return inversions <= 1
+}
