@@ -205,6 +205,29 @@ func finalPrices(prices []int) []int {
 	return R
 }
 
+// 1910m Remove all Occurrences of a Substring
+func removeOccurrences(s string, part string) string {
+	S := []byte{}
+
+	for i := 0; i < len(s); i++ {
+		S = append(S, s[i])
+
+		count := 0
+		for t := len(S) - 1; t >= max(0, len(S)-len(part)); t-- {
+			if part[len(part)-1-count] == S[t] {
+				count++
+				continue
+			}
+		}
+
+		if count == len(part) {
+			S = S[:len(S)-len(part)]
+		}
+	}
+
+	return string(S)
+}
+
 // 1963m Minimum Number of Swaps to Make the String Balanced
 func minSwapsToBalance(s string) int {
 	qSize := 0

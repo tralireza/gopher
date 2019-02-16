@@ -143,6 +143,12 @@ func Test1475(t *testing.T) {
 	log.Print(" ?= ", finalPrices([]int{10, 1, 1, 6}))
 }
 
+// 1910m Remove all Occurrences of a Substring
+func Test1910(t *testing.T) {
+	log.Printf(`"dab" ?= %q`, removeOccurrences("daabcbaabcbc", "abc"))
+	log.Printf(`"ab" ?= %q`, removeOccurrences("axxxxyyyyb", "xy"))
+}
+
 // 1963m Minimum Number of Swaps to Make the String Balanced
 func Test1963(t *testing.T) {
 	log.Print("1 ?= ", minSwapsToBalance("][]["))
