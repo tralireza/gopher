@@ -7,17 +7,26 @@ import (
 	"strconv"
 )
 
-// 492 Construct the Rectangle
-func constructRectangle(area int) []int {
-	x, w := 1, 1
-	for (x+1)*(x+1) <= area {
-		x++
-		if area%x == 0 {
-			w = x
+// 153m Find Minimum in Rotated Sorted Array
+func findMin(nums []int) int {
+	l, r := 0, len(nums)-1
+	for l <= r {
+		m := l + (r-l)>>1
+		log.Print(l, m, r, nums)
+
+		if nums[l] > nums[m] && nums[r] > nums[m] {
+			l++
+			r--
+		} else if nums[l] <= nums[m] && nums[m] <= nums[r] {
+			return nums[l]
+		} else if nums[m] >= nums[l] {
+			l = m + 1
+		} else {
+			r = m - 1
 		}
 	}
 
-	return []int{area / w, w}
+	return nums[l]
 }
 
 // 274m H-Index
@@ -51,6 +60,19 @@ func hIndex(citations []int) int {
 		}
 	}
 	return h
+}
+
+// 492 Construct the Rectangle
+func constructRectangle(area int) []int {
+	x, w := 1, 1
+	for (x+1)*(x+1) <= area {
+		x++
+		if area%x == 0 {
+			w = x
+		}
+	}
+
+	return []int{area / w, w}
 }
 
 // 564h Find the Closest Palindrome

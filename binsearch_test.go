@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+// 153m Find Minimum in Rotated Sorted Array
+func Test153(t *testing.T) {
+	log.Print("1 ?= ", findMin([]int{3, 4, 5, 1, 2}))
+	log.Print("0 ?= ", findMin([]int{4, 5, 6, 7, 0, 1, 2}))
+	log.Print("11 ?= ", findMin([]int{11, 13, 15, 17}))
+}
+
 // 274m H-Index
 func Test274(t *testing.T) {
 	log.Print("3 ?= ", hIndex([]int{3, 0, 6, 1, 5}))
