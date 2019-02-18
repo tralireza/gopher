@@ -10,19 +10,14 @@ import (
 // 153m Find Minimum in Rotated Sorted Array
 func findMin(nums []int) int {
 	l, r := 0, len(nums)-1
-	for l <= r {
+	for l < r {
 		m := l + (r-l)>>1
 		log.Print(l, m, r, nums)
 
-		if nums[l] > nums[m] && nums[r] > nums[m] {
-			l++
-			r--
-		} else if nums[l] <= nums[m] && nums[m] <= nums[r] {
-			return nums[l]
-		} else if nums[m] >= nums[l] {
+		if nums[m] > nums[r] {
 			l = m + 1
 		} else {
-			r = m - 1
+			r = m
 		}
 	}
 

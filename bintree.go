@@ -117,7 +117,7 @@ type NTreeNode struct {
 }
 
 func maxDepth(root *NTreeNode) int {
-	depth := 1
+	depth := 0
 
 	var Walk func(*NTreeNode, int)
 	Walk = func(n *NTreeNode, d int) {
