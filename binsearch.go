@@ -24,6 +24,26 @@ func findMin(nums []int) int {
 	return nums[l]
 }
 
+// 154h Find Minimum in Rotated Sorted Array II
+func findMinII(nums []int) int {
+	l, r := 0, len(nums)-1
+	for l < r {
+		m := l + (r-l)>>1
+		log.Print(l, m, r, nums)
+
+		if nums[m] > nums[r] {
+			l = m + 1
+		} else if nums[m] < nums[r] {
+			r = m
+		} else {
+			r++
+		}
+
+	}
+
+	return nums[l]
+}
+
 // 274m H-Index
 func hIndex(citations []int) int {
 	slices.Sort(citations)

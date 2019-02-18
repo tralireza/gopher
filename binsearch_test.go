@@ -12,6 +12,12 @@ func Test153(t *testing.T) {
 	log.Print("11 ?= ", findMin([]int{11, 13, 15, 17}))
 }
 
+// 154h Find Minimum in Rotated Sorted Array II
+func Test154(t *testing.T) {
+	log.Print("1 ?= ", findMinII([]int{1, 3, 5}))
+	log.Print("0 ?= ", findMinII([]int{2, 2, 2, 0, 1}))
+}
+
 // 274m H-Index
 func Test274(t *testing.T) {
 	log.Print("3 ?= ", hIndex([]int{3, 0, 6, 1, 5}))
