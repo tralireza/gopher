@@ -145,6 +145,31 @@ func Test1475(t *testing.T) {
 
 // 1910m Remove all Occurrences of a Substring
 func Test1910(t *testing.T) {
+	// Knuth-Morris-Pratt
+	KMP := func(s string) []int {
+		Pi := []int{0}
+
+		lps := 0 // Longest Prefix Suffix!
+		for i := 1; i < len(s); i++ {
+			if s[i] == s[lps] {
+				lps++
+			} else {
+				if lps > 0 {
+					lps = Pi[lps-1]
+				} else {
+					lps = 0
+				}
+			}
+
+			Pi = append(Pi, lps)
+		}
+
+		return Pi
+	}
+
+	pattern := "ABABCABAB"
+	log.Printf("-> KMP Pi: %q -> %v", pattern, KMP(pattern))
+
 	log.Printf(`"dab" ?= %q`, removeOccurrences("daabcbaabcbc", "abc"))
 	log.Printf(`"ab" ?= %q`, removeOccurrences("axxxxyyyyb", "xy"))
 }
