@@ -230,6 +230,14 @@ func Test1590(t *testing.T) {
 	log.Print("0 ?= ", minSubarray([]int{1, 2, 3}, 3))
 }
 
+// 2342m Max Sum of a Pair With Equal Sum of Digits
+func Test2342(t *testing.T) {
+	log.Print("54 ?= ", maximumSum([]int{18, 43, 36, 13, 7}))
+	log.Print("-1 ?= ", maximumSum([]int{10, 12, 19, 14}))
+
+	log.Print("872 ?= ", maximumSum([]int{279, 169, 463, 252, 94, 455, 423, 315, 288, 64, 494, 337, 409, 283, 283, 477, 248, 8, 89, 166, 188, 186, 128}))
+}
+
 // 2425m Bitwise XOR of All Parings
 func Test2425(t *testing.T) {
 	log.Print("13 ?= ", xorAllNums([]int{2, 1, 3}, []int{10, 2, 5, 0}))

@@ -315,6 +315,26 @@ func countPalindromicSubsequence(s string) int {
 	return tCount
 }
 
+// 2342m Max Sum of a Pair With Equal Sum of Digits
+func maximumSum(nums []int) int {
+	xSum := -1
+
+	M := make([]int, 9*9+1)
+	for _, n := range nums {
+		dSum := 0
+		for x := n; x > 0; x /= 10 {
+			dSum += n % 10
+		}
+
+		if M[dSum] > 0 {
+			xSum = max(M[dSum]+n, xSum)
+		}
+		M[dSum] = max(n, M[dSum])
+	}
+
+	return xSum
+}
+
 // 2425m Bitwise XOR of All Parings
 func xorAllNums(nums1 []int, nums2 []int) int {
 	F := map[int]int{}
