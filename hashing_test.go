@@ -7,6 +7,16 @@ import (
 	"testing"
 )
 
+type Assert struct {
+	t *testing.T
+}
+
+func (o *Assert) Equal(want, got any, msgs ...any) {
+	if want != got {
+		o.t.Error(msgs...)
+	}
+}
+
 // 30h Substring With Concatenation of All Words
 func Test30(t *testing.T) {
 	log.Print("[0 9] ?= ", findSubstring("barfoothefoobarman", []string{"foo", "bar"}))
@@ -232,10 +242,11 @@ func Test1590(t *testing.T) {
 
 // 2342m Max Sum of a Pair With Equal Sum of Digits
 func Test2342(t *testing.T) {
-	log.Print("54 ?= ", maximumSum([]int{18, 43, 36, 13, 7}))
-	log.Print("-1 ?= ", maximumSum([]int{10, 12, 19, 14}))
+	a := Assert{t}
 
-	log.Print("872 ?= ", maximumSum([]int{279, 169, 463, 252, 94, 455, 423, 315, 288, 64, 494, 337, 409, 283, 283, 477, 248, 8, 89, 166, 188, 186, 128}))
+	a.Equal(54, maximumSum([]int{18, 43, 36, 13, 7}))
+	a.Equal(-1, maximumSum([]int{10, 12, 19, 14}))
+	a.Equal(872, maximumSum([]int{279, 169, 463, 252, 94, 455, 423, 315, 288, 64, 494, 337, 409, 283, 283, 477, 248, 8, 89, 166, 188, 186, 128}))
 }
 
 // 2425m Bitwise XOR of All Parings

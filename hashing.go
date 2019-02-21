@@ -323,7 +323,7 @@ func maximumSum(nums []int) int {
 	for _, n := range nums {
 		dSum := 0
 		for x := n; x > 0; x /= 10 {
-			dSum += n % 10
+			dSum += x % 10
 		}
 
 		if M[dSum] > 0 {
