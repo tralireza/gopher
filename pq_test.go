@@ -191,6 +191,12 @@ func Test2940(t *testing.T) {
 	log.Print("[7 6 -1 4 6] ?= ", leftmostBuildingQueries([]int{5, 3, 8, 2, 6, 1, 4, 6}, [][]int{{0, 7}, {3, 5}, {5, 2}, {3, 0}, {1, 6}}))
 }
 
+// 3066m Minimum Operations to Exceed Threshold Value II
+func Test3066(t *testing.T) {
+	log.Print("2 ?= ", minOperationsII([]int{2, 11, 10, 1, 3}, 10))
+	log.Print("4 ?= ", minOperationsII([]int{1, 1, 2, 4, 9}, 20))
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 func Test3256(t *testing.T) {
 	// 3 <= Rows, Cols <= 100

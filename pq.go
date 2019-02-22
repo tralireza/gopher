@@ -587,6 +587,32 @@ func leftmostBuildingQueries(heights []int, queries [][]int) []int {
 	return R
 }
 
+// 3066m Minimum Operations to Exceed Threshold Value II
+type PQ3066 struct{ sort.IntSlice }
+
+func (h *PQ3066) Push(x any) { h.IntSlice = append(h.IntSlice, x.(int)) }
+func (h *PQ3066) Pop() any {
+	x := h.IntSlice[h.Len()-1]
+	h.IntSlice = h.IntSlice[:h.Len()-1]
+	return x
+}
+
+func minOperationsII(nums []int, k int) int {
+	pq := PQ3066{nums}
+	heap.Init(&pq)
+
+	ops := 0
+	for pq.IntSlice[0] < k {
+		log.Print("-> ", pq)
+		ops++
+
+		x, y := heap.Pop(&pq).(int), heap.Pop(&pq).(int)
+		heap.Push(&pq, min(x, y)*2+max(x, y))
+	}
+
+	return ops
+}
+
 // 3256h Maximum Value Sum by Placing Three Rooks I
 type E3256 struct{ col, score int }
 type PQ3256 []E3256
