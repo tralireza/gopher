@@ -79,6 +79,20 @@ func Test1310(t *testing.T) {
 	}
 }
 
+// 1352m Product of the Last K Numbers
+func Test1352(t *testing.T) {
+	o := Constructor1352()
+
+	for _, n := range []int{3, 0, 2, 5, 4} {
+		o.Add(n)
+	}
+	for _, v := range [][]int{{2, 20}, {3, 40}, {4, 0}} {
+		log.Printf("%v ?= %v", v[1], o.GetProduct(v[0]))
+	}
+	o.Add(8)
+	log.Print("32 ?= ", o.GetProduct(2))
+}
+
 // 1422 Maximum Score After Splitting a String
 func Test1422(t *testing.T) {
 	OnePass := func(s string) int {

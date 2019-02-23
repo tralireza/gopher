@@ -44,6 +44,35 @@ func xorQueries(arr []int, queries [][]int) []int {
 	return R
 }
 
+// 1352m Product of the Last K Numbers
+type ProductOfNumbers struct {
+	P []int
+}
+
+func Constructor1352() ProductOfNumbers {
+	return ProductOfNumbers{
+		[]int{1},
+	}
+}
+func (o *ProductOfNumbers) Add(num int) {
+	switch num {
+	case 0:
+		o.P = []int{1}
+	default:
+		o.P = append(o.P, o.P[len(o.P)-1]*num)
+	}
+
+	log.Print("-> ", o)
+}
+func (o *ProductOfNumbers) GetProduct(k int) int {
+	switch k >= len(o.P) {
+	case true:
+		return 0
+	default:
+		return o.P[len(o.P)-1] / o.P[len(o.P)-1-k]
+	}
+}
+
 // 1422 Maximum Score After Splitting a String
 func maxScore(s string) int {
 	rone := 0
