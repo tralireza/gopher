@@ -505,6 +505,44 @@ func countMaxOrSubsets(nums []int) int {
 	return W(0, 0)
 }
 
+// 2698m Find the Punishment Number of an Integer
+func punishmentNumber(n int) int {
+	var D []int
+
+	var CanPartition func(start, cSum, targetSum int) bool
+	CanPartition = func(start, cSum, targetSum int) bool {
+		if start == len(D) {
+			return cSum == targetSum
+		}
+
+		partitionSum := 0
+		for p := start; p < len(D); p++ {
+			partitionSum *= 10
+			partitionSum += D[p]
+
+			if CanPartition(p+1, cSum+partitionSum, targetSum) {
+				return true
+			}
+		}
+
+		return false
+	}
+
+	pSum := 0
+	for x := 1; x <= n; x++ {
+		D = []int{}
+		for sqr := x * x; sqr > 0; sqr /= 10 {
+			D = append(D, sqr%10)
+		}
+		slices.Reverse(D)
+
+		if CanPartition(0, 0, x) {
+			pSum += x * x
+		}
+	}
+	return pSum
+}
+
 // 3302m Find the Lexicographically Smallest Valid Sequence
 func validSequence(word1, word2 string) []int {
 	R := []int{}

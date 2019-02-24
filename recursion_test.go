@@ -282,6 +282,12 @@ func Test2044(t *testing.T) {
 	}
 }
 
+// 2698m Find the Punishment Number of an Integer
+func Test2698(t *testing.T) {
+	log.Print("182 ?= ", punishmentNumber(10))
+	log.Print("1478 ?= ", punishmentNumber(37))
+}
+
 // 3302m Find the Lexicographically Smallest Valid Sequence
 func Test3302(t *testing.T) {
 	log.Print("[0 1 2] ?= ", validSequence("vbcca", "abc"))
