@@ -209,6 +209,12 @@ func Test139(t *testing.T) {
 	log.Print("false ?= ", wordBreak("catsandog", []string{"cats", "dog", "sand", "and", "cat"}))
 }
 
+// 174h Dungeon Game
+func Test174(t *testing.T) {
+	log.Print("7 ?= ", calculateMinimumHP([][]int{{-2, -3, 3}, {-5, -10, 1}, {10, 30, -5}}))
+	log.Print("1 ?= ", calculateMinimumHP([][]int{{0}}))
+}
+
 // 198m House Robber
 func Test198(t *testing.T) {
 	log.Print("4 ?= ", rob([]int{1, 2, 3, 1}))

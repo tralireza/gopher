@@ -270,6 +270,35 @@ func wordBreak(s string, wordDict []string) bool {
 	return D[len(s)]
 }
 
+// 174h Dungeon Game
+func calculateMinimumHP(dungeon [][]int) int {
+	Rows, Cols := len(dungeon), len(dungeon[0])
+
+	var Search func(r, c int) int
+	Search = func(r, c int) int {
+		if r >= Rows || c >= Cols {
+			return math.MaxInt
+		}
+
+		if r == Rows-1 && c == Cols-1 {
+			if dungeon[r][c] < 0 {
+				return 1 - dungeon[r][c]
+			}
+			return 1
+		}
+
+		right, down := Search(r, c+1), Search(r+1, c)
+		health := min(right, down) - dungeon[r][c]
+
+		if health <= 0 {
+			return 1
+		}
+		return health
+	}
+
+	return Search(0, 0)
+}
+
 // 198m House Robber
 func rob(nums []int) int {
 	if len(nums) == 1 {
