@@ -225,6 +225,12 @@ func Test1593(t *testing.T) {
 	log.Print("1 ?= ", maxUniqueSplit("aa"))
 }
 
+// 1718m Construct the Lexicographically Largest Valid Sequence
+func Test1718(t *testing.T) {
+	log.Print("[3 1 2 3 2] ?= ", constructDistancedSequence(3))
+	log.Print("[5 3 1 4 3 5 2 4 2] ?= ", constructDistancedSequence(5))
+}
+
 // 2044m Count Number of Maximum Bitwise-OR Subsets
 func Test2044(t *testing.T) {
 	// 1 <= N_i <= 10^5, N.length <= 16

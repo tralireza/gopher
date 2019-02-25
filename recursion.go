@@ -483,6 +483,54 @@ func maxUniqueSplit(s string) int {
 	return W(0)
 }
 
+// 1718m Construct the Lexicographically Largest Valid Sequence
+func constructDistancedSequence(n int) []int {
+	R := make([]int, 2*n-1)
+	M := make([]bool, n+1)
+
+	var Search func(int) bool
+	Search = func(start int) bool {
+		if start == len(R) {
+			return true
+		}
+
+		if R[start] != 0 {
+			return Search(start + 1)
+		}
+
+		for v := n; v >= 1; v-- {
+			if M[v] {
+				continue
+			}
+
+			M[v] = true
+			R[start] = v
+
+			if v == 1 && Search(start+1) {
+				return true
+			}
+
+			if v > 1 && start+v < len(R) && R[start+v] == 0 {
+				R[start+v] = v
+				if Search(start + 1) {
+					return true
+				}
+
+				R[start+v] = 0 // backtrack
+			}
+
+			M[v] = false // backtrack...
+			R[start] = 0 // backtrack
+		}
+
+		return false
+	}
+
+	Search(0)
+
+	return R
+}
+
 // 2044m Count Number of Maximum Bitwise-OR Subsets
 func countMaxOrSubsets(nums []int) int {
 	xVal := 0
