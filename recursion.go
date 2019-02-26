@@ -350,6 +350,38 @@ func minSteps(n int) int {
 	return ops
 }
 
+// 1079m Letter Tile Possibilities
+func numTilePossibilities(tiles string) int {
+	M := map[string]struct{}{}
+
+	Used := make([]bool, len(tiles))
+
+	var GenCs func(tile []byte)
+	GenCs = func(tile []byte) {
+		if _, ok := M[string(tile)]; !ok {
+			M[string(tile)] = struct{}{}
+		}
+
+		for p := range len(tiles) {
+			if !Used[p] {
+				Used[p] = true
+				tile = append(tile, tiles[p])
+
+				GenCs(tile)
+
+				Used[p] = false
+				tile = tile[:len(tile)-1]
+			}
+		}
+	}
+
+	GenCs([]byte{})
+
+	log.Print(" -> ", M)
+
+	return len(M) - 1
+}
+
 // 1106h Parsing a Boolean Expression
 func parseBoolExpr(expression string) bool {
 	p := 0

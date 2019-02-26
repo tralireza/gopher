@@ -165,6 +165,13 @@ func Test650(t *testing.T) {
 	}
 }
 
+// 1079m Letter Tile Possibilities
+func Test1079(t *testing.T) {
+	log.Print("8 ?= ", numTilePossibilities("AAB"))
+	log.Print("188 ?= ", numTilePossibilities("AAABBC"))
+	log.Print("1 ?= ", numTilePossibilities("V"))
+}
+
 // 1106h Parsing a Boolean Expression
 func Test1106(t *testing.T) {
 	log.Print("false ?= ", parseBoolExpr("&(|(f))"))
