@@ -167,9 +167,39 @@ func Test650(t *testing.T) {
 
 // 1079m Letter Tile Possibilities
 func Test1079(t *testing.T) {
-	log.Print("8 ?= ", numTilePossibilities("AAB"))
-	log.Print("188 ?= ", numTilePossibilities("AAABBC"))
-	log.Print("1 ?= ", numTilePossibilities("V"))
+	WithFrq := func(tiles string) int {
+		F := [26]int{}
+		for i := 0; i < len(tiles); i++ {
+			F[tiles[i]-'A']++
+		}
+
+		var GenCs func() int
+		GenCs = func() int {
+			count := 0
+
+			for i := range 26 {
+				if F[i] != 0 {
+					count++
+
+					F[i]--
+					count += GenCs()
+
+					F[i]++
+				}
+			}
+
+			return count
+		}
+
+		return GenCs()
+	}
+
+	for _, f := range []func(string) int{numTilePossibilities, WithFrq} {
+		log.Print("8 ?= ", f("AAB"))
+		log.Print("188 ?= ", f("AAABBC"))
+		log.Print("1 ?= ", f("V"))
+
+	}
 }
 
 // 1106h Parsing a Boolean Expression
