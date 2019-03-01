@@ -94,6 +94,24 @@ func Test951(t *testing.T) {
 	log.Print("false ?= ", flipEquiv(nil, &T{Val: 1}))
 }
 
+// 1261m Find Elements in a Contaminated Binary Tree
+func Test1261(t *testing.T) {
+	type T = TreeNode
+	o := Constructor1261(&T{-1, &T{-1, &T{Val: -1}, &T{Val: -1}}, &T{Val: -1}})
+	for _, tc := range []struct {
+		target int
+		rst    bool
+	}{
+		{1, true},
+		{3, true},
+		{5, false},
+	} {
+		if tc.rst != o.Find(tc.target) {
+			t.Fail()
+		}
+	}
+}
+
 // 1367 Linked List in Binary Tree
 func Test1367(t *testing.T) {
 	// Knuth-Morris-Pratt KMP: Failure Function

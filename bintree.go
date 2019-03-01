@@ -175,6 +175,38 @@ func flipEquiv(root1 *TreeNode, root2 *TreeNode) bool {
 	return flipEquiv(root1.Left, root2.Right) && flipEquiv(root1.Right, root2.Left)
 }
 
+// 1261m Find Elements in a Contaminated Binary Tree
+type FindElements struct {
+	M map[int]struct{}
+}
+
+func Constructor1261(root *TreeNode) FindElements {
+	M := map[int]struct{}{0: struct{}{}}
+
+	var Load func(*TreeNode, int)
+	Load = func(n *TreeNode, pVal int) {
+		for i, c := range []*TreeNode{n.Left, n.Right} {
+			if c != nil {
+				M[pVal+i+1] = struct{}{}
+				Load(c, (pVal+i+1)<<1)
+			}
+		}
+	}
+
+	Load(root, 0)
+
+	log.Print(" -> ", M)
+
+	return FindElements{
+		M,
+	}
+}
+
+func (o *FindElements) Find(target int) bool {
+	_, ok := o.M[target]
+	return ok
+}
+
 // 1367 Linked List in Binary Tree
 func isSubPath(head *ListNode, root *TreeNode) bool {
 	if root == nil {
