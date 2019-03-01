@@ -195,11 +195,29 @@ func Constructor1261(root *TreeNode) FindElements {
 
 	Load(root, 0)
 
-	log.Print(" -> ", M)
+	log.Print(" -> Recursive DFS :: ", M)
 
-	return FindElements{
-		M,
+	// Iterative BFS
+	Mp := map[int]struct{}{}
+
+	root.Val = 0
+	Q := []*TreeNode{root}
+	var n *TreeNode
+	for len(Q) > 0 {
+		n, Q = Q[0], Q[1:]
+		Mp[n.Val] = struct{}{}
+
+		for i, c := range []*TreeNode{n.Left, n.Right} {
+			if c != nil {
+				c.Val = 2*n.Val + i + 1
+				Q = append(Q, c)
+			}
+		}
 	}
+
+	log.Print(" -> Iterative BFS :: ", Mp)
+
+	return FindElements{M}
 }
 
 func (o *FindElements) Find(target int) bool {
