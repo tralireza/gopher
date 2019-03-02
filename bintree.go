@@ -175,6 +175,42 @@ func flipEquiv(root1 *TreeNode, root2 *TreeNode) bool {
 	return flipEquiv(root1.Left, root2.Right) && flipEquiv(root1.Right, root2.Left)
 }
 
+// 1028h Recover a Tree From Preorder Traversal
+func recoverFromPreorder(traversal string) *TreeNode {
+	p := 0
+
+	var Load func(int) *TreeNode
+	Load = func(d int) *TreeNode {
+		if p >= len(traversal) {
+			return nil
+		}
+
+		x := 0
+		for p+x < len(traversal) && traversal[p+x] == '-' {
+			x++
+		}
+		if x != d {
+			return nil
+		}
+
+		p += x
+
+		v := 0
+		for p < len(traversal) && traversal[p] != '-' {
+			v = 10*v + int(traversal[p]-'0')
+			p++
+		}
+
+		n := &TreeNode{Val: v}
+		n.Left = Load(d + 1)
+		n.Right = Load(d + 1)
+
+		return n
+	}
+
+	return Load(0)
+}
+
 // 1261m Find Elements in a Contaminated Binary Tree
 type FindElements struct {
 	M map[int]struct{}

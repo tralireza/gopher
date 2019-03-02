@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"testing"
 )
@@ -92,6 +93,38 @@ func Test951(t *testing.T) {
 	log.Print("true ?= ", flipEquiv(&T{1, &T{2, &T{Val: 4}, &T{5, &T{Val: 7}, &T{Val: 8}}}, &T{3, &T{Val: 6}, nil}}, &T{1, &T{3, nil, &T{Val: 6}}, &T{2, &T{Val: 4}, &T{5, &T{Val: 8}, &T{Val: 7}}}}))
 	log.Print("true ?= ", flipEquiv(nil, nil))
 	log.Print("false ?= ", flipEquiv(nil, &T{Val: 1}))
+}
+
+// 1028h Recover a Tree From Preorder Traversal
+func Test1028(t *testing.T) {
+	Draw := func(n *TreeNode) {
+		Q := []*TreeNode{n}
+		for len(Q) > 0 {
+			for range len(Q) {
+				n, Q = Q[0], Q[1:]
+				l, r := '-', '-'
+				if n.Left != nil {
+					l = '*'
+					Q = append(Q, n.Left)
+				}
+				if n.Right != nil {
+					r = '*'
+					Q = append(Q, n.Right)
+				}
+				fmt.Printf("{%c %d %c}", l, n.Val, r)
+			}
+			fmt.Print("\n")
+		}
+	}
+
+	for _, traversal := range []string{
+		"1-2--3--4-5--6--7",
+		"1-2--3---4-5--6---7",
+		"1-401--349---90--88",
+	} {
+		Draw(recoverFromPreorder(traversal))
+		log.Print("--")
+	}
 }
 
 // 1261m Find Elements in a Contaminated Binary Tree
