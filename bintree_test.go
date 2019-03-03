@@ -86,6 +86,31 @@ func Test559(t *testing.T) {
 			&T{5, nil}}}))
 }
 
+// 889 Construct Binary Tree from Preorder and Postorder Traversal
+func Test889(t *testing.T) {
+	Draw := func(n *TreeNode) {
+		Q := []*TreeNode{n}
+		for len(Q) > 0 {
+			for range len(Q) {
+				n, Q = Q[0], Q[1:]
+				l, r := '-', '-'
+				if n.Left != nil {
+					l = '*'
+					Q = append(Q, n.Left)
+				}
+				if n.Right != nil {
+					r = '*'
+					Q = append(Q, n.Right)
+				}
+				fmt.Printf("{%c %d %c}", l, n.Val, r)
+			}
+			fmt.Print("\n")
+		}
+	}
+
+	Draw(constructFromPrePost([]int{1, 2, 4, 5, 3, 6, 7}, []int{4, 5, 2, 6, 7, 3, 1}))
+}
+
 // 951m Flip Equivalent Binary Trees
 func Test951(t *testing.T) {
 	type T = TreeNode

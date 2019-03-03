@@ -156,6 +156,29 @@ func findTilt(root *TreeNode) int {
 	return tilt
 }
 
+// 889 Construct Binary Tree from Preorder and Postorder Traversal
+func constructFromPrePost(preorder []int, postorder []int) *TreeNode {
+	switch len(preorder) {
+	case 0:
+		return nil
+	case 1:
+		return &TreeNode{Val: preorder[0]}
+	}
+
+	n := &TreeNode{Val: preorder[0]}
+
+	x := 0
+	for postorder[x] != preorder[1] {
+		x++
+	}
+	x++
+
+	n.Left = constructFromPrePost(preorder[1:x+1], postorder[0:x])
+	n.Right = constructFromPrePost(preorder[x+1:], postorder[x:len(postorder)-1])
+
+	return n
+}
+
 // 951m Flip Equivalent Binary Trees
 func flipEquiv(root1 *TreeNode, root2 *TreeNode) bool {
 	fmt.Print(".")
