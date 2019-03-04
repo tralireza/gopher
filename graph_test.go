@@ -716,6 +716,12 @@ func Test2392(t *testing.T) {
 	log.Print("[] ?= ", buildMatrix(3, [][]int{{1, 2}, {2, 3}, {3, 1}, {2, 3}}, [][]int{{2, 1}}))
 }
 
+// 2467m Most Profitable Path in a Tree
+func Test2467(t *testing.T) {
+	log.Print("6 ?= ", mostProfitablePath([][]int{{0, 1}, {1, 2}, {1, 3}, {3, 4}}, 3, []int{-2, 4, 2, -4, 6}))
+	log.Print("-7280 ?= ", mostProfitablePath([][]int{{0, 1}}, 1, []int{-7280, 2350}))
+}
+
 // 2608m Shortest Cycle in a Graph
 func Test2608(t *testing.T) {
 	for _, f := range []func(int, [][]int) int{findShortestCycle} {

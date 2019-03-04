@@ -1146,6 +1146,50 @@ func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	return M
 }
 
+// 2467m Most Profitable Path in a Tree
+func mostProfitablePath(edges [][]int, bob int, amount []int) int {
+	N := len(edges) + 1
+
+	G := make([][]int, N)
+	for _, e := range edges {
+		u, v := e[0], e[1]
+		G[u], G[v] = append(G[u], v), append(G[v], u)
+	}
+
+	BDist := make([]int, N) // Nodes distance to Bob
+
+	var Search func(u, p, t int) int
+	Search = func(u, p, t int) int {
+		xCur, xNext := 0, math.MinInt
+
+		if u == bob {
+			BDist[u] = 0
+		} else {
+			BDist[u] = N
+		}
+
+		for _, v := range G[u] {
+			if v != p {
+				xNext = max(Search(v, u, t+1), xNext)
+				BDist[u] = min(BDist[v]+1, BDist[u])
+			}
+		}
+
+		if BDist[u] > t {
+			xCur += amount[u]
+		} else if BDist[u] == t {
+			xCur += amount[u] / 2
+		}
+
+		if xNext != math.MinInt {
+			return xCur + xNext
+		}
+		return xCur
+	}
+
+	return Search(0, 0, 0)
+}
+
 // 2608m Shortest Cycle in a Graph
 func findShortestCycle(n int, edges [][]int) int {
 	G := make([][]int, n)
