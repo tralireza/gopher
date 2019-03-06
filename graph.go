@@ -1157,16 +1157,14 @@ func mostProfitablePath(edges [][]int, bob int, amount []int) int {
 	}
 
 	BDist := make([]int, N) // Nodes distance to Bob
+	for i := range BDist {
+		BDist[i] = N
+	}
+	BDist[bob] = 0
 
 	var Search func(u, p, t int) int
 	Search = func(u, p, t int) int {
 		xCur, xNext := 0, math.MinInt
-
-		if u == bob {
-			BDist[u] = 0
-		} else {
-			BDist[u] = N
-		}
 
 		for _, v := range G[u] {
 			if v != p {

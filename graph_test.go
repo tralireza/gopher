@@ -720,6 +720,8 @@ func Test2392(t *testing.T) {
 func Test2467(t *testing.T) {
 	log.Print("6 ?= ", mostProfitablePath([][]int{{0, 1}, {1, 2}, {1, 3}, {3, 4}}, 3, []int{-2, 4, 2, -4, 6}))
 	log.Print("-7280 ?= ", mostProfitablePath([][]int{{0, 1}}, 1, []int{-7280, 2350}))
+
+	log.Print("-3360 ?= ", mostProfitablePath([][]int{{0, 1}, {0, 2}}, 2, []int{-3360, -5394, -1146}))
 }
 
 // 2608m Shortest Cycle in a Graph
