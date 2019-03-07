@@ -804,9 +804,34 @@ func Test1395(t *testing.T) {
 
 // 1524m Number of Sub-arrays With Odd Sum
 func Test1524(t *testing.T) {
-	log.Print("4 ?= ", numOfSubarrays([]int{1, 3, 5}))
-	log.Print("0 ?= ", numOfSubarrays([]int{2, 4, 6}))
-	log.Print("16 ?= ", numOfSubarrays([]int{1, 2, 3, 4, 5, 6, 7}))
+	PSum := func(arr []int) int {
+		const M = 1000_000_000 + 7
+
+		count := 0
+		evens, odds := 1, 0
+
+		psum := 0
+		for _, n := range arr {
+			psum += n
+			switch psum & 1 {
+			case 1:
+				count += evens
+				odds++
+			case 0:
+				count += odds
+				evens++
+			}
+		}
+
+		return count % M
+	}
+
+	for _, f := range []func([]int) int{numOfSubarrays, PSum} {
+		log.Print("4 ?= ", f([]int{1, 3, 5}))
+		log.Print("0 ?= ", f([]int{2, 4, 6}))
+		log.Print("16 ?= ", f([]int{1, 2, 3, 4, 5, 6, 7}))
+		log.Print("--")
+	}
 }
 
 // 1639h Number of Ways to Form a Target String Given a Dictionary
