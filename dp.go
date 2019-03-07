@@ -881,6 +881,27 @@ func minimumDeletions(s string) int {
 	return dels
 }
 
+// 1749m Maximum Absolute Sum of Any Subarray
+func maxAbsoluteSum(nums []int) int {
+	xVal := 0
+
+	xSum, nSum := math.MinInt, math.MaxInt
+	pSum := 0
+	for _, n := range nums {
+		pSum += n
+
+		xSum, nSum = max(pSum, xSum), min(pSum, nSum)
+
+		if pSum > 0 {
+			xVal = max(max(pSum, pSum-nSum), xVal)
+		} else if pSum < 0 {
+			xVal = max(max(-pSum, xSum-pSum), xVal)
+		}
+	}
+
+	return xVal
+}
+
 // 1937m Maximum Number of Points with Cost
 func maxPoints(points [][]int) int64 {
 	Rows, Cols := len(points), len(points[0])
