@@ -789,6 +789,36 @@ func numTeams(rating []int) int {
 	return x
 }
 
+// 1524m Number of Sub-arrays With Odd Sum
+func numOfSubarrays(arr []int) int {
+	const M = 1000_000_000 + 7
+
+	E, O := make([]int, len(arr)), make([]int, len(arr))
+
+	if arr[len(arr)-1]&1 == 1 {
+		O[len(arr)-1] = 1
+	} else {
+		E[len(arr)-1] = 1
+	}
+
+	for i := len(arr) - 2; i >= 0; i-- {
+		switch arr[i] & 1 {
+		case 1:
+			O[i] = (1 + E[i+1]) % M
+			E[i] = O[i+1]
+		case 0:
+			O[i] = O[i+1]
+			E[i] = (1 + E[i+1]) % M
+		}
+	}
+
+	count := 0
+	for _, n := range O {
+		count += n % M
+	}
+	return count % M
+}
+
 // 1639h Number of Ways to Form a Target String Given a Dictionary
 func numWays(words []string, target string) int {
 	const MOD = 1e9 + 7

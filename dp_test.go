@@ -802,6 +802,13 @@ func Test1395(t *testing.T) {
 	}
 }
 
+// 1524m Number of Sub-arrays With Odd Sum
+func Test1524(t *testing.T) {
+	log.Print("4 ?= ", numOfSubarrays([]int{1, 3, 5}))
+	log.Print("0 ?= ", numOfSubarrays([]int{2, 4, 6}))
+	log.Print("16 ?= ", numOfSubarrays([]int{1, 2, 3, 4, 5, 6, 7}))
+}
+
 // 1639h Number of Ways to Form a Target String Given a Dictionary
 func Test1639(t *testing.T) {
 	Tabulation := func(words []string, target string) int {
