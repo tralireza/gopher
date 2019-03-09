@@ -903,8 +903,23 @@ func Test1653(t *testing.T) {
 
 // 1749m Maximum Absolute Sum of Any Subarray
 func Test1749(t *testing.T) {
-	log.Print("5 ?= ", maxAbsoluteSum([]int{1, -3, 2, 3, -4}))
-	log.Print("8 ?= ", maxAbsoluteSum([]int{2, -5, 1, -4, 3, -2}))
+	Optimized := func(nums []int) int {
+		pSum := 0
+		xSum, nSum := 0, 0
+
+		for _, n := range nums {
+			pSum += n
+			xSum, nSum = max(pSum, xSum), min(pSum, nSum)
+		}
+
+		return xSum - nSum
+	}
+
+	for _, f := range []func([]int) int{maxAbsoluteSum, Optimized} {
+		log.Print("5 ?= ", f([]int{1, -3, 2, 3, -4}))
+		log.Print("8 ?= ", f([]int{2, -5, 1, -4, 3, -2}))
+		log.Print("--")
+	}
 }
 
 // 1937m Maximum Number of Points with Cost
