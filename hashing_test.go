@@ -112,6 +112,16 @@ func Test575(t *testing.T) {
 	log.Print("1 ?= ", distributeCandies([]int{6, 6, 6, 6}))
 }
 
+// 599 Minimum Index Sum of Two Lists
+func Test599(t *testing.T) {
+	// 1 <= N1, N2 <= 1000
+	log.Printf(`["Shogun"] ?= %q`, findRestaurant(
+		[]string{"Shogun", "Tapioca Express", "Burger King", "KFC"},
+		[]string{"Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"}))
+	log.Printf(`["Shogun"] ?= %q`, findRestaurant([]string{"Shogun", "Tapioca Express", "Burger King", "KFC"}, []string{"KFC", "Shogun", "Burger King"}))
+	log.Printf(`["happy" "sad"] ?= %q`, findRestaurant([]string{"happy", "sad", "good"}, []string{"sad", "happy", "good"}))
+}
+
 // 884 Uncommon Words from Two Sentences
 func Test884(t *testing.T) {
 	log.Print(" ?= ", uncommonFromSentences("this apple is sweet", "this apple is sour"))

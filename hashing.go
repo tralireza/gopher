@@ -144,6 +144,27 @@ func distributeCandies(candyType []int) int {
 	return min(len(M), len(candyType)/2)
 }
 
+// 599 Minimum Index Sum of Two Lists
+func findRestaurant(list1 []string, list2 []string) []string {
+	for isum := 0; isum < len(list1)+len(list2)-1; isum++ {
+		R := []string{}
+
+		for p := 0; p <= isum && p < len(list1); p++ {
+			for q := 0; p+q <= isum && q < len(list2); q++ {
+				if list1[p] == list2[q] {
+					R = append(R, list1[p])
+				}
+			}
+		}
+
+		if len(R) > 0 {
+			return R
+		}
+	}
+
+	return []string{}
+}
+
 // 884 Uncommon Words from Two Sentences
 func uncommonFromSentences(s1 string, s2 string) []string {
 	M := map[string]int{}
