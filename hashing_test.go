@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"math"
 	"math/bits"
 	"math/rand"
 	"testing"
@@ -115,11 +116,40 @@ func Test575(t *testing.T) {
 // 599 Minimum Index Sum of Two Lists
 func Test599(t *testing.T) {
 	// 1 <= N1, N2 <= 1000
-	log.Printf(`["Shogun"] ?= %q`, findRestaurant(
-		[]string{"Shogun", "Tapioca Express", "Burger King", "KFC"},
-		[]string{"Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"}))
-	log.Printf(`["Shogun"] ?= %q`, findRestaurant([]string{"Shogun", "Tapioca Express", "Burger King", "KFC"}, []string{"KFC", "Shogun", "Burger King"}))
-	log.Printf(`["happy" "sad"] ?= %q`, findRestaurant([]string{"happy", "sad", "good"}, []string{"sad", "happy", "good"}))
+
+	WithHash := func(list1, list2 []string) []string {
+		M := map[int][]string{}
+
+		MList := map[string]int{}
+		for p, str := range list1 {
+			MList[str] = p
+		}
+
+		for q, str := range list2 {
+			if p, ok := MList[str]; ok {
+				M[p+q] = append(M[p+q], str)
+			}
+		}
+
+		nSum := math.MaxInt
+		for p := range M {
+			nSum = min(p, nSum)
+		}
+
+		if nSum == math.MaxInt {
+			return []string{}
+		}
+		return M[nSum]
+	}
+
+	for _, f := range []func([]string, []string) []string{findRestaurant, WithHash} {
+		log.Printf(`["Shogun"] ?= %q`, f(
+			[]string{"Shogun", "Tapioca Express", "Burger King", "KFC"},
+			[]string{"Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"}))
+		log.Printf(`["Shogun"] ?= %q`, f([]string{"Shogun", "Tapioca Express", "Burger King", "KFC"}, []string{"KFC", "Shogun", "Burger King"}))
+		log.Printf(`["happy" "sad"] ?= %q`, f([]string{"happy", "sad", "good"}, []string{"sad", "happy", "good"}))
+		log.Print("--")
+	}
 }
 
 // 884 Uncommon Words from Two Sentences

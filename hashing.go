@@ -145,7 +145,7 @@ func distributeCandies(candyType []int) int {
 }
 
 // 599 Minimum Index Sum of Two Lists
-func findRestaurant(list1 []string, list2 []string) []string {
+func findRestaurant(list1, list2 []string) []string {
 	for isum := 0; isum < len(list1)+len(list2)-1; isum++ {
 		R := []string{}
 
