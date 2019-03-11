@@ -470,6 +470,31 @@ func longestSubarray(nums []int) int {
 	return longest
 }
 
+// 2460 Apply Operations to an Array
+func applyOperations(nums []int) []int {
+	for i := range nums[:len(nums)-1] {
+		if nums[i] == nums[i+1] {
+			nums[i] *= 2
+			nums[i+1] = 0
+		}
+	}
+
+	for z := range nums {
+		if nums[z] == 0 {
+			swap := z
+			for nums[swap] == 0 {
+				swap++
+				if swap == len(nums) {
+					return nums
+				}
+			}
+			nums[z], nums[swap] = nums[swap], nums[z]
+		}
+	}
+
+	return nums
+}
+
 // 2696 Minimum String Length After Removing Substrings
 func minLength(s string) int {
 	Q := []rune{}
