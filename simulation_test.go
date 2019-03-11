@@ -99,7 +99,7 @@ func Test2028(t *testing.T) {
 // 2460 Apply Operations to an Array
 func Test2460(t *testing.T) {
 	log.Print("[1 4 2 0 0 0] ?= ", applyOperations([]int{1, 2, 2, 1, 1, 0}))
-	log.Print("[1, 0] ?= ", applyOperations([]int{1, 0}))
+	log.Print("[1 0] ?= ", applyOperations([]int{1, 0}))
 }
 
 // 2696 Minimum String Length After Removing Substrings

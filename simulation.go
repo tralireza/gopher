@@ -472,12 +472,23 @@ func longestSubarray(nums []int) int {
 
 // 2460 Apply Operations to an Array
 func applyOperations(nums []int) []int {
+	N := []int{}
+
 	for i := range nums[:len(nums)-1] {
 		if nums[i] == nums[i+1] {
 			nums[i] *= 2
 			nums[i+1] = 0
 		}
+
+		if nums[i] > 0 {
+			N = append(N, nums[i])
+		}
 	}
+
+	for len(N) < len(nums) {
+		N = append(N, 0)
+	}
+	log.Print("-> ", N)
 
 	for z := range nums {
 		if nums[z] == 0 {
