@@ -98,8 +98,35 @@ func Test2028(t *testing.T) {
 
 // 2460 Apply Operations to an Array
 func Test2460(t *testing.T) {
-	log.Print("[1 4 2 0 0 0] ?= ", applyOperations([]int{1, 2, 2, 1, 1, 0}))
-	log.Print("[1 0] ?= ", applyOperations([]int{1, 0}))
+	OnePass := func(nums []int) []int {
+		writer := 0
+
+		for i := range nums {
+			if i < len(nums)-1 && nums[i] == nums[i+1] {
+				nums[i] *= 2
+				nums[i+1] = 0
+			}
+
+			if nums[i] != 0 {
+				nums[writer] = nums[i]
+				writer++
+			}
+		}
+
+		for writer < len(nums) {
+			nums[writer] = 0
+			writer++
+		}
+
+		return nums
+	}
+
+	for _, f := range []func([]int) []int{applyOperations, OnePass} {
+		log.Print("[1 4 2 0 0 0] ?= ", f([]int{1, 2, 2, 1, 1, 0}))
+		log.Print("[1 0] ?= ", f([]int{1, 0}))
+		log.Print(" ?= ", f([]int{847, 847, 0, 0, 0, 399, 416, 416, 879, 879, 206, 206, 206, 272}))
+		log.Print("--")
+	}
 }
 
 // 2696 Minimum String Length After Removing Substrings
