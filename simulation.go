@@ -474,8 +474,8 @@ func longestSubarray(nums []int) int {
 func applyOperations(nums []int) []int {
 	N := []int{}
 
-	for i := range nums[:len(nums)-1] {
-		if nums[i] == nums[i+1] {
+	for i := range nums {
+		if i < len(nums)-1 && nums[i] == nums[i+1] {
 			nums[i] *= 2
 			nums[i+1] = 0
 		}
