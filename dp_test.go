@@ -595,6 +595,12 @@ func Test1025(t *testing.T) {
 	log.Print("false ?= ", divisorGame(3))
 }
 
+// 1092h Shortest Common Supersequence
+func Test1092(t *testing.T) {
+	log.Print("cabac ?= ", shortestCommonSupersequence("abac", "cab"))
+	log.Print("aaaaaaaa ?= ", shortestCommonSupersequence("aaaaaaaa", "aaaaaaaa"))
+}
+
 // 1105m Filling Bookcase Shelves
 func Test1105(t *testing.T) {
 	//Book[i]: Width, Height

@@ -683,6 +683,47 @@ func divisorGame(n int) bool {
 	return D[n]
 }
 
+// 1092h Shortest Common Supersequence
+func shortestCommonSupersequence(str1 string, str2 string) string {
+	LCS := make([][]int, len(str1)+1)
+	for p := range LCS {
+		LCS[p] = make([]int, len(str2)+1)
+	}
+
+	for p := range len(str1) {
+		for q := range len(str2) {
+			if str1[p] == str2[q] {
+				LCS[p+1][q+1] = LCS[p][q] + 1
+			} else {
+				LCS[p+1][q+1] = max(LCS[p][q+1], LCS[p+1][q])
+			}
+		}
+	}
+
+	// Longest Common Subsequence
+	log.Print("-> ", LCS)
+
+	SCS := []byte{}
+
+	p, q := len(str1), len(str2)
+	for p > 0 || q > 0 {
+		if p > 0 && q > 0 && str1[p-1] == str2[q-1] {
+			SCS = append(SCS, str1[p-1])
+			p--
+			q--
+		} else if p > 0 && (q == 0 || LCS[p-1][q] >= LCS[p][q-1]) {
+			SCS = append(SCS, str1[p-1])
+			p--
+		} else if q > 0 {
+			SCS = append(SCS, str2[q-1])
+			q--
+		}
+	}
+
+	slices.Reverse(SCS)
+	return string(SCS)
+}
+
 // 1105m Filling Bookcase Shelves
 func minHeightShelves(books [][]int, shelfWidth int) int {
 	rCalls, Mem := 0, map[[3]int]int{}
