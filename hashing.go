@@ -396,6 +396,26 @@ func dividePlayers(skill []int) int64 {
 	return chemistry / 2
 }
 
+// 2570 Merge Two 2D Arrays by Summing Values
+func mergeArrays(nums1 [][]int, nums2 [][]int) [][]int {
+	M := make([]int, 1000+1)
+
+	for _, Nums := range [][][]int{nums1, nums2} {
+		for _, v := range Nums {
+			M[v[0]] += v[1]
+		}
+	}
+
+	R := [][]int{}
+	for id, val := range M {
+		if val > 0 {
+			R = append(R, []int{id, val})
+		}
+	}
+
+	return R
+}
+
 // 2661m First Completely Painted Row or Column
 func firstCompleteIndex(arr []int, mat [][]int) int {
 	M := map[int][2]int{}
