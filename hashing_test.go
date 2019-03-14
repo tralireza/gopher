@@ -304,8 +304,42 @@ func Test2491(t *testing.T) {
 
 // 2570 Merge Two 2D Arrays by Summing Values
 func Test2570(t *testing.T) {
-	log.Print(" ?= ", mergeArrays([][]int{{1, 2}, {2, 3}, {4, 5}}, [][]int{{1, 4}, {3, 2}, {4, 1}}))
-	log.Print(" ?= ", mergeArrays([][]int{{2, 4}, {3, 6}, {5, 5}}, [][]int{{1, 3}, {4, 3}}))
+	// 1 <= N_i[id, val] <= 1000
+
+	TwoPointers := func(nums1, nums2 [][]int) [][]int {
+		R := [][]int{}
+
+		l, r := 0, 0
+		for l < len(nums1) || r < len(nums2) {
+			if l < len(nums1) && r < len(nums2) {
+				if nums1[l][0] == nums2[r][0] {
+					R = append(R, []int{nums1[l][0], nums1[l][1] + nums2[r][1]})
+					l++
+					r++
+				} else if nums1[l][0] < nums2[r][0] {
+					R = append(R, nums1[l])
+					l++
+				} else {
+					R = append(R, nums2[r])
+					r++
+				}
+			} else if l < len(nums1) {
+				R = append(R, nums1[l])
+				l++
+			} else {
+				R = append(R, nums2[r])
+				r++
+			}
+		}
+
+		return R
+	}
+
+	for _, f := range []func([][]int, [][]int) [][]int{mergeArrays, TwoPointers} {
+		log.Print(" ?= ", f([][]int{{1, 2}, {2, 3}, {4, 5}}, [][]int{{1, 4}, {3, 2}, {4, 1}}))
+		log.Print(" ?= ", f([][]int{{2, 4}, {3, 6}, {5, 5}}, [][]int{{1, 3}, {4, 3}}))
+		log.Print("--")
+	}
 }
 
 // 2661m First Completely Painted Row or Column

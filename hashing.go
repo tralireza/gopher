@@ -397,7 +397,7 @@ func dividePlayers(skill []int) int64 {
 }
 
 // 2570 Merge Two 2D Arrays by Summing Values
-func mergeArrays(nums1 [][]int, nums2 [][]int) [][]int {
+func mergeArrays(nums1, nums2 [][]int) [][]int {
 	M := make([]int, 1000+1)
 
 	for _, Nums := range [][][]int{nums1, nums2} {
