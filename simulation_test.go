@@ -83,6 +83,12 @@ func Test2022(t *testing.T) {
 	log.Print("[] ?= ", construct2DArray([]int{1, 2}, 1, 1))
 }
 
+// 2161m Partition Array According to Given Pivot
+func Test2161(t *testing.T) {
+	log.Print("[9 5 3 10 10 12 14] ?= ", pivotArray([]int{9, 12, 5, 10, 14, 3, 10}, 10))
+	log.Print("[-3 2 4 3] ?= ", pivotArray([]int{-3, 4, 3, 2}, 2))
+}
+
 // 2419m Longest Subarray With Maximum Bitwise AND
 func Test2419(t *testing.T) {
 	log.Print("2 ?= ", longestSubarray([]int{1, 2, 3, 3, 2, 2}))

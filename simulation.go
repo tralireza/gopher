@@ -451,6 +451,30 @@ func missingRolls(rolls []int, mean int, n int) []int {
 	return R
 }
 
+// 2161m Partition Array According to Given Pivot
+func pivotArray(nums []int, pivot int) []int {
+	R := make([]int, len(nums))
+
+	left, right := 0, len(nums)-1
+	for l, r := 0, len(nums)-1; l < len(nums) && r >= 0; l, r = l+1, r-1 {
+		if nums[l] < pivot {
+			R[left] = nums[l]
+			left++
+		}
+		if nums[r] > pivot {
+			R[right] = nums[r]
+			right--
+		}
+	}
+
+	for left <= right {
+		R[left] = pivot
+		left++
+	}
+
+	return R
+}
+
 // 2419m Longest Subarray With Maximum Bitwise AND
 func longestSubarray(nums []int) int {
 	xVal, longest, cur := 0, 0, 0
