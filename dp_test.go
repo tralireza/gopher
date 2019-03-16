@@ -597,7 +597,7 @@ func Test1025(t *testing.T) {
 
 // 1092h Shortest Common Supersequence
 func Test1092(t *testing.T) {
-	// TLE
+	// (!TLE)
 	var Recursive func(str1, str2 string) string
 	Recursive = func(str1, str2 string) string {
 		if str1 == "" && str2 == "" {
@@ -624,10 +624,53 @@ func Test1092(t *testing.T) {
 		}
 	}
 
-	for _, f := range []func(string, string) string{shortestCommonSupersequence, Recursive} {
+	// (!MLE)
+	RecursiveMemo := func(str1, str2 string) string {
+		M := map[[2]string]string{}
+
+		var Search func(str1, str2 string) string
+		Search = func(str1, str2 string) string {
+			if str1 == "" && str2 == "" {
+				return ""
+			}
+			if str1 == "" {
+				return str2
+			}
+			if str2 == "" {
+				return str1
+			}
+
+			if scs, ok := M[[2]string{str1, str2}]; ok {
+				return scs
+			}
+
+			if str1[0] == str2[0] {
+				M[[2]string{str1, str2}] = string(str1[0]) + Search(str1[1:], str2[1:])
+				return M[[2]string{str1, str2}]
+			}
+
+			scs1 := string(str1[0]) + Search(str1[1:], str2)
+			scs2 := string(str2[0]) + Search(str1, str2[1:])
+
+			if len(scs1) <= len(scs2) {
+				M[[2]string{str1, str2}] = scs1
+			} else {
+				M[[2]string{str1, str2}] = scs2
+			}
+
+			return M[[2]string{str1, str2}]
+		}
+
+		return Search(str1, str2)
+	}
+
+	for _, f := range []func(string, string) string{shortestCommonSupersequence, Recursive, RecursiveMemo} {
+		tStart := time.Now()
 		log.Print("cabac ?= ", f("abac", "cab"))
 		log.Print("aaaaaaaa ?= ", f("aaaaaaaa", "aaaaaaaa"))
-		log.Print("--")
+
+		log.Print(" ?= ", f("abcdefghijkl", "efghijklmnopqr"))
+		log.Print("-- ", time.Since(tStart))
 	}
 }
 
