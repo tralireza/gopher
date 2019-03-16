@@ -597,8 +597,38 @@ func Test1025(t *testing.T) {
 
 // 1092h Shortest Common Supersequence
 func Test1092(t *testing.T) {
-	log.Print("cabac ?= ", shortestCommonSupersequence("abac", "cab"))
-	log.Print("aaaaaaaa ?= ", shortestCommonSupersequence("aaaaaaaa", "aaaaaaaa"))
+	// TLE
+	var Recursive func(str1, str2 string) string
+	Recursive = func(str1, str2 string) string {
+		if str1 == "" && str2 == "" {
+			return ""
+		}
+		if str1 == "" {
+			return str2
+		}
+		if str2 == "" {
+			return str1
+		}
+
+		switch str1[0] == str2[0] {
+		case true:
+			return string(str1[0]) + Recursive(str1[1:], str2[1:])
+		default:
+			scs1 := string(str1[0]) + Recursive(str1[1:], str2)
+			scs2 := string(str2[0]) + Recursive(str1, str2[1:])
+
+			if len(scs1) <= len(scs2) {
+				return scs1
+			}
+			return scs2
+		}
+	}
+
+	for _, f := range []func(string, string) string{shortestCommonSupersequence, Recursive} {
+		log.Print("cabac ?= ", f("abac", "cab"))
+		log.Print("aaaaaaaa ?= ", f("aaaaaaaa", "aaaaaaaa"))
+		log.Print("--")
+	}
 }
 
 // 1105m Filling Bookcase Shelves
