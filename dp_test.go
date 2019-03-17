@@ -367,6 +367,12 @@ func Test494(t *testing.T) {
 	}
 }
 
+// 516m Longest Palindromic Subsequence
+func Test516(t *testing.T) {
+	log.Print("4 ?= ", longestPalindromeSubseq("bbbab"))
+	log.Print("2 ?= ", longestPalindromeSubseq("cbbd"))
+}
+
 // 646m Maximum Length of Pair Chain
 func Test646(t *testing.T) {
 	log.Print("2 ?= ", findLongestChain([][]int{{1, 2}, {2, 3}, {3, 4}}))
@@ -669,7 +675,7 @@ func Test1092(t *testing.T) {
 		log.Print("cabac ?= ", f("abac", "cab"))
 		log.Print("aaaaaaaa ?= ", f("aaaaaaaa", "aaaaaaaa"))
 
-		log.Print(" ?= ", f("abcdefghijkl", "efghijklmnopqr"))
+		log.Print(" ?= ", f("abcdefghijk", "efghijklmnopqr"))
 		log.Print("-- ", time.Since(tStart))
 	}
 }

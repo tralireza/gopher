@@ -462,6 +462,28 @@ func findTargetSumWays(nums []int, target int) int {
 	return Search(0, target)
 }
 
+// 516m Longest Palindromic Subsequence
+func longestPalindromeSubseq(s string) int {
+	LPS := make([][]int, len(s))
+	for r := range LPS {
+		LPS[r] = make([]int, len(s))
+	}
+
+	for r := len(s) - 1; r >= 0; r-- {
+		LPS[r][r] = 1
+
+		for c := r + 1; c < len(s); c++ {
+			if s[r] == s[c] {
+				LPS[r][c] = LPS[r+1][c-1] + 2
+			} else {
+				LPS[r][c] = max(LPS[r+1][c], LPS[r][c-1])
+			}
+		}
+	}
+
+	return LPS[0][len(s)-1]
+}
+
 // 646m Maximum Length of Pair Chain
 func findLongestChain(pairs [][]int) int {
 	slices.SortFunc(pairs, func(a, b []int) int { return a[1] - b[1] })
