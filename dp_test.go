@@ -369,8 +369,30 @@ func Test494(t *testing.T) {
 
 // 516m Longest Palindromic Subsequence
 func Test516(t *testing.T) {
-	log.Print("4 ?= ", longestPalindromeSubseq("bbbab"))
-	log.Print("2 ?= ", longestPalindromeSubseq("cbbd"))
+	DP := func(s string) int {
+		D := make([][]int, len(s)+1)
+		for r := range D {
+			D[r] = make([]int, len(s)+1)
+		}
+
+		for r := range len(s) {
+			for c := range len(s) {
+				if s[r] == s[len(s)-1-c] {
+					D[r+1][c+1] = D[r][c] + 1
+				} else {
+					D[r+1][c+1] = max(D[r+1][c], D[r][c+1])
+				}
+			}
+		}
+
+		return D[len(s)][len(s)]
+	}
+
+	for _, f := range []func(string) int{longestPalindromeSubseq, DP} {
+		log.Print("4 ?= ", f("bbbab"))
+		log.Print("2 ?= ", f("cbbd"))
+		log.Print("--")
+	}
 }
 
 // 646m Maximum Length of Pair Chain
