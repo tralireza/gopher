@@ -484,6 +484,48 @@ func Test689(t *testing.T) {
 	}
 }
 
+// 730h Count Different Palindromic Subsequences
+func Test730(t *testing.T) {
+	// 1 <= N <= 1000
+
+	// (!TLE)
+	Recursive := func(s string) int {
+		M := map[string]int{}
+		defer log.Print("-> ", M)
+
+		var Search func(string, int) int
+		Search = func(cStr string, start int) int {
+			if start == len(s) {
+				l, r := 0, len(cStr)-1
+				for l < r && cStr[l] == cStr[r] {
+					l++
+					r--
+				}
+
+				if l >= r {
+					if _, ok := M[cStr]; !ok {
+						M[cStr] = 1
+						return 1
+					}
+				}
+				return 0
+			}
+
+			return Search(cStr, start+1) + Search(cStr+string(s[start]), start+1)
+		}
+
+		return Search("", 0) - 1
+	}
+
+	for _, f := range []func(string) int{Recursive} {
+		log.Print("6 ?= ", f("bccb"))
+		log.Print("19 ?= ", f("abccdbaa"))
+
+		// (!TLE)
+		//log.Print("104860361?= ", f("abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba"))
+	}
+}
+
 // 983m Minimum Cost For Tickets
 func Test983(t *testing.T) {
 	Iterative := func(days []int, costs []int) int {
