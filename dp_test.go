@@ -491,7 +491,7 @@ func Test730(t *testing.T) {
 	// (!TLE)
 	Recursive := func(s string) int {
 		M := map[string]int{}
-		defer log.Print("-> ", M)
+		defer func() { log.Printf("-> #%d %v ", len(M), M) }()
 
 		var Search func(string, int) int
 		Search = func(cStr string, start int) int {
@@ -503,8 +503,8 @@ func Test730(t *testing.T) {
 				}
 
 				if l >= r {
-					if _, ok := M[cStr]; !ok {
-						M[cStr] = 1
+					M[cStr]++
+					if M[cStr] == 1 {
 						return 1
 					}
 				}
@@ -517,13 +517,14 @@ func Test730(t *testing.T) {
 		return Search("", 0) - 1
 	}
 
-	for _, f := range []func(string) int{Recursive} {
+	for _, f := range []func(string) int{Recursive, countPalindromicSubsequences} {
 		log.Print("6 ?= ", f("bccb"))
 		log.Print("19 ?= ", f("abccdbaa"))
-
-		// (!TLE)
-		//log.Print("104860361?= ", f("abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba"))
+		log.Print("--")
 	}
+
+	// Recursive (!TLE)
+	log.Print("104860361 ?= ", countPalindromicSubsequences("abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba"))
 }
 
 // 983m Minimum Cost For Tickets

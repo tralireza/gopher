@@ -635,6 +635,45 @@ func maxSumOfThreeSubarrays(nums []int, k int) []int {
 	return R
 }
 
+// 730h Count Different Palindromic Subsequences
+func countPalindromicSubsequences(s string) int {
+	Mem := map[[2]int]int{}
+	defer func() { log.Printf("-> #%d %v", len(Mem), Mem) }()
+
+	const M = 1000_000_007
+
+	var Search func(start, end int) int
+	Search = func(start, end int) int {
+		if start >= end {
+			return 0
+		}
+
+		if count, ok := Mem[[2]int{start, end}]; ok {
+			return count
+		}
+
+		count := 0
+		for _, chr := range []byte("abcd") {
+			l, r := strings.IndexByte(s[start:end], chr), strings.LastIndexByte(s[start:end], chr)
+			if l == -1 || r == -1 {
+				continue
+			}
+
+			if l == r {
+				count++
+			} else {
+				count += 2 + Search(start+l+1, start+r)
+			}
+
+			count %= M
+		}
+		Mem[[2]int{start, end}] = count
+		return count
+	}
+
+	return Search(0, len(s))
+}
+
 // 983m Minimum Cost For Tickets
 func mincostTickets(days []int, costs []int) int {
 	Mem := map[int]int{}
