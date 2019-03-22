@@ -61,6 +61,7 @@ func Test1154(t *testing.T) {
 func Test1780(t *testing.T) {
 	// 1 <= N <= 10^7
 
+	// O(logN)
 	Ternary := func(n int) bool {
 		for n > 0 {
 			if n%3 == 2 {
@@ -72,7 +73,24 @@ func Test1780(t *testing.T) {
 		return true
 	}
 
-	for _, f := range []func(int) bool{checkPowersOfThree, Ternary} {
+	// O(2^log3(N))
+	Recursive := func(n int) bool {
+		var Search func(p, n int) bool
+		Search = func(p, n int) bool {
+			if n == 0 {
+				return true
+			}
+			if n < 0 || n < p {
+				return false
+			}
+
+			return Search(3*p, n) || Search(3*p, n-p)
+		}
+
+		return Search(1, n)
+	}
+
+	for _, f := range []func(int) bool{checkPowersOfThree, Ternary, Recursive} {
 		log.Print("true ?= ", f(12))
 		log.Print("true ?= ", f(91))
 		log.Print("false ?= ", f(21))
