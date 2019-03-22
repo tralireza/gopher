@@ -61,9 +61,23 @@ func Test1154(t *testing.T) {
 func Test1780(t *testing.T) {
 	// 1 <= N <= 10^7
 
-	log.Print("true ?= ", checkPowersOfThree(12))
-	log.Print("true ?= ", checkPowersOfThree(91))
-	log.Print("false ?= ", checkPowersOfThree(21))
+	Ternary := func(n int) bool {
+		for n > 0 {
+			if n%3 == 2 {
+				return false
+			}
+			n /= 3
+		}
+
+		return true
+	}
+
+	for _, f := range []func(int) bool{checkPowersOfThree, Ternary} {
+		log.Print("true ?= ", f(12))
+		log.Print("true ?= ", f(91))
+		log.Print("false ?= ", f(21))
+		log.Print("--")
+	}
 }
 
 // 1998h GCD Sort of an Array
