@@ -93,6 +93,29 @@ func dayOfYear(date string) int {
 	return dy
 }
 
+// 1780m Check if Number is a Sum of Powers of Three
+func checkPowersOfThree(n int) bool {
+	P := []int{}
+	power := 1
+	for power <= 10000_000 {
+		P = append(P, power)
+		power *= 3
+	}
+	slices.Reverse(P)
+
+	log.Print("-> ", P)
+
+	for _, power := range P {
+		if n >= power {
+			n -= power
+			if n == 0 {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // 1998h GCD Sort of an Array
 func gcdSort(nums []int) bool {
 	xVal := slices.Max(nums)

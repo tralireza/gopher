@@ -57,6 +57,15 @@ func Test1154(t *testing.T) {
 	log.Print("41 ?= ", dayOfYear("2019-02-10"))
 }
 
+// 1780m Check if Number is a Sum of Powers of Three
+func Test1780(t *testing.T) {
+	// 1 <= N <= 10^7
+
+	log.Print("true ?= ", checkPowersOfThree(12))
+	log.Print("true ?= ", checkPowersOfThree(91))
+	log.Print("false ?= ", checkPowersOfThree(21))
+}
+
 // 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4
