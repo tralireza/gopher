@@ -80,7 +80,7 @@ func Test1780(t *testing.T) {
 			if n == 0 {
 				return true
 			}
-			if n < 0 || n < p {
+			if n < p {
 				return false
 			}
 
