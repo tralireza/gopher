@@ -200,6 +200,8 @@ func coloredCells(n int) int64 {
 		cells += int64(4 * (n - 1))
 	}
 
+	log.Print("-> ", 1+2*n*(n-1))
+
 	return cells
 }
 
