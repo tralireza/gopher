@@ -193,6 +193,16 @@ func gcdSort(nums []int) bool {
 	return true
 }
 
+// 2579m Count Total Number of Colored Cells
+func coloredCells(n int) int64 {
+	cells := int64(1)
+	for i := 2; i <= n; i++ {
+		cells += int64(4 * (n - 1))
+	}
+
+	return cells
+}
+
 // 3151 Special Array I
 func isArraySpecialI(nums []int) bool {
 	for i := 1; i < len(nums); i++ {

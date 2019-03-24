@@ -107,6 +107,12 @@ func Test1998(t *testing.T) {
 	log.Println("true ?= ", gcdSort([]int{10, 5, 9, 3, 15}))
 }
 
+// 2579m Count Total Number of Colored Cells
+func Test2579(t *testing.T) {
+	log.Print("1 ?= ", coloredCells(1))
+	log.Print("5 ?= ", coloredCells(2))
+}
+
 // 3151 Special Array I
 func Test3151(t *testing.T) {
 	log.Print("true ?= ", isArraySpecialI([]int{1}))
