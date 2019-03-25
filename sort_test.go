@@ -50,6 +50,12 @@ func Test179(t *testing.T) {
 	}
 }
 
+// 220h Contains Duplicate III
+func Test220(t *testing.T) {
+	log.Print("true ?= ", containsNearbyAlmostDuplicate([]int{1, 2, 3, 1}, 3, 0))
+	log.Print("false ?= ", containsNearbyAlmostDuplicate([]int{1, 5, 9, 1, 5, 9}, 2, 3))
+}
+
 // 414 Third Maximum Number
 func Test414(t *testing.T) {
 	log.Print("1 ?= ", thirdMax([]int{3, 2, 1}))

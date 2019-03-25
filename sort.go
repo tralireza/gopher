@@ -88,6 +88,41 @@ func largestNumber(nums []int) string {
 	return v
 }
 
+// 220h Contains Duplicate III
+func containsNearbyAlmostDuplicate(nums []int, indexDiff int, valueDiff int) bool {
+	M := map[int]int{}
+
+	Bucket := func(v int) int {
+		if valueDiff != 0 {
+			return v / valueDiff
+		}
+		return v
+	}
+
+	for i, n := range nums {
+		if i > indexDiff {
+			delete(M, Bucket(nums[i-indexDiff-1]))
+		}
+
+		bucket := Bucket(n)
+		for i := -1; i <= 1; i++ {
+			if v, ok := M[bucket+i]; ok {
+				diff := v - n
+				if diff < 0 {
+					diff = -diff
+				}
+				if diff <= valueDiff {
+					return true
+				}
+			}
+		}
+
+		M[bucket] = n
+	}
+
+	return false
+}
+
 // 414 Third Maximum Number
 func thirdMax(nums []int) int {
 	f, s, t := 0, -1, 1 // First, Second & Third Max
