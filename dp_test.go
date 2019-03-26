@@ -228,6 +228,12 @@ func Test221(t *testing.T) {
 	log.Print("0 ?= ", maximalSquare([][]byte{{'0'}}))
 }
 
+// 233h Number of Digit One
+func Test233(t *testing.T) {
+	log.Print("6 ?= ", countDigitOne(13))
+	log.Print("0 ?= ", countDigitOne(0))
+}
+
 // 241m Different Ways to Add Parentheses
 func Test241(t *testing.T) {
 	Tabulation := func(expr string) []int {

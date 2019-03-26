@@ -335,6 +335,17 @@ func maximalSquare(matrix [][]byte) int {
 	return x * x
 }
 
+// 233h Number of Digit One
+func countDigitOne(n int) int {
+	ones := 0
+	for r := 1; r <= n; r *= 10 {
+		dvr := r * 10
+		ones += (n/dvr)*r + min(max(n%dvr-r+1, 0), r)
+	}
+
+	return ones
+}
+
 // 241m Different Ways to Add Parentheses
 func diffWaysToCompute(expression string) []int {
 	Mem := map[[2]int][]int{}
