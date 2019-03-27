@@ -443,6 +443,28 @@ func firstCompleteIndex(arr []int, mat [][]int) int {
 	return -1
 }
 
+// 2965 Find Missing and Repeated Values
+func findMissingAndRepeatedValues(grid [][]int) []int {
+	M := make([]int, len(grid)*len(grid)+1)
+	for x := range grid {
+		for y := range grid[x] {
+			M[grid[x][y]]++
+		}
+	}
+
+	R := []int{0, 0}
+	for n := 1; n < len(M); n++ {
+		switch M[n] {
+		case 2:
+			R[0] = n
+		case 0:
+			R[1] = n
+		}
+	}
+
+	return R
+}
+
 // 2981m Find Longest Special Substring That Counts Thrice I
 func maximumLength(s string) int {
 	Count := map[string]int{}

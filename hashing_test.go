@@ -380,6 +380,12 @@ func Test2661(t *testing.T) {
 	}
 }
 
+// 2965 Find Missing and Repeated Values
+func Test2965(t *testing.T) {
+	log.Print("[2 4] ?= ", findMissingAndRepeatedValues([][]int{{1, 3}, {2, 2}}))
+	log.Print("[9 5] ?= ", findMissingAndRepeatedValues([][]int{{9, 1, 7}, {8, 9, 2}, {3, 4, 6}}))
+}
+
 // 2981m Find Longest Special Substring That Counts Thrice I
 func Test2981(t *testing.T) {
 	// O(n)
