@@ -382,8 +382,30 @@ func Test2661(t *testing.T) {
 
 // 2965 Find Missing and Repeated Values
 func Test2965(t *testing.T) {
-	log.Print("[2 4] ?= ", findMissingAndRepeatedValues([][]int{{1, 3}, {2, 2}}))
-	log.Print("[9 5] ?= ", findMissingAndRepeatedValues([][]int{{9, 1, 7}, {8, 9, 2}, {3, 4, 6}}))
+	// E (1+...+n^2) = n^2(n^2+1)/2, E (1^2+...+(n^2)^2) = n^2(n^2+1)(2n^2+1)/6
+
+	Math := func(grid [][]int) []int {
+		n := len(grid)
+
+		sum, sqrSum := 0, 0
+		for r := range grid {
+			for c := range grid[r] {
+				sum += grid[r][c]
+				sqrSum += grid[r][c] * grid[r][c]
+			}
+		}
+
+		n *= n
+		diffSum, diffSqr := sum-n*(n+1)/2, sqrSum-n*(n+1)*(2*n+1)/6
+
+		return []int{(diffSqr/diffSum + diffSum) / 2, (diffSqr/diffSum - diffSum) / 2}
+	}
+
+	for _, f := range []func([][]int) []int{findMissingAndRepeatedValues, Math} {
+		log.Print("[2 4] ?= ", f([][]int{{1, 3}, {2, 2}}))
+		log.Print("[9 5] ?= ", f([][]int{{9, 1, 7}, {8, 9, 2}, {3, 4, 6}}))
+		log.Print("--")
+	}
 }
 
 // 2981m Find Longest Special Substring That Counts Thrice I
