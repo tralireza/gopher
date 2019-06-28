@@ -107,6 +107,14 @@ func Test1998(t *testing.T) {
 	log.Println("true ?= ", gcdSort([]int{10, 5, 9, 3, 15}))
 }
 
+// 2523m Closest Prime Numbers in Range
+func Test2523(t *testing.T) {
+	log.Print("[11 13] ?= ", closestPrimes(10, 19))
+	log.Print("[-1 -1] ?= ", closestPrimes(4, 6))
+
+	log.Print("[29 31] ?= ", closestPrimes(19, 31))
+}
+
 // 2579m Count Total Number of Colored Cells
 func Test2579(t *testing.T) {
 	log.Print("1 ?= ", coloredCells(1))

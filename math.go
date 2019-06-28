@@ -193,6 +193,46 @@ func gcdSort(nums []int) bool {
 	return true
 }
 
+// 2523m Closest Prime Numbers in Range
+func closestPrimes(left int, right int) []int {
+	Sieve := make([]int, right+1)
+	for n := range Sieve {
+		Sieve[n] = n
+	}
+	Sieve[1] = 0
+
+	for p := 2; p <= right; p++ {
+		if Sieve[p] == p {
+			for m := p * p; m <= right; m += p {
+				Sieve[m] = p
+			}
+		}
+	}
+
+	log.Print("-> ", Sieve)
+
+	Prime := []int{}
+	for p := range Sieve {
+		if Sieve[p] == p && p >= left {
+			Prime = append(Prime, p)
+		}
+	}
+
+	log.Print("-> ", Prime)
+
+	if len(Prime) < 2 {
+		return []int{-1, -1}
+	}
+
+	R := []int{Prime[0], Prime[1]}
+	for i := range Prime[:len(Prime)-1] {
+		if Prime[i+1]-Prime[i] < R[1]-R[0] {
+			R[0], R[1] = Prime[i], Prime[i+1]
+		}
+	}
+	return R
+}
+
 // 2579m Count Total Number of Colored Cells
 func coloredCells(n int) int64 {
 	cells := int64(1)
