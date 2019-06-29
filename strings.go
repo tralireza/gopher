@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"math"
 	"strconv"
 	"strings"
 	"unicode"
@@ -198,6 +199,31 @@ func prefixCount(words []string, pref string) int {
 	}
 
 	return count
+}
+
+// 2379 Minimum Recolors to Get K Consecutive Black Blocks
+func minimumRecolors(blocks string, k int) int {
+	recolors, cur := math.MaxInt, 0
+
+	l := 0
+	for r := 0; r < len(blocks); r++ {
+		switch blocks[r] {
+		case 'W':
+			cur++
+		}
+
+		if r-l+1 >= k {
+			recolors = min(recolors, cur)
+
+			switch blocks[l] {
+			case 'W':
+				cur--
+			}
+			l++
+		}
+	}
+
+	return recolors
 }
 
 // 2405m Optimal Partition of String

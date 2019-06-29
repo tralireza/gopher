@@ -67,6 +67,12 @@ func Test2185(t *testing.T) {
 	log.Print("0 ?= ", prefixCount([]string{"leetcode", "win", "loops", "success"}, "code"))
 }
 
+// 2379 Minimum Recolors to Get K Consecutive Black Blocks
+func Test2379(t *testing.T) {
+	log.Print("3 ?= ", minimumRecolors("WBBWWBBWBW", 7))
+	log.Print("0 ?= ", minimumRecolors("WBWBBBW", 2))
+}
+
 // 2405m Optimal Partition of String
 func Test2405(t *testing.T) {
 	log.Print("4 ?= ", partitionString("abacaba"))
