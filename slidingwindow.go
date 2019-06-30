@@ -18,7 +18,6 @@ func numberOfAlternatingGroups(colors []int, k int) int {
 			}
 			prvColor = curColor
 		}
-
 	}
 
 	return groups

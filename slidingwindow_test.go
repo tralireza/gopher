@@ -16,8 +16,9 @@ func Test3208(t *testing.T) {
 		{2, []int{0, 1, 0, 0, 1, 0, 1}, 6},
 		{0, []int{1, 1, 0, 1}, 4},
 	} {
-		log.Printf("%d ?= %v", c.rst, numberOfAlternatingGroups(c.colors, c.k))
-		if c.rst != numberOfAlternatingGroups(c.colors, c.k) {
+		rst, colors, k := c.rst, c.colors, c.k
+		log.Printf("%d ?= %v", rst, numberOfAlternatingGroups(colors, k))
+		if rst != numberOfAlternatingGroups(colors, k) {
 			t.FailNow()
 		}
 	}
