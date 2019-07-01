@@ -536,7 +536,7 @@ func countOfSubstrings(word string, k int) int {
 
 // 3306m Count of Substrings Containing Every Vowel and K Consonants II
 func countOfSubstringsII(word string, k int) int64 {
-	AtMost := func(k int) int64 {
+	AtLeast := func(k int) int64 {
 		t := int64(0)
 		M := map[byte]int{}
 
@@ -568,5 +568,5 @@ func countOfSubstringsII(word string, k int) int64 {
 		return t
 	}
 
-	return AtMost(k) - AtMost(k+1)
+	return AtLeast(k) - AtLeast(k+1)
 }

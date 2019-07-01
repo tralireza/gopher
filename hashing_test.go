@@ -5,6 +5,8 @@ import (
 	"math"
 	"math/bits"
 	"math/rand"
+	"reflect"
+	"runtime"
 	"testing"
 )
 
@@ -499,7 +501,78 @@ func Test3305(t *testing.T) {
 func Test3306(t *testing.T) {
 	// 5 <= word <= 2*10^5
 
-	log.Print("0 ?= ", countOfSubstringsII("aeioqq", 1))
-	log.Print("1 ?= ", countOfSubstringsII("aeiou", 0))
-	log.Print("3 ?= ", countOfSubstringsII("ieaouqqieaouqq", 1))
+	SlidingWindow := func(word string, k int) int64 {
+		Next := make([]int, len(word))
+		nextCons := len(word)
+		for i := len(word) - 1; i >= 0; i-- {
+			Next[i] = nextCons
+			switch word[i] {
+			case 'a', 'e', 'i', 'o', 'u':
+			default:
+				nextCons = i
+			}
+		}
+
+		t := int64(0)
+
+		M := map[byte]int{}
+		l := 0
+
+		for r := 0; r < len(word); r++ {
+			switch word[r] {
+			case 'a', 'e', 'i', 'o', 'u':
+				M[word[r]]++
+			default:
+				k--
+			}
+
+			for k < 0 {
+				switch word[l] {
+				case 'a', 'e', 'i', 'o', 'u':
+					M[word[l]]--
+					if M[word[l]] == 0 {
+						delete(M, word[l])
+					}
+				default:
+					k++
+				}
+				l++
+			}
+
+			for l < len(word) && k == 0 && len(M) == 5 {
+				t += int64(Next[r] - r)
+				switch word[l] {
+				case 'a', 'e', 'i', 'o', 'u':
+					M[word[l]]--
+					if M[word[l]] == 0 {
+						delete(M, word[l])
+					}
+				default:
+					k++
+				}
+				l++
+			}
+
+		}
+
+		return t
+	}
+
+	for _, c := range []struct {
+		rst  int64
+		word string
+		k    int
+	}{
+		{0, "aeioqq", 1},
+		{1, "aeiou", 0},
+		{3, "ieaouqqieaouqq", 1},
+	} {
+		rst, word, k := c.rst, c.word, c.k
+		for _, f := range []func(string, int) int64{countOfSubstringsII, SlidingWindow} {
+			log.Printf("%27s :: %d ?= %d", runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name(), k, f(word, k))
+			if rst != f(word, k) {
+				t.FailNow()
+			}
+		}
+	}
 }
