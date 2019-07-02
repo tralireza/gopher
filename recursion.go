@@ -232,6 +232,40 @@ func calculate(s string) int {
 	return Calc()
 }
 
+// 282h Expression Add Operators
+func addOperators(num string, target int) []string {
+	R := []string{}
+
+	var Search func(start, prvOpr, curVal int, expr string)
+	Search = func(start, prvOpr, curVal int, expr string) {
+		if start == len(num) {
+			if curVal == target {
+				R = append(R, expr)
+			}
+			return
+		}
+
+		for i := start; i < len(num); i++ {
+			if num[start] == '0' && i > start {
+				break
+			}
+
+			v, _ := strconv.Atoi(num[start : i+1])
+			if i == 0 {
+				Search(i+1, v, curVal+v, expr+num[start:i+1])
+			} else {
+				Search(i+1, v, curVal+v, expr+"+"+num[start:i+1])
+				Search(i+1, -v, curVal-v, expr+"-"+num[start:i+1])
+				Search(i+1, prvOpr*v, curVal-prvOpr+prvOpr*v, expr+"*"+num[start:i+1])
+			}
+		}
+	}
+
+	Search(0, 0, 0, "")
+
+	return R
+}
+
 // 386m Lexicographical Numbers
 func lexicalOrder(n int) []int {
 	R := []int{}

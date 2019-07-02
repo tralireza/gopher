@@ -3,6 +3,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"reflect"
 	"testing"
 )
 
@@ -73,6 +74,25 @@ func Test224(t *testing.T) {
 	log.Print("1 ?= ", calculate("+1"))
 	log.Print("-3 ?= ", calculate("1-(1+3)"))
 	log.Print("2 ?= ", calculate("13-(1+3+((3+1)+4))+1"))
+}
+
+// 282h Expression Add Operators
+func Test282(t *testing.T) {
+	for _, c := range []struct {
+		rst    []string
+		num    string
+		target int
+	}{
+		{[]string{"1+2+3", "1*2*3"}, "123", 6},
+		{[]string{"2+3*2", "2*3+2"}, "232", 8},
+		{[]string{}, "3456237490", 9191},
+	} {
+		rst, num, target := c.rst, c.num, c.target
+		log.Printf("%q ?= %q", rst, addOperators(num, target))
+		if !reflect.DeepEqual(rst, addOperators(num, target)) {
+			t.FailNow()
+		}
+	}
 }
 
 // 386m Lexicographical Numbers
@@ -198,7 +218,6 @@ func Test1079(t *testing.T) {
 		log.Print("8 ?= ", f("AAB"))
 		log.Print("188 ?= ", f("AAABBC"))
 		log.Print("1 ?= ", f("V"))
-
 	}
 }
 
