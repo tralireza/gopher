@@ -5,6 +5,24 @@ import (
 	"testing"
 )
 
+// 1358m Number of Substrings Containing All Three Characters
+func Test1358(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+	}{
+		{10, "abcabc"},
+		{3, "aaacb"},
+		{1, "abc"},
+	} {
+		rst, s := c.rst, c.s
+		log.Printf("%d ?= %d", rst, numberOfSubstrings(s))
+		if rst != numberOfSubstrings(s) {
+			t.FailNow()
+		}
+	}
+}
+
 // 3208m Alternating Groups II
 func Test3208(t *testing.T) {
 	for _, c := range []struct {

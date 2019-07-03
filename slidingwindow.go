@@ -1,5 +1,30 @@
 package gopher
 
+// 1358m Number of Substrings Containing All Three Characters
+func numberOfSubstrings(s string) int {
+	count := 0
+
+	M := map[byte]int{}
+	l := 0
+
+	for r := 0; r < len(s); r++ {
+		M[s[r]]++
+
+		for len(M) == 3 {
+			count += len(s) - r
+
+			M[s[l]]--
+			if M[s[l]] == 0 {
+				delete(M, s[l])
+			}
+
+			l++
+		}
+	}
+
+	return count
+}
+
 // 3208m Alternating Groups II
 func numberOfAlternatingGroups(colors []int, k int) int {
 	groups, wSize := 0, 1
