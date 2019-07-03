@@ -7,6 +7,31 @@ import (
 
 // 1358m Number of Substrings Containing All Three Characters
 func Test1358(t *testing.T) {
+	SlidingWindow := func(s string) int {
+		M, wSize := [3]int{}, 0
+
+		l, count := 0, 0
+		for r := 0; r < len(s); r++ {
+			if M[s[r]-'a'] == 0 {
+				wSize++
+			}
+			M[s[r]-'a']++
+
+			for wSize == 3 {
+				count += len(s) - r
+
+				M[s[l]-'a']--
+				if M[s[l]-'a'] == 0 {
+					wSize--
+				}
+
+				l++
+			}
+		}
+
+		return count
+	}
+
 	for _, c := range []struct {
 		rst int
 		s   string
@@ -16,9 +41,11 @@ func Test1358(t *testing.T) {
 		{1, "abc"},
 	} {
 		rst, s := c.rst, c.s
-		log.Printf("%d ?= %d", rst, numberOfSubstrings(s))
-		if rst != numberOfSubstrings(s) {
-			t.FailNow()
+		for _, f := range []func(string) int{numberOfSubstrings, SlidingWindow} {
+			log.Printf("%d ?= %d", rst, f(s))
+			if rst != numberOfSubstrings(s) {
+				t.FailNow()
+			}
 		}
 	}
 }
