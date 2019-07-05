@@ -329,6 +329,53 @@ func Test300(t *testing.T) {
 	log.Print("1 ?= ", lengthOfLIS([]int{7, 7, 7, 7, 7, 7, 7}))
 }
 
+// 312h Burst Balloons
+func Test312(t *testing.T) {
+	// 1 <= N <= 300
+
+	DP := func(nums []int) int {
+		D := make([][]int, len(nums)+1)
+		for r := range D {
+			D[r] = make([]int, len(nums)+2)
+		}
+
+		B := make([]int, len(nums)+2)
+		B[0], B[len(B)-1] = 1, 1
+		copy(B[1:], nums)
+
+		log.Print("-> ", B)
+
+		for i := len(nums); i >= 0; i-- {
+			for j := i + 1; j <= len(nums)+1; j++ {
+				coins := B[i] * B[j]
+				for k := i + 1; k < j; k++ {
+					D[i][j] = max(D[i][k]+B[k]*coins+D[k][j], D[i][j])
+				}
+			}
+		}
+
+		log.Print("-> ", D)
+
+		return D[0][len(nums)+1]
+	}
+
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{167, []int{3, 1, 5, 8}},
+		{10, []int{1, 5}},
+	} {
+		rst, nums := c.rst, c.nums
+		for _, f := range []func([]int) int{maxCoins, DP} {
+			log.Printf("%d ?= %d", rst, f(nums))
+			if rst != f(nums) {
+				t.FailNow()
+			}
+		}
+	}
+}
+
 // 494m Target Sum
 func Test494(t *testing.T) {
 	// -1000 <= Target <= 1000, 1 <= Nums.Lengh <= 20

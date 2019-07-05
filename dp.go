@@ -449,6 +449,54 @@ func lengthOfLIS(nums []int) int {
 	return slices.Max(D)
 }
 
+// 312h Burst Balloons
+func maxCoins(nums []int) int {
+	M := make([][]int, 300+1)
+	for r := range M {
+		M[r] = make([]int, 300+1)
+	}
+
+	var Search func(i, j int) int
+	Search = func(i, j int) int {
+		if i > j {
+			return 0
+		}
+
+		if i == j {
+			coins := nums[i]
+			if i > 0 {
+				coins *= nums[i-1]
+			}
+			if j < len(nums)-1 {
+				coins *= nums[j+1]
+			}
+			return coins
+		}
+
+		if M[i][j] > 0 {
+			return M[i][j]
+		}
+
+		xCoins := 0
+		for k := i; k <= j; k++ {
+			coins := nums[k]
+			if i > 0 {
+				coins *= nums[i-1]
+			}
+			if j < len(nums)-1 {
+				coins *= nums[j+1]
+			}
+
+			xCoins = max(Search(i, k-1)+coins+Search(k+1, j), xCoins)
+		}
+
+		M[i][j] = xCoins
+		return xCoins
+	}
+
+	return Search(0, len(nums)-1)
+}
+
 // 494m Target Sum
 func findTargetSumWays(nums []int, target int) int {
 	M := map[[2]int]int{}
