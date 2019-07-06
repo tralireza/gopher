@@ -205,6 +205,37 @@ func chalkReplacer(chalk []int, k int) int {
 	return r
 }
 
+// 2529 Maximum Count of Positive Integer and Negative Integer
+func maximumCount(nums []int) int {
+	BSLeft := func(t int) int {
+		l, r := 0, len(nums)
+		for l < r {
+			m := l + (r-l)>>1
+			if nums[m] < t {
+				l = m + 1
+			} else {
+				r = m
+			}
+		}
+		return l
+	}
+
+	BSRight := func(t int) int {
+		l, r := 0, len(nums)
+		for l < r {
+			m := l + (r-l)>>1
+			if nums[m] > t {
+				r = m
+			} else {
+				l = m + 1
+			}
+		}
+		return r
+	}
+
+	return max(len(nums)-BSRight(0), BSLeft(0))
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func minChanges(nums []int, k int) int {
 	M := map[int]int{}

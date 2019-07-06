@@ -90,6 +90,27 @@ func Test1894(t *testing.T) {
 	log.Print("1 ?= ", chalkReplacer([]int{3, 4, 1, 2}, 25))
 }
 
+// 2529 Maximum Count of Positive Integer and Negative Integer
+func Test2529(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{3, []int{-2, -1, -1, 1, 2, 3}},
+		{3, []int{-3, -2, -1, 0, 0, 1, 2}},
+		{4, []int{5, 20, 66, 1314}},
+
+		{3, []int{-3, -2, -1}},
+		{3, []int{-3, -2, -1, 0}},
+	} {
+		rst, nums := c.rst, c.nums
+		log.Printf("%d ?= %d", rst, maximumCount(nums))
+		if rst != maximumCount(nums) {
+			t.FailNow()
+		}
+	}
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func Test3224(t *testing.T) {
 	// 0 <= Array[i] <= k <= 10^5
