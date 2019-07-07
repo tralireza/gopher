@@ -155,6 +155,24 @@ func nearestPalindromic(n string) string {
 	return strconv.Itoa(next)
 }
 
+// 704 Binary Search
+func search(nums []int, target int) int {
+	l, r := 0, len(nums)-1
+	for l <= r {
+		m := l + (r-l)>>1
+		if nums[m] == target {
+			return m
+		}
+
+		if nums[m] < target {
+			l = m + 1
+		} else {
+			r = m - 1
+		}
+	}
+	return -1
+}
+
 // 1760m Minimum Limit of Balls in a Bag
 func minimumSize(nums []int, maxOperations int) int {
 	Possible := func(m int) bool {

@@ -42,6 +42,23 @@ func Test564(t *testing.T) {
 	log.Print("99799 ?= ", nearestPalindromic("99800"))
 }
 
+// 704 Binary Search
+func Test704(t *testing.T) {
+	for _, c := range []struct {
+		rst, target int
+		nums        []int
+	}{
+		{4, 9, []int{-1, 0, 3, 5, 9, 12}},
+		{-1, 2, []int{-1, 0, 3, 5, 9, 12}},
+	} {
+		rst, target, nums := c.rst, c.target, c.nums
+		log.Printf("%d ?= %d", rst, search(nums, target))
+		if rst != search(nums, target) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1760m Minimum Limit of Balls in a Bag
 func Test1760(t *testing.T) {
 	log.Print("3 ?= ", minimumSize([]int{9}, 2))
