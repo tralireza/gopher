@@ -50,6 +50,7 @@ func Test704(t *testing.T) {
 	}{
 		{4, 9, []int{-1, 0, 3, 5, 9, 12}},
 		{-1, 2, []int{-1, 0, 3, 5, 9, 12}},
+		{0, -1, []int{-1, 0, 3, 5, 9, 12}},
 	} {
 		rst, target, nums := c.rst, c.target, c.nums
 		log.Printf("%d ?= %d", rst, search(nums, target))
