@@ -172,6 +172,29 @@ func search(nums []int, target int) int {
 	return -1
 }
 
+// 1351 Count Negative Numbers in a Sorted Matrix
+func countNegatives(grid [][]int) int {
+	BSRight := func(nums []int, t int) int {
+		l, r := 0, len(nums)
+		for l < r {
+			m := l + (r-l)>>1
+			if -nums[m] > t {
+				r = m
+			} else {
+				l = m + 1
+			}
+		}
+		return r
+	}
+
+	negs := 0
+	for _, row := range grid {
+		negs += len(row) - BSRight(row, 0)
+	}
+
+	return negs
+}
+
 // 1760m Minimum Limit of Balls in a Bag
 func minimumSize(nums []int, maxOperations int) int {
 	Possible := func(m int) bool {

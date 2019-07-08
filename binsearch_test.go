@@ -60,6 +60,23 @@ func Test704(t *testing.T) {
 	}
 }
 
+// 1351 Count Negative Numbers in a Sorted Matrix
+func Test1351(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		grid [][]int
+	}{
+		{8, [][]int{{4, 3, 2, -1}, {3, 2, 1, -1}, {1, 1, -1, -2}, {-1, -1, -2, -3}}},
+		{0, [][]int{{3, 2}, {1, 0}}},
+	} {
+		rst, grid := c.rst, c.grid
+		log.Printf("%d ?= %d", rst, countNegatives(grid))
+		if rst != countNegatives(grid) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1760m Minimum Limit of Balls in a Bag
 func Test1760(t *testing.T) {
 	log.Print("3 ?= ", minimumSize([]int{9}, 2))
