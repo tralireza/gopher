@@ -160,3 +160,21 @@ func Test3296(t *testing.T) {
 	log.Print("12 ?= ", minNumberOfSeconds(10, []int{3, 2, 2, 4}))
 	log.Print("15 ?= ", minNumberOfSeconds(5, []int{1}))
 }
+
+// 3356m Zero Array Transformation II
+func Test3356(t *testing.T) {
+	for _, c := range []struct {
+		rst     int
+		nums    []int
+		queries [][]int
+	}{
+		{2, []int{2, 0, 2}, [][]int{{0, 2, 1}, {0, 2, 1}, {1, 1, 3}}},
+		{-1, []int{4, 3, 2, 1}, [][]int{{1, 3, 2}, {0, 2, 1}}},
+	} {
+		rst, nums, queries := c.rst, c.nums, c.queries
+		log.Printf("** %v | %d ?= %d", nums, rst, minZeroArray(nums, queries))
+		if rst != minZeroArray(nums, queries) {
+			t.FailNow()
+		}
+	}
+}

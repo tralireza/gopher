@@ -350,3 +350,44 @@ func minNumberOfSeconds(mountainHeight int, workerTimes []int) int64 {
 	}
 	return int64(l)
 }
+
+// 3356m Zero Array Transformation II
+func minZeroArray(nums []int, queries [][]int) int {
+	Possible := func(m int) bool {
+		M := make([]int, len(nums)+1)
+		for k := 0; k < m; k++ {
+			qry := queries[k]
+			M[qry[0]] += qry[2]
+			M[qry[1]+1] -= qry[2]
+		}
+
+		log.Print("-> ", m, M)
+
+		tSum := 0
+		for x := range nums {
+			tSum += M[x]
+			if nums[x] > tSum {
+				return false
+			}
+		}
+		return true
+	}
+
+	BSearch := func() int {
+		l, r := 0, len(queries)
+		for l <= r {
+			m := l + (r-l)>>1
+			if Possible(m) {
+				r = m - 1
+			} else {
+				l = m + 1
+			}
+		}
+		return l
+	}
+
+	if !Possible(len(queries)) {
+		return -1
+	}
+	return BSearch()
+}
