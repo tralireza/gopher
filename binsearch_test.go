@@ -163,6 +163,30 @@ func Test3296(t *testing.T) {
 
 // 3356m Zero Array Transformation II
 func Test3356(t *testing.T) {
+	LineSweep := func(nums []int, queries [][]int) int {
+		Diffs := make([]int, len(nums)+1)
+
+		k, tSum := 0, 0
+		for i := range nums {
+			for tSum+Diffs[i] < nums[i] {
+				k++
+				if k > len(queries) {
+					return -1
+				}
+
+				qry := queries[k-1]
+				if i <= qry[1] {
+					Diffs[max(i, qry[0])] += qry[2]
+					Diffs[qry[1]+1] -= qry[2]
+				}
+			}
+
+			tSum += Diffs[i]
+		}
+
+		return k
+	}
+
 	for _, c := range []struct {
 		rst     int
 		nums    []int
@@ -172,9 +196,11 @@ func Test3356(t *testing.T) {
 		{-1, []int{4, 3, 2, 1}, [][]int{{1, 3, 2}, {0, 2, 1}}},
 	} {
 		rst, nums, queries := c.rst, c.nums, c.queries
-		if rst != minZeroArray(nums, queries) {
-			t.FailNow()
+		for _, f := range []func([]int, [][]int) int{minZeroArray, LineSweep} {
+			if rst != f(nums, queries) {
+				t.FailNow()
+			}
+			log.Printf(":: %v <- %d", rst, nums)
 		}
-		log.Printf(":: %v <- %d", rst, nums)
 	}
 }
