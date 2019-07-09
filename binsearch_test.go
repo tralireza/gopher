@@ -172,9 +172,9 @@ func Test3356(t *testing.T) {
 		{-1, []int{4, 3, 2, 1}, [][]int{{1, 3, 2}, {0, 2, 1}}},
 	} {
 		rst, nums, queries := c.rst, c.nums, c.queries
-		log.Printf("** %v | %d ?= %d", nums, rst, minZeroArray(nums, queries))
 		if rst != minZeroArray(nums, queries) {
 			t.FailNow()
 		}
+		log.Printf(":: %v <- %d", rst, nums)
 	}
 }
