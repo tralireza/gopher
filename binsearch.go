@@ -259,9 +259,10 @@ func maximumCandies(candies []int, k int64) int {
 		return t >= k
 	}
 
-	l, r := 0, 10000_000
+	l, r := 0, slices.Max(candies)
 	for l <= r {
 		m := l + (r-l)>>1
+		log.Print(l, m, r)
 		if Possible(m) {
 			l = m + 1
 		} else {
