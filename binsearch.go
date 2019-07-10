@@ -245,6 +245,32 @@ func chalkReplacer(chalk []int, k int) int {
 	return r
 }
 
+// 2226m Maximum Candies Allocated to K Children
+func maximumCandies(candies []int, k int64) int {
+	Possible := func(m int) bool {
+		if m == 0 {
+			return true
+		}
+
+		t := int64(0)
+		for _, c := range candies {
+			t += int64(c / m)
+		}
+		return t >= k
+	}
+
+	l, r := 0, 10000_000
+	for l <= r {
+		m := l + (r-l)>>1
+		if Possible(m) {
+			l = m + 1
+		} else {
+			r = m - 1
+		}
+	}
+	return r
+}
+
 // 2529 Maximum Count of Positive Integer and Negative Integer
 func maximumCount(nums []int) int {
 	BSLeft := func(t int) int {

@@ -125,6 +125,24 @@ func Test1894(t *testing.T) {
 	log.Print("1 ?= ", chalkReplacer([]int{3, 4, 1, 2}, 25))
 }
 
+// 2226m Maximum Candies Allocated to K Children
+func Test2226(t *testing.T) {
+	for _, c := range []struct {
+		rst     int
+		candies []int
+		k       int64
+	}{
+		{5, []int{5, 8, 6}, int64(3)},
+		{0, []int{2, 5}, int64(11)},
+	} {
+		rst, candies, k := c.rst, c.candies, c.k
+		if rst != maximumCandies(candies, k) {
+			t.FailNow()
+		}
+		log.Printf(":: %d <- %d : %v", rst, k, candies)
+	}
+}
+
 // 2529 Maximum Count of Positive Integer and Negative Integer
 func Test2529(t *testing.T) {
 	for _, c := range []struct {
