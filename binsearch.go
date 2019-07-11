@@ -303,6 +303,29 @@ func maximumCount(nums []int) int {
 	return max(len(nums)-BSRight(0), BSLeft(0))
 }
 
+// 2560m House Robber IV
+func minCapability(nums []int, k int) int {
+	l, r := slices.Min(nums), slices.Max(nums)
+	for l < r {
+		m := l + (r-l)>>1
+
+		steals := 0
+		for p := 0; p < len(nums); p++ {
+			if nums[p] <= m {
+				steals++
+				p++
+			}
+		}
+
+		if steals >= k {
+			r = m
+		} else {
+			l = m + 1
+		}
+	}
+	return l
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func minChanges(nums []int, k int) int {
 	M := map[int]int{}

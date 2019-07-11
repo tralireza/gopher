@@ -164,6 +164,23 @@ func Test2529(t *testing.T) {
 	}
 }
 
+func Test2560(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+		k    int
+	}{
+		{5, []int{2, 3, 5, 9}, 2},
+		{2, []int{2, 7, 9, 3, 1}, 2},
+	} {
+		rst, nums, k := c.rst, c.nums, c.k
+		if rst != minCapability(nums, k) {
+			t.FailNow()
+		}
+		log.Printf(":: %d <- %v %d", rst, nums, k)
+	}
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func Test3224(t *testing.T) {
 	// 0 <= Array[i] <= k <= 10^5
