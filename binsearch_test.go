@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"testing"
 )
 
@@ -24,6 +25,22 @@ func Test274(t *testing.T) {
 	log.Print("1 ?= ", hIndex([]int{1, 3, 1}))
 	log.Print("1 ?= ", hIndex([]int{1}))
 	log.Print("0 ?= ", hIndex([]int{0}))
+}
+
+func Test315(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums []int
+	}{
+		{[]int{2, 1, 1, 0}, []int{5, 2, 6, 1}},
+		{[]int{0}, []int{-1}},
+		{[]int{0, 0}, []int{-1, -1}},
+	} {
+		rst, nums := c.rst, c.nums
+		if !reflect.DeepEqual(rst, countSmaller(nums)) {
+			t.FailNow()
+		}
+		log.Printf(":: %v <- %v", rst, nums)
+	}
 }
 
 // 492 Construct the Rectangle

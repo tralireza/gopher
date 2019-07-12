@@ -77,6 +77,59 @@ func hIndex(citations []int) int {
 	return h
 }
 
+// 315h Count of Smaller Numbers After Self
+func countSmaller(nums []int) []int {
+	D := make([][3]int, len(nums))
+	for i, n := range nums {
+		D[i] = [3]int{n, i, 0}
+	}
+
+	B := make([][3]int, len(nums))
+	copy(B, D)
+
+	var MergeSort func(data, bfr [][3]int, l, r int)
+	MergeSort = func(data, bfr [][3]int, l, r int) {
+		if l >= r {
+			return
+		}
+
+		m := l + (r-l)>>1
+		MergeSort(bfr, data, l, m)
+		MergeSort(bfr, data, m+1, r)
+
+		smaller := 0
+		p, q, x := l, m+1, l
+		for ; p <= m && q <= r; x++ {
+			if bfr[p][0] <= bfr[q][0] {
+				data[x] = bfr[p]
+				data[x][2] += smaller
+				p++
+			} else {
+				data[x] = bfr[q]
+				smaller++
+				q++
+			}
+		}
+		for ; p <= m; x++ {
+			data[x] = bfr[p]
+			data[x][2] += smaller
+			p++
+		}
+		for ; q <= r; x++ {
+			data[x] = bfr[q]
+			q++
+		}
+	}
+
+	MergeSort(D, B, 0, len(nums)-1)
+
+	R := make([]int, len(D))
+	for _, v := range D {
+		R[v[1]] = v[2]
+	}
+	return R
+}
+
 // 492 Construct the Rectangle
 func constructRectangle(area int) []int {
 	x, w := 1, 1
