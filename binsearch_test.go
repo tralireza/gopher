@@ -3,6 +3,7 @@ package gopher
 import (
 	"log"
 	"reflect"
+	"runtime"
 	"testing"
 )
 
@@ -28,6 +29,23 @@ func Test274(t *testing.T) {
 }
 
 func Test315(t *testing.T) {
+	// 1 <= N <= 10^5
+	// -10^4 <= Val_i <= 10^4
+
+	SegmentTree := func(nums []int) []int {
+		const Max = 10_000 + 1
+		for i, n := range nums {
+			nums[i] = n + Max // transform negatives
+		}
+
+		tSg := NewSegmentTree315(2 * Max)
+		for i := len(nums) - 1; i >= 0; i-- {
+			tSg.Update(1, nums[i], 0, 2*Max)
+			nums[i] = tSg.Query(1, 0, nums[i]-1, 0, 2*Max)
+		}
+		return nums
+	}
+
 	for _, c := range []struct {
 		rst, nums []int
 	}{
@@ -36,10 +54,13 @@ func Test315(t *testing.T) {
 		{[]int{0, 0}, []int{-1, -1}},
 	} {
 		rst, nums := c.rst, c.nums
-		if !reflect.DeepEqual(rst, countSmaller(nums)) {
-			t.FailNow()
+		for _, f := range []func([]int) []int{countSmaller, SegmentTree} {
+			if !reflect.DeepEqual(rst, f(nums)) {
+				t.FailNow()
+			}
+			log.Printf(":: %v <- %v   --%v", rst, nums,
+				runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name())
 		}
-		log.Printf(":: %v <- %v", rst, nums)
 	}
 }
 

@@ -78,6 +78,45 @@ func hIndex(citations []int) int {
 }
 
 // 315h Count of Smaller Numbers After Self
+func NewSegmentTree315(size int) SegmentTree315 {
+	return SegmentTree315{
+		tree: make([]int, 4*size),
+	}
+}
+
+type SegmentTree315 struct {
+	tree []int
+}
+
+func (t *SegmentTree315) Update(v, p, Left, Right int) {
+	if Left == Right {
+		t.tree[v]++
+		return
+	}
+
+	Mid := Left + (Right-Left)>>1
+	if p <= Mid {
+		t.Update(2*v, p, Left, Mid) // left child "Seg"
+	} else {
+		t.Update(2*v+1, p, Mid+1, Right) // right child "Seg"
+	}
+	t.tree[v] = t.tree[2*v] + t.tree[2*v+1]
+}
+
+func (t *SegmentTree315) Query(v, qryLeft, qryRight, Left, Right int) int {
+	if qryLeft > qryRight {
+		return 0
+	}
+	if qryLeft == Left && qryRight == Right {
+		return t.tree[v]
+	}
+
+	Mid := Left + (Right-Left)>>1
+	lVal := t.Query(2*v, qryLeft, min(Mid, qryRight), Left, Mid)
+	rVal := t.Query(2*v+1, max(Mid+1, qryLeft), qryRight, Mid+1, Right)
+	return lVal + rVal
+}
+
 func countSmaller(nums []int) []int {
 	D := make([][3]int, len(nums))
 	for i, n := range nums {
