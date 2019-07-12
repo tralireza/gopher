@@ -52,7 +52,7 @@ func Test315(t *testing.T) {
 			nums[i] = n + Max // transform negatives
 		}
 
-		tBit := NewBIT315(2 * Max)
+		tBit := make(BIT315, 2*Max)
 		for i := len(nums) - 1; i >= 0; i-- {
 			tBit.Update(nums[i], 1)
 			nums[i] = tBit.Query(nums[i] - 1)
