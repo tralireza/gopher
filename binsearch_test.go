@@ -46,6 +46,20 @@ func Test315(t *testing.T) {
 		return nums
 	}
 
+	BinaryIndexTree := func(nums []int) []int {
+		const Max = 10_000 + 1
+		for i, n := range nums {
+			nums[i] = n + Max // transform negatives
+		}
+
+		tBit := NewBIT315(2 * Max)
+		for i := len(nums) - 1; i >= 0; i-- {
+			tBit.Update(nums[i], 1)
+			nums[i] = tBit.Query(nums[i] - 1)
+		}
+		return nums
+	}
+
 	for _, c := range []struct {
 		rst, nums []int
 	}{
@@ -54,8 +68,10 @@ func Test315(t *testing.T) {
 		{[]int{0, 0}, []int{-1, -1}},
 	} {
 		rst, nums := c.rst, c.nums
-		for _, f := range []func([]int) []int{countSmaller, SegmentTree} {
-			if !reflect.DeepEqual(rst, f(nums)) {
+		for _, f := range []func([]int) []int{countSmaller, SegmentTree, BinaryIndexTree} {
+			inNums := make([]int, len(nums))
+			copy(inNums, nums)
+			if !reflect.DeepEqual(rst, f(inNums)) {
 				t.FailNow()
 			}
 			log.Printf(":: %v <- %v   --%v", rst, nums,

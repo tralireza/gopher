@@ -78,16 +78,37 @@ func hIndex(citations []int) int {
 }
 
 // 315h Count of Smaller Numbers After Self
-func NewSegmentTree315(size int) SegmentTree315 {
-	return SegmentTree315{
-		tree: make([]int, 4*size),
+type BIT315 struct {
+	bit []int // "BIT: Binary Index Tree" storage
+}
+
+func NewBIT315(size int) BIT315 {
+	return BIT315{
+		bit: make([]int, size+1),
 	}
+}
+func (t *BIT315) Update(p, Val int) {
+	for ; p < len(t.bit); p += p & -p {
+		t.bit[p] += Val
+	}
+}
+func (t *BIT315) Query(p int) int {
+	v := 0
+	for ; p > 0; p -= p & -p {
+		v += t.bit[p]
+	}
+	return v
 }
 
 type SegmentTree315 struct {
 	tree []int
 }
 
+func NewSegmentTree315(size int) SegmentTree315 {
+	return SegmentTree315{
+		tree: make([]int, 4*size),
+	}
+}
 func (t *SegmentTree315) Update(v, p, Left, Right int) {
 	if Left == Right {
 		t.tree[v]++
@@ -102,7 +123,6 @@ func (t *SegmentTree315) Update(v, p, Left, Right int) {
 	}
 	t.tree[v] = t.tree[2*v] + t.tree[2*v+1]
 }
-
 func (t *SegmentTree315) Query(v, qryLeft, qryRight, Left, Right int) int {
 	if qryLeft > qryRight {
 		return 0
