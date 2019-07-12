@@ -4,6 +4,7 @@ import (
 	"log"
 	"reflect"
 	"runtime"
+	"strings"
 	"testing"
 )
 
@@ -74,8 +75,15 @@ func Test315(t *testing.T) {
 			if !reflect.DeepEqual(rst, f(inNums)) {
 				t.FailNow()
 			}
-			log.Printf(":: %v <- %v   --%v", rst, nums,
-				runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name())
+
+			approach := "MergeSort (augmented)"
+			switch strings.SplitN(runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name(), ".", 2)[1] {
+			case "Test315.func1":
+				approach = "Segment Tree"
+			case "Test315.func2":
+				approach = "BIT ~ Fenwick Tree"
+			}
+			log.Printf(":: %v <- %v   -- %v", rst, nums, approach)
 		}
 	}
 }
