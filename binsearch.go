@@ -435,18 +435,18 @@ func minCapability(nums []int, k int) int {
 func repairCars(ranks []int, cars int) int64 {
 	l, r := int64(1), int64(slices.Min(ranks))*int64(cars)*int64(cars)
 
-	for l <= r {
+	for l < r {
 		m := l + (r-l)>>1
 
 		repairs := 0
 		for _, r := range ranks {
-			repairs += int(math.Floor(math.Sqrt(float64(m) / float64(r))))
+			repairs += int(math.Sqrt(float64(m / int64(r))))
 		}
 
-		if repairs >= cars {
-			r = m - 1
-		} else {
+		if repairs < cars {
 			l = m + 1
+		} else {
+			r = m
 		}
 	}
 
