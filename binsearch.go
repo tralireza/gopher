@@ -431,6 +431,28 @@ func minCapability(nums []int, k int) int {
 	return l
 }
 
+// 2594m Minimum Time to Repair Cars
+func repairCars(ranks []int, cars int) int64 {
+	l, r := int64(1), int64(slices.Min(ranks))*int64(cars)*int64(cars)
+
+	for l <= r {
+		m := l + (r-l)>>1
+
+		repairs := 0
+		for _, r := range ranks {
+			repairs += int(math.Floor(math.Sqrt(float64(m) / float64(r))))
+		}
+
+		if repairs >= cars {
+			r = m - 1
+		} else {
+			l = m + 1
+		}
+	}
+
+	return l
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func minChanges(nums []int, k int) int {
 	M := map[int]int{}

@@ -243,6 +243,23 @@ func Test2560(t *testing.T) {
 	}
 }
 
+func Test2594(t *testing.T) {
+	for _, c := range []struct {
+		rst   int64
+		ranks []int
+		cars  int
+	}{
+		{int64(16), []int{4, 2, 3, 1}, 10},
+		{int64(16), []int{5, 1, 8}, 6},
+	} {
+		rst, ranks, cars := c.rst, c.ranks, c.cars
+		if rst != repairCars(ranks, cars) {
+			t.FailNow()
+		}
+		log.Printf(":: %v <- %v %v", rst, ranks, cars)
+	}
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func Test3224(t *testing.T) {
 	// 0 <= Array[i] <= k <= 10^5
