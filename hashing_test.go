@@ -282,6 +282,22 @@ func Test1590(t *testing.T) {
 	log.Print("0 ?= ", minSubarray([]int{1, 2, 3}, 3))
 }
 
+func Test2206(t *testing.T) {
+	for _, c := range []struct {
+		rst  bool
+		nums []int
+	}{
+		{true, []int{3, 2, 3, 2, 2, 2}},
+		{false, []int{1, 2, 3, 4}},
+	} {
+		rst, nums := c.rst, c.nums
+		if rst != divideArray(nums) {
+			t.FailNow()
+		}
+		log.Printf(":: %v <- %v", rst, nums)
+	}
+}
+
 // 2342m Max Sum of a Pair With Equal Sum of Digits
 func Test2342(t *testing.T) {
 	a := Assert{t}

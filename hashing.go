@@ -336,6 +336,21 @@ func countPalindromicSubsequence(s string) int {
 	return tCount
 }
 
+// 2206 Divide Array Into Equal Pairs
+func divideArray(nums []int) bool {
+	F := make([]int, 500+1)
+	for _, n := range nums {
+		F[n]++
+	}
+
+	for _, f := range F {
+		if f&1 == 1 {
+			return false
+		}
+	}
+	return true
+}
+
 // 2342m Max Sum of a Pair With Equal Sum of Digits
 func maximumSum(nums []int) int {
 	xSum := -1
