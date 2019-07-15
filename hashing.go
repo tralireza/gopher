@@ -338,6 +338,12 @@ func countPalindromicSubsequence(s string) int {
 
 // 2206 Divide Array Into Equal Pairs
 func divideArray(nums []int) bool {
+	xors := 0
+	for _, n := range nums {
+		xors ^= n
+	}
+	log.Print("-> ", xors == 0)
+
 	F := make([]int, 500+1)
 	for _, n := range nums {
 		F[n]++
