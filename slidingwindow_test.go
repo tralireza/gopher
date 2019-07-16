@@ -50,6 +50,22 @@ func Test1358(t *testing.T) {
 	}
 }
 
+func Test2401(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{3, []int{1, 3, 8, 48, 10}},
+		{1, []int{3, 1, 5, 11, 13}},
+	} {
+		rst, nums := c.rst, c.nums
+		if rst != longestNiceSubarray(nums) {
+			t.FailNow()
+		}
+		log.Printf("** %v <- %v ", rst, nums)
+	}
+}
+
 // 3208m Alternating Groups II
 func Test3208(t *testing.T) {
 	for _, c := range []struct {

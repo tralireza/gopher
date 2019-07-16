@@ -25,6 +25,27 @@ func numberOfSubstrings(s string) int {
 	return count
 }
 
+// 2401m Longest Nice Subarray
+func longestNiceSubarray(nums []int) int {
+	xLen := 0
+	bits := 0
+
+	l, r := 0, 0
+	for r < len(nums) {
+		for bits&nums[r] != 0 {
+			bits ^= nums[l]
+			l++
+		}
+
+		bits |= nums[r]
+
+		xLen = max(r-l+1, xLen)
+		r++
+	}
+
+	return xLen
+}
+
 // 3208m Alternating Groups II
 func numberOfAlternatingGroups(colors []int, k int) int {
 	groups, wSize := 0, 1
