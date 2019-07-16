@@ -1,5 +1,7 @@
 package gopher
 
+import "log"
+
 // 1358m Number of Substrings Containing All Three Characters
 func numberOfSubstrings(s string) int {
 	count := 0
@@ -38,6 +40,8 @@ func longestNiceSubarray(nums []int) int {
 		}
 
 		bits |= nums[r]
+
+		log.Printf("%032b <- %032b", bits, nums[r])
 
 		xLen = max(r-l+1, xLen)
 		r++
