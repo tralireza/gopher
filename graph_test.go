@@ -905,8 +905,9 @@ func Test2685(t *testing.T) {
 			if rst != f(n, edges) {
 				t.FailNow()
 			}
-			log.Printf(":: %d <- %v", rst, edges)
 		}
+		log.Printf(":: %d <- %v", rst, edges)
+		log.Print("---")
 	}
 }
 
