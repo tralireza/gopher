@@ -800,6 +800,55 @@ func Test2658(t *testing.T) {
 
 // 2685m Count the Number of Complete Components
 func Test2685(t *testing.T) {
+	BFS := func(n int, edges [][]int) int {
+		G := make([][]int, n)
+		for _, e := range edges {
+			G[e[0]], G[e[1]] = append(G[e[0]], e[1]), append(G[e[1]], e[0])
+		}
+
+		Vis := make([]bool, n)
+
+		cliques := 0
+		Components := [][]int{}
+
+		for v := range n {
+			if !Vis[v] {
+				Q := []int{v}
+				Vis[v] = true
+
+				cmp := []int{}
+				for len(Q) > 0 {
+					v, Q = Q[0], Q[1:]
+					cmp = append(cmp, v)
+
+					for _, u := range G[v] {
+						if !Vis[u] {
+							Vis[u] = true
+							Q = append(Q, u)
+						}
+					}
+				}
+
+				Components = append(Components, cmp)
+			}
+		}
+
+		log.Print("-> Components: ", Components)
+		for _, cmp := range Components {
+			edges := 0
+			for _, v := range cmp {
+				edges += len(G[v])
+			}
+
+			vertices := len(cmp)
+			if vertices*(vertices-1) == edges {
+				cliques++
+			}
+		}
+
+		return cliques
+	}
+
 	for _, c := range []struct {
 		rst, n int
 		edges  [][]int
@@ -808,10 +857,12 @@ func Test2685(t *testing.T) {
 		{1, 6, [][]int{{0, 1}, {0, 2}, {1, 2}, {3, 4}, {3, 5}}},
 	} {
 		rst, n, edges := c.rst, c.n, c.edges
-		if rst != countCompleteComponents(n, edges) {
-			t.FailNow()
+		for _, f := range []func(int, [][]int) int{countCompleteComponents, BFS} {
+			if rst != f(n, edges) {
+				t.FailNow()
+			}
+			log.Printf(":: %d <- %v", rst, edges)
 		}
-		log.Printf(":: %d <- %v", rst, edges)
 	}
 }
 
