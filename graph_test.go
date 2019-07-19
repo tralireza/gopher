@@ -5,6 +5,7 @@ import (
 	"container/list"
 	"log"
 	"math"
+	"reflect"
 	"slices"
 	"testing"
 )
@@ -659,6 +660,23 @@ func Test1976(t *testing.T) {
 	}
 }
 
+func Test2115(t *testing.T) {
+	for _, c := range []struct {
+		rst         []string
+		recipes     []string
+		ingredients [][]string
+		supplies    []string
+	}{
+		{[]string{"bread"}, []string{"bread"}, [][]string{{"yeast", "flour"}}, []string{"yeast", "flour", "corn"}},
+	} {
+		rst, recipes, ingredients, supplies := c.rst, c.recipes, c.ingredients, c.supplies
+		if !reflect.DeepEqual(rst, findAllRecipes(recipes, ingredients, supplies)) {
+			t.FailNow()
+		}
+		log.Printf(":: %v <-", rst)
+	}
+}
+
 // 2127h Maximum Employees to Be Invited to a Meeting
 func Test2127(t *testing.T) {
 	log.Print("3 ?= ", maximumInvitations([]int{2, 2, 1, 2}))
@@ -780,6 +798,23 @@ func Test2658(t *testing.T) {
 	}
 }
 
+// 2685m Count the Number of Complete Components
+func Test2685(t *testing.T) {
+	for _, c := range []struct {
+		rst, n int
+		edges  [][]int
+	}{
+		{3, 6, [][]int{{0, 1}, {0, 2}, {1, 2}, {3, 4}}},
+		{1, 6, [][]int{{0, 1}, {0, 2}, {1, 2}, {3, 4}, {3, 5}}},
+	} {
+		rst, n, edges := c.rst, c.n, c.edges
+		if rst != countCompleteComponents(n, edges) {
+			t.FailNow()
+		}
+		log.Printf(":: %d <- %v", rst, edges)
+	}
+}
+
 // 2976m Minimum Cost to Convert String I
 type E2976 struct{ n, d int }
 type PQ2976 []E2976
@@ -853,6 +888,25 @@ func Test2976(t *testing.T) {
 		log.Print("12 ?= ", f("aaaa", "bbbb", []byte{'a', 'c'}, []byte{'c', 'b'}, []int{1, 2}))
 		log.Print("-1 ?= ", f("abcd", "abce", []byte{'a'}, []byte{'c'}, []int{10000}))
 		log.Print("--")
+	}
+}
+
+func Test3108(t *testing.T) {
+	for _, c := range []struct {
+		rst   []int
+		n     int
+		edges [][]int
+		query [][]int
+	}{
+		{[]int{1, -1}, 5, [][]int{{0, 1, 7}, {1, 3, 7}, {1, 2, 1}}, [][]int{{0, 3}, {3, 4}}},
+		{[]int{0}, 3, [][]int{{0, 2, 7}, {0, 1, 15}, {1, 2, 6}, {1, 2, 1}}, [][]int{{1, 2}}},
+		{[]int{0}, 7, [][]int{{3, 0, 2}, {5, 4, 12}, {6, 3, 7}, {4, 2, 2}, {6, 2, 2}}, [][]int{{6, 0}}},
+	} {
+		rst, n, edges, query := c.rst, c.n, c.edges, c.query
+		if !reflect.DeepEqual(rst, minimumCostWalk(n, edges, query)) {
+			t.FailNow()
+		}
+		log.Printf(":: %v <- %v", rst, edges)
 	}
 }
 

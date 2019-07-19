@@ -1026,6 +1026,54 @@ func countPaths(n int, roads [][]int) int {
 	return Count[n-1] % M
 }
 
+// 2115m Find All Possible Recipes from Given Supplies
+func findAllRecipes(recipes []string, ingredients [][]string, supplies []string) []string {
+	S := map[string]struct{}{}
+	for _, s := range supplies {
+		S[s] = struct{}{}
+	}
+
+	M := map[string]int{}
+	for i, r := range recipes {
+		M[r] = i
+	}
+
+	G := make([][]string, len(recipes))
+	D := make([]int, len(recipes))
+
+	for i, ings := range ingredients {
+		G[i] = append(G[i], ings...)
+		for _, ing := range ings {
+			if _, ok := S[ing]; !ok {
+				D[i]++
+			}
+		}
+	}
+
+	Q := []int{}
+	for i, d := range D {
+		if d == 0 {
+			Q = append(Q, i)
+		}
+	}
+
+	R := []string{}
+	var u int
+	for len(Q) > 0 {
+		u, Q = Q[0], Q[1:]
+		R = append(R, recipes[u])
+
+		for _, ing := range G[u] {
+			D[M[ing]]--
+			if D[M[ing]] == 0 {
+				Q = append(Q, M[ing])
+			}
+		}
+	}
+
+	return R
+}
+
 // 2127h Maximum Employees to Be Invited to a Meeting
 func maximumInvitations(favorite []int) int {
 	N := len(favorite)
@@ -1156,7 +1204,7 @@ func mostProfitablePath(edges [][]int, bob int, amount []int) int {
 		G[u], G[v] = append(G[u], v), append(G[v], u)
 	}
 
-	BDist := make([]int, N) // Nodes distance to Bob
+	BDist := make([]int, N) // nodes distance to Bob
 	for i := range BDist {
 		BDist[i] = N
 	}
@@ -1255,6 +1303,57 @@ func findMaxFish(grid [][]int) int {
 	return xFish
 }
 
+// 2685m Count the Number of Complete Components
+func countCompleteComponents(n int, edges [][]int) int {
+	cliques := 0
+
+	Vis := make([]bool, n)
+	G := make([][]int, n)
+	for _, edge := range edges {
+		u, v := edge[0], edge[1]
+		G[v], G[u] = append(G[v], u), append(G[u], v)
+	}
+
+	log.Print("-> ", G)
+
+	var DFS func(int) (int, int)
+	DFS = func(v int) (vertices int, edges int) {
+		vertices++
+
+		for _, u := range G[v] {
+			edges++
+			if !Vis[u] {
+				Vis[u] = true
+
+				vs, es := DFS(u)
+
+				vertices += vs
+				edges += es
+			}
+		}
+
+		return vertices, edges
+	}
+
+	components := 0
+	for v := range n {
+		if !Vis[v] {
+			Vis[v] = true
+
+			components++
+
+			vertices, edges := DFS(v)
+			if vertices*(vertices-1) == edges {
+				cliques++
+			}
+		}
+	}
+
+	log.Print("-> ", components)
+
+	return cliques
+}
+
 // 2976m Minimum Cost to Convert String I
 func minimumCost(source string, target string, original []byte, changed []byte, cost []int) int64 {
 	// 1 <= Cost <= 10^6
@@ -1291,6 +1390,12 @@ func minimumCost(source string, target string, original []byte, changed []byte, 
 		x += int64(G[r][c])
 	}
 	return x
+}
+
+// 3108h Minimum Cost Walk in Weighted Graph
+func minimumCostWalk(n int, edges [][]int, query [][]int) []int {
+	R := []int{}
+	return R
 }
 
 // 3203h Find Minimum Distance After Merging Two Trees
