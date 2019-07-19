@@ -849,15 +849,59 @@ func Test2685(t *testing.T) {
 		return cliques
 	}
 
+	UnionFind := func(n int, edges [][]int) int {
+		djset := make([][3]int, n)
+		for i := range djset {
+			djset[i][0], djset[i][1], djset[i][2] = i, 0, 1 // 0: Leader, 1: #edges, 2: #vertices
+		}
+
+		var Find func(int) int
+		Find = func(x int) int {
+			if djset[x][0] != x {
+				djset[x][0] = Find(djset[x][0])
+			}
+			return djset[x][0]
+		}
+
+		Union := func(x, y int) {
+			x, y = Find(x), Find(y)
+			if x != y {
+				if djset[x][1] < djset[y][1] {
+					x, y = y, x
+				}
+				djset[y][0] = x
+
+				djset[x][1] += djset[y][1]
+				djset[x][2] += djset[y][2]
+			}
+			djset[x][1]++
+		}
+
+		for _, e := range edges {
+			Union(e[0], e[1])
+		}
+
+		log.Print("-> DJSet: ", djset)
+
+		cliques := 0
+		for v := range n {
+			if djset[v][0] == v && djset[v][1] == djset[v][2]*(djset[v][2]-1)/2 {
+				cliques++
+			}
+		}
+		return cliques
+	}
+
 	for _, c := range []struct {
 		rst, n int
 		edges  [][]int
 	}{
 		{3, 6, [][]int{{0, 1}, {0, 2}, {1, 2}, {3, 4}}},
 		{1, 6, [][]int{{0, 1}, {0, 2}, {1, 2}, {3, 4}, {3, 5}}},
+		{2, 5, [][]int{{1, 2}, {3, 4}, {1, 4}, {2, 3}, {1, 3}, {2, 4}}},
 	} {
 		rst, n, edges := c.rst, c.n, c.edges
-		for _, f := range []func(int, [][]int) int{countCompleteComponents, BFS} {
+		for _, f := range []func(int, [][]int) int{countCompleteComponents, BFS, UnionFind} {
 			if rst != f(n, edges) {
 				t.FailNow()
 			}
