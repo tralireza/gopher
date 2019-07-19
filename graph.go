@@ -1314,7 +1314,7 @@ func countCompleteComponents(n int, edges [][]int) int {
 		G[v], G[u] = append(G[v], u), append(G[u], v)
 	}
 
-	log.Print("-> ", G)
+	log.Print("-> Graph: ", G)
 
 	var DFS func(int) (int, int)
 	DFS = func(v int) (vertices int, edges int) {
@@ -1349,7 +1349,7 @@ func countCompleteComponents(n int, edges [][]int) int {
 		}
 	}
 
-	log.Print("-> ", components)
+	log.Print("-> Components: ", components)
 
 	return cliques
 }
