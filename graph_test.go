@@ -621,7 +621,7 @@ func Test1976(t *testing.T) {
 		Dist[0] = 0
 
 		for h.Len() > 0 {
-			log.Print(" PQ :: ", h)
+			log.Print("-> PQ: ", h)
 			v := heap.Pop(&h).(E)
 
 			if Dist[v.Node] != v.Dist {
@@ -646,17 +646,27 @@ func Test1976(t *testing.T) {
 			}
 		}
 
-		log.Print(" Dist :: ", Dist)
-		log.Print(" Prev :: ", Prev)
+		log.Print("-> Dist: ", Dist)
+		log.Print("-> Prev: ", Prev)
 
 		return Count[n-1]
 	}
 
-	for _, f := range []func(int, [][]int) int{countPaths, Dijkstra} {
-		log.Print("4 ?= ", f(7, [][]int{{0, 6, 7}, {0, 1, 2}, {1, 2, 3}, {1, 3, 3}, {6, 3, 3}, {3, 5, 1}, {6, 5, 1}, {2, 5, 1}, {0, 4, 5}, {4, 6, 2}}))
-		log.Print("1 ?= ", f(2, [][]int{{1, 0, 10}}))
-		log.Print("2 ?= ", f(5, [][]int{{3, 0, 5}, {0, 1, 1}, {1, 2, 4}, {0, 4, 3}, {3, 2, 5}, {3, 4, 1}, {1, 3, 1}}))
-		log.Print("--")
+	for _, c := range []struct {
+		rst, n int
+		roads  [][]int
+	}{
+		{4, 7, [][]int{{0, 6, 7}, {0, 1, 2}, {1, 2, 3}, {1, 3, 3}, {6, 3, 3}, {3, 5, 1}, {6, 5, 1}, {2, 5, 1}, {0, 4, 5}, {4, 6, 2}}},
+		{1, 2, [][]int{{1, 0, 10}}},
+		{2, 5, [][]int{{3, 0, 5}, {0, 1, 1}, {1, 2, 4}, {0, 4, 3}, {3, 2, 5}, {3, 4, 1}, {1, 3, 1}}},
+	} {
+		rst, n, roads := c.rst, c.n, c.roads
+		for _, f := range []func(int, [][]int) int{countPaths, Dijkstra} {
+			if rst != f(n, roads) {
+				t.FailNow()
+			}
+		}
+		log.Printf(":: %d <- %v", rst, roads)
 	}
 }
 

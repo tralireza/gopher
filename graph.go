@@ -1000,7 +1000,7 @@ func countPaths(n int, roads [][]int) int {
 	Dist[0] = 0
 
 	for h.Len() > 0 {
-		log.Print("PQ :: ", h)
+		log.Print("-> PQ: ", h)
 		v := heap.Pop(&h).(E)
 		if Dist[v.Node] < v.Dist {
 			continue
@@ -1019,9 +1019,9 @@ func countPaths(n int, roads [][]int) int {
 		}
 	}
 
-	log.Print(" Dist -> ", Dist)
-	log.Print(" Prev -> ", Prev)
-	log.Print(" Count -> ", Count)
+	log.Print("-> Dist: ", Dist)
+	log.Print("-> Prev: ", Prev)
+	log.Print("-> Count: ", Count)
 
 	return Count[n-1] % M
 }
