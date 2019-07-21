@@ -32,6 +32,8 @@ func Test3169(t *testing.T) {
 		{2, 10, [][]int{{5, 7}, {1, 3}, {9, 10}}},
 		{1, 5, [][]int{{2, 4}, {1, 3}}},
 		{0, 6, [][]int{{1, 6}}},
+
+		{1, 8, [][]int{{3, 4}, {4, 8}, {2, 5}, {3, 8}}},
 	} {
 		rst, days, meetings := c.rst, c.days, c.meetings
 		if rst != countDays(days, meetings) {
