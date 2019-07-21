@@ -1,6 +1,11 @@
 // Array
 package gopher
 
+import (
+	"log"
+	"slices"
+)
+
 // 485 Max Consecutive Ones
 func findMaxConsecutiveOnes(nums []int) int {
 	tCur, tMax := 0, 0
@@ -48,4 +53,31 @@ func check(nums []int) bool {
 		}
 	}
 	return inversions <= 1
+}
+
+// 3169m Count Days Without Meetings
+func countDays(days int, meetings [][]int) int {
+	slices.SortFunc(meetings, func(x, y []int) int {
+		if x[0] == y[0] {
+			return x[1] - y[1]
+		}
+		return x[0] - y[0]
+	})
+
+	log.Print("-> ", meetings)
+
+	t := 0
+
+	lDay := 0
+	for _, meeting := range meetings {
+		start, finish := meeting[0], meeting[1]
+		if start > lDay {
+			t += start - lDay - 1
+		}
+
+		lDay = max(lDay, finish)
+	}
+	t += days - lDay
+
+	return t
 }
