@@ -81,3 +81,23 @@ func countDays(days int, meetings [][]int) int {
 
 	return t
 }
+
+// 3394m Check if Grid can be Cut into Sections
+func checkValidCuts(n int, rectangles [][]int) bool {
+	Check := func(offset int) bool {
+		slices.SortFunc(rectangles, func(x, y []int) int { return x[offset] - y[offset] })
+
+		gaps := 0
+
+		end := rectangles[0][offset+2]
+		for _, rectangle := range rectangles[1:] {
+			if end <= rectangle[offset] {
+				gaps++
+			}
+			end = max(rectangle[offset+2], end)
+		}
+
+		return gaps >= 2
+	}
+	return Check(0) || Check(1)
+}

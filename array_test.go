@@ -42,3 +42,21 @@ func Test3169(t *testing.T) {
 		log.Printf(":: %d <- %d / %v", rst, days, meetings)
 	}
 }
+
+func Test3394(t *testing.T) {
+	for _, c := range []struct {
+		rst        bool
+		n          int
+		rectangles [][]int
+	}{
+		{true, 5, [][]int{{1, 0, 5, 2}, {0, 2, 2, 4}, {3, 2, 5, 3}, {0, 4, 4, 5}}},
+		{true, 4, [][]int{{0, 0, 1, 1}, {2, 0, 3, 4}, {0, 2, 2, 3}, {3, 0, 4, 3}}},
+		{false, 4, [][]int{{0, 2, 2, 4}, {1, 0, 3, 2}, {2, 2, 3, 4}, {3, 0, 4, 2}, {3, 2, 4, 4}}},
+	} {
+		rst, n, rectangles := c.rst, c.n, c.rectangles
+		if rst != checkValidCuts(n, rectangles) {
+			t.FailNow()
+		}
+		log.Printf(":: %t <- %v", rst, rectangles)
+	}
+}
