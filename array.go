@@ -87,9 +87,7 @@ func checkValidCuts(n int, rectangles [][]int) bool {
 	Check := func(offset int) bool {
 		slices.SortFunc(rectangles, func(x, y []int) int { return x[offset] - y[offset] })
 
-		gaps := 0
-
-		end := rectangles[0][offset+2]
+		gaps, end := 0, rectangles[0][offset+2]
 		for _, rectangle := range rectangles[1:] {
 			if end <= rectangle[offset] {
 				gaps++
