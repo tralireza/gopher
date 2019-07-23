@@ -55,6 +55,37 @@ func check(nums []int) bool {
 	return inversions <= 1
 }
 
+// 2033m Minimum Operations to Make a Uni-Value Grid
+func minOperations_UniValue(grid [][]int, x int) int {
+	nums := make([]int, 0, len(grid)*len(grid[0]))
+	for r := range grid {
+		nums = append(nums, grid[r]...)
+	}
+
+	slices.Sort(nums)
+	median := nums[len(nums)/2]
+
+	log.Print("-> ", nums, median)
+
+	Abs := func(v int) int {
+		if v >= 0 {
+			return v
+		}
+		return -v
+	}
+
+	ops, r := 0, median%x
+	for _, n := range nums {
+		if n%x != r {
+			return -1
+		}
+
+		ops += Abs(n-median) / x
+	}
+
+	return ops
+}
+
 // 3169m Count Days Without Meetings
 func countDays(days int, meetings [][]int) int {
 	slices.SortFunc(meetings, func(x, y []int) int {

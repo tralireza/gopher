@@ -24,6 +24,24 @@ func Test1752(t *testing.T) {
 	log.Print("true ?= ", check([]int{1, 2, 3}))
 }
 
+func Test2033(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		grid [][]int
+		x    int
+	}{
+		{4, [][]int{{2, 4}, {6, 8}}, 2},
+		{5, [][]int{{1, 5}, {2, 3}}, 1},
+		{-1, [][]int{{1, 2}, {3, 4}}, 2},
+	} {
+		rst, grid, x := c.rst, c.grid, c.x
+		if rst != minOperations_UniValue(grid, x) {
+			t.FailNow()
+		}
+		log.Printf(":: %d <- %v / %d", rst, grid, x)
+	}
+}
+
 func Test3169(t *testing.T) {
 	for _, c := range []struct {
 		rst, days int
