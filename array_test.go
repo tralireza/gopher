@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"slices"
 	"testing"
 )
 
@@ -25,6 +26,36 @@ func Test1752(t *testing.T) {
 }
 
 func Test2033(t *testing.T) {
+	TwoPointers := func(grid [][]int, x int) int {
+		nums := make([]int, 0, len(grid)*len(grid[0]))
+		for r := range grid {
+			for c := range grid[r] {
+				if grid[r][c]%x != grid[0][0]%x {
+					return -1
+				}
+				nums = append(nums, grid[r][c])
+			}
+		}
+
+		slices.Sort(nums)
+		log.Print("-> ", nums)
+
+		ops := 0
+
+		prefix, suffix := 0, len(nums)-1
+		for prefix < suffix {
+			if prefix < len(nums)-1-suffix {
+				ops += (nums[prefix+1] - nums[prefix]) / x * (prefix + 1)
+				prefix++
+			} else {
+				ops += (nums[suffix] - nums[suffix-1]) / x * (len(nums) - suffix)
+				suffix--
+			}
+		}
+
+		return ops
+	}
+
 	for _, c := range []struct {
 		rst  int
 		grid [][]int
@@ -35,8 +66,10 @@ func Test2033(t *testing.T) {
 		{-1, [][]int{{1, 2}, {3, 4}}, 2},
 	} {
 		rst, grid, x := c.rst, c.grid, c.x
-		if rst != minOperations_UniValue(grid, x) {
-			t.FailNow()
+		for _, f := range []func([][]int, int) int{minOperations_UniValue, TwoPointers} {
+			if rst != f(grid, x) {
+				t.FailNow()
+			}
 		}
 		log.Printf(":: %d <- %v / %d", rst, grid, x)
 	}
