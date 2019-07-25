@@ -75,6 +75,23 @@ func Test2033(t *testing.T) {
 	}
 }
 
+func Test2780(t *testing.T) {
+    // 1 <= N_i <= 10^9
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{2, []int{1, 2, 2, 2}},
+		{4, []int{2, 1, 3, 1, 1, 1, 7, 1, 2, 1}},
+		{-1, []int{3, 3, 3, 3, 7, 2, 2}},
+	} {
+		if c.rst != minimumIndex(c.nums) {
+			t.FailNow()
+		}
+		log.Printf(":: %d <- %v", c.rst, c.nums)
+	}
+}
+
 func Test3169(t *testing.T) {
 	for _, c := range []struct {
 		rst, days int

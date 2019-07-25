@@ -86,6 +86,36 @@ func minOperations_UniValue(grid [][]int, x int) int {
 	return ops
 }
 
+// 2780m Minimum Index of a Valid Split
+func minimumIndex(nums []int) int {
+	F := map[int]int{}
+	for _, n := range nums {
+		F[n]++
+	}
+
+	dominant, frq := 0, 0
+	for n, f := range F {
+		if f > frq {
+			dominant, frq = n, f
+		}
+	}
+
+	log.Print("-> ", dominant, frq)
+
+	f := 0
+	for i, n := range nums {
+		if n == dominant {
+			f++
+		}
+
+		if f*2 > (i+1) && (frq-f)*2 > len(nums)-1-i {
+			return i
+		}
+	}
+
+	return -1
+}
+
 // 3169m Count Days Without Meetings
 func countDays(days int, meetings [][]int) int {
 	slices.SortFunc(meetings, func(x, y []int) int {
