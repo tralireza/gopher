@@ -76,7 +76,27 @@ func Test2033(t *testing.T) {
 }
 
 func Test2780(t *testing.T) {
-    // 1 <= N_i <= 10^9
+	// 1 <= N_i <= 10^9
+
+	BoyerMoore := func(nums []int) int {
+		majority := nums[0]
+
+		count := 0
+		for _, n := range nums {
+			if n == majority {
+				count++
+			} else {
+				count--
+			}
+
+			if count == 0 {
+				majority, count = n, 1
+			}
+		}
+
+		return majority
+	}
+
 	for _, c := range []struct {
 		rst  int
 		nums []int
@@ -88,7 +108,7 @@ func Test2780(t *testing.T) {
 		if c.rst != minimumIndex(c.nums) {
 			t.FailNow()
 		}
-		log.Printf(":: %d <- %v", c.rst, c.nums)
+		log.Printf(":: %d <- %v | Boyer-Moore: %d", c.rst, c.nums, BoyerMoore(c.nums))
 	}
 }
 
