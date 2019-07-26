@@ -759,11 +759,12 @@ func Test2503(t *testing.T) {
 		queries []int
 	}{
 		{[]int{5, 8, 1}, [][]int{{1, 2, 3}, {2, 5, 7}, {3, 5, 1}}, []int{5, 6, 2}},
+		{[]int{0}, [][]int{{5, 2, 1}, {1, 1, 2}}, []int{3}},
 	} {
 		if !reflect.DeepEqual(c.rst, maxPoints_GridQueries(c.grid, c.queries)) {
 			t.FailNow()
 		}
-		log.Printf(":: %v <- %v %v", c.rst, c.grid, c.queries)
+		log.Printf(":: %v   <-   G: %v   Q: %v", c.rst, c.grid, c.queries)
 	}
 }
 
