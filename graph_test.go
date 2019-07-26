@@ -752,6 +752,21 @@ func Test2467(t *testing.T) {
 	log.Print("-3360 ?= ", mostProfitablePath([][]int{{0, 1}, {0, 2}}, 2, []int{-3360, -5394, -1146}))
 }
 
+func Test2503(t *testing.T) {
+	for _, c := range []struct {
+		rst     []int
+		grid    [][]int
+		queries []int
+	}{
+		{[]int{5, 8, 1}, [][]int{{1, 2, 3}, {2, 5, 7}, {3, 5, 1}}, []int{5, 6, 2}},
+	} {
+		if !reflect.DeepEqual(c.rst, maxPoints_GridQueries(c.grid, c.queries)) {
+			t.FailNow()
+		}
+		log.Printf(":: %v <- %v %v", c.rst, c.grid, c.queries)
+	}
+}
+
 // 2608m Shortest Cycle in a Graph
 func Test2608(t *testing.T) {
 	for _, f := range []func(int, [][]int) int{findShortestCycle} {

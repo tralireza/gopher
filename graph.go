@@ -1236,6 +1236,67 @@ func mostProfitablePath(edges [][]int, bob int, amount []int) int {
 	return Search(0, 0, 0)
 }
 
+// 2503h Maximum Number of Points From Grid Queries
+type PQ2503 [][3]int
+
+func (h PQ2503) Len() int           { return len(h) }
+func (h PQ2503) Less(i, j int) bool { return h[i][0] <= h[j][0] }
+func (h PQ2503) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *PQ2503) Push(x any) { *h = append(*h, x.([3]int)) }
+func (h *PQ2503) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func maxPoints_GridQueries(grid [][]int, queries []int) []int {
+	Rows, Cols := len(grid), len(grid[0])
+	R := make([]int, len(queries))
+
+	sQry := [][2]int{}
+	for i, qry := range queries {
+		sQry = append(sQry, [2]int{qry, i})
+	}
+	slices.SortFunc(sQry, func(x, y [2]int) int { return x[0] - y[0] })
+
+	log.Print("-> ", sQry)
+
+	Vis := make([][]bool, Rows)
+	for r := range Rows {
+		Vis[r] = make([]bool, Cols)
+	}
+
+	pq := PQ2503{}
+	Vis[0][0] = true
+	heap.Push(&pq, [3]int{grid[0][0], 0, 0})
+
+	Dir := []int{1, 0, -1, 0, 1}
+	points := 0
+	for _, qry := range sQry {
+		for pq.Len() > 0 && pq[0][0] < qry[0] {
+			points++
+
+			log.Print("-> ", qry, points, pq)
+
+			e := heap.Pop(&pq).([3]int)
+			r, c := e[1], e[2]
+
+			for d := range 4 {
+				r, c := r+Dir[d], c+Dir[d+1]
+				if r >= 0 && Rows > r && c >= 0 && Cols > c && !Vis[r][c] {
+					Vis[r][c] = true
+					heap.Push(&pq, [3]int{grid[r][c], r, c})
+				}
+			}
+		}
+
+		R[qry[1]] = points
+	}
+
+	return R
+}
+
 // 2608m Shortest Cycle in a Graph
 func findShortestCycle(n int, edges [][]int) int {
 	G := make([][]int, n)
