@@ -278,6 +278,24 @@ func sortPeople(names []string, heights []int) []string {
 	return names
 }
 
+// 2551h Put Marbles in Bags
+func putMarbles(weights []int, k int) int64 {
+	Pairs := []int{}
+	for i := 0; i < len(weights)-1; i++ {
+		Pairs = append(Pairs, weights[i]+weights[i+1])
+	}
+	slices.Sort(Pairs)
+
+	log.Print("-> ", Pairs)
+
+	diff := int64(0)
+	for i := 0; i < k-1; i++ {
+		diff += int64(Pairs[len(weights)-i-2]) - int64(Pairs[i])
+	}
+
+	return diff
+}
+
 // 2948m Make Lexicographically Smallest Array by Swapping Elements
 func lexicographicallySmallestArray(nums []int, limit int) []int {
 	Val := make([][2]int, 0, len(nums))

@@ -225,6 +225,21 @@ func Test2418(t *testing.T) {
 	}
 }
 
+func Test2551(t *testing.T) {
+	for _, c := range []struct {
+		rst     int64
+		weights []int
+		k       int
+	}{
+		{4, []int{1, 3, 5, 1}, 2},
+		{0, []int{1, 3}, 2},
+	} {
+		if c.rst != putMarbles(c.weights, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 // 2948m Make Lexicographically Smallest Array by Swapping Elements
 func Test2948(t *testing.T) {
 	log.Print("[1 3 5 8 9] ?= ", lexicographicallySmallestArray([]int{1, 5, 3, 9, 8}, 2))
