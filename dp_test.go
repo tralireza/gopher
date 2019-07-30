@@ -1138,6 +1138,21 @@ func Test2016(t *testing.T) {
 	log.Print("9 ?= ", maximumDifference([]int{1, 5, 2, 10}))
 }
 
+func Test2140(t *testing.T) {
+	for _, c := range []struct {
+		rst       int64
+		questions [][]int
+	}{
+		{int64(5), [][]int{{3, 2}, {4, 3}, {4, 4}, {2, 5}}},
+		{int64(7), [][]int{{1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}}},
+	} {
+		if c.rst != mostPoints(c.questions) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- %v", c.rst, c.questions)
+	}
+}
+
 // 2466m Count Ways to Build Good Strings
 func Test2466(t *testing.T) {
 	Recursive := func(low, high, zero, one int) int {

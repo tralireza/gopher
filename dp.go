@@ -1107,6 +1107,24 @@ func maximumDifference(nums []int) int {
 	return xVal
 }
 
+// 2140m Solving Questions With Brainpower
+func mostPoints(questions [][]int) int64 {
+	D := make([][2]int64, len(questions)+1)
+
+	for i := len(questions) - 1; i >= 0; i-- {
+		pts, skip := questions[i][0], questions[i][1]
+
+		D[i][0] = max(D[i+1][0], D[i+1][1])
+		D[i][1] = int64(pts)
+		next := i + skip + 1
+		if next < len(questions) {
+			D[i][1] += max(D[next][0], D[next][1])
+		}
+	}
+
+	return slices.Max(D[0][:])
+}
+
 // 2466m Count Ways to Build Good Strings
 func countGoodStrings(low, high, zero, one int) int {
 	const MOD = 1e9 + 7
