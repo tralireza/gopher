@@ -1158,6 +1158,8 @@ func Test2140(t *testing.T) {
 	Recursive := func(questions [][]int) int64 {
 		M := map[int]int64{}
 
+		defer log.Print("-> Mem: ", M)
+
 		var Search func(int) int64
 		Search = func(start int) int64 {
 			if start >= len(questions) {
