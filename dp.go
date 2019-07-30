@@ -1122,6 +1122,8 @@ func mostPoints(questions [][]int) int64 {
 		}
 	}
 
+	log.Print("-> ", D)
+
 	return slices.Max(D[0][:])
 }
 

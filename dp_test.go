@@ -1139,6 +1139,22 @@ func Test2016(t *testing.T) {
 }
 
 func Test2140(t *testing.T) {
+	Optimized := func(questions [][]int) int64 {
+		D := make([]int64, len(questions)+1)
+		for i := len(questions) - 1; i >= 0; i-- {
+			pts, skip := questions[i][0], questions[i][1]
+
+			next := i + skip + 1
+			if next < len(questions) {
+				D[i] = max(int64(pts)+D[next], D[i+1])
+			} else {
+				D[i] = max(int64(pts), D[i+1])
+			}
+		}
+
+		return D[0]
+	}
+
 	for _, c := range []struct {
 		rst       int64
 		questions [][]int
@@ -1146,8 +1162,10 @@ func Test2140(t *testing.T) {
 		{int64(5), [][]int{{3, 2}, {4, 3}, {4, 4}, {2, 5}}},
 		{int64(7), [][]int{{1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}}},
 	} {
-		if c.rst != mostPoints(c.questions) {
-			t.FailNow()
+		for _, f := range []func([][]int) int64{mostPoints, Optimized} {
+			if c.rst != f(c.questions) {
+				t.FailNow()
+			}
 		}
 		log.Printf(":: %d   <- %v", c.rst, c.questions)
 	}
