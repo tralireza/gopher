@@ -1155,6 +1155,26 @@ func Test2140(t *testing.T) {
 		return D[0]
 	}
 
+	Recursive := func(questions [][]int) int64 {
+		M := map[int]int64{}
+
+		var Search func(int) int64
+		Search = func(start int) int64 {
+			if start >= len(questions) {
+				return 0
+			}
+
+			if pts, ok := M[start]; ok {
+				return pts
+			}
+
+			M[start] = max(Search(start+1), int64(questions[start][0])+Search(start+questions[start][1]+1))
+			return M[start]
+		}
+
+		return Search(0)
+	}
+
 	for _, c := range []struct {
 		rst       int64
 		questions [][]int
@@ -1162,7 +1182,7 @@ func Test2140(t *testing.T) {
 		{int64(5), [][]int{{3, 2}, {4, 3}, {4, 4}, {2, 5}}},
 		{int64(7), [][]int{{1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}}},
 	} {
-		for _, f := range []func([][]int) int64{mostPoints, Optimized} {
+		for _, f := range []func([][]int) int64{mostPoints, Optimized, Recursive} {
 			if c.rst != f(c.questions) {
 				t.FailNow()
 			}
