@@ -237,6 +237,7 @@ func Test2551(t *testing.T) {
 		if c.rst != putMarbles(c.weights, c.k) {
 			t.FailNow()
 		}
+		log.Printf(":: %d   <- %v | %d", c.rst, c.weights, c.k)
 	}
 }
 
