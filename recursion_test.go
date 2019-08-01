@@ -3,6 +3,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"math/rand/v2"
 	"reflect"
 	"testing"
 )
@@ -288,6 +289,34 @@ func Test1718(t *testing.T) {
 }
 
 func Test1980(t *testing.T) {
+	// 1 <= N <= 16
+	Random := func(nums []string) string {
+		M := map[string]struct{}{}
+		for _, s := range nums {
+			M[s] = struct{}{}
+		}
+
+		N := len(nums[0])
+		bfr := make([]byte, N)
+
+		for {
+			for i := range N {
+				switch rand.IntN(2) {
+				case 0:
+					bfr[i] = '0'
+				default:
+					bfr[i] = '1'
+				}
+			}
+
+			if _, ok := M[string(bfr)]; !ok {
+				return string(bfr)
+			}
+		}
+
+		return ""
+	}
+
 	for _, c := range []struct {
 		rst  string
 		nums []string
@@ -299,7 +328,7 @@ func Test1980(t *testing.T) {
 		if c.rst != findDifferentBinaryString(c.nums) {
 			t.FailNow()
 		}
-		log.Printf(":: %q   <- %q", c.rst, c.nums)
+		log.Printf(":: %q   <- %q | %q", c.rst, c.nums, Random(c.nums))
 	}
 }
 
