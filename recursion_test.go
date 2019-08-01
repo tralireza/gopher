@@ -287,6 +287,22 @@ func Test1718(t *testing.T) {
 	log.Print("[5 3 1 4 3 5 2 4 2] ?= ", constructDistancedSequence(5))
 }
 
+func Test1980(t *testing.T) {
+	for _, c := range []struct {
+		rst  string
+		nums []string
+	}{
+		{"11", []string{"01", "10"}},
+		{"11", []string{"00", "01"}},
+		{"110", []string{"111", "011", "001"}},
+	} {
+		if c.rst != findDifferentBinaryString(c.nums) {
+			t.FailNow()
+		}
+		log.Printf(":: %q   <- %q", c.rst, c.nums)
+	}
+}
+
 // 2044m Count Number of Maximum Bitwise-OR Subsets
 func Test2044(t *testing.T) {
 	// 1 <= N_i <= 10^5, N.length <= 16

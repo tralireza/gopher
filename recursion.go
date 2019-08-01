@@ -597,6 +597,43 @@ func constructDistancedSequence(n int) []int {
 	return R
 }
 
+// 1980m Find Unique Binary String
+func findDifferentBinaryString(nums []string) string {
+	numSize := len(nums[0])
+	M := map[string]struct{}{}
+	for _, s := range nums {
+		M[s] = struct{}{}
+	}
+
+	var Search func([]byte) string
+	Search = func(bfr []byte) string {
+		if len(bfr) == numSize {
+			if _, ok := M[string(bfr)]; !ok {
+				return string(bfr)
+			}
+			return ""
+		}
+
+		uniqueStr := ""
+		bfr = append(bfr, '1')
+		uniqueStr = Search(bfr)
+		if uniqueStr != "" {
+			return uniqueStr
+		}
+
+		bfr = bfr[:len(bfr)-1]
+		bfr = append(bfr, '0')
+		uniqueStr = Search(bfr)
+		if uniqueStr != "" {
+			return uniqueStr
+		}
+
+		return ""
+	}
+
+	return Search([]byte{})
+}
+
 // 2044m Count Number of Maximum Bitwise-OR Subsets
 func countMaxOrSubsets(nums []int) int {
 	xVal := 0
