@@ -614,21 +614,15 @@ func findDifferentBinaryString(nums []string) string {
 			return ""
 		}
 
-		uniqueStr := ""
 		bfr = append(bfr, '1')
-		uniqueStr = Search(bfr)
+		uniqueStr := Search(bfr)
 		if uniqueStr != "" {
 			return uniqueStr
 		}
 
 		bfr = bfr[:len(bfr)-1]
 		bfr = append(bfr, '0')
-		uniqueStr = Search(bfr)
-		if uniqueStr != "" {
-			return uniqueStr
-		}
-
-		return ""
+		return Search(bfr)
 	}
 
 	return Search([]byte{})
