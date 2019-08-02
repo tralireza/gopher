@@ -290,6 +290,22 @@ func Test1718(t *testing.T) {
 
 func Test1980(t *testing.T) {
 	// 1 <= N <= 16
+
+	// Cantor's Diagonal Argument
+	Cantor := func(nums []string) string {
+		bfr := make([]byte, len(nums[0]))
+		for i := range nums {
+			switch nums[i][i] {
+			case '0':
+				bfr[i] = '1'
+			default:
+				bfr[i] = '0'
+			}
+		}
+
+		return string(bfr)
+	}
+
 	Random := func(nums []string) string {
 		M := map[string]struct{}{}
 		for _, s := range nums {
@@ -328,7 +344,7 @@ func Test1980(t *testing.T) {
 		if c.rst != findDifferentBinaryString(c.nums) {
 			t.FailNow()
 		}
-		log.Printf(":: %q   <- %q | %q", c.rst, c.nums, Random(c.nums))
+		log.Printf(":: %q   <- %q | %q %q", c.rst, c.nums, Random(c.nums), Cantor(c.nums))
 	}
 }
 
