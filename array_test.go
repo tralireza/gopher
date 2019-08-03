@@ -113,6 +113,8 @@ func Test2780(t *testing.T) {
 }
 
 func Test2873(t *testing.T) {
+	// Maximize: (N_i - N_j) * N_k for any i < j < k
+
 	Optimized := func(nums []int) int64 {
 		leftMax := nums[0]
 
