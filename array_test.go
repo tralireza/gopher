@@ -122,9 +122,25 @@ func Test2873(t *testing.T) {
 			rightMaxs[r] = max(nums[r], rightMaxs[r+1])
 		}
 
+		log.Print("-> ", leftMax, rightMaxs)
+
 		xVal := int64(0)
 		for i, n := range nums[1 : len(nums)-2] {
 			xVal = max(xVal, int64(leftMax-n)*int64(rightMaxs[i+1]))
+			leftMax = max(n, leftMax)
+		}
+
+		return xVal
+	}
+
+	SpaceOptimized := func(nums []int) int64 {
+		xVal := int64(0)
+		leftMax, diffMax := 0, 0
+
+		for _, n := range nums {
+			xVal = max(int64(diffMax)*int64(n), xVal)
+
+			diffMax = max(leftMax-n, diffMax)
 			leftMax = max(n, leftMax)
 		}
 
@@ -139,7 +155,7 @@ func Test2873(t *testing.T) {
 		{133, []int{1, 10, 3, 4, 19}},
 		{0, []int{1, 2, 3}},
 	} {
-		for _, f := range []func([]int) int64{maximumTripletValue, Optimized} {
+		for _, f := range []func([]int) int64{maximumTripletValue, Optimized, SpaceOptimized} {
 			if c.rst != f(c.nums) {
 				t.FailNow()
 			}
