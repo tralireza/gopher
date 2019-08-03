@@ -112,6 +112,22 @@ func Test2780(t *testing.T) {
 	}
 }
 
+func Test2783(t *testing.T) {
+	for _, c := range []struct {
+		rst  int64
+		nums []int
+	}{
+		{77, []int{12, 6, 1, 2, 7}},
+		{133, []int{1, 10, 3, 4, 19}},
+		{0, []int{1, 2, 3}},
+	} {
+		if c.rst != maximumTripletValue(c.nums) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- %v", c.rst, c.nums)
+	}
+}
+
 func Test3169(t *testing.T) {
 	for _, c := range []struct {
 		rst, days int

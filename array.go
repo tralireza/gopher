@@ -116,6 +116,20 @@ func minimumIndex(nums []int) int {
 	return -1
 }
 
+// 2873 Maximum Value of an Ordered Triplet I
+func maximumTripletValue(nums []int) int64 {
+	xVal := int64(0)
+	for i := 0; i < len(nums)-2; i++ {
+		for j := i + 1; j < len(nums)-1; j++ {
+			for k := j + 1; k < len(nums); k++ {
+				xVal = max(xVal, int64(nums[i]-nums[j])*int64(nums[k]))
+			}
+		}
+	}
+
+	return xVal
+}
+
 // 3169m Count Days Without Meetings
 func countDays(days int, meetings [][]int) int {
 	slices.SortFunc(meetings, func(x, y []int) int {
