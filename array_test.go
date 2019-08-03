@@ -112,7 +112,25 @@ func Test2780(t *testing.T) {
 	}
 }
 
-func Test2783(t *testing.T) {
+func Test2873(t *testing.T) {
+	Optimized := func(nums []int) int64 {
+		leftMax := nums[0]
+
+		rightMaxs := make([]int, len(nums))
+		rightMaxs[len(nums)-1] = nums[len(nums)-1]
+		for r := len(nums) - 2; r >= 2; r-- {
+			rightMaxs[r] = max(nums[r], rightMaxs[r+1])
+		}
+
+		xVal := int64(0)
+		for i, n := range nums[1 : len(nums)-2] {
+			xVal = max(xVal, int64(leftMax-n)*int64(rightMaxs[i+1]))
+			leftMax = max(n, leftMax)
+		}
+
+		return xVal
+	}
+
 	for _, c := range []struct {
 		rst  int64
 		nums []int
@@ -121,8 +139,10 @@ func Test2783(t *testing.T) {
 		{133, []int{1, 10, 3, 4, 19}},
 		{0, []int{1, 2, 3}},
 	} {
-		if c.rst != maximumTripletValue(c.nums) {
-			t.FailNow()
+		for _, f := range []func([]int) int64{maximumTripletValue, Optimized} {
+			if c.rst != f(c.nums) {
+				t.FailNow()
+			}
 		}
 		log.Printf(":: %d   <- %v", c.rst, c.nums)
 	}
