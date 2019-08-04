@@ -185,6 +185,23 @@ func Test2558(t *testing.T) {
 	log.Print("4 ?= ", pickGifts([]int{1, 1, 1, 1}, 4))
 }
 
+func Test2818(t *testing.T) {
+	// 1 <= N <= 10^5
+
+	for _, c := range []struct {
+		rst, k int
+		nums   []int
+	}{
+		{81, 2, []int{8, 3, 9, 3, 8}},
+		{4788, 3, []int{19, 12, 14, 6, 10, 18}},
+	} {
+		if c.rst != maximumScore(c.nums, c.k) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- %v %d", c.rst, c.nums, c.k)
+	}
+}
+
 // 2940m Find Building Where Alice and Bob Can Meet
 func Test2940(t *testing.T) {
 	log.Print("[2 5 -1 5 2] ?= ", leftmostBuildingQueries([]int{6, 4, 8, 5, 2, 7}, [][]int{{0, 1}, {0, 3}, {2, 4}, {3, 4}, {2, 2}}))

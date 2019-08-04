@@ -536,6 +536,94 @@ func pickGifts(gifts []int, k int) int64 {
 	return t
 }
 
+// 2818h Apply Operations to Maximize Score
+type PQ2818 [][2]int
+
+func (h PQ2818) Len() int { return len(h) }
+func (h PQ2818) Less(i, j int) bool {
+	if h[i][0] == h[j][0] {
+		return h[i][1] < h[j][1] // Smaller Index
+	}
+	return h[i][0] >= h[j][0] // Larger N
+}
+func (h PQ2818) Swap(i, j int) { h[i], h[j] = h[j], h[i] }
+func (h *PQ2818) Push(x any)   { *h = append(*h, x.([2]int)) }
+func (h *PQ2818) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func maximumScore(nums []int, k int) int {
+	xNum := slices.Max(nums)
+	Sieve := make([]int, xNum+1)
+	for p := 2; p < len(Sieve); p++ {
+		if Sieve[p] == 0 {
+			for m := p; m < len(Sieve); m += p {
+				Sieve[m]++
+			}
+		}
+	}
+	log.Print("-> Prime Factors (distinct): ", Sieve)
+
+	Prev, Next := make([]int, len(nums)), make([]int, len(nums))
+	for i := range len(nums) {
+		Prev[i], Next[i] = -1, len(nums)
+	}
+
+	S := []int{}
+	for i, n := range nums {
+		for len(S) > 0 && S[len(S)-1] < Sieve[n] {
+			top := S[len(S)-1]
+			S = S[:len(S)-1]
+
+			Next[top] = i
+		}
+		if len(S) > 0 {
+			Prev[i] = S[len(S)-1]
+		}
+
+		S = append(S, i)
+	}
+
+	log.Print("-> ", Prev, Next)
+
+	pq := PQ2818{}
+	for i, n := range nums {
+		heap.Push(&pq, [2]int{n, i})
+	}
+
+	log.Print("-> ", pq)
+
+	const M = 1e9 + 7
+	Power := func(b, e int) int {
+		p := 1
+		for e > 0 {
+			if e&1 == 1 {
+				p = (p * b) % M
+			}
+			b = (b * b) % M
+			e >>= 1
+		}
+
+		return p
+	}
+
+	score := 1
+	for k > 0 {
+		e := heap.Pop(&pq).([2]int)
+		n, i := e[0], e[1]
+
+		subarrays := (i - Prev[i]) * (Next[i] - i)
+		ops := min(k, subarrays)
+		k -= ops
+
+		score = (score * Power(n, ops)) % M
+	}
+
+	return score
+}
+
 // 2940m Find Building Where Alice and Bob Can Meet
 type PQ2940 [][2]int
 
