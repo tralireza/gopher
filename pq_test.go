@@ -194,11 +194,15 @@ func Test2818(t *testing.T) {
 	}{
 		{81, 2, []int{8, 3, 9, 3, 8}},
 		{4788, 3, []int{19, 12, 14, 6, 10, 18}},
+
+		{630596200, 27, []int{6, 1, 13, 10, 1, 17, 6}},
+		{256720975, 6, []int{3289, 2832, 14858, 22011}},
 	} {
+		log.Print("** ", c.nums, c.k)
 		if c.rst != maximumScore(c.nums, c.k) {
 			t.FailNow()
 		}
-		log.Printf(":: %d   <- %v %d", c.rst, c.nums, c.k)
+		log.Printf(":: %d", c.rst)
 	}
 }
 

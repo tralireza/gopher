@@ -573,7 +573,7 @@ func maximumScore(nums []int, k int) int {
 
 	S := []int{}
 	for i, n := range nums {
-		for len(S) > 0 && S[len(S)-1] < Sieve[n] {
+		for len(S) > 0 && Sieve[nums[S[len(S)-1]]] < Sieve[n] {
 			top := S[len(S)-1]
 			S = S[:len(S)-1]
 
@@ -596,8 +596,8 @@ func maximumScore(nums []int, k int) int {
 	log.Print("-> ", pq)
 
 	const M = 1e9 + 7
-	Power := func(b, e int) int {
-		p := 1
+	Power := func(b, e int64) int64 {
+		p := int64(1)
 		for e > 0 {
 			if e&1 == 1 {
 				p = (p * b) % M
@@ -609,19 +609,21 @@ func maximumScore(nums []int, k int) int {
 		return p
 	}
 
-	score := 1
+	score := int64(1)
 	for k > 0 {
 		e := heap.Pop(&pq).([2]int)
 		n, i := e[0], e[1]
+
+		log.Print("-> ", e)
 
 		subarrays := (i - Prev[i]) * (Next[i] - i)
 		ops := min(k, subarrays)
 		k -= ops
 
-		score = (score * Power(n, ops)) % M
+		score = (score * Power(int64(n), int64(ops))) % M
 	}
 
-	return score
+	return int(score)
 }
 
 // 2940m Find Building Where Alice and Bob Can Meet
