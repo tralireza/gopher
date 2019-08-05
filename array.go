@@ -130,6 +130,20 @@ func maximumTripletValue(nums []int) int64 {
 	return xVal
 }
 
+// 2874m Maximum Value of an Ordered Triplet II
+func maximumTripletValueII(nums []int) int64 {
+	xVal := int64(0)
+	lMax, diffMax := 0, 0
+	for _, n := range nums {
+		xVal = max(int64(diffMax)*int64(n), xVal)
+
+		diffMax = max(lMax-n, diffMax)
+		lMax = max(n, lMax)
+	}
+
+	return xVal
+}
+
 // 3169m Count Days Without Meetings
 func countDays(days int, meetings [][]int) int {
 	slices.SortFunc(meetings, func(x, y []int) int {
