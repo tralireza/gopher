@@ -176,6 +176,39 @@ func Test1028(t *testing.T) {
 	}
 }
 
+func Test1123(t *testing.T) {
+	Draw := func(n *TreeNode) {
+		Q := []*TreeNode{n}
+		for len(Q) > 0 {
+			for range len(Q) {
+				n, Q = Q[0], Q[1:]
+				l, r := '-', '-'
+				if n.Left != nil {
+					Q = append(Q, n.Left)
+					l = '*'
+				}
+				if n.Right != nil {
+					Q = append(Q, n.Right)
+					r = '*'
+				}
+				fmt.Printf("{%c %d %c}", l, n.Val, r)
+			}
+			fmt.Print("\n")
+		}
+	}
+
+	for _, c := range []struct {
+		tree *TreeNode
+	}{
+		{&TreeNode{3, &TreeNode{5, &TreeNode{Val: 6}, &TreeNode{2, &TreeNode{Val: 7}, &TreeNode{Val: 4}}}, &TreeNode{1, &TreeNode{Val: 0}, &TreeNode{Val: 8}}}},
+		{&TreeNode{Val: 1}},
+		{&TreeNode{0, &TreeNode{1, nil, &TreeNode{Val: 2}}, &TreeNode{Val: 3}}},
+	} {
+		Draw(lcaDeepestLeaves(c.tree))
+		fmt.Print("\n")
+	}
+}
+
 // 1261m Find Elements in a Contaminated Binary Tree
 func Test1261(t *testing.T) {
 	type T = TreeNode

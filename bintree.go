@@ -234,6 +234,44 @@ func recoverFromPreorder(traversal string) *TreeNode {
 	return Load(0)
 }
 
+// 1123m Lowest Common Ancestor of Deepest Leaves
+func lcaDeepestLeaves(root *TreeNode) *TreeNode {
+	var Depth func(*TreeNode) int
+	Depth = func(n *TreeNode) int {
+		if n != nil {
+			return 1 + max(Depth(n.Left), Depth(n.Right))
+		}
+		return 0
+	}
+
+	depth := Depth(root)
+
+	var LCA func(int, *TreeNode) *TreeNode
+	LCA = func(d int, n *TreeNode) *TreeNode {
+		if n == nil {
+			return nil
+		}
+
+		if n.Left == nil && n.Right == nil {
+			if d == depth {
+				return n
+			}
+			return nil
+		}
+
+		l, r := LCA(d+1, n.Left), LCA(d+1, n.Right)
+		if l != nil && r != nil {
+			return n
+		}
+		if l != nil {
+			return l
+		}
+		return r
+	}
+
+	return LCA(1, root)
+}
+
 // 1261m Find Elements in a Contaminated Binary Tree
 type FindElements struct {
 	M map[int]struct{}
