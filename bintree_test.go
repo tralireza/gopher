@@ -107,6 +107,37 @@ func Test865(t *testing.T) {
 		}
 	}
 
+	Recursive := func(root *TreeNode) *TreeNode {
+		var DFS func(int, *TreeNode) (int, *TreeNode)
+		DFS = func(d int, n *TreeNode) (int, *TreeNode) {
+			if n == nil {
+				return d, nil
+			}
+			if n.Left == nil && n.Right == nil {
+				return d, n
+			}
+
+			lD, l := DFS(d+1, n.Left)
+			rD, r := DFS(d+1, n.Right)
+
+			if l != nil && r != nil {
+				if lD > rD {
+					return lD, l
+				} else if lD < rD {
+					return rD, r
+				}
+				return lD, n
+			}
+			if l != nil {
+				return lD, l
+			}
+			return rD, r
+		}
+
+		_, t := DFS(0, root)
+		return t
+	}
+
 	type T = TreeNode
 	for _, c := range []struct {
 		tree *TreeNode
@@ -115,8 +146,10 @@ func Test865(t *testing.T) {
 		{&T{Val: 1}},
 		{&T{0, &T{1, nil, &T{Val: 2}}, &T{Val: 3}}},
 	} {
-		Draw(subtreeWithAllDeepest(c.tree))
-		fmt.Print("\n")
+		for _, f := range []func(*TreeNode) *TreeNode{subtreeWithAllDeepest, Recursive} {
+			Draw(f(c.tree))
+			fmt.Print("\n")
+		}
 	}
 }
 
