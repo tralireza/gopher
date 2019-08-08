@@ -3,6 +3,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"reflect"
 	"testing"
 )
 
@@ -139,17 +140,26 @@ func Test865(t *testing.T) {
 	}
 
 	type T = TreeNode
+
+	single, leaf, subtree := &T{Val: 1}, &T{Val: 2}, &T{2, &T{Val: 7}, &T{Val: 4}}
+
 	for _, c := range []struct {
+		rst  *TreeNode
 		tree *TreeNode
 	}{
-		{&T{3, &T{5, &T{Val: 6}, &T{2, &T{Val: 7}, &T{Val: 4}}}, &T{1, &T{Val: 0}, &T{Val: 8}}}},
-		{&T{Val: 1}},
-		{&T{0, &T{1, nil, &T{Val: 2}}, &T{Val: 3}}},
+		{subtree, &T{3, &T{5, &T{Val: 6}, subtree}, &T{1, &T{Val: 0}, &T{Val: 8}}}},
+		{single, single},
+		{leaf, &T{0, &T{1, nil, leaf}, &T{Val: 3}}},
 	} {
+		Draw(c.tree)
+		fmt.Print("--\n")
 		for _, f := range []func(*TreeNode) *TreeNode{subtreeWithAllDeepest, Recursive} {
+			if !reflect.DeepEqual(c.rst, f(c.tree)) {
+				t.FailNow()
+			}
 			Draw(f(c.tree))
-			fmt.Print("\n")
 		}
+		fmt.Print("==\n")
 	}
 }
 
