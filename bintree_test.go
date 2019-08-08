@@ -231,12 +231,13 @@ func Test1123(t *testing.T) {
 		}
 	}
 
+	type T = TreeNode
 	for _, c := range []struct {
 		tree *TreeNode
 	}{
-		{&TreeNode{3, &TreeNode{5, &TreeNode{Val: 6}, &TreeNode{2, &TreeNode{Val: 7}, &TreeNode{Val: 4}}}, &TreeNode{1, &TreeNode{Val: 0}, &TreeNode{Val: 8}}}},
-		{&TreeNode{Val: 1}},
-		{&TreeNode{0, &TreeNode{1, nil, &TreeNode{Val: 2}}, &TreeNode{Val: 3}}},
+		{&T{3, &T{5, &T{Val: 6}, &T{2, &T{Val: 7}, &T{Val: 4}}}, &T{1, &T{Val: 0}, &T{Val: 8}}}},
+		{&T{Val: 1}},
+		{&T{0, &T{1, nil, &T{Val: 2}}, &T{Val: 3}}},
 	} {
 		Draw(lcaDeepestLeaves(c.tree))
 		fmt.Print("\n")
