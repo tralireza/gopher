@@ -86,6 +86,39 @@ func Test559(t *testing.T) {
 			&T{5, nil}}}))
 }
 
+func Test865(t *testing.T) {
+	Draw := func(n *TreeNode) {
+		Q := []*TreeNode{n}
+		for len(Q) > 0 {
+			for range len(Q) {
+				n, Q = Q[0], Q[1:]
+				l, r := '-', '-'
+				if n.Left != nil {
+					Q = append(Q, n.Left)
+					l = '*'
+				}
+				if n.Right != nil {
+					Q = append(Q, n.Right)
+					r = '*'
+				}
+				fmt.Printf("{%c %d %c}", l, n.Val, r)
+			}
+			fmt.Print("\n")
+		}
+	}
+
+	for _, c := range []struct {
+		tree *TreeNode
+	}{
+		{&TreeNode{3, &TreeNode{5, &TreeNode{Val: 6}, &TreeNode{2, &TreeNode{Val: 7}, &TreeNode{Val: 4}}}, &TreeNode{1, &TreeNode{Val: 0}, &TreeNode{Val: 8}}}},
+		{&TreeNode{Val: 1}},
+		{&TreeNode{0, &TreeNode{1, nil, &TreeNode{Val: 2}}, &TreeNode{Val: 3}}},
+	} {
+		Draw(subtreeWithAllDeepest(c.tree))
+		fmt.Print("\n")
+	}
+}
+
 // 889 Construct Binary Tree from Preorder and Postorder Traversal
 func Test889(t *testing.T) {
 	Recursive := func(preorder []int, postorder []int) *TreeNode {

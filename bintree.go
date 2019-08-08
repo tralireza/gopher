@@ -156,6 +156,44 @@ func findTilt(root *TreeNode) int {
 	return tilt
 }
 
+// 865m Smallest Subtree
+func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
+	var Depth func(*TreeNode) int
+	Depth = func(n *TreeNode) int {
+		if n != nil {
+			return 1 + max(Depth(n.Left), Depth(n.Right))
+		}
+		return 0
+	}
+
+	depth := Depth(root)
+
+	var LCA func(int, *TreeNode) *TreeNode
+	LCA = func(d int, n *TreeNode) *TreeNode {
+		if n == nil {
+			return nil
+		}
+
+		if n.Left == nil && n.Right == nil {
+			if d == depth {
+				return n
+			}
+			return nil
+		}
+
+		l, r := LCA(d+1, n.Left), LCA(d+1, n.Right)
+		if l != nil && r != nil {
+			return n
+		}
+		if l != nil {
+			return l
+		}
+		return r
+	}
+
+	return LCA(1, root)
+}
+
 // 889 Construct Binary Tree from Preorder and Postorder Traversal
 func constructFromPrePost(preorder []int, postorder []int) *TreeNode {
 	switch len(preorder) {
