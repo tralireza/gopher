@@ -127,7 +127,7 @@ func Test865(t *testing.T) {
 				} else if lD < rD {
 					return rD, r
 				}
-				return lD, n
+				return lD | rD, n
 			}
 			if l != nil {
 				return lD, l
