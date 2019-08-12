@@ -504,7 +504,7 @@ func largestDivisibleSubset(nums []int) []int {
 
 	D := make([]int, len(nums))
 
-	lMax, iLast := 1, 0 // Maximum Subset Length, Last Index
+	lMax, idx := 1, 0 // Maximum Subset Length, Last Index
 	for i, N_i := range nums {
 		D[i] = 1
 
@@ -513,25 +513,24 @@ func largestDivisibleSubset(nums []int) []int {
 				D[i] = max(D[j]+1, D[i])
 
 				if D[i] > lMax {
-					lMax, iLast = D[i], i
+					lMax, idx = D[i], i
 				}
 			}
 		}
 	}
 
-	log.Print("-> ", lMax, iLast, D)
+	log.Print("-> ", lMax, idx, D)
 
 	R := []int{}
 
-	n := nums[iLast]
-	for iLast >= 0 {
-		if D[iLast] == lMax && n%nums[iLast] == 0 {
-			R = append(R, nums[iLast])
-			n = nums[iLast]
+	n := nums[idx]
+	for idx >= 0 {
+		if D[idx] == lMax && n%nums[idx] == 0 {
+			R = append(R, nums[idx])
+			n = nums[idx]
 			lMax--
 		}
-
-		iLast--
+		idx--
 	}
 	slices.Reverse(R)
 

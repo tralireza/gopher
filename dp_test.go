@@ -382,6 +382,12 @@ func Test368(t *testing.T) {
 	}{
 		{[]int{1, 2}, []int{1, 2, 3}},
 		{[]int{1, 2, 4, 8}, []int{1, 2, 4, 8}},
+
+		{[]int{1}, []int{1}},
+		{
+			[]int{9, 18, 90, 180, 360, 720},
+			[]int{5, 9, 18, 54, 108, 540, 90, 180, 360, 720},
+		},
 	} {
 		if !reflect.DeepEqual(c.rst, largestDivisibleSubset(c.nums)) {
 			t.FailNow()
