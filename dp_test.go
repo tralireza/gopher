@@ -376,6 +376,20 @@ func Test312(t *testing.T) {
 	}
 }
 
+func Test368(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums []int
+	}{
+		{[]int{1, 2}, []int{1, 2, 3}},
+		{[]int{1, 2, 4, 8}, []int{1, 2, 4, 8}},
+	} {
+		if !reflect.DeepEqual(c.rst, largestDivisibleSubset(c.nums)) {
+			t.FailNow()
+		}
+		log.Printf(":: %v   <- %v", c.rst, c.nums)
+	}
+}
+
 // 494m Target Sum
 func Test494(t *testing.T) {
 	// -1000 <= Target <= 1000, 1 <= Nums.Lengh <= 20

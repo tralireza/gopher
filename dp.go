@@ -497,6 +497,45 @@ func maxCoins(nums []int) int {
 	return Search(0, len(nums)-1)
 }
 
+// 368m Largest Divisible Subset
+func largestDivisibleSubset(nums []int) []int {
+	slices.Sort(nums)
+	log.Print("-> ", nums)
+
+	D := make([]int, len(nums))
+
+	xSize, lastIdx := 1, 0
+	for i, N_i := range nums {
+		D[i] = 1
+
+		for j, N_j := range nums[:i] {
+			if N_i%N_j == 0 {
+				D[i] = max(D[j]+1, D[i])
+
+				if D[i] > xSize {
+					xSize, lastIdx = D[i], i
+				}
+			}
+		}
+	}
+
+	log.Print("-> ", xSize, lastIdx, D)
+
+	R := []int{}
+
+	lastN := nums[lastIdx]
+	for i := lastIdx; i >= 0; i-- {
+		if D[i] == xSize && lastN%nums[i] == 0 {
+			R = append(R, nums[i])
+			lastN = nums[i]
+			xSize--
+		}
+	}
+	slices.Reverse(R)
+
+	return R
+}
+
 // 494m Target Sum
 func findTargetSumWays(nums []int, target int) int {
 	M := map[[2]int]int{}
