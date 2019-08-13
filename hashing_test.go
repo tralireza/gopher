@@ -592,3 +592,20 @@ func Test3306(t *testing.T) {
 		}
 	}
 }
+
+func Test3375(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+		k    int
+	}{
+		{2, []int{5, 2, 5, 4, 5}, 2},
+		{-1, []int{2, 1, 2}, 2},
+		{4, []int{9, 7, 5, 3}, 1},
+	} {
+		if c.rst != minOperations_EqualK(c.nums, c.k) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- %v | %d", c.rst, c.nums, c.k)
+	}
+}

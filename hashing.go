@@ -591,3 +591,21 @@ func countOfSubstringsII(word string, k int) int64 {
 
 	return AtLeast(k) - AtLeast(k+1)
 }
+
+// 3375 Minimum Operations to Make Array Values Equal to K
+func minOperations_EqualK(nums []int, k int) int {
+	M := map[int]struct{}{}
+
+	for _, n := range nums {
+		if n < k {
+			return -1
+		}
+		if n > k {
+			M[n] = struct{}{}
+		}
+	}
+
+	log.Print("-> ", M)
+
+	return len(M)
+}
