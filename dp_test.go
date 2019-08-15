@@ -1292,3 +1292,23 @@ func Test2836(t *testing.T) {
 	log.Print("6 ?= ", getMaxFunctionValue([]int{2, 0, 1}, 4))
 	log.Print("10 ?= ", getMaxFunctionValue([]int{1, 1, 1, 2, 3}, 3))
 }
+
+func Test2999(t *testing.T) {
+	for _, c := range []struct {
+		rst           int64
+		start, finish int64
+		limit         int
+		s             string
+	}{
+		{5, 1, 6000, 4, "124"},
+		{2, 15, 215, 6, "10"},
+		{0, 1000, 2000, 4, "3000"},
+
+		{16135677999, 697662853, 11109609599885, 6, "5"},
+	} {
+		if c.rst != numberOfPowerfulInt(c.start, c.finish, c.limit, c.s) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- %d %d | %d %s", c.rst, c.start, c.finish, c.limit, c.s)
+	}
+}

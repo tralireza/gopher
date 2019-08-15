@@ -1276,3 +1276,52 @@ func getMaxFunctionValue(receiver []int, k int64) int64 {
 
 	return xScore
 }
+
+// 2999h Count the Number of Powerful Integers
+func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
+	M := map[int]int64{}
+	defer log.Print("-> ", M)
+
+	to := fmt.Sprintf("%d", finish)
+	W := len(to)
+	from := fmt.Sprintf("%0[2]*[1]d", start, W)
+
+	log.Printf("-> [%s, %s]", from, to)
+
+	var Search func(p int, lower, higher bool) int64
+	Search = func(p int, lower, higher bool) int64 {
+		if p == W {
+			return 1
+		}
+		if count, ok := M[p]; ok && !lower && !higher {
+			return count
+		}
+
+		ldigit, hdigit := byte('0'), byte('9')
+		if lower {
+			ldigit = from[p]
+		}
+		if higher {
+			hdigit = to[p]
+		}
+
+		count := int64(0)
+		if p < W-len(s) {
+			for digit := ldigit; digit <= min(hdigit, byte(limit)+'0'); digit++ {
+				count += Search(p+1, lower && digit == from[p], higher && digit == to[p])
+			}
+		} else {
+			digit := s[p-(W-len(s))]
+			if ldigit <= digit && digit <= min(hdigit, byte(limit)+'0') {
+				count += Search(p+1, lower && digit == from[p], higher && digit == to[p])
+			}
+		}
+
+		if !lower && !higher {
+			M[p] = count
+		}
+		return count
+	}
+
+	return Search(0, true, true)
+}
