@@ -121,6 +121,20 @@ func Test2579(t *testing.T) {
 	log.Print("5 ?= ", coloredCells(2))
 }
 
+func Test2843(t *testing.T) {
+	for _, c := range []struct {
+		rst, low, high int
+	}{
+		{9, 1, 100},
+		{4, 1200, 1230},
+	} {
+		if c.rst != countSymmetricIntegers(c.low, c.high) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- (%d, %d)", c.rst, c.low, c.high)
+	}
+}
+
 // 3151 Special Array I
 func Test3151(t *testing.T) {
 	log.Print("true ?= ", isArraySpecialI([]int{1}))

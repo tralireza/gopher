@@ -245,6 +245,30 @@ func coloredCells(n int) int64 {
 	return cells
 }
 
+// 2843 Count Symmetric Integers
+func countSymmetricIntegers(low int, high int) int {
+	count := 0
+
+	for n := low; n <= high; n++ {
+		s := strconv.Itoa(n)
+		if len(s)&1 == 0 {
+			l, r := 0, 0
+
+			w := len(s)
+			for i := 0; i < w/2; i++ {
+				l += int(s[i] - '0')
+				r += int(s[i+w/2] - '0')
+			}
+
+			if l == r {
+				count++
+			}
+		}
+	}
+
+	return count
+}
+
 // 3151 Special Array I
 func isArraySpecialI(nums []int) bool {
 	for i := 1; i < len(nums); i++ {
