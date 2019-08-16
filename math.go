@@ -266,6 +266,19 @@ func countSymmetricIntegers(low int, high int) int {
 		}
 	}
 
+	// 1 <= N_i <= 10^4
+	r := 0
+	for n := low; n <= high; n++ {
+		if n < 100 && n%11 == 0 {
+			r++
+		} else if 1000 <= n && n < 10000 {
+			if n%10+(n%100)/10 == (n%1000)/100+n/1000 {
+				r++
+			}
+		}
+	}
+	log.Print("-> ", r)
+
 	return count
 }
 
