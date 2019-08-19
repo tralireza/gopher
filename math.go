@@ -336,11 +336,11 @@ func countGoodIntegers(n int, k int) int64 {
 			counter[digits[i]-'0']++
 		}
 
-		perms := int64(n-counter[0]) * int64(Fact[n-1])
+		C_nk := int64(n-counter[0]) * int64(Fact[n-1])
 		for _, count := range counter {
-			perms /= int64(Fact[count])
+			C_nk /= int64(Fact[count])
 		}
-		count += perms
+		count += C_nk
 	}
 
 	return count
