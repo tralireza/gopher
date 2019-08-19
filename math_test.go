@@ -142,6 +142,22 @@ func Test3151(t *testing.T) {
 	log.Print("false ?= ", isArraySpecialI([]int{4, 3, 1, 6}))
 }
 
+func Test3272(t *testing.T) {
+	for _, c := range []struct {
+		rst  int64
+		n, k int
+	}{
+		{27, 3, 5},
+		{2, 1, 4},
+		{2468, 5, 6},
+	} {
+		if c.rst != countGoodIntegers(c.n, c.k) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- %d %d", c.rst, c.n, c.k)
+	}
+}
+
 // 3312h Sorted GCD Pair Queries
 func Test3312(t *testing.T) {
 	// 1 <= N_i <= 5*10^4, N.length <= 10^5

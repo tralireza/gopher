@@ -293,6 +293,59 @@ func isArraySpecialI(nums []int) bool {
 	return true
 }
 
+// 3272h Find the Count of Good Integers
+func countGoodIntegers(n int, k int) int64 {
+	start := 1
+	for range (n - 1) / 2 {
+		start *= 10
+	}
+
+	Set := map[string]struct{}{}
+
+	for v := start; v < 10*start; v++ {
+		left := strconv.Itoa(v)
+
+		right := []byte(left)
+		slices.Reverse(right)
+		if n&1 == 1 {
+			right = right[1:]
+		}
+
+		palindrome := left + string(right)
+
+		v, _ := strconv.ParseInt(palindrome, 10, 64)
+		if v%int64(k) == 0 {
+			digits := []byte(palindrome)
+			slices.Sort(digits)
+			Set[string(digits)] = struct{}{}
+		}
+	}
+	log.Print("-> ", Set)
+
+	Fact := [10 + 1]int{}
+	Fact[0], Fact[1] = 1, 1
+	for n := 2; n <= 10; n++ {
+		Fact[n] = Fact[n-1] * n
+	}
+	log.Print("-> ", math.MaxInt32, Fact, math.MaxInt64)
+
+	count := int64(0)
+	for digits := range Set {
+		counter := [10]int{}
+		for i := 0; i < len(digits); i++ {
+			counter[digits[i]-'0']++
+		}
+
+		perms := int64(n-counter[0]) * int64(Fact[n-1])
+		for _, count := range counter {
+			perms /= int64(Fact[count])
+		}
+		count += perms
+	}
+
+	return count
+}
+
 // 3312h Sorted GCD Pair Queries
 func gcdValues(nums []int, queries []int64) []int {
 	xVal := slices.Max(nums)
