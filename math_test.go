@@ -150,6 +150,8 @@ func Test3272(t *testing.T) {
 		{27, 3, 5},
 		{2, 1, 4},
 		{2468, 5, 6},
+
+		{9, 2, 1},
 	} {
 		if c.rst != countGoodIntegers(c.n, c.k) {
 			t.FailNow()
