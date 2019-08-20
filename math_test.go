@@ -44,6 +44,26 @@ func Test908(t *testing.T) {
 	log.Print("0 ?= ", smallestRangeI([]int{1, 3, 6}, 3))
 }
 
+func Test970(t *testing.T) {
+	// 1 <= x, y <= 100
+	// 0 <= bound <= 10^6
+
+	for _, c := range []struct {
+		rst         []int
+		x, y, bound int
+	}{
+		{[]int{2, 3, 4, 5, 7, 9, 10}, 2, 3, 10},
+		{[]int{2, 4, 6, 8, 10, 14}, 3, 5, 15},
+
+		{[]int{2, 3, 5, 9}, 2, 1, 10},
+	} {
+		if !reflect.DeepEqual(c.rst, powerfulIntegers(c.x, c.y, c.bound)) {
+			t.FailNow()
+		}
+		log.Printf(":: %v   <- [%d %d] %d", c.rst, c.x, c.y, c.bound)
+	}
+}
+
 // 989 Add to Array-Form of Integer
 func Test989(t *testing.T) {
 	log.Print("[1 2 3 4] ?= ", addToArrayForm([]int{1, 2, 0, 0}, 34))

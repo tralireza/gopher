@@ -53,6 +53,39 @@ func smallestRangeI(nums []int, k int) int {
 	return max(0, slices.Max(nums)-slices.Min(nums)-2*k)
 }
 
+// 970m Powerful Integers
+func powerfulIntegers(x int, y int, bound int) []int {
+	Px, Py := []int{1}, []int{1}
+	if x > 1 {
+		for power := x; power < bound; power *= x {
+			Px = append(Px, power)
+		}
+	}
+	if y > 1 {
+		for power := y; power < bound; power *= y {
+			Py = append(Py, power)
+		}
+	}
+
+	log.Printf("-> Px: %v | Py: %v ", Px, Py)
+
+	Set := map[int]struct{}{}
+	for _, px := range Px {
+		for _, py := range Py {
+			if px+py <= bound {
+				Set[px+py] = struct{}{}
+			}
+		}
+	}
+
+	R := []int{}
+	for power := range Set {
+		R = append(R, power)
+	}
+	slices.Sort(R)
+	return R
+}
+
 // 989 Add to Array-Form of Integer
 func addToArrayForm(num []int, k int) []int {
 	R := []int{}
