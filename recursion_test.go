@@ -3,6 +3,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"math"
 	"math/rand/v2"
 	"reflect"
 	"testing"
@@ -41,10 +42,10 @@ func Test50(t *testing.T) {
 
 		{0, 2., -2147483648},
 	} {
-		if c.rst-myPow(c.x, c.n) > 0.00001 || c.rst-myPow(c.x, c.n) < -0.00001 {
+		if math.Abs(c.rst-myPow(c.x, c.n)) > 0.00001 {
 			t.FailNow()
 		}
-		log.Printf(":: %f   <- %f^%d", c.rst, c.x, c.n)
+		log.Printf(":: %g ~ (%g)  <- %f^%d", c.rst, myPow(c.x, c.n), c.x, c.n)
 	}
 }
 
