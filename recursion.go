@@ -101,6 +101,29 @@ func permute(nums []int) [][]int {
 	return R
 }
 
+// 50m Pow(x,n)
+func myPow(x float64, n int) float64 {
+	power := float64(1)
+
+	e := n
+	if n < 0 {
+		e = -e
+	}
+
+	for e > 0 {
+		if e&1 == 1 {
+			power *= x
+		}
+		x *= x
+		e >>= 1
+	}
+
+	if n < 0 {
+		return 1.0 / power
+	}
+	return power
+}
+
 // 52h N-Queens II
 func totalNQueens(n int, f func(i int, B [][]byte)) int {
 	B := make([][]byte, n)

@@ -30,6 +30,22 @@ func Test46(t *testing.T) {
 	log.Print(" ?= ", permute([]int{0, 4, 5, 9}))
 }
 
+func Test50(t *testing.T) {
+	for _, c := range []struct {
+		rst, x float64
+		n      int
+	}{
+		{1024.0, 2.0, 10},
+		{9.261, 2.1, 3},
+		{0.25, 2, -2},
+	} {
+		if c.rst-myPow(c.x, c.n) > 0.00001 || c.rst-myPow(c.x, c.n) < -0.00001 {
+			t.FailNow()
+		}
+		log.Printf(":: %f   <- %f^%d", c.rst, c.x, c.n)
+	}
+}
+
 // 52h N-Queens II
 func Test52(t *testing.T) {
 	// 1 <= N <= 9
