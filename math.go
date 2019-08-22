@@ -149,6 +149,25 @@ func checkPowersOfThree(n int) bool {
 	return false
 }
 
+// 1922m Count Good Numbers
+func countGoodNumbers(n int64) int {
+	const M = 1e9 + 7
+
+	MPower := func(b, e int64) int64 {
+		p := int64(1)
+		for e > 0 {
+			if e&1 == 1 {
+				p = (p * b) % M
+			}
+			b = (b * b) % M
+			e >>= 1
+		}
+		return p
+	}
+
+	return int(MPower(5, (n+1)/2) * MPower(4, n/2) % M)
+}
+
 // 1998h GCD Sort of an Array
 func gcdSort(nums []int) bool {
 	xVal := slices.Max(nums)

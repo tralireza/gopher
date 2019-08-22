@@ -118,6 +118,22 @@ func Test1780(t *testing.T) {
 	}
 }
 
+func Test1922(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		n   int64
+	}{
+		{5, 1},
+		{400, 4},
+		{564908303, 50},
+	} {
+		if c.rst != countGoodNumbers(c.n) {
+			t.FailNow()
+		}
+		log.Printf(":: %d   <- %d", c.rst, c.n)
+	}
+}
+
 // 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4
