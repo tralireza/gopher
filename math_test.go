@@ -126,6 +126,8 @@ func Test1922(t *testing.T) {
 		{5, 1},
 		{400, 4},
 		{564908303, 50},
+
+		{711414395, 1000_000_000_000_000},
 	} {
 		if c.rst != countGoodNumbers(c.n) {
 			t.FailNow()
