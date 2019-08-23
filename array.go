@@ -40,6 +40,31 @@ func kLengthApart(nums []int, k int) bool {
 	return true
 }
 
+// 1534 Count Good Triplets
+func countGoodTriplets(arr []int, a int, b int, c int) int {
+	Abs := func(n int) int {
+		if n < 0 {
+			return -n
+		}
+		return n
+	}
+
+	count := 0
+	for i, x := range arr[:len(arr)-2] {
+		for j, y := range arr[i+1:] {
+			if Abs(x-y) <= a {
+				for _, z := range arr[i+1+j+1:] {
+					if Abs(y-z) <= b && Abs(z-x) <= c {
+						count++
+					}
+				}
+			}
+		}
+	}
+
+	return count
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func check(nums []int) bool {
 	inversions := 0

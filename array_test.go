@@ -18,6 +18,20 @@ func Test1437(t *testing.T) {
 	log.Print("false ?= ", kLengthApart([]int{1, 0, 0, 1, 0, 1}, 2))
 }
 
+func Test1534(t *testing.T) {
+	for _, c := range []struct {
+		rst, a, b, c int
+		arr          []int
+	}{
+		{4, 7, 2, 3, []int{3, 0, 1, 1, 9, 7}},
+		{0, 0, 0, 1, []int{1, 1, 2, 2, 3}},
+	} {
+		if c.rst != countGoodTriplets(c.arr, c.a, c.b, c.c) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func Test1752(t *testing.T) {
 	log.Print("true ?= ", check([]int{3, 4, 5, 1, 2}))
