@@ -41,7 +41,9 @@ func kLengthApart(nums []int, k int) bool {
 }
 
 // 1534 Count Good Triplets
-func countGoodTriplets(arr []int, a int, b int, c int) int {
+func countGoodTriplets(arr []int, a, b, c int) int {
+	// 0 <= A_i <= 1000
+
 	Abs := func(n int) int {
 		if n < 0 {
 			return -n
@@ -49,9 +51,41 @@ func countGoodTriplets(arr []int, a int, b int, c int) int {
 		return n
 	}
 
+	// O(N^2 + k*N)
+	Optimized := func() int {
+		count := 0
+		pSum := make([]int, 1000+1)
+
+		// Intervals:
+		// [arr[j] - a ... arr[j] + a]  [arr[k] - c ... arr[k] + c]
+		for j := 0; j < len(arr); j++ {
+			for k := j + 1; k < len(arr); k++ {
+				if Abs(arr[j]-arr[k]) <= b {
+					left := max(0, max(arr[j]-a, arr[k]-c))
+					right := min(1000, min(arr[j]+a, arr[k]+c))
+
+					// Count all arr[i] that are in: [left, right]
+					if left <= right {
+						if left == 0 {
+							count += pSum[right]
+						} else {
+							count += pSum[right] - pSum[left-1]
+						}
+					}
+				}
+			}
+
+			for v := arr[j]; v <= 1000; v++ {
+				pSum[v]++
+			}
+		}
+
+		return count
+	}
+
 	count := 0
 	for i, x := range arr[:len(arr)-2] {
-		for j, y := range arr[i+1:] {
+		for j, y := range arr[i+1 : len(arr)-1] {
 			if Abs(x-y) <= a {
 				for _, z := range arr[i+1+j+1:] {
 					if Abs(y-z) <= b && Abs(z-x) <= c {
@@ -61,6 +95,8 @@ func countGoodTriplets(arr []int, a int, b int, c int) int {
 			}
 		}
 	}
+
+	log.Printf(":: %d ~ %d", count, Optimized())
 
 	return count
 }
