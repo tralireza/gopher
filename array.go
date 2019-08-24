@@ -56,6 +56,23 @@ func countGoodTriplets(arr []int, a, b, c int) int {
 		count := 0
 		pSum := make([]int, 1000+1)
 
+		// O(k*N) -> O(N*logN)
+		BIT := make([]int, 1000+1 /* Shift for N_i == 0 :: 0 -> 1 */ +1 /* BIT: Root */) // BIT: Binary Indexed Tree
+		Update := func(i int) {
+			for i <= 1001 {
+				BIT[i]++
+				i += i & (-i)
+			}
+		}
+		Query := func(i int) int {
+			r := 0
+			for i > 0 {
+				r += BIT[i]
+				i -= i & (-i)
+			}
+			return r
+		}
+
 		// Intervals:
 		// [arr[j] - a ... arr[j] + a]  [arr[k] - c ... arr[k] + c]
 		for j := 0; j < len(arr); j++ {
@@ -71,6 +88,9 @@ func countGoodTriplets(arr []int, a, b, c int) int {
 						} else {
 							count += pSum[right] - pSum[left-1]
 						}
+
+						// O(logN)
+						log.Printf("%d +%d", count, Query(right+1)-Query(left))
 					}
 				}
 			}
@@ -78,7 +98,12 @@ func countGoodTriplets(arr []int, a, b, c int) int {
 			for v := arr[j]; v <= 1000; v++ {
 				pSum[v]++
 			}
+
+			// O(logN)
+			Update(arr[j] + 1)
 		}
+
+		log.Print("-> BIT: ", BIT)
 
 		return count
 	}
