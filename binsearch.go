@@ -80,15 +80,17 @@ func hIndex(citations []int) int {
 // 315h Count of Smaller Numbers After Self
 type BIT315 []int // "BIT: Binary Index Tree" storage
 
-func (t BIT315) Update(p, Val int) {
-	for ; p < len(t); p += p & -p {
-		t[p] += Val
+func (t BIT315) Update(i, Val int) {
+	for i < len(t) {
+		t[i] += Val
+		i += i & -i
 	}
 }
-func (t BIT315) Query(p int) int {
+func (t BIT315) Query(i int) int {
 	v := 0
-	for ; p > 0; p -= p & -p {
-		v += t[p]
+	for i > 0 {
+		v += t[i]
+		i -= i & -i
 	}
 	return v
 }
