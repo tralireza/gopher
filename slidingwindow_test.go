@@ -66,6 +66,21 @@ func Test2401(t *testing.T) {
 	}
 }
 
+func Test2537(t *testing.T) {
+	for _, c := range []struct {
+		rst  int64
+		nums []int
+		k    int
+	}{
+		{1, []int{1, 1, 1, 1, 1}, 10},
+		{4, []int{3, 1, 4, 3, 2, 2, 4}, 2},
+	} {
+		if c.rst != countGood(c.nums, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 // 3208m Alternating Groups II
 func Test3208(t *testing.T) {
 	for _, c := range []struct {

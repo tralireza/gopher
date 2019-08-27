@@ -50,6 +50,31 @@ func longestNiceSubarray(nums []int) int {
 	return xLen
 }
 
+// 2537m Count the Number of Good Subarrays
+func countGood(nums []int, k int) int64 {
+	Map := map[int]int{}
+
+	w := 0
+	left, count := 0, int64(0)
+	for right, n := range nums {
+		Map[n]++
+		f := Map[n]
+		w += f*(f-1)/2 - (f-1)*(f-2)/2
+
+		for w >= k {
+			count += int64(len(nums) - right)
+
+			Map[nums[left]]--
+			f := Map[nums[left]]
+			w -= (f+1)*f/2 - f*(f-1)/2
+
+			left++
+		}
+	}
+
+	return count
+}
+
 // 3208m Alternating Groups II
 func numberOfAlternatingGroups(colors []int, k int) int {
 	groups, wSize := 0, 1
