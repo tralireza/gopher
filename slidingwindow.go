@@ -59,7 +59,7 @@ func countGood(nums []int, k int) int64 {
 	for right, n := range nums {
 		Map[n]++
 		f := Map[n]
-		w += f*(f-1)/2 - (f-1)*(f-2)/2
+		w += f*(f-1)/2 - (f-1)*(f-2)/2 // C_n/k :: n!/(n-2)!2! ~ n*(n-1)/2
 
 		for w >= k {
 			count += int64(len(nums) - right)
