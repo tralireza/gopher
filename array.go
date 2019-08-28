@@ -172,6 +172,20 @@ func minOperations_UniValue(grid [][]int, x int) int {
 	return ops
 }
 
+// 2176 Count Equal and Divisible Pairs in an Array
+func countPairs_Divisible(nums []int, k int) int {
+	count := 0
+	for i, a := range nums[:len(nums)-1] {
+		for j, b := range nums[i+1:] {
+			if a == b && i*(j+i+1)%k == 0 {
+				count++
+			}
+		}
+	}
+
+	return count
+}
+
 // 2780m Minimum Index of a Valid Split
 func minimumIndex(nums []int) int {
 	F := map[int]int{}

@@ -89,6 +89,21 @@ func Test2033(t *testing.T) {
 	}
 }
 
+func Test2176(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+		k    int
+	}{
+		{4, []int{3, 1, 2, 2, 2, 1, 3}, 2},
+		{0, []int{1, 2, 3, 4}, 1},
+	} {
+		if c.rst != countPairs_Divisible(c.nums, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2780(t *testing.T) {
 	// 1 <= N_i <= 10^9
 
