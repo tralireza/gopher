@@ -1,8 +1,30 @@
 package gopher
 
-import "testing"
+import (
+	"log"
+	"math/rand/v2"
+	"slices"
+	"testing"
+)
 
 func Test2179(t *testing.T) {
+	nums := []int{}
+	for range 10 {
+		nums = append(nums, rand.IntN(15)+1)
+	}
+	lFt := NewFenwick2197(slices.Max(nums) + 1)
+	rFt := NewFenwick2197(slices.Max(nums) + 1)
+	for _, n := range nums {
+		rFt.Update(n, 1)
+	}
+	log.Print(nums)
+	for i, n := range nums {
+		rFt.Update(n, -1)
+		log.Printf("<n %d   |n: %2d|   >n %d", lFt.Query(n-1), n, (len(nums)-1-i)-rFt.Query(n))
+		lFt.Update(n, 1)
+	}
+	log.Print("---")
+
 	for _, c := range []struct {
 		rst          int64
 		nums1, nums2 []int
