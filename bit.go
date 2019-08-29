@@ -25,28 +25,33 @@ func (fw *BIT2197) Query(i int) int {
 }
 
 func goodTriplets(nums1 []int, nums2 []int) int64 {
-	N := len(nums1) & len(nums2)
+	log.Print("** ", nums1, nums2)
 
-	Map, rMap := make([]int, N), make([]int, N)
-	for i, n := range nums1 {
-		Map[n] = i
-	}
-	for i, n := range nums2 {
-		rMap[Map[n]] = i
-	}
+	N := len(nums1) & len(nums2) // same length
 
-	log.Print("-> ", Map, rMap)
+	Map := make([]int, N)
+	{
+		Tmp := make([]int, N)
+		for i, n := range nums2 {
+			Tmp[n] = i
+		}
+		for i, n := range nums1 {
+			Map[Tmp[n]] = i
+		}
+	}
 
 	fenwick := NewFenwick2197(N + 1)
 
 	count := int64(0)
-	for n := range N {
-		j := rMap[n]
+	for i := range N {
+		j := Map[i] // j_2: Post of n in nums2
 
 		left := fenwick.Query(j + 1)
 		fenwick.Update(j+1, 1)
 
-		right := N - 1 - j - (n - left)
+		right := N - 1 - j - (i - left)
+
+		log.Printf("-> [j1: %d  |n: %d|  j2: %d]  %d*%d", i, nums1[i], j, left, right)
 
 		count += int64(left) * int64(right)
 	}
