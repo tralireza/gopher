@@ -21,16 +21,14 @@ func countAndSay(n int) string {
 			if s[i] == prv {
 				count++
 			} else {
-				if count > 0 {
-					Enc = append(Enc, [2]int{count, int(prv)})
-				}
+				Enc = append(Enc, [2]int{count, int(prv)})
 				prv = s[i]
 				count = 1
 			}
 		}
 
 		t := ""
-		for _, e := range Enc {
+		for _, e := range Enc[1:] {
 			t += fmt.Sprintf("%d%c", e[0], byte(e[1]))
 		}
 
