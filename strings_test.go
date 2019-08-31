@@ -5,6 +5,20 @@ import (
 	"testing"
 )
 
+func Test38(t *testing.T) {
+	for _, c := range []struct {
+		rst string
+		n   int
+	}{
+		{"1211", 4},
+		{"1", 1},
+	} {
+		if c.rst != countAndSay(c.n) {
+			t.FailNow()
+		}
+	}
+}
+
 // 412 Fizz Buzz
 func Test412(t *testing.T) {
 	log.Print(" ?= ", fizzBuzz(3))
