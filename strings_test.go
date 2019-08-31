@@ -16,6 +16,7 @@ func Test38(t *testing.T) {
 		if c.rst != countAndSay(c.n) {
 			t.FailNow()
 		}
+		log.Printf(":: %s   <- %d", c.rst, c.n)
 	}
 }
 

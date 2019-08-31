@@ -37,7 +37,6 @@ func countAndSay(n int) string {
 		s = t
 	}
 
-	log.Print(":: ", s)
 	return s
 }
 
