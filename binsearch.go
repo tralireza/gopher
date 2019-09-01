@@ -433,6 +433,29 @@ func minCapability(nums []int, k int) int {
 	return l
 }
 
+// 2563m Count the Number of Fair Pairs
+func countFairPairs(nums []int, lower int, upper int) int64 {
+	slices.Sort(nums)
+
+	Less := func(target int) int64 {
+		pairs := int64(0)
+
+		l, r := 0, len(nums)-1
+		for l < r {
+			if nums[l]+nums[r] < target {
+				pairs += int64(r - l)
+				l++
+			} else {
+				r--
+			}
+		}
+
+		return pairs
+	}
+
+	return Less(upper+1) - Less(lower)
+}
+
 // 2594m Minimum Time to Repair Cars
 func repairCars(ranks []int, cars int) int64 {
 	l, r := int64(1), int64(slices.Min(ranks))*int64(cars)*int64(cars)
