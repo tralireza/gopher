@@ -442,6 +442,8 @@ func countFairPairs(nums []int, lower int, upper int) int64 {
 
 		l, r := 0, len(nums)-1
 		for l < r {
+			log.Print("-> ", l, r)
+
 			if nums[l]+nums[r] < target {
 				pairs += int64(r - l)
 				l++

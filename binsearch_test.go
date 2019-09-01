@@ -255,6 +255,7 @@ func Test2563(t *testing.T) {
 		if c.rst != countFairPairs(c.nums, c.lower, c.upper) {
 			t.FailNow()
 		}
+		log.Printf("-> %d   <- %v {%d %d}", c.rst, c.nums, c.lower, c.upper)
 	}
 }
 
