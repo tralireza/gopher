@@ -101,6 +101,22 @@ func Test670(t *testing.T) {
 	}
 }
 
+func Test781(t *testing.T) {
+	// 1 <= N <= 1000, 0 <= N_i < 1000
+
+	for _, c := range []struct {
+		rst     int
+		answers []int
+	}{
+		{5, []int{1, 1, 2}},
+		{11, []int{10, 10, 10}},
+	} {
+		if c.rst != numRabbits(c.answers) {
+			t.FailNow()
+		}
+	}
+}
+
 // 918m Maximum Sum Circular Subarray
 func Test918(t *testing.T) {
 	log.Print("3 ?= ", maxSubarraySumCircular([]int{1, -2, 3, -2}))

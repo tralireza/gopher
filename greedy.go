@@ -255,6 +255,21 @@ func maximumSwap(num int) int {
 	return num
 }
 
+// 781m Rabbits in Forest
+func numRabbits(answers []int) int {
+	M := make([]int, 1000)
+	for _, answer := range answers {
+		M[answer]++
+	}
+
+	count := 0
+	for n, frq := range M {
+		count += (frq + n) / (n + 1) * (n + 1)
+	}
+
+	return count
+}
+
 // 918m Maximum Sum Circular Subarray
 func maxSubarraySumCircular(nums []int) int {
 	// Kadane's
