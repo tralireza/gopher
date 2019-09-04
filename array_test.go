@@ -90,6 +90,20 @@ func Test2033(t *testing.T) {
 }
 
 func Test2145(t *testing.T) {
+	Optimized := func(differences []int, lower, upper int) int {
+		x, n := 0, 0
+		v := 0
+		for _, d := range differences {
+			v += d
+			x, n = max(v, x), min(v, n)
+			if x-n > upper-lower {
+				return 0
+			}
+		}
+
+		return upper - lower - (x - n) + 1
+	}
+
 	for _, c := range []struct {
 		rst          int
 		differences  []int
@@ -102,6 +116,7 @@ func Test2145(t *testing.T) {
 		if c.rst != numberOfArrays(c.differences, c.lower, c.upper) {
 			t.FailNow()
 		}
+		log.Print(":: ", Optimized(c.differences, c.lower, c.upper))
 	}
 }
 

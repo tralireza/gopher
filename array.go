@@ -173,10 +173,9 @@ func minOperations_UniValue(grid [][]int, x int) int {
 }
 
 // 2145m Count the Hidden Sequences
-func numberOfArrays(differences []int, lower int, upper int) int {
+func numberOfArrays(differences []int, lower, upper int) int {
 	// 1 <= N <= 10^5, -10^5 <= N_i <= 10^5
 	S := make([]int64, 0, len(differences)+1)
-
 	S = append(S, 0)
 	for _, d := range differences {
 		S = append(S, S[len(S)-1]+int64(d))
