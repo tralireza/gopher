@@ -89,6 +89,22 @@ func Test2033(t *testing.T) {
 	}
 }
 
+func Test2145(t *testing.T) {
+	for _, c := range []struct {
+		rst          int
+		differences  []int
+		lower, upper int
+	}{
+		{2, []int{1, -3, 4}, 1, 6},
+		{4, []int{3, -4, 5, 1, -2}, -4, 5},
+		{0, []int{4, -7, 2}, 3, 6},
+	} {
+		if c.rst != numberOfArrays(c.differences, c.lower, c.upper) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2176(t *testing.T) {
 	for _, c := range []struct {
 		rst  int
