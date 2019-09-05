@@ -251,6 +251,8 @@ func Test2563(t *testing.T) {
 	}{
 		{6, []int{0, 1, 7, 4, 4, 5}, 3, 6},
 		{1, []int{1, 7, 9, 2, 5}, 11, 11},
+
+		{15, []int{0, 0, 0, 0, 0, 0}, 0, 0},
 	} {
 		if c.rst != countFairPairs(c.nums, c.lower, c.upper) {
 			t.FailNow()

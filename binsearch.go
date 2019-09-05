@@ -451,7 +451,7 @@ func countFairPairs(nums []int, lower int, upper int) int64 {
 
 	count := 0
 	for i, n := range nums {
-		count += BSearch(i, len(nums), upper-n+1) - BSearch(i, len(nums), lower-n)
+		count += BSearch(i+1, len(nums), upper-n+1) - BSearch(i+1, len(nums), lower-n)
 	}
 	log.Print(":: BSearch: ", count)
 
