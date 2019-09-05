@@ -116,7 +116,7 @@ func Test2145(t *testing.T) {
 		if c.rst != numberOfArrays(c.differences, c.lower, c.upper) {
 			t.FailNow()
 		}
-		log.Print(":: ", Optimized(c.differences, c.lower, c.upper))
+		log.Printf(":: %d ~ %d", c.rst, Optimized(c.differences, c.lower, c.upper))
 	}
 }
 

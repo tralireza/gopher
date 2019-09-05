@@ -437,6 +437,24 @@ func minCapability(nums []int, k int) int {
 func countFairPairs(nums []int, lower int, upper int) int64 {
 	slices.Sort(nums)
 
+	BSearch := func(l, r int, target int) int {
+		for l < r {
+			m := l + (r-l)>>1
+			if nums[m] < target {
+				l = m + 1
+			} else {
+				r = m
+			}
+		}
+		return l
+	}
+
+	count := 0
+	for i, n := range nums {
+		count += BSearch(i, len(nums), upper-n+1) - BSearch(i, len(nums), lower-n)
+	}
+	log.Print(":: BSearch: ", count)
+
 	Less := func(target int) int64 {
 		pairs := int64(0)
 
