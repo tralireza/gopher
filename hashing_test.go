@@ -174,6 +174,19 @@ func Test1372(t *testing.T) {
 	log.Print("6 ?= ", findTheLongestSubstring("bcbcbc"))
 }
 
+func Test1399(t *testing.T) {
+	for _, c := range []struct {
+		rst, n int
+	}{
+		{4, 13},
+		{2, 2},
+	} {
+		if c.rst != countLargestGroup(c.n) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1400m Construct K Palindrome Strings
 func Test1400(t *testing.T) {
 	Bits := func(s string, k int) bool {

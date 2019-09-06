@@ -233,6 +233,35 @@ func findTheLongestSubstring(s string) int {
 	return xSub
 }
 
+// 1399m Count Largest Group
+func countLargestGroup(n int) int {
+	Map := map[int]int{}
+	for n := range n {
+		n++ // 1..=n
+		dsum := 0
+		for n > 0 {
+			dsum += n % 10
+			n /= 10
+		}
+		Map[dsum]++
+	}
+
+	log.Print("-> ", Map)
+
+	Groups := map[int]int{}
+	xSum := 0
+	for _, f := range Map {
+		if f >= xSum {
+			Groups[f]++
+			xSum = f
+		}
+	}
+
+	log.Print("-> ", Groups)
+
+	return Groups[xSum]
+}
+
 // 1400m Construct K Palindrome Strings
 func canConstruct(s string, k int) bool {
 	if len(s) < k {
