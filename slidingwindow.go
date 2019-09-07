@@ -75,6 +75,41 @@ func countGood(nums []int, k int) int64 {
 	return count
 }
 
+// 2799m Count Complete Subarrays in an Array
+func countCompleteSubarrays(nums []int) int {
+	// 1 <= N <= 1000, 1 <= N_i <= 2000
+	M, k := make([]int, 2000+1), 0
+	for _, n := range nums {
+		M[n]++
+		if M[n] == 1 {
+			k++
+		}
+	}
+
+	clear(M)
+
+	count, wSize := 0, 0
+	l := 0
+	for r := range nums {
+		M[nums[r]]++
+		if M[nums[r]] == 1 {
+			wSize++
+		}
+
+		for wSize == k {
+			count += len(nums) - r
+
+			M[nums[l]]--
+			if M[nums[l]] == 0 {
+				wSize--
+			}
+			l++
+		}
+	}
+
+	return count
+}
+
 // 3208m Alternating Groups II
 func numberOfAlternatingGroups(colors []int, k int) int {
 	groups, wSize := 0, 1

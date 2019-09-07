@@ -81,6 +81,20 @@ func Test2537(t *testing.T) {
 	}
 }
 
+func Test2799(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{4, []int{1, 3, 1, 2, 2}},
+		{10, []int{10, 10, 10, 10}},
+	} {
+		if c.rst != countCompleteSubarrays(c.nums) {
+			t.FailNow()
+		}
+	}
+}
+
 // 3208m Alternating Groups II
 func Test3208(t *testing.T) {
 	for _, c := range []struct {
