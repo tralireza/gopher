@@ -78,6 +78,37 @@ func countGood(nums []int, k int) int64 {
 // 2799m Count Complete Subarrays in an Array
 func countCompleteSubarrays(nums []int) int {
 	// 1 <= N <= 1000, 1 <= N_i <= 2000
+	Hashing := func(nums []int) int {
+		S := map[int]struct{}{}
+		for _, n := range nums {
+			S[n] = struct{}{}
+		}
+
+		log.Print("-> Set: ", S)
+
+		count, k := 0, len(S)
+		l := 0
+		M, wSize := map[int]int{}, 0
+		for r := range nums {
+			M[nums[r]]++
+			if M[nums[r]] == 1 {
+				wSize++
+			}
+
+			for wSize == k {
+				count += len(nums) - r
+				M[nums[l]]--
+				if M[nums[l]] == 0 {
+					wSize--
+				}
+				l++
+			}
+		}
+
+		return count
+	}
+	log.Print(":: ", Hashing(nums))
+
 	M, k := make([]int, 2000+1), 0
 	for _, n := range nums {
 		M[n]++
@@ -85,7 +116,6 @@ func countCompleteSubarrays(nums []int) int {
 			k++
 		}
 	}
-
 	clear(M)
 
 	count, wSize := 0, 0
