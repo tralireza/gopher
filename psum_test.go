@@ -233,9 +233,11 @@ func Test2845(t *testing.T) {
 		{3, []int{3, 2, 4}, 2, 1},
 		{2, []int{3, 1, 9, 6}, 3, 0},
 	} {
-		if c.rst != countInterestingSubarrays(c.nums, c.modulo, c.k) {
+		rst, nums, modulo, k := c.rst, c.nums, c.modulo, c.k
+		if rst != countInterestingSubarrays(nums, modulo, k) {
 			t.FailNow()
 		}
+		log.Print(":: ", rst)
 	}
 }
 
