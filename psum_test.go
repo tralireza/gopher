@@ -224,6 +224,21 @@ func Test2680(t *testing.T) {
 	log.Print("[-2 -1 0 2 3] ?= ", distinctDifferenceArray([]int{3, 2, 3, 4, 2}))
 }
 
+func Test2845(t *testing.T) {
+	for _, c := range []struct {
+		rst       int64
+		nums      []int
+		modulo, k int
+	}{
+		{3, []int{3, 2, 4}, 2, 1},
+		{2, []int{3, 1, 9, 6}, 3, 0},
+	} {
+		if c.rst != countInterestingSubarrays(c.nums, c.modulo, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 // 3152m Special Array II
 func Test3152(t *testing.T) {
 	SlidingWindow := func(nums []int, queries [][]int) []bool {

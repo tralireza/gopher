@@ -290,6 +290,26 @@ func distinctDifferenceArray(nums []int) []int {
 	return R
 }
 
+// 2845m Count of Interesting Subarrays
+func countInterestingSubarrays(nums []int, modulo int, k int) int64 {
+	M := map[int]int{0: 1}
+
+	count := int64(0)
+	pSum := 0
+	for _, n := range nums {
+		if n%modulo == k {
+			pSum++
+		}
+
+		count += int64(M[(pSum-k+modulo)%modulo])
+		M[pSum%modulo]++
+	}
+
+	log.Print("-> ", M)
+
+	return count
+}
+
 // 3152m Special Array II
 func isArraySpecial(nums []int, queries [][]int) []bool {
 	pSum := make([]int, len(nums))
