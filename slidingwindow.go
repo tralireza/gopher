@@ -50,6 +50,33 @@ func longestNiceSubarray(nums []int) int {
 	return xLen
 }
 
+// 2444h Count Subarrays With Fixed Bounds
+func countSubarrays(nums []int, minK int, maxK int) int64 {
+	count := int64(0)
+
+	l := 0
+	iMin, iMax := -1, -1
+
+	for r, n := range nums {
+		if n == minK {
+			iMin = r
+		}
+		if n == maxK {
+			iMax = r
+		}
+		if n < minK || maxK < n {
+			iMin, iMax = -1, -1
+			l = r + 1
+		}
+
+		if iMin != -1 && iMax != -1 {
+			count += int64(min(iMin, iMax) - l + 1)
+		}
+	}
+
+	return count
+}
+
 // 2537m Count the Number of Good Subarrays
 func countGood(nums []int, k int) int64 {
 	Map := map[int]int{}

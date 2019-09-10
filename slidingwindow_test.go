@@ -66,6 +66,21 @@ func Test2401(t *testing.T) {
 	}
 }
 
+func Test2444(t *testing.T) {
+	for _, c := range []struct {
+		rst        int64
+		nums       []int
+		minK, maxK int
+	}{
+		{2, []int{1, 3, 5, 2, 7, 5}, 1, 5},
+		{10, []int{1, 1, 1, 1}, 1, 1},
+	} {
+		if c.rst != countSubarrays(c.nums, c.minK, c.maxK) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2537(t *testing.T) {
 	for _, c := range []struct {
 		rst  int64
