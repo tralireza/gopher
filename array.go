@@ -289,6 +289,18 @@ func countDays(days int, meetings [][]int) int {
 	return t
 }
 
+// 3392 Count Subarrays of Length Three With a Condition
+func countSubarrays_Length3(nums []int) int {
+	count := 0
+	for i := 1; i < len(nums)-1; i++ {
+		if nums[i] == 2*(nums[i-1]+nums[i+1]) {
+			count++
+		}
+	}
+
+	return count
+}
+
 // 3394m Check if Grid can be Cut into Sections
 func checkValidCuts(n int, rectangles [][]int) bool {
 	Check := func(offset int) bool {

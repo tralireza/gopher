@@ -262,6 +262,20 @@ func Test3169(t *testing.T) {
 	}
 }
 
+func Test3392(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{1, []int{1, 2, 1, 4, 1}},
+		{0, []int{1, 1, 1}},
+	} {
+		if c.rst != countSubarrays_Length3(c.nums) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test3394(t *testing.T) {
 	for _, c := range []struct {
 		rst        bool
