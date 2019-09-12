@@ -204,6 +204,23 @@ func countPairs_Divisible(nums []int, k int) int {
 	return count
 }
 
+// 2302h Count Subarrays With Score Less Than K
+func countSubarrays_KScore(nums []int, k int64) int64 {
+	count := int64(0)
+
+	l, psum := 0, int64(0)
+	for r, n := range nums {
+		psum += int64(n)
+		for psum*int64(r-l+1) >= k {
+			psum -= int64(nums[l])
+			l++
+		}
+		count += int64(r - l + 1)
+	}
+
+	return count
+}
+
 // 2780m Minimum Index of a Valid Split
 func minimumIndex(nums []int) int {
 	F := map[int]int{}

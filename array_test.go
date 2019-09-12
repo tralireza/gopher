@@ -135,6 +135,21 @@ func Test2176(t *testing.T) {
 	}
 }
 
+func Test2302(t *testing.T) {
+	for _, c := range []struct {
+		rst  int64
+		nums []int
+		k    int64
+	}{
+		{int64(6), []int{2, 1, 4, 3, 5}, int64(10)},
+		{int64(5), []int{1, 1, 1}, int64(5)},
+	} {
+		if c.rst != countSubarrays_KScore(c.nums, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2780(t *testing.T) {
 	// 1 <= N_i <= 10^9
 
