@@ -352,6 +352,55 @@ func chalkReplacer(chalk []int, k int) int {
 	return r
 }
 
+// 2071h Maximum Number of Tasks You Can Assign
+func maxTaskAssign(tasks, workers []int, pills, strength int) int {
+	slices.Sort(tasks)
+	slices.Sort(workers)
+
+	Check := func(tasks, workers []int, pills int) bool {
+		Q := list.New()
+
+		t := 0
+		for _, wkr := range workers {
+			for t < len(tasks) && wkr+strength >= tasks[t] {
+				Q.PushBack(tasks[t])
+				t++
+			}
+
+			if Q.Len() == 0 {
+				return false
+			}
+
+			if Q.Front().Value.(int) <= wkr {
+				Q.Remove(Q.Front())
+			} else {
+				if pills == 0 {
+					return false
+				}
+				pills--
+				Q.Remove(Q.Back())
+			}
+		}
+
+		return true
+	}
+
+	l, r := 0, min(len(tasks), len(workers))
+	for l < r {
+		m := l + (r-l+1)>>1
+		log.Print("-> ", l, m, r)
+
+		if Check(tasks[:m], workers[len(workers)-m:], pills) {
+			l = m
+		} else {
+			r = m - 1
+		}
+	}
+
+	log.Print("<- ", l, r)
+	return l
+}
+
 // 2226m Maximum Candies Allocated to K Children
 func maximumCandies(candies []int, k int64) int {
 	Possible := func(m int) bool {

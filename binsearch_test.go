@@ -187,6 +187,22 @@ func Test1894(t *testing.T) {
 	log.Print("1 ?= ", chalkReplacer([]int{3, 4, 1, 2}, 25))
 }
 
+func Test2071(t *testing.T) {
+	for _, c := range []struct {
+		rst             int
+		tasks, workers  []int
+		pills, strength int
+	}{
+		{3, []int{3, 2, 1}, []int{0, 3, 3}, 1, 1},
+		{1, []int{5, 4}, []int{0, 0, 0}, 1, 5},
+		{2, []int{10, 15, 30}, []int{0, 10, 10, 10, 10}, 3, 10},
+	} {
+		if c.rst != maxTaskAssign(c.tasks, c.workers, c.pills, c.strength) {
+			t.FailNow()
+		}
+	}
+}
+
 // 2226m Maximum Candies Allocated to K Children
 func Test2226(t *testing.T) {
 	for _, c := range []struct {
