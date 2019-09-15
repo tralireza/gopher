@@ -50,8 +50,9 @@ func maxCount(m int, n int, ops [][]int) int {
 
 // 838m Push Dominoes
 func pushDominoes(dominoes string) string {
-	N := len(dominoes)
+	log.Print(":> ", strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(dominoes, "R.L", "R|L"), ".L", "LL"), "R.", "RR"))
 
+	N := len(dominoes)
 	F := make([]int, N)
 	var force int
 
