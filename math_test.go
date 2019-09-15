@@ -37,6 +37,19 @@ func Test598(t *testing.T) {
 	log.Print("9 ?= ", maxCount(3, 3, [][]int{}))
 }
 
+func Test838(t *testing.T) {
+	for _, c := range []struct {
+		rst, dominoes string
+	}{
+		{"RR.L", "RR.L"},
+		{"LL.RR.LLRRLL..", ".L.R...LR..L.."},
+	} {
+		if c.rst != pushDominoes(c.dominoes) {
+			t.FailNow()
+		}
+	}
+}
+
 // 908 Smallest Range I
 func Test908(t *testing.T) {
 	log.Print("0 ?= ", smallestRangeI([]int{1}, 0))

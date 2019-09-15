@@ -48,6 +48,59 @@ func maxCount(m int, n int, ops [][]int) int {
 	return x * y
 }
 
+// 838m Push Dominoes
+func pushDominoes(dominoes string) string {
+	N := len(dominoes)
+
+	F := make([]int, N)
+	var force int
+
+	force = 0
+	for i := 0; i < N; i++ {
+		switch dominoes[i] {
+		case 'R':
+			force = N
+		case 'L':
+			force = 0
+		default:
+			force = max(force-1, 0)
+		}
+
+		F[i] += force
+	}
+
+	force = 0
+	for i := N - 1; i >= 0; i-- {
+		switch dominoes[i] {
+		case 'L':
+			force = N
+		case 'R':
+			force = 0
+		default:
+			force = max(force-1, 0)
+		}
+
+		F[i] -= force
+	}
+
+	log.Print("-> ", F)
+
+	sb := strings.Builder{}
+	for _, f := range F {
+		if f > 0 {
+			sb.WriteRune('R')
+		} else if f < 0 {
+			sb.WriteRune('L')
+		} else {
+			sb.WriteRune('.')
+		}
+	}
+
+	log.Print(":: ", sb.String())
+
+	return sb.String()
+}
+
 // 908 Smallest Range I
 func smallestRangeI(nums []int, k int) int {
 	return max(0, slices.Max(nums)-slices.Min(nums)-2*k)
