@@ -124,6 +124,20 @@ func Test918(t *testing.T) {
 	log.Print("-2 ?= ", maxSubarraySumCircular([]int{-3, -2, -3}))
 }
 
+func Test1007(t *testing.T) {
+	for _, c := range []struct {
+		rst           int
+		tops, bottoms []int
+	}{
+		{2, []int{2, 1, 2, 4, 2, 2}, []int{5, 2, 6, 2, 3, 2}},
+		{-1, []int{3, 5, 1, 2, 3}, []int{3, 6, 3, 3, 4}},
+	} {
+		if c.rst != minDominoRotations(c.tops, c.bottoms) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func Test1605(t *testing.T) {
 	Optimized := func(rowSum []int, colSum []int) [][]int {

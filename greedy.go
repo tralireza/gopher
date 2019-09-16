@@ -292,6 +292,36 @@ func maxSubarraySumCircular(nums []int) int {
 	return max(kX, tSum-kM)
 }
 
+// 1007m Minimum Domino Rotations For Equal Row
+func minDominoRotations(tops []int, bottoms []int) int {
+	r := math.MaxInt
+
+LOOP:
+	for n := 1; n <= 6; n++ {
+		t, b := 0, 0
+
+		for i := range tops {
+			if tops[i] != n && bottoms[i] != n {
+				continue LOOP
+			}
+
+			if tops[i] != n {
+				t++
+			}
+			if bottoms[i] != n {
+				b++
+			}
+		}
+
+		r = min(r, min(t, b))
+	}
+
+	if r == math.MaxInt {
+		return -1
+	}
+	return r
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func restoreMatrix(rowSum []int, colSum []int) [][]int {
 	M := make([][]int, len(rowSum))
