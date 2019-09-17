@@ -781,6 +781,20 @@ func numTilings(n int) int {
 
 	const M = 1000_000_007
 
+	// 1 <= n <= 1000
+	TwoStates := func(n int) int {
+		F, L := make([]int, 1000+1), make([]int, 1000+1) // Full & L-Shape Cover
+		F[1], F[2], L[2] = 1, 2, 1
+
+		for w := 3; w <= n; w++ { // all widths of 2xN
+			F[w] = (F[w-1] + F[w-2] + 2*L[w-1]) % M
+			L[w] = (L[w-1] + F[w-2]) % M
+		}
+
+		return F[n]
+	}
+	log.Print(":: ", TwoStates(n))
+
 	D := make([]int, n+1)
 	D[1], D[2], D[3] = 1, 2, 5
 

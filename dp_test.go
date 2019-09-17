@@ -606,6 +606,7 @@ func Test790(t *testing.T) {
 	}{
 		{5, 3},
 		{1, 1},
+		{11, 4},
 	} {
 		if c.rst != numTilings(c.n) {
 			t.FailNow()
