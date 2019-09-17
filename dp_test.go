@@ -600,6 +600,19 @@ func Test730(t *testing.T) {
 	log.Print("104860361 ?= ", countPalindromicSubsequences("abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba"))
 }
 
+func Test790(t *testing.T) {
+	for _, c := range []struct {
+		rst, n int
+	}{
+		{5, 3},
+		{1, 1},
+	} {
+		if c.rst != numTilings(c.n) {
+			t.FailNow()
+		}
+	}
+}
+
 // 983m Minimum Cost For Tickets
 func Test983(t *testing.T) {
 	Iterative := func(days []int, costs []int) int {

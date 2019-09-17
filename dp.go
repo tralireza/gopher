@@ -773,6 +773,24 @@ func countPalindromicSubsequences(s string) int {
 	return Search(0, len(s))
 }
 
+// 790m Domino and Tromino Tiling
+func numTilings(n int) int {
+	if n == 1 || n == 2 {
+		return n
+	}
+
+	const M = 1000_000_007
+
+	D := make([]int, n+1)
+	D[1], D[2], D[3] = 1, 2, 5
+
+	for i := 4; i <= n; i++ {
+		D[i] = (2*D[i-1] + D[i-3]) % M
+	}
+
+	return D[n]
+}
+
 // 983m Minimum Cost For Tickets
 func mincostTickets(days []int, costs []int) int {
 	Mem := map[int]int{}
