@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"slices"
 	"testing"
 )
@@ -37,6 +38,19 @@ func Test1752(t *testing.T) {
 	log.Print("true ?= ", check([]int{3, 4, 5, 1, 2}))
 	log.Print("false ?= ", check([]int{2, 1, 3, 4}))
 	log.Print("true ?= ", check([]int{1, 2, 3}))
+}
+
+func Test1920(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums []int
+	}{
+		{[]int{0, 1, 2, 4, 5, 3}, []int{0, 2, 1, 5, 3, 4}},
+		{[]int{4, 5, 0, 1, 2, 3}, []int{5, 0, 1, 2, 3, 4}},
+	} {
+		if !reflect.DeepEqual(c.rst, buildArray(c.nums)) {
+			t.FailNow()
+		}
+	}
 }
 
 func Test2033(t *testing.T) {

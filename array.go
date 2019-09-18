@@ -141,6 +141,16 @@ func check(nums []int) bool {
 	return inversions <= 1
 }
 
+// 1920 Build Array from Permutation
+func buildArray(nums []int) []int {
+	R := make([]int, len(nums))
+	for i, n := range nums {
+		R[i] = nums[n]
+	}
+
+	return R
+}
+
 // 2033m Minimum Operations to Make a Uni-Value Grid
 func minOperations_UniValue(grid [][]int, x int) int {
 	nums := make([]int, 0, len(grid)*len(grid[0]))
