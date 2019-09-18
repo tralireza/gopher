@@ -143,11 +143,25 @@ func check(nums []int) bool {
 
 // 1920 Build Array from Permutation
 func buildArray(nums []int) []int {
+	log.Print("** ", nums)
+
+	InPlace := func(nums []int) []int {
+		for i := range nums {
+			nums[i] += 1000 * (nums[nums[i]] % 1000)
+		}
+		for i := range nums {
+			nums[i] /= 1000
+		}
+
+		return nums
+	}
+
 	R := make([]int, len(nums))
 	for i, n := range nums {
 		R[i] = nums[n]
 	}
 
+	log.Print(":: ", InPlace(nums))
 	return R
 }
 
