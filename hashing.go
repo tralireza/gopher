@@ -217,6 +217,25 @@ func robotSim(commands []int, obstacles [][]int) int {
 
 // 1128 Number of Equivalent Domino Pairs
 func numEquivDominoPairs(dominoes [][]int) int {
+	WithMap := func(dominoes [][]int) int {
+		M := map[[2]int]int{}
+		for _, domino := range dominoes {
+			hVal := [2]int{domino[0], domino[1]}
+			if domino[0] < domino[1] {
+				hVal = [2]int{domino[1], domino[0]}
+			}
+			M[hVal]++
+		}
+		log.Print("-> ", M)
+
+		pairs := 0
+		for _, count := range M { //n(C)2
+			pairs += count * (count - 1) / 2
+		}
+		return pairs
+	}
+	log.Print(":: ", WithMap(dominoes))
+
 	M := make([]int, 100)
 
 	pairs := 0

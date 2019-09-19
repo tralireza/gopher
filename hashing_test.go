@@ -168,17 +168,17 @@ func Test874(t *testing.T) {
 }
 
 func Test1128(t *testing.T) {
-    for _, c := range []struct {
-        rst int
-        dominoes [][]int
-    } {
-        {1, [][]int{{1,2},{2,1},{3,4},{5,6}}},
-        {3, [][]int{{1,2},{1,2},{1,1},{1,2},{2,2}}},
-    } {
-        if c.rst != numEquivDominoPairs(c.dominoes) {
-            t.FailNow()
-        }
-    }
+	for _, c := range []struct {
+		rst      int
+		dominoes [][]int
+	}{
+		{1, [][]int{{1, 2}, {2, 1}, {3, 4}, {5, 6}}},
+		{3, [][]int{{1, 2}, {1, 2}, {1, 1}, {1, 2}, {2, 2}}},
+	} {
+		if c.rst != numEquivDominoPairs(c.dominoes) {
+			t.FailNow()
+		}
+	}
 }
 
 // 1372m Find the Longest Substring Containing Vowels in Even Counts
