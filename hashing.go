@@ -215,6 +215,25 @@ func robotSim(commands []int, obstacles [][]int) int {
 	return dist
 }
 
+// 1128 Number of Equivalent Domino Pairs
+func numEquivDominoPairs(dominoes [][]int) int {
+	M := make([]int, 100)
+
+	pairs := 0
+	for _, domino := range dominoes {
+		hVal := 10*domino[0] + domino[1]
+		if domino[0] < domino[1] {
+			hVal = 10*domino[1] + domino[0]
+		}
+
+		pairs += M[hVal]
+		M[hVal]++
+	}
+
+	log.Print("-> ", M)
+	return pairs
+}
+
 // 1372m Find the Longest Substring Containing Vowels in Even Counts
 func findTheLongestSubstring(s string) int {
 	V := map[byte]int{'a': 1, 'e': 2, 'i': 4, 'o': 8, 'u': 16}
