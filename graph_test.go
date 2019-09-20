@@ -1053,6 +1053,8 @@ func Test3341(t *testing.T) {
 		{6, [][]int{{0, 4}, {4, 4}}},
 		{3, [][]int{{0, 0, 0}, {0, 0, 0}}},
 		{3, [][]int{{0, 1}, {1, 2}}},
+
+		{60, [][]int{{15, 58}, {67, 4}}},
 	} {
 		log.Print("** ", c.moveTime)
 		if c.rst != minTimeToReach(c.moveTime) {
