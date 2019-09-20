@@ -1543,3 +1543,58 @@ func findSafeWalk(grid [][]int, health int) bool {
 
 	return false
 }
+
+// 3341m Find Minimum Time To Reach Last Room I
+type PQ3341 [][3]int
+
+func (h PQ3341) Len() int           { return len(h) }
+func (h PQ3341) Less(i, j int) bool { return h[i][0] < h[j][0] }
+func (h PQ3341) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *PQ3341) Push(x any) { *h = append(*h, x.([3]int)) }
+func (h *PQ3341) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func minTimeToReach(moveTime [][]int) int {
+	Rows, Cols := len(moveTime), len(moveTime[0])
+
+	Grid := make([][]int, Rows) // Distances from {0,0}
+	for r := range Grid {
+		Grid[r] = make([]int, Cols)
+	}
+
+	for r := range Grid {
+		for c := range Grid[r] {
+			Grid[r][c] = math.MaxInt
+		}
+	}
+
+	pq := PQ3341{}
+	heap.Push(&pq, [3]int{0, 0, 0})
+	Grid[0][0] = 0
+
+	Dirs := []int{-1, 0, 1, 0, -1}
+	for pq.Len() > 0 {
+		v := heap.Pop(&pq).([3]int)
+		time, r, c := v[0], v[1], v[2]
+
+		log.Print("-> ", v, pq, Grid)
+
+		if r == Rows-1 && c == Cols-1 {
+			return time
+		}
+
+		for d := range 4 {
+			r, c := r+Dirs[d], c+Dirs[d+1]
+			if 0 <= r && r < Rows && 0 <= c && c < Cols && max(time, moveTime[r][c]) < Grid[r][c] {
+				heap.Push(&pq, [3]int{max(time, moveTime[r][c]) + 1, r, c})
+				Grid[r][c] = max(time, moveTime[r][c])
+			}
+		}
+	}
+
+	return -1
+}

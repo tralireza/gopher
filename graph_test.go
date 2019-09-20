@@ -1044,3 +1044,19 @@ func Test3286(t *testing.T) {
 	log.Print("false ?= ", findSafeWalk([][]int{{0, 1, 1, 0, 0, 0}, {1, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 0, 1}, {0, 0, 1, 0, 1, 0}}, 3))
 	log.Print("true ?= ", findSafeWalk([][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}}, 5))
 }
+
+func Test3341(t *testing.T) {
+	for _, c := range []struct {
+		rst      int
+		moveTime [][]int
+	}{
+		{6, [][]int{{0, 4}, {4, 4}}},
+		{3, [][]int{{0, 0, 0}, {0, 0, 0}}},
+		{3, [][]int{{0, 1}, {1, 2}}},
+	} {
+		log.Print("** ", c.moveTime)
+		if c.rst != minTimeToReach(c.moveTime) {
+			t.FailNow()
+		}
+	}
+}
