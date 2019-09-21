@@ -293,7 +293,35 @@ func maxSubarraySumCircular(nums []int) int {
 }
 
 // 1007m Minimum Domino Rotations For Equal Row
-func minDominoRotations(tops []int, bottoms []int) int {
+func minDominoRotations(tops, bottoms []int) int {
+	Greedy := func(tops, bottoms []int) int {
+		r := math.MaxInt
+
+	LOOP:
+		for _, n := range []int{tops[0], bottoms[0]} {
+			t, b := 0, 0
+			for i := range tops {
+				if tops[i] != n && bottoms[i] != n {
+					continue LOOP
+				}
+
+				if tops[i] != n {
+					t++
+				}
+				if bottoms[i] != n {
+					b++
+				}
+			}
+			r = min(min(t, b), r)
+		}
+
+		if r == math.MaxInt {
+			return -1
+		}
+		return r
+	}
+	log.Print(":: ", Greedy(tops, bottoms))
+
 	r := math.MaxInt
 
 LOOP:
