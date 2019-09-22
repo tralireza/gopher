@@ -1062,3 +1062,18 @@ func Test3341(t *testing.T) {
 		}
 	}
 }
+func Test3342(t *testing.T) {
+	for _, c := range []struct {
+		rst      int
+		moveTime [][]int
+	}{
+		{7, [][]int{{0, 4}, {4, 4}}},
+		{6, [][]int{{0, 0, 0, 0}, {0, 0, 0, 0}}},
+		{4, [][]int{{0, 1}, {1, 2}}},
+	} {
+		log.Print("** ", c.moveTime)
+		if c.rst != minTimeToReachII(c.moveTime) {
+			t.FailNow()
+		}
+	}
+}

@@ -1598,3 +1598,63 @@ func minTimeToReach(moveTime [][]int) int {
 
 	return -1
 }
+
+// 3342m Find Minimum Time To Reach Last Room II
+type PQ3342 [][4]int
+
+func (h PQ3342) Len() int           { return len(h) }
+func (h PQ3342) Less(i, j int) bool { return h[i][0] < h[j][0] }
+func (h PQ3342) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *PQ3342) Push(x any) { *h = append(*h, x.([4]int)) }
+func (h *PQ3342) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func minTimeToReachII(moveTime [][]int) int {
+	Rows, Cols := len(moveTime), len(moveTime[0])
+	Grid := make([][]int, Rows)
+	for r := range Grid {
+		Grid[r] = make([]int, Cols)
+	}
+
+	for r := range Grid {
+		for c := range Grid[r] {
+			Grid[r][c] = math.MaxInt
+		}
+	}
+
+	pq := PQ3342{}
+	heap.Push(&pq, [4]int{0, 0, 0, 0})
+	Grid[0][0] = 0
+
+	Dirs := []int{-1, 0, 1, 0, -1}
+
+	for pq.Len() > 0 {
+		v := heap.Pop(&pq).([4]int)
+		time, r, c, double := v[0], v[1], v[2], v[3]
+
+		log.Print("-> ", time, r, c, double, pq, Grid)
+
+		if r == Rows-1 && c == Cols-1 {
+			return time
+		}
+
+		delta := 1
+		if double == 1 {
+			delta++
+		}
+
+		for d := range 4 {
+			r, c := r+Dirs[d], c+Dirs[d+1]
+			if 0 <= r && r < Rows && 0 <= c && c < Cols && max(time, moveTime[r][c])+delta < Grid[r][c] {
+				Grid[r][c] = max(time, moveTime[r][c]) + delta
+				heap.Push(&pq, [4]int{Grid[r][c], r, c, 1 ^ double})
+			}
+		}
+	}
+
+	return -1
+}
