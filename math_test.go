@@ -89,6 +89,19 @@ func Test1154(t *testing.T) {
 	log.Print("9 ?= ", dayOfYear("2019-01-09"))
 	log.Print("41 ?= ", dayOfYear("2019-02-10"))
 }
+func Test1295(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{2, []int{12, 345, 2, 6, 7896}},
+		{1, []int{555, 901, 482, 1771}},
+	} {
+		if c.rst != findNumbers(c.nums) {
+			t.FailNow()
+		}
+	}
+}
 
 // 1780m Check if Number is a Sum of Powers of Three
 func Test1780(t *testing.T) {

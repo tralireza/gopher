@@ -180,6 +180,22 @@ func dayOfYear(date string) int {
 	return dy
 }
 
+// 1295 Find Numbers with Even Number of Digits
+func findNumbers(nums []int) int {
+	evens := 0
+	for _, n := range nums {
+		t := 0
+		for n > 0 {
+			n /= 10
+			t++
+		}
+
+		evens += 1 ^ (t & 1)
+	}
+
+	return evens
+}
+
 // 1780m Check if Number is a Sum of Powers of Three
 func checkPowersOfThree(n int) bool {
 	P := []int{}
