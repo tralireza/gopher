@@ -395,6 +395,20 @@ func Test368(t *testing.T) {
 		log.Printf(":: %v   <- %v", c.rst, c.nums)
 	}
 }
+func Test377(t *testing.T) {
+	for _, c := range []struct {
+		rst    int
+		nums   []int
+		target int
+	}{
+		{7, []int{1, 2, 3}, 4},
+		{0, []int{9}, 3},
+	} {
+		if c.rst != combinationSum4(c.nums, c.target) {
+			t.FailNow()
+		}
+	}
+}
 
 // 494m Target Sum
 func Test494(t *testing.T) {

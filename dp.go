@@ -537,6 +537,24 @@ func largestDivisibleSubset(nums []int) []int {
 	return R
 }
 
+// 377m Combination Sum IV
+func combinationSum4(nums []int, target int) int {
+	Sums := []int{1}
+	for t := 1; t <= target; t++ {
+		tsum := 0
+		for _, n := range nums {
+			if t-n >= 0 {
+				tsum += Sums[t-n]
+			}
+		}
+
+		Sums = append(Sums, tsum)
+	}
+
+	log.Print("-> ", Sums)
+	return Sums[target]
+}
+
 // 494m Target Sum
 func findTargetSumWays(nums []int, target int) int {
 	M := map[[2]int]int{}
