@@ -1340,3 +1340,18 @@ func Test2999(t *testing.T) {
 		log.Printf(":: %d   <- %d %d | %d %s", c.rst, c.start, c.finish, c.limit, c.s)
 	}
 }
+
+func Test3343(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		num string
+	}{
+		{2, "123"},
+		{1, "112"},
+		{0, "12345"},
+	} {
+		if c.rst != countBalancedPermutations(c.num) {
+			t.FailNow()
+		}
+	}
+}
