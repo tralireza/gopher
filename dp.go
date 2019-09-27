@@ -1378,13 +1378,12 @@ func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
 
 // 3343h Count Number of Balanced Permutations
 func countBalancedPermutations(num string) int {
-	dSum, n := 0, len(num)
+	dSum := 0
 	F := make([]int, 10)
-	for i := 0; i < n; i++ {
+	for i := 0; i < len(num); i++ {
 		F[num[i]-'0']++
 		dSum += int(num[i] - '0')
 	}
-
 	log.Print("-> ", F)
 
 	if dSum&1 == 1 {
@@ -1393,42 +1392,38 @@ func countBalancedPermutations(num string) int {
 
 	const MOD = 1000_000_007
 
-	C := make([][]int, (n+1)/2+1)
-	for i := range C {
-		C[i] = make([]int, (n+1)/2+1)
-
-		C[i][i], C[i][0] = 1, 1
-		for j := 1; j < i; j++ {
-			C[i][j] = (C[i-1][j] + C[i-1][j-1]) % MOD
+	C := make([][]int, (len(num)+1)/2+1) // Pascal's Triangle: C(n,k) = C(n-1,k) + C(n-1,k-1)
+	for n := range C {
+		C[n] = make([]int, (len(num)+1)/2+1)
+		C[n][n], C[n][0] = 1, 1
+		for k := 1; k < n; k++ {
+			C[n][k] = (C[n-1][k] + C[n-1][k-1]) % MOD
 		}
 	}
-
-	log.Print("-> ", C)
+	log.Print("-> nCk C(n,k) ", C)
 
 	pSum := make([]int, 11)
 	for i := 9; i >= 0; i-- {
 		pSum[i] = pSum[i+1] + F[i]
 	}
 
-	M := make([][][]int, 10)
+	M := make([][][]int, 10) // Memo: {pos,curSum,oddCount}
 	for i := range M {
 		M[i] = make([][]int, dSum/2+1)
-
 		for j := range M[i] {
-			M[i][j] = make([]int, (n+1)/2+1)
-
+			M[i][j] = make([]int, (len(num)+1)/2+1)
 			for k := range M[i][j] {
 				M[i][j][k] = -1
 			}
 		}
 	}
+	defer log.Print("-> ", M)
 
-	var Count func(p, curSum, oddCount int) int
-	Count = func(p, curSum, oddCount int) int {
+	var Search func(p, curSum, oddCount int) int
+	Search = func(p, curSum, oddCount int) int {
 		if oddCount < 0 || pSum[p] < oddCount || dSum/2 < curSum {
 			return 0
 		}
-
 		if p > 9 {
 			if curSum == dSum/2 && oddCount == 0 {
 				return 1
@@ -1443,13 +1438,13 @@ func countBalancedPermutations(num string) int {
 		evenCount := pSum[p] - oddCount
 		r := 0
 		for i := max(0, F[p]-evenCount); i <= min(F[p], oddCount); i++ {
-			ways := C[oddCount][i] * C[evenCount][F[p]-i] % MOD
-			r = (r + ways*Count(p+1, curSum+i*p, oddCount-i)%MOD) % MOD
+			r += (C[oddCount][i] * C[evenCount][F[p]-i] % MOD) * Search(p+1, curSum+i*p, oddCount-i) % MOD
+			r %= MOD
 		}
 
 		M[p][curSum][oddCount] = r
 		return r
 	}
 
-	return Count(0, 0, (n+1)/2)
+	return Search(0, 0, (len(num)+1)/2)
 }

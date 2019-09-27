@@ -1350,6 +1350,7 @@ func Test3343(t *testing.T) {
 		{1, "112"},
 		{0, "12345"},
 	} {
+		log.Print("** ", c.num)
 		if c.rst != countBalancedPermutations(c.num) {
 			t.FailNow()
 		}
