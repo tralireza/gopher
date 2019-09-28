@@ -184,6 +184,22 @@ func Test2280(t *testing.T) {
 	log.Print("1 ?= ", minimumLines([][]int{{3, 4}, {1, 2}, {7, 8}, {2, 3}}))
 }
 
+func Test2918(t *testing.T) {
+	for _, c := range []struct {
+		rst          int64
+		nums1, nums2 []int
+	}{
+		{12, []int{3, 2, 0, 1, 0}, []int{6, 5, 0}},
+		{-1, []int{2, 0, 2, 0}, []int{1, 4}},
+
+		{139, []int{0, 16, 28, 12, 10, 15, 25, 24, 6, 0, 0}, []int{20, 15, 19, 5, 6, 29, 25, 8, 12}},
+	} {
+		if c.rst != minSum(c.nums1, c.nums2) {
+			t.FailNow()
+		}
+	}
+}
+
 // 2938m Separate Black and White Balls
 func Test2938(t *testing.T) {
 	log.Print("1 ?= ", minimumSteps("101"))

@@ -413,6 +413,41 @@ func minimumLines(stockPrices [][]int) int {
 	return t
 }
 
+// 2918m Minimum Equal Sum of Two Arrays After Replacing Zeros
+func minSum(nums1 []int, nums2 []int) int64 {
+	sum1, zeros1 := int64(0), 0
+	for _, n := range nums1 {
+		if n == 0 {
+			zeros1++
+		}
+		sum1 += int64(n)
+	}
+
+	sum2, zeros2 := int64(0), 0
+	for _, n := range nums2 {
+		if n == 0 {
+			zeros2++
+		}
+		sum2 += int64(n)
+	}
+
+	if sum1+int64(zeros1) == sum2+int64(zeros2) {
+		return sum1 + int64(zeros1) | sum2 + int64(zeros2)
+	}
+
+	if sum1+int64(zeros1) < sum2+int64(zeros2) {
+		if zeros1 == 0 {
+			return -1
+		}
+		return sum2 + int64(zeros2)
+	}
+
+	if zeros2 == 0 {
+		return -1
+	}
+	return sum1 + int64(zeros1)
+}
+
 // 2938m Separate Black and White Balls
 func minimumSteps(s string) int64 {
 	steps := int64(0)
