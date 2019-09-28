@@ -419,6 +419,7 @@ func minSum(nums1 []int, nums2 []int) int64 {
 	for _, n := range nums1 {
 		if n == 0 {
 			zeros1++
+			n++
 		}
 		sum1 += int64(n)
 	}
@@ -427,25 +428,15 @@ func minSum(nums1 []int, nums2 []int) int64 {
 	for _, n := range nums2 {
 		if n == 0 {
 			zeros2++
+			n++
 		}
 		sum2 += int64(n)
 	}
 
-	if sum1+int64(zeros1) == sum2+int64(zeros2) {
-		return sum1 + int64(zeros1) | sum2 + int64(zeros2)
-	}
-
-	if sum1+int64(zeros1) < sum2+int64(zeros2) {
-		if zeros1 == 0 {
-			return -1
-		}
-		return sum2 + int64(zeros2)
-	}
-
-	if zeros2 == 0 {
+	if sum1 > sum2 && zeros2 == 0 || sum2 > sum1 && zeros1 == 0 {
 		return -1
 	}
-	return sum1 + int64(zeros1)
+	return max(sum1, sum2)
 }
 
 // 2938m Separate Black and White Balls
