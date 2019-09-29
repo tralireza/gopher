@@ -126,6 +126,23 @@ func countGoodTriplets(arr []int, a, b, c int) int {
 	return count
 }
 
+// 1550 Three Consecutive Odds
+func threeConsecutiveOdds(arr []int) bool {
+	counter := 0
+	for _, n := range arr {
+		if n&1 == 1 {
+			counter++
+			if counter == 3 {
+				return true
+			}
+		} else {
+			counter = 0
+		}
+	}
+
+	return false
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func check(nums []int) bool {
 	inversions := 0

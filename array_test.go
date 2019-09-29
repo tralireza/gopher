@@ -33,6 +33,25 @@ func Test1534(t *testing.T) {
 	}
 }
 
+func Test1550(t *testing.T) {
+	for _, c := range []struct {
+		rst bool
+		arr []int
+	}{
+		{false, []int{2, 6, 4, 1}},
+		{true, []int{1, 2, 34, 3, 4, 5, 7, 23, 12}},
+
+		{true, []int{1, 3, 5}},  // edge cases
+		{false, []int{1, 2, 3}}, // edge cases
+
+		{false, []int{1}}, // boundary
+	} {
+		if c.rst != threeConsecutiveOdds(c.arr) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func Test1752(t *testing.T) {
 	log.Print("true ?= ", check([]int{3, 4, 5, 1, 2}))
