@@ -213,6 +213,37 @@ func minOperations_UniValue(grid [][]int, x int) int {
 	return ops
 }
 
+// 2094 Finding 3-Digit Even Numbers
+func findEvenNumbers(digits []int) []int {
+	F := [10]int{}
+	for _, d := range digits {
+		F[d]++
+	}
+
+	R := []int{}
+	for h := 1; h <= 9; h++ {
+		if F[h] == 0 {
+			continue
+		}
+		F[h]--
+		for t := 0; t <= 9; t++ {
+			if F[t] == 0 {
+				continue
+			}
+			F[t]--
+			for o := 0; o <= 8; o += 2 {
+				if F[o] > 0 {
+					R = append(R, 100*h+10*t+o)
+				}
+			}
+			F[t]++
+		}
+		F[h]++
+	}
+
+	return R
+}
+
 // 2145m Count the Hidden Sequences
 func numberOfArrays(differences []int, lower, upper int) int {
 	// 1 <= N <= 10^5, -10^5 <= N_i <= 10^5

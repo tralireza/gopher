@@ -122,6 +122,21 @@ func Test2033(t *testing.T) {
 	}
 }
 
+func Test2094(t *testing.T) {
+	for _, c := range []struct {
+		rst    []int
+		digits []int
+	}{
+		{[]int{102, 120, 130, 132, 210, 230, 302, 310, 312, 320}, []int{2, 1, 3, 0}},
+		{[]int{222, 228, 282, 288, 822, 828, 882}, []int{2, 2, 8, 8, 2}},
+		{[]int{}, []int{3, 7, 5}},
+	} {
+		if !reflect.DeepEqual(c.rst, findEvenNumbers(c.digits)) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2145(t *testing.T) {
 	Optimized := func(differences []int, lower, upper int) int {
 		x, n := 0, 0
