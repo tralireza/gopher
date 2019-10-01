@@ -1341,6 +1341,21 @@ func Test2999(t *testing.T) {
 	}
 }
 
+func Test3335(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+		t   int
+	}{
+		{7, "abcyy", 2},
+		{5, "azbk", 1},
+	} {
+		if c.rst != lengthAfterTransformations(c.s, c.t) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test3343(t *testing.T) {
 	for _, c := range []struct {
 		rst int

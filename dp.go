@@ -1376,6 +1376,34 @@ func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
 	return Search(0, true, true)
 }
 
+// 3335m Total Characters in String After Transformations I
+func lengthAfterTransformations(s string, t int) int {
+	const M = 1000_000_007
+
+	D := make([][26]int, t+1)
+	for i := 0; i < len(s); i++ {
+		D[0][s[i]-'a']++
+	}
+
+	for i := 1; i <= t; i++ {
+		D[i][0] = D[i-1][25]                   // z -> (a)b
+		D[i][1] = (D[i-1][0] + D[i-1][25]) % M // z -> a(b) & a -> b
+
+		for chr := 2; chr < 26; chr++ {
+			D[i][chr] = D[i-1][chr-1]
+		}
+	}
+
+	log.Print("-> ", D)
+
+	total := 0
+	for _, n := range D[t] {
+		total += n % M
+	}
+
+	return total % M
+}
+
 // 3343h Count Number of Balanced Permutations
 func countBalancedPermutations(num string) int {
 	dSum := 0
