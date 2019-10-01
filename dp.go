@@ -1380,6 +1380,32 @@ func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
 func lengthAfterTransformations(s string, t int) int {
 	const M = 1000_000_007
 
+	Optimized := func(s string, t int) int {
+		D := [26]int{}
+		for i := 0; i < len(s); i++ {
+			D[s[i]-'a']++
+		}
+
+		N := [26]int{}
+		for range t {
+			N[0] = D[25]
+			N[1] = (D[0] + D[25]) % M
+			for chr := 2; chr < 26; chr++ {
+				N[chr] = D[chr-1]
+			}
+
+			D = N
+		}
+
+		total := 0
+		for _, n := range D {
+			total = (total + n) % M
+		}
+
+		return total
+	}
+	log.Print(":: ", Optimized(s, t))
+
 	D := make([][26]int, t+1)
 	for i := 0; i < len(s); i++ {
 		D[0][s[i]-'a']++
@@ -1388,7 +1414,6 @@ func lengthAfterTransformations(s string, t int) int {
 	for i := 1; i <= t; i++ {
 		D[i][0] = D[i-1][25]                   // z -> (a)b
 		D[i][1] = (D[i-1][0] + D[i-1][25]) % M // z -> a(b) & a -> b
-
 		for chr := 2; chr < 26; chr++ {
 			D[i][chr] = D[i-1][chr-1]
 		}
@@ -1398,10 +1423,10 @@ func lengthAfterTransformations(s string, t int) int {
 
 	total := 0
 	for _, n := range D[t] {
-		total += n % M
+		total = (total + n) % M
 	}
 
-	return total % M
+	return total
 }
 
 // 3343h Count Number of Balanced Permutations
