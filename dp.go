@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"container/heap"
+	"fmt"
 	"log"
 	"math"
 	"slices"
@@ -1426,6 +1427,68 @@ func lengthAfterTransformations(s string, t int) int {
 		total = (total + n) % M
 	}
 
+	return total
+}
+
+// 3337h Total Characters in String After Transformations II
+func lengthAfterTransformationsII(s string, t int, nums []int) int {
+	F := make([]int, 26)
+	for i := 0; i < len(s); i++ {
+		F[s[i]-'a']++
+	}
+
+	T := make([][26]int, 26)
+	for chr := range T {
+		for n := 1; n <= nums[chr]; n++ {
+			T[chr][(chr+n)%26] = 1
+		}
+	}
+
+	const M = 1000_000_007
+
+	Multiply := func(a, b [][26]int) [][26]int {
+		m := make([][26]int, 26)
+		for i := range 26 {
+			for k := range 26 {
+				a_ik := a[i][k]
+				if a_ik != 0 {
+					for j := range 26 {
+						m[i][j] = (m[i][j] + a_ik*b[k][j]%M) % M
+					}
+				}
+			}
+		}
+		return m
+	}
+
+	P := make([][26]int, 26)
+	for d := range 26 {
+		P[d][d] = 1
+	}
+
+	for t > 0 {
+		if t&1 == 1 {
+			P = Multiply(P, T)
+		}
+		T = Multiply(T, T)
+		t >>= 1
+	}
+
+	log.Print("-> T ", T)
+
+	Ft := [26]int{}
+	for i := range 26 {
+		for j := range 26 {
+			Ft[i] = (Ft[i] + F[i]*P[i][j]%M) % M
+		}
+	}
+
+	log.Print("-> ", Ft)
+
+	total := 0
+	for _, f := range Ft {
+		total = (total + f) % M
+	}
 	return total
 }
 

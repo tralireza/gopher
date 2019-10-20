@@ -1356,6 +1356,22 @@ func Test3335(t *testing.T) {
 	}
 }
 
+func Test3337(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		s    string
+		t    int
+		nums []int
+	}{
+		{7, "abcyy", 2, []int{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2}},
+		{8, "azbk", 1, []int{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}},
+	} {
+		if c.rst != lengthAfterTransformationsII(c.s, c.t, c.nums) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test3343(t *testing.T) {
 	for _, c := range []struct {
 		rst int
