@@ -413,6 +413,21 @@ func minimumLines(stockPrices [][]int) int {
 	return t
 }
 
+// 2900 Longest Unequal Adjacent Groups Subsequences I
+func getLongestSubsequence(words []string, groups []int) []string {
+	R, curGroup := []string{words[0]}, groups[0]
+	for i, g := range groups[1:] {
+		if curGroup != g {
+			R = append(R, words[i+1])
+			curGroup = g
+		}
+	}
+
+	log.Printf(":: %q", R)
+
+	return R
+}
+
 // 2918m Minimum Equal Sum of Two Arrays After Replacing Zeros
 func minSum(nums1 []int, nums2 []int) int64 {
 	sum1, zeros1 := int64(0), 0

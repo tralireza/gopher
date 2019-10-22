@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"slices"
 	"testing"
 )
@@ -182,6 +183,20 @@ func Test2202(t *testing.T) {
 func Test2280(t *testing.T) {
 	log.Print("3 ?= ", minimumLines([][]int{{1, 7}, {2, 6}, {3, 5}, {4, 4}, {5, 4}, {6, 3}, {7, 2}, {8, 1}}))
 	log.Print("1 ?= ", minimumLines([][]int{{3, 4}, {1, 2}, {7, 8}, {2, 3}}))
+}
+
+func Test2900(t *testing.T) {
+	for _, c := range []struct {
+		rst, words []string
+		groups     []int
+	}{
+		{[]string{"e", "b"}, []string{"e", "a", "b"}, []int{0, 0, 1}},
+		{[]string{"a", "b", "c"}, []string{"a", "b", "c", "d"}, []int{1, 0, 1, 1}},
+	} {
+		if !reflect.DeepEqual(c.rst, getLongestSubsequence(c.words, c.groups)) {
+			t.FailNow()
+		}
+	}
 }
 
 func Test2918(t *testing.T) {
