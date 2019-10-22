@@ -451,6 +451,44 @@ func getLongestSubsequence(words []string, groups []int) []string {
 	tBT := time.Now()
 	log.Printf(":: Recursive (@ %[2]v)   %[1]q", Recursive(), time.Since(tBT))
 
+	DP := func() []string {
+		R := []string{}
+
+		Lengths := make([]int, len(groups))
+		Picks := make([]int, len(groups))
+
+		for i := range len(groups) {
+			Lengths[i], Picks[i] = 1, -1
+		}
+
+		lMax, iMax := 1, 0
+		for l := 1; l < len(groups); l++ {
+			for g := 0; g < l; g++ {
+				if groups[g] != groups[l] {
+					if Lengths[g]+1 > Lengths[l] {
+						Lengths[l] = Lengths[g] + 1
+						Picks[l] = g
+					}
+				}
+			}
+
+			if Lengths[l] > lMax {
+				lMax, iMax = Lengths[l], l
+			}
+		}
+
+		log.Printf("-> DP %v", lMax)
+
+		for i := iMax; i != -1; i = Picks[i] {
+			R = append(R, words[i])
+		}
+		slices.Reverse(R)
+
+		return R
+	}
+	tDP := time.Now()
+	log.Printf(":: DP (@ %[2]v)   %[1]q", DP(), time.Since(tDP))
+
 	R, curGroup := []string{words[0]}, groups[0]
 	for i, g := range groups[1:] {
 		if curGroup != g {
