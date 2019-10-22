@@ -4,6 +4,7 @@ import (
 	"log"
 	"math"
 	"slices"
+	"time"
 )
 
 // 11m Container With Most Water
@@ -415,6 +416,41 @@ func minimumLines(stockPrices [][]int) int {
 
 // 2900 Longest Unequal Adjacent Groups Subsequences I
 func getLongestSubsequence(words []string, groups []int) []string {
+	Recursive := func() []string {
+		R := []string{}
+
+		calls, r := 0, []string{}
+		var Search func(start, g int)
+		Search = func(start, g int) {
+			calls++
+			if start == len(groups) {
+				if len(r) > len(R) {
+					R = []string{}
+					R = append(R, r...)
+				}
+				return
+			}
+
+			Search(start+1, g)
+			if g != groups[start] {
+				r = append(r, words[start])
+				Search(start+1, groups[start])
+				r = r[:len(r)-1]
+			}
+
+		}
+
+		for g := range []int{0, 1} {
+			Search(0, g)
+		}
+
+		log.Print("-> rCalls ", calls)
+
+		return R
+	}
+	tBT := time.Now()
+	log.Printf(":: Recursive (@ %[2]v)   %[1]q", Recursive(), time.Since(tBT))
+
 	R, curGroup := []string{words[0]}, groups[0]
 	for i, g := range groups[1:] {
 		if curGroup != g {

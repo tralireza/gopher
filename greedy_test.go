@@ -192,6 +192,12 @@ func Test2900(t *testing.T) {
 	}{
 		{[]string{"e", "b"}, []string{"e", "a", "b"}, []int{0, 0, 1}},
 		{[]string{"a", "b", "c"}, []string{"a", "b", "c", "d"}, []int{1, 0, 1, 1}},
+
+		{
+			[]string{"iy", "gh", "e", "pc", "t", "c", "r", "l", "y", "ok", "w", "jq", "p", "tt", "mg", "vt", "to", "q", "fs", "nh", "o", "i", "d"},
+			[]string{"iy", "gh", "e", "pc", "a", "j", "t", "g", "c", "n", "r", "v", "m", "ub", "l", "y", "ok", "w", "z", "gg", "jq", "p", "tt", "x", "mg", "vt", "to", "k", "q", "fs", "nh", "o", "i", "d", "b", "u", "kd", "s"},
+			[]int{1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1},
+		},
 	} {
 		if !reflect.DeepEqual(c.rst, getLongestSubsequence(c.words, c.groups)) {
 			t.FailNow()
