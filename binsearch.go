@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"container/list"
 	"log"
 	"math"
 	"slices"
