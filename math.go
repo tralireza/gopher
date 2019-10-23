@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"math"
 	"slices"
 	"strconv"
 	"strings"

@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"testing"
 )
 
