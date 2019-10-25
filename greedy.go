@@ -477,7 +477,7 @@ func getLongestSubsequence(words []string, groups []int) []string {
 			}
 		}
 
-		log.Printf("-> DP %v", lMax)
+		log.Printf("-> DP %v   %d|%d", Lengths, slices.Max(Lengths), lMax)
 
 		for i := iMax; i != -1; i = Picks[i] {
 			R = append(R, words[i])
