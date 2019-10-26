@@ -1328,6 +1328,57 @@ func getMaxFunctionValue(receiver []int, k int64) int64 {
 	return xScore
 }
 
+// 2901m Longest Unequal Adjacent Groups Subsequence II
+func getWordsInLongestSubsequence(words []string, groups []int) []string {
+	ValidDist := func(i, j int) bool {
+		if len(words[j]) != len(words[i]) {
+			return false
+		}
+
+		dist, x, y := 0, words[i], words[j]
+		for i := 0; i < len(x)&len(y); i++ {
+			if x[i] != y[i] {
+				dist++
+				if dist > 1 {
+					return false
+				}
+			}
+		}
+
+		return true
+	}
+
+	D, Picks := make([]int, len(groups)), make([]int, len(groups))
+	for i := range D {
+		D[i], Picks[i] = 1, -1
+	}
+
+	lMax, iLast := 1, 0
+	for i := 1; i < len(D); i++ {
+		for j := 0; j < i; j++ {
+			if groups[j] != groups[i] && ValidDist(j, i) {
+				if D[j]+1 > D[i] {
+					D[i], Picks[i] = D[j]+1, j
+				}
+			}
+		}
+
+		if D[i] > lMax {
+			lMax, iLast = D[i], i
+		}
+	}
+
+	R := []string{}
+	for iLast != -1 {
+		R, iLast = append(R, words[iLast]), Picks[iLast]
+	}
+	slices.Reverse(R)
+
+	log.Printf(":: %q", R)
+
+	return R
+}
+
 // 2999h Count the Number of Powerful Integers
 func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
 	M := map[int]int64{}

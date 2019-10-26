@@ -1321,6 +1321,20 @@ func Test2836(t *testing.T) {
 	log.Print("10 ?= ", getMaxFunctionValue([]int{1, 1, 1, 2, 3}, 3))
 }
 
+func Test2901(t *testing.T) {
+	for _, c := range []struct {
+		rst, words []string
+		groups     []int
+	}{
+		{[]string{"bab", "dab"}, []string{"bab", "dab", "cab"}, []int{1, 2, 2}},
+		{[]string{"a", "b", "c", "d"}, []string{"a", "b", "c", "d"}, []int{1, 2, 3, 4}},
+	} {
+		if !reflect.DeepEqual(c.rst, getWordsInLongestSubsequence(c.words, c.groups)) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2999(t *testing.T) {
 	for _, c := range []struct {
 		rst           int64
