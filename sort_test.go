@@ -21,6 +21,10 @@ func Test75(t *testing.T) {
 	}{
 		{[]int{0, 0, 1, 1, 2, 2}, []int{2, 0, 2, 1, 1, 0}},
 		{[]int{0, 1, 2}, []int{2, 0, 1}},
+		{[]int{1, 2}, []int{1, 2}},
+		{[]int{2}, []int{2}},
+		{[]int{0, 1, 1}, []int{1, 0, 1}},
+		{[]int{0}, []int{0}},
 	} {
 		sortColors(c.nums)
 		if !reflect.DeepEqual(c.rst, c.nums) {

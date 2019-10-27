@@ -31,6 +31,37 @@ func merge(intervals [][]int) [][]int {
 
 // 75m Sort Colors
 func sortColors(nums []int) {
+	TwoPass := func() []int {
+		R := []int{}
+		R = append(R, nums...)
+
+		var p int
+		color := len(R) - 1
+
+		p = 0
+		for p <= color {
+			if R[p] == 2 {
+				R[color], R[p] = 2, R[color]
+				color--
+			} else {
+				p++
+			}
+		}
+
+		p = 0
+		for p <= color {
+			if R[p] == 1 {
+				R[color], R[p] = 1, R[color]
+				color--
+			} else {
+				p++
+			}
+		}
+
+		return R
+	}
+	log.Print(":: ", TwoPass())
+
 	color0, color1, color2 := 0, 0, len(nums)-1
 	for color1 <= color2 {
 		switch nums[color1] {
