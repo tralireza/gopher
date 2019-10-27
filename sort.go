@@ -29,6 +29,24 @@ func merge(intervals [][]int) [][]int {
 	return I
 }
 
+// 75m Sort Colors
+func sortColors(nums []int) {
+	color0, color1, color2 := 0, 0, len(nums)-1
+	for color1 <= color2 {
+		switch nums[color1] {
+		case 2:
+			nums[color1], nums[color2] = nums[color2], 2
+			color2--
+		case 1:
+			color1++
+		case 0:
+			nums[color0], nums[color1] = 0, nums[color0]
+			color0++
+			color1++
+		}
+	}
+}
+
 // 179m Largest Number
 func largestNumber(nums []int) string {
 	x := 0

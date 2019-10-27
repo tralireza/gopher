@@ -3,6 +3,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"reflect"
 	"slices"
 	"sort"
 	"testing"
@@ -12,6 +13,20 @@ import (
 func Test56(t *testing.T) {
 	log.Print("[[1 6] [8 10] [15 18]] ?= ", merge([][]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}}))
 	log.Print("[[1 5]] ?= ", merge([][]int{{1, 4}, {4, 5}}))
+}
+
+func Test75(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums []int
+	}{
+		{[]int{0, 0, 1, 1, 2, 2}, []int{2, 0, 2, 1, 1, 0}},
+		{[]int{0, 1, 2}, []int{2, 0, 1}},
+	} {
+		sortColors(c.nums)
+		if !reflect.DeepEqual(c.rst, c.nums) {
+			t.FailNow()
+		}
+	}
 }
 
 // 179m Largest Number
