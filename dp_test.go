@@ -1173,6 +1173,21 @@ func Test1749(t *testing.T) {
 	}
 }
 
+func Test1931(t *testing.T) {
+	for _, c := range []struct {
+		rst, m, n int
+	}{
+		{3, 1, 1},
+		{6, 1, 2},
+		{580986, 5, 5},
+	} {
+		if c.rst != colorTheGrid(c.m, c.n) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1937m Maximum Number of Points with Cost
 func Test1937(t *testing.T) {
 	log.Print("9 ?= ", maxPoints([][]int{{1, 2, 3}, {1, 5, 1}, {3, 1, 1}}))

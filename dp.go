@@ -1154,6 +1154,76 @@ func maxAbsoluteSum(nums []int) int {
 	return xVal
 }
 
+// 1931m Painting a Grid With Three Different Colors
+func colorTheGrid(m int, n int) int {
+	perms := 1
+	for range m {
+		perms *= 3
+	}
+
+	Masks := map[int][]int{}
+	for mask := range perms {
+		v, colors := mask, []int{}
+		for range m {
+			colors = append(colors, v%3)
+			v /= 3
+		}
+
+		valid := true
+		for i := 1; i < len(colors); i++ {
+			if colors[i-1] == colors[i] {
+				valid = false
+			}
+		}
+		if valid {
+			Masks[mask] = colors
+		}
+	}
+	log.Print("-> Masks: ", Masks)
+
+	Adjs := map[int][]int{}
+	for mask, colors := range Masks {
+		for adjMask, adjColors := range Masks {
+			valid := true
+			for r := range colors {
+				if colors[r] == adjColors[r] {
+					valid = false
+				}
+			}
+			if valid {
+				Adjs[mask] = append(Adjs[mask], adjMask)
+			}
+		}
+	}
+	log.Print("-> Adjacent Cols: ", Adjs)
+
+	const M = 1000_000_007
+
+	dpCur := map[int]int{}
+	for mask := range Masks {
+		dpCur[mask] = 1
+	}
+	for range n - 1 {
+		dpNext := map[int]int{}
+		for mask := range Masks {
+			count := 0
+			for _, adjMask := range Adjs[mask] {
+				count = (count + dpCur[adjMask]) % M
+			}
+			dpNext[mask] = count
+		}
+		dpCur = dpNext
+
+	}
+
+	total := 0
+	for _, count := range dpCur {
+		total = (total + count) % M
+	}
+
+	return total
+}
+
 // 1937m Maximum Number of Points with Cost
 func maxPoints(points [][]int) int64 {
 	Rows, Cols := len(points), len(points[0])
