@@ -1180,6 +1180,8 @@ func Test1931(t *testing.T) {
 		{3, 1, 1},
 		{6, 1, 2},
 		{580986, 5, 5},
+
+		{408208448, 5, 1000},
 	} {
 		if c.rst != colorTheGrid(c.m, c.n) {
 			t.FailNow()
