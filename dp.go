@@ -1156,13 +1156,10 @@ func maxAbsoluteSum(nums []int) int {
 
 // 1931m Painting a Grid With Three Different Colors
 func colorTheGrid(m int, n int) int {
-	perms := 1
-	for range m {
-		perms *= 3
-	}
+	Pow3 := []int{1, 3, 9, 27, 81, 243}
 
 	Masks := map[int][]int{}
-	for mask := range perms {
+	for mask := range Pow3[m] {
 		v, colors := mask, []int{}
 		for range m {
 			colors = append(colors, v%3)
