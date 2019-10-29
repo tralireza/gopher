@@ -200,6 +200,20 @@ func Test2843(t *testing.T) {
 	}
 }
 
+func Test3024(t *testing.T) {
+	for _, c := range []struct {
+		rst  string
+		nums []int
+	}{
+		{"equilateral", []int{3, 3, 3}},
+		{"scalene", []int{3, 4, 5}},
+	} {
+		if c.rst != triangleType(c.nums) {
+			t.FailNow()
+		}
+	}
+}
+
 // 3151 Special Array I
 func Test3151(t *testing.T) {
 	log.Print("true ?= ", isArraySpecialI([]int{1}))

@@ -405,6 +405,24 @@ func countSymmetricIntegers(low int, high int) int {
 	return count
 }
 
+// 3024 Type of Triangle
+func triangleType(nums []int) string {
+	slices.Sort(nums)
+
+	a, b, c := nums[0], nums[1], nums[2]
+	if a+b <= c {
+		return "none"
+	}
+
+	if a == c {
+		return "equilateral"
+	}
+	if a == b || b == c {
+		return "isosceles"
+	}
+	return "scalene"
+}
+
 // 3151 Special Array I
 func isArraySpecialI(nums []int) bool {
 	for i := 1; i < len(nums); i++ {
