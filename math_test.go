@@ -90,6 +90,7 @@ func Test1154(t *testing.T) {
 	log.Print("9 ?= ", dayOfYear("2019-01-09"))
 	log.Print("41 ?= ", dayOfYear("2019-02-10"))
 }
+
 func Test1295(t *testing.T) {
 	for _, c := range []struct {
 		rst  int
