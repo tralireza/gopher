@@ -291,6 +291,7 @@ func addOperators(num string, target int) []string {
 }
 
 // 301h Remove Invalid Parentheses
+// 1 <= N <= 25
 func removeInvalidParentheses(s string) []string {
 	Picks := make([]bool, len(s))
 	M := map[int]map[string]struct{}{}
@@ -337,7 +338,7 @@ func removeInvalidParentheses(s string) []string {
 				return counterStack == 0
 			}
 
-			if Valid(bfr) && FastValid(bfr) {
+			if opens == closes && Valid(bfr) && FastValid(bfr) {
 				if _, ok := M[len(bfr)]; !ok {
 					M[len(bfr)] = map[string]struct{}{}
 				}
