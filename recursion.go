@@ -3,6 +3,7 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"maps"
 	"math"
 	"slices"
 	"strconv"
@@ -287,6 +288,86 @@ func addOperators(num string, target int) []string {
 	Search(0, 0, 0, "")
 
 	return R
+}
+
+// 301h Remove Invalid Parentheses
+func removeInvalidParentheses(s string) []string {
+	Picks := make([]bool, len(s))
+	M := map[int]map[string]struct{}{}
+
+	var Search func(start, opens, closes int)
+	Search = func(start, opens, closes int) {
+		if start == len(s) {
+			bfr := []byte{}
+			for i := 0; i < len(s); i++ {
+				if Picks[i] {
+					bfr = append(bfr, s[i])
+				}
+			}
+
+			Valid := func(bfr []byte) bool {
+				S := make([]byte, 0, len(bfr))
+				for i := 0; i < len(bfr); i++ {
+					switch bfr[i] {
+					case '(':
+						S = append(S, '(')
+					case ')':
+						if len(S) == 0 {
+							return false
+						}
+						S = S[:len(S)-1]
+					}
+				}
+				return len(S) == 0
+			}
+
+			if Valid(bfr) {
+				if _, ok := M[len(bfr)]; !ok {
+					M[len(bfr)] = map[string]struct{}{}
+				}
+				M[len(bfr)][string(bfr)] = struct{}{}
+			}
+
+			return
+		}
+
+		switch s[start] {
+		case '(':
+			Search(start+1, opens, closes)
+
+			opens++
+			if opens <= len(s)-start+closes {
+				Picks[start] = true
+				Search(start+1, opens, closes)
+				Picks[start] = false
+			}
+
+		case ')':
+			Search(start+1, opens, closes)
+
+			closes++
+			if closes <= opens {
+				Picks[start] = true
+				Search(start+1, opens, closes)
+				Picks[start] = false
+			}
+
+		default:
+			Picks[start] = true
+			Search(start+1, opens, closes)
+		}
+	}
+
+	Search(0, 0, 0)
+
+	log.Printf("-> %v", M)
+
+	lMax := 0
+	for l := range M {
+		lMax = max(l, lMax)
+	}
+
+	return slices.Collect(maps.Keys(M[lMax]))
 }
 
 // 386m Lexicographical Numbers

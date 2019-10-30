@@ -6,6 +6,7 @@ import (
 	"math"
 	"math/rand/v2"
 	"reflect"
+	"slices"
 	"testing"
 )
 
@@ -110,6 +111,24 @@ func Test282(t *testing.T) {
 		rst, num, target := c.rst, c.num, c.target
 		log.Printf("%q ?= %q", rst, addOperators(num, target))
 		if !reflect.DeepEqual(rst, addOperators(num, target)) {
+			t.FailNow()
+		}
+	}
+}
+
+func Test301(t *testing.T) {
+	for _, c := range []struct {
+		rst []string
+		s   string
+	}{
+		{[]string{"(())()", "()()()"}, "()())()"},
+		{[]string{"(a())()", "(a)()()"}, "(a)())()"},
+		{[]string{""}, ")("},
+	} {
+		slices.Sort(c.rst)
+		calculated := removeInvalidParentheses(c.s)
+		slices.Sort(calculated)
+		if !reflect.DeepEqual(c.rst, calculated) {
 			t.FailNow()
 		}
 	}
