@@ -124,6 +124,8 @@ func Test301(t *testing.T) {
 		{[]string{"(())()", "()()()"}, "()())()"},
 		{[]string{"(a())()", "(a)()()"}, "(a)())()"},
 		{[]string{""}, ")("},
+
+		{[]string{"((aaaaa))"}, "((((((((((((((((((aaaaa))"},
 	} {
 		slices.Sort(c.rst)
 		calculated := removeInvalidParentheses(c.s)

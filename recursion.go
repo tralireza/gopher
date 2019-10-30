@@ -321,7 +321,23 @@ func removeInvalidParentheses(s string) []string {
 				return len(S) == 0
 			}
 
-			if Valid(bfr) {
+			FastValid := func(bfr []byte) bool {
+				counterStack := 0
+				for i := 0; i < len(bfr); i++ {
+					switch bfr[i] {
+					case '(':
+						counterStack++
+					case ')':
+						counterStack--
+						if counterStack < 0 {
+							return false
+						}
+					}
+				}
+				return counterStack == 0
+			}
+
+			if Valid(bfr) && FastValid(bfr) {
 				if _, ok := M[len(bfr)]; !ok {
 					M[len(bfr)] = map[string]struct{}{}
 				}
