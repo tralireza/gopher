@@ -378,6 +378,31 @@ func countDays(days int, meetings [][]int) int {
 	return t
 }
 
+// 3355m Zero Array Transformation I
+func isZeroArray(nums []int, queries [][]int) bool {
+	Delta := make([]int, len(nums)+1)
+
+	for _, query := range queries {
+		Delta[query[0]]++
+		Delta[query[1]+1]--
+	}
+
+	pSum, v := []int{}, 0
+	for i := range len(Delta) {
+		v += Delta[i]
+		pSum = append(pSum, v)
+	}
+
+	log.Print("-> ", pSum)
+
+	for i, num := range nums {
+		if num > pSum[i] {
+			return false
+		}
+	}
+	return true
+}
+
 // 3392 Count Subarrays of Length Three With a Condition
 func countSubarrays_Length3(nums []int) int {
 	count := 0

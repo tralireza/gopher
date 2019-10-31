@@ -325,6 +325,21 @@ func Test3169(t *testing.T) {
 	}
 }
 
+func Test3355(t *testing.T) {
+	for _, c := range []struct {
+		rst     bool
+		nums    []int
+		queries [][]int
+	}{
+		{true, []int{1, 0, 1}, [][]int{{0, 2}}},
+		{false, []int{4, 3, 2, 1}, [][]int{{1, 3}, {0, 2}}},
+	} {
+		if c.rst != isZeroArray(c.nums, c.queries) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test3392(t *testing.T) {
 	for _, c := range []struct {
 		rst  int
