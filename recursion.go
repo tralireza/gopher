@@ -350,24 +350,22 @@ func removeInvalidParentheses(s string) []string {
 
 		switch s[start] {
 		case '(':
-			Search(start+1, opens, closes)
-
-			opens++
-			if opens <= len(s)-start+closes {
-				Picks[start] = true
-				Search(start+1, opens, closes)
-				Picks[start] = false
+			if opens > 0 {
+				Search(start+1, opens-1, closes)
 			}
+
+			Picks[start] = true
+			Search(start+1, opens, closes)
+			Picks[start] = false
 
 		case ')':
-			Search(start+1, opens, closes)
-
-			closes++
-			if closes <= opens {
-				Picks[start] = true
-				Search(start+1, opens, closes)
-				Picks[start] = false
+			if closes > 0 {
+				Search(start+1, opens, closes-1)
 			}
+
+			Picks[start] = true
+			Search(start+1, opens, closes)
+			Picks[start] = false
 
 		default:
 			Picks[start] = true
@@ -375,7 +373,21 @@ func removeInvalidParentheses(s string) []string {
 		}
 	}
 
-	Search(0, 0, 0)
+	opens, closes := 0, 0
+	for i := 0; i < len(s); i++ {
+		switch s[i] {
+		case '(':
+			opens++
+		case ')':
+			if opens > 0 {
+				opens--
+			} else {
+				closes++
+			}
+		}
+	}
+
+	Search(0, opens, closes)
 
 	log.Printf("-> %v", M)
 
