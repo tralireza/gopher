@@ -7,6 +7,20 @@ import (
 	"testing"
 )
 
+func Test73(t *testing.T) {
+	for _, c := range []struct {
+		rst, matrix [][]int
+	}{
+		{[][]int{{1, 0, 1}, {0, 0, 0}, {1, 0, 1}}, [][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}}},
+		{[][]int{{0, 0, 0, 0}, {0, 4, 5, 0}, {0, 3, 1, 0}}, [][]int{{0, 1, 2, 0}, {3, 4, 5, 2}, {1, 3, 1, 5}}},
+	} {
+		setZeroes(c.matrix)
+		if !reflect.DeepEqual(c.rst, c.matrix) {
+			t.FailNow()
+		}
+	}
+}
+
 // 485 Max Consecutive Ones
 func Test485(t *testing.T) {
 	log.Print("3 ?= ", findMaxConsecutiveOnes([]int{1, 1, 0, 1, 1, 1}))

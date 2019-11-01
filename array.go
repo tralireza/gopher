@@ -6,6 +6,54 @@ import (
 	"slices"
 )
 
+// 73m Set Matrix Zeroes
+// -2^31 <= M_ij <= 2^31-1
+// 1 <= Rows, Cols <= 200
+func setZeroes(matrix [][]int) {
+	Rows, Cols := len(matrix), len(matrix[0])
+
+	rowZero, colZero := false, false
+	for _, v := range matrix[0] {
+		if v == 0 {
+			rowZero = true
+		}
+	}
+	for _, row := range matrix {
+		if row[0] == 0 {
+			colZero = true
+		}
+	}
+
+	for r := 1; r < Rows; r++ {
+		for c := 1; c < Cols; c++ {
+			if matrix[r][c] == 0 {
+				matrix[0][c], matrix[r][0] = 0, 0
+			}
+		}
+	}
+
+	for r := 1; r < Rows; r++ {
+		for c := 1; c < Cols; c++ {
+			if matrix[r][0] == 0 || matrix[0][c] == 0 {
+				matrix[r][c] = 0
+			}
+		}
+	}
+
+	if rowZero {
+		for c := range Cols {
+			matrix[0][c] = 0
+		}
+	}
+	if colZero {
+		for r := range Rows {
+			matrix[r][0] = 0
+		}
+	}
+
+	log.Print(":: ", matrix)
+}
+
 // 485 Max Consecutive Ones
 func findMaxConsecutiveOnes(nums []int) int {
 	tCur, tMax := 0, 0

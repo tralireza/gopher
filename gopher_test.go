@@ -540,27 +540,6 @@ func Test49(t *testing.T) {
 	log.Printf("-> %+v", groupAnagrams([]string{"eat", "tea", "tan", "ate", "nat", "bat"}))
 }
 
-// 73m Set Matrix Zeroes
-func Test73(t *testing.T) {
-	Draw := func(M [][]int) {
-		for r := range M {
-			log.Print(M[r])
-		}
-	}
-
-	for _, M := range [][][]int{
-		{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}},
-		{{0, 1, 2, 0}, {3, 4, 5, 6}, {6, 7, 8, 9}},
-		{{0, 1}},
-	} {
-		log.Print("==")
-		Draw(M)
-		log.Print(" -> ")
-		setZeroes(M)
-		Draw(M)
-	}
-}
-
 // 207m Course Schedule
 func Test207(t *testing.T) {
 	// 0 -> 1
