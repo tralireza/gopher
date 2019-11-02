@@ -3,12 +3,24 @@ package gopher
 import (
 	"fmt"
 	"log"
+	"reflect"
 	"testing"
 )
 
 // 106m Construct Binary Tree from Inorder and Postorder Traversal
 func Test106(t *testing.T) {
 	log.Print(" ?= ", buildTree([]int{9, 3, 15, 20, 7}, []int{9, 15, 7, 20, 3}))
+}
+
+func Test352(t *testing.T) {
+	o := NewSummaryRanges()
+	for _, v := range []int{1, 3, 7, 2, 6} {
+		o.AddNum(v)
+	}
+
+	if !reflect.DeepEqual([][]int{{1, 3}, {6, 7}}, o.GetIntervals()) {
+		t.FailNow()
+	}
 }
 
 // 1110m Delete Nodes And Return Forest

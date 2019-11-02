@@ -30,6 +30,63 @@ func buildTree(inorder []int, postorder []int) *TreeNode {
 	return r
 }
 
+// 352h Data Stream as Disjoint Intervals
+type SummaryRanges struct {
+	bstVals *TreeNode
+}
+
+func NewSummaryRanges() SummaryRanges { return SummaryRanges{} }
+
+func (o *SummaryRanges) AddNum(value int) { o.bstVals = o.bstVals.Insert352(value) }
+func (o *SummaryRanges) GetIntervals() [][]int {
+	Vs := [][]int{}
+	if o.bstVals == nil {
+		return Vs
+	}
+
+	left, right := -1, -1
+	fnVisit := func(n *TreeNode) {
+		if left == -1 {
+			left, right = n.Val, n.Val
+		} else if right+1 == n.Val {
+			right = n.Val
+		} else {
+			Vs = append(Vs, []int{left, right})
+			left, right = n.Val, n.Val
+		}
+	}
+
+	o.bstVals.InOrder352(fnVisit)
+	Vs = append(Vs, []int{left, right})
+
+	return Vs
+}
+
+func (o *TreeNode) InOrder352(fnVisit func(*TreeNode)) {
+	if o.Left != nil {
+		o.Left.InOrder352(fnVisit)
+	}
+
+	fnVisit(o)
+
+	if o.Right != nil {
+		o.Right.InOrder352(fnVisit)
+	}
+}
+
+func (o *TreeNode) Insert352(v int) *TreeNode {
+	if o == nil {
+		return &TreeNode{Val: v}
+	}
+
+	if v < o.Val {
+		o.Left = o.Left.Insert352(v)
+	} else if v > o.Val {
+		o.Right = o.Right.Insert352(v)
+	}
+	return o
+}
+
 // 1110m Delete Nodes And Return Forest
 func delNodes(root *TreeNode, to_delete []int) []*TreeNode {
 	// 1 <= n.Val, length(to_delete) <= 1000
