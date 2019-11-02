@@ -14,13 +14,33 @@ func Test106(t *testing.T) {
 
 func Test352(t *testing.T) {
 	o := NewSummaryRanges()
-	for _, v := range []int{1, 3, 7, 2, 6} {
+	for _, v := range []int{3, 7, 1, 6, 2} {
 		o.AddNum(v)
 	}
 
 	if !reflect.DeepEqual([][]int{{1, 3}, {6, 7}}, o.GetIntervals()) {
 		t.FailNow()
 	}
+
+	var Draw func(*TreeNode, string, bool)
+	Draw = func(n *TreeNode, indent string, lastOne bool) {
+		if n != nil {
+			fmt.Print(indent)
+			if lastOne {
+				fmt.Print("R-")
+				indent += "  "
+			} else {
+				fmt.Print("L-")
+				indent += "| "
+			}
+
+			fmt.Println(n.Val)
+			Draw(n.Left, indent, false)
+			Draw(n.Right, indent, true)
+		}
+	}
+
+	Draw(o.bstVals, "", true)
 }
 
 // 1110m Delete Nodes And Return Forest
