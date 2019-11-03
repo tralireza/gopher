@@ -841,7 +841,7 @@ func (o *PQ3362) Pop() any {
 
 func maxRemoval(nums []int, queries [][]int) int {
 	slices.SortFunc(queries, func(x, y []int) int { return x[0] - y[0] })
-	log.Print("-> ", queries)
+	log.Print("-> Q ", queries)
 
 	pq := PQ3362{}
 
@@ -865,5 +865,6 @@ func maxRemoval(nums []int, queries [][]int) int {
 		}
 	}
 
+	log.Print("-> PQ ", pq)
 	return pq.Len()
 }

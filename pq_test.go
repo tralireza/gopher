@@ -265,8 +265,10 @@ func Test3362(t *testing.T) {
 		{2, []int{1, 1, 1, 1}, [][]int{{1, 3}, {0, 2}, {1, 3}, {1, 2}}},
 		{-1, []int{1, 2, 3, 4}, [][]int{{0, 3}}},
 	} {
+		log.Print("* ", c.nums)
 		if c.rst != maxRemoval(c.nums, c.queries) {
 			t.FailNow()
 		}
+		log.Print(":: ", c.rst)
 	}
 }
