@@ -826,3 +826,44 @@ func getFinalState(nums []int, k int, multiplier int) []int {
 
 	return nums
 }
+
+// 3362m Zero Array Transformation II
+type PQ3362 struct{ sort.IntSlice }
+
+func (o PQ3362) Less(i, j int) bool { return o.IntSlice[i] > o.IntSlice[j] }
+
+func (o *PQ3362) Push(v any) { o.IntSlice = append(o.IntSlice, v.(int)) }
+func (o *PQ3362) Pop() any {
+	v := o.IntSlice[o.Len()-1]
+	o.IntSlice = o.IntSlice[:o.Len()-1]
+	return v
+}
+
+func maxRemoval(nums []int, queries [][]int) int {
+	slices.SortFunc(queries, func(x, y []int) int { return x[0] - y[0] })
+	log.Print("-> ", queries)
+
+	pq := PQ3362{}
+
+	diff, Diff := 0, make([]int, len(nums)+1)
+	q := 0
+	for i, n := range nums {
+		diff += Diff[i]
+
+		for q < len(queries) && queries[q][0] == i {
+			heap.Push(&pq, queries[q][1])
+			q++
+		}
+
+		for diff < n && pq.Len() > 0 && pq.IntSlice[0] >= i {
+			diff++
+			Diff[heap.Pop(&pq).(int)+1]--
+		}
+
+		if diff < n {
+			return -1
+		}
+	}
+
+	return pq.Len()
+}

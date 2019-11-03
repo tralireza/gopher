@@ -254,3 +254,19 @@ func Test3264(t *testing.T) {
 		})
 	}
 }
+
+func Test3362(t *testing.T) {
+	for _, c := range []struct {
+		rst     int
+		nums    []int
+		queries [][]int
+	}{
+		{1, []int{2, 0, 2}, [][]int{{0, 2}, {0, 2}, {1, 1}}},
+		{2, []int{1, 1, 1, 1}, [][]int{{1, 3}, {0, 2}, {1, 3}, {1, 2}}},
+		{-1, []int{1, 2, 3, 4}, [][]int{{0, 3}}},
+	} {
+		if c.rst != maxRemoval(c.nums, c.queries) {
+			t.FailNow()
+		}
+	}
+}
