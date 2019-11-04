@@ -37,6 +37,33 @@ func Test297(t *testing.T) {
 	}
 
 	log.Printf(":: %q -> %t", treeStr, Check(root, rNew))
+
+	var Draw func(*TreeNode, string, bool)
+	Draw = func(n *TreeNode, indent string, lastOne bool) {
+		if n == nil {
+			return
+		}
+
+		fmt.Print(indent)
+		if lastOne {
+			if indent == "" {
+				fmt.Print("*--")
+			} else {
+				fmt.Print("R--")
+			}
+			indent += "   "
+		} else {
+			fmt.Print("L--")
+			indent += "|  "
+		}
+		fmt.Println(n.Val)
+		Draw(n.Left, indent, false)
+		Draw(n.Right, indent, true)
+	}
+
+	Draw(root, "", true)
+	log.Print("---")
+	Draw(rNew, "", true)
 }
 
 func Test352(t *testing.T) {
