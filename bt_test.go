@@ -17,7 +17,9 @@ func Test297(t *testing.T) {
 
 	o := NewCode297()
 
-	root := &T{1, &T{2, nil, &T{Val: 4}}, &T{3, &T{5, &T{Val: 7}, nil}, &T{Val: 6}}}
+	root := &T{0,
+		&T{1, nil, &T{3, &T{Val: 5}, &T{Val: 6}}},
+		&T{2, &T{5, &T{Val: 7}, nil}, &T{6, nil, &T{Val: 8}}}}
 	treeStr := o.serialize(root)
 	rNew := o.deserialize(treeStr)
 
