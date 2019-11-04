@@ -3,6 +3,7 @@ package gopher
 import (
 	"bytes"
 	"log"
+	"strconv"
 	"strings"
 )
 
@@ -28,6 +29,48 @@ func buildTree(inorder []int, postorder []int) *TreeNode {
 	r.Left = buildTree(inorder[:i], postorder[:i])
 	r.Right = buildTree(inorder[i+1:], postorder[i:len(postorder)-1])
 	return r
+}
+
+// 297h Serialize and Deserialize Binary Tree
+type Code297 struct{}
+
+func NewCode297() Code297 { return Code297{} }
+
+func (o *Code297) serialize(root *TreeNode) string {
+	T := []string{}
+
+	var preOrder func(*TreeNode)
+	preOrder = func(n *TreeNode) {
+		if n == nil {
+			T = append(T, "*")
+		} else {
+			T = append(T, strconv.Itoa(n.Val))
+			preOrder(n.Left)
+			preOrder(n.Right)
+		}
+	}
+
+	preOrder(root)
+	return strings.Join(T, "|")
+}
+
+func (o *Code297) deserialize(data string) *TreeNode {
+	T, t := strings.Split(data, "|"), ""
+
+	var preOrder func() *TreeNode
+	preOrder = func() *TreeNode {
+		t, T = T[0], T[1:]
+		if t == "*" {
+			return nil
+		}
+
+		v, _ := strconv.Atoi(t)
+		n := &TreeNode{Val: v}
+		n.Left, n.Right = preOrder(), preOrder()
+		return n
+	}
+
+	return preOrder()
 }
 
 // 352h Data Stream as Disjoint Intervals

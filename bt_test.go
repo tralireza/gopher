@@ -12,6 +12,33 @@ func Test106(t *testing.T) {
 	log.Print(" ?= ", buildTree([]int{9, 3, 15, 20, 7}, []int{9, 15, 7, 20, 3}))
 }
 
+func Test297(t *testing.T) {
+	type T = TreeNode
+
+	o := NewCode297()
+
+	root := &T{1, &T{2, nil, &T{Val: 4}}, &T{3, &T{5, &T{Val: 7}, nil}, &T{Val: 6}}}
+	treeStr := o.serialize(root)
+	rNew := o.deserialize(treeStr)
+
+	var Check func(t1, t2 *TreeNode) bool
+	Check = func(t1, t2 *TreeNode) bool {
+		if t1 == nil && t2 == nil {
+			return true
+		}
+		if t1 == nil || t2 == nil {
+			return false
+		}
+
+		if t1.Val != t2.Val {
+			return false
+		}
+		return Check(t1.Left, t2.Left) && Check(t1.Right, t2.Right)
+	}
+
+	log.Printf(":: %q -> %t", treeStr, Check(root, rNew))
+}
+
 func Test352(t *testing.T) {
 	o := NewSummaryRanges()
 	for _, v := range []int{3, 7, 1, 6, 2} {
