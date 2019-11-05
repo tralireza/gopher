@@ -32,6 +32,10 @@ func Test335(t *testing.T) {
 		{true, []int{2, 1, 1, 2}},
 		{false, []int{1, 2, 3, 4}},
 		{true, []int{1, 1, 1, 2, 1}},
+
+		{true, []int{1, 1, 2, 1, 1}},
+		{true, []int{1, 1, 2, 2, 1, 1}},
+		{false, []int{3, 3, 3, 2, 1, 1}},
 	} {
 		if c.rst != isSelfCrossing(c.distance) {
 			t.FailNow()
