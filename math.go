@@ -26,6 +26,30 @@ func isPowerOfThree(n int) bool {
 	return p == n
 }
 
+// 335h Self Crossing
+func isSelfCrossing(distance []int) bool {
+	D := distance
+	for i := 3; i < len(D); i++ {
+		if D[i] >= D[i-2] && D[i-3] >= D[i-1] {
+			return true
+		}
+	}
+
+	for i := 4; i < len(D); i++ {
+		if D[i]+D[i-4] >= D[i-2] && D[i-3] == D[i-1] {
+			return true
+		}
+	}
+
+	for i := 5; i < len(D); i++ {
+		if D[i]+D[i-4] >= D[i-2] && D[i-5]+D[i-1] >= D[i-3] && D[i-2] >= D[i-4] && D[i-3] >= D[i-1] {
+			return true
+		}
+	}
+
+	return false
+}
+
 // 342 Power of Four
 func isPowerOfFour(n int) bool {
 	if n == 0 {

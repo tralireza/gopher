@@ -24,6 +24,21 @@ func Test326(t *testing.T) {
 	log.Print("true ? ", isPowerOfThree(1))
 }
 
+func Test335(t *testing.T) {
+	for _, c := range []struct {
+		rst      bool
+		distance []int
+	}{
+		{true, []int{2, 1, 1, 2}},
+		{false, []int{1, 2, 3, 4}},
+		{true, []int{1, 1, 1, 2, 1}},
+	} {
+		if c.rst != isSelfCrossing(c.distance) {
+			t.FailNow()
+		}
+	}
+}
+
 // 342 Power of Four
 func Test342(t *testing.T) {
 	log.Print("true ?= ", isPowerOfFour(16))
