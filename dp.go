@@ -1510,9 +1510,9 @@ func maximumValueSum_3068(nums []int, k int, edges [][]int) int64 {
 		xVal += int64(n)
 	}
 
-	for i := 0; i < len(nums)/2*2; i += 2 {
-		if Diff[i]+Diff[i+1] > 0 {
-			xVal += int64(Diff[i] + Diff[i+1])
+	for i := 1; i < len(nums); i += 2 {
+		if Diff[i-1]+Diff[i] > 0 {
+			xVal += int64(Diff[i-1] + Diff[i])
 		}
 	}
 	return xVal
