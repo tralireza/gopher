@@ -1494,6 +1494,30 @@ func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
 	return Search(0, true, true)
 }
 
+// 3068h Find the Maximum Sum of Node Values
+func maximumValueSum_3068(nums []int, k int, edges [][]int) int64 {
+	Diff := make([]int, len(nums))
+	for i, n := range nums {
+		Diff[i] = n ^ k - n
+	}
+	slices.Sort(Diff)
+	slices.Reverse(Diff)
+
+	log.Print("-> ", Diff)
+
+	xVal := int64(0)
+	for _, n := range nums {
+		xVal += int64(n)
+	}
+
+	for i := 0; i < len(nums)/2*2; i += 2 {
+		if Diff[i]+Diff[i+1] > 0 {
+			xVal += int64(Diff[i] + Diff[i+1])
+		}
+	}
+	return xVal
+}
+
 // 3335m Total Characters in String After Transformations I
 func lengthAfterTransformations(s string, t int) int {
 	const M = 1000_000_007

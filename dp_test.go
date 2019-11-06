@@ -1372,6 +1372,24 @@ func Test2999(t *testing.T) {
 	}
 }
 
+func Test3068(t *testing.T) {
+	for _, c := range []struct {
+		rst   int64
+		nums  []int
+		k     int
+		edges [][]int
+	}{
+		{int64(6), []int{1, 2, 1}, 3, [][]int{{0, 1}, {0, 2}}},
+		{int64(9), []int{2, 3}, 7, [][]int{{0, 1}}},
+		{int64(42), []int{7, 7, 7, 7, 7, 7}, 3, [][]int{{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}}},
+	} {
+		if c.rst != maximumValueSum_3068(c.nums, c.k, c.edges) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test3335(t *testing.T) {
 	for _, c := range []struct {
 		rst int
