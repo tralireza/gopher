@@ -1522,7 +1522,23 @@ func maximumValueSum_3068(nums []int, k int, edges [][]int) int64 {
 
 		return Search(0, 0)
 	}
-	log.Print("-> ", Recursive())
+	log.Print(":: ", Recursive())
+
+	DP := func() int64 {
+		D := make([][2]int64, len(nums)+1)
+		D[len(nums)][0], D[len(nums)][1] = 0, math.MinInt64
+
+		for v := len(nums) - 1; v >= 0; v-- {
+			for xOr := range 2 {
+				D[v][xOr] = max(int64(nums[v])+D[v+1][xOr], int64(nums[v]^k)+D[v+1][xOr^1])
+			}
+		}
+
+		log.Print("-> ", D)
+
+		return D[0][0]
+	}
+	log.Print(":: ", DP())
 
 	Diff := make([]int, len(nums))
 	for i, n := range nums {
