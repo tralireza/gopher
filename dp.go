@@ -1496,6 +1496,34 @@ func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
 
 // 3068h Find the Maximum Sum of Node Values
 func maximumValueSum_3068(nums []int, k int, edges [][]int) int64 {
+	Recursive := func() int64 {
+		M := map[[2]int]int64{}
+		defer log.Print("-> Mem: ", M)
+
+		var Search func(start, xOr int) int64
+		Search = func(start, xOr int) int64 {
+			if start == len(nums) {
+				if xOr&1 == 0 {
+					return 0
+				}
+				return math.MinInt64
+			}
+
+			if v, ok := M[[2]int{start, xOr}]; ok {
+				return v
+			}
+
+			xVal := int64(nums[start]) + Search(start+1, xOr)
+			xVal = max(int64(nums[start]^k)+Search(start+1, xOr^1), xVal)
+
+			M[[2]int{start, xOr}] = xVal
+			return xVal
+		}
+
+		return Search(0, 0)
+	}
+	log.Print("-> ", Recursive())
+
 	Diff := make([]int, len(nums))
 	for i, n := range nums {
 		Diff[i] = n ^ k - n
