@@ -320,6 +320,22 @@ func Test2874(t *testing.T) {
 	}
 }
 
+func Test2942(t *testing.T) {
+	for _, c := range []struct {
+		rst   []int
+		words []string
+		x     byte
+	}{
+		{[]int{0, 1}, []string{"leet", "code"}, 'e'},
+		{[]int{0, 2}, []string{"abc", "bcd", "aaaa", "cbc"}, 'a'},
+		{[]int{}, []string{"abc", "bcd", "aaaa", "cbc"}, 'z'},
+	} {
+		if !reflect.DeepEqual(c.rst, findWordsContaining(c.words, c.x)) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test3169(t *testing.T) {
 	for _, c := range []struct {
 		rst, days int

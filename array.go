@@ -399,6 +399,18 @@ func maximumTripletValueII(nums []int) int64 {
 	return xVal
 }
 
+// 2942 Find Words Containing Character
+func findWordsContaining(words []string, x byte) []int {
+	R := []int{}
+	for i := range words {
+		if bytes.IndexByte([]byte(words[i]), x) != -1 {
+			R = append(R, i)
+		}
+	}
+
+	return R
+}
+
 // 3169m Count Days Without Meetings
 func countDays(days int, meetings [][]int) int {
 	slices.SortFunc(meetings, func(x, y []int) int {
