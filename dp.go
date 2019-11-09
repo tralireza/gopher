@@ -498,6 +498,58 @@ func maxCoins(nums []int) int {
 	return Search(0, len(nums)-1)
 }
 
+// 329h Longest Increasing Path in a Matrix
+func longestIncreasingPath(matrix [][]int) int {
+	D := make([][]int, len(matrix))
+	for r := range D {
+		D[r] = make([]int, len(matrix[r]))
+	}
+
+	var DFS func(r, c int)
+	DFS = func(r, c int) {
+		log.Printf("-> (%d %d)", r, c)
+
+		if D[r][c] > 0 {
+			return
+		}
+
+		v, steps := matrix[r][c], 1
+		D[r][c] = 1
+
+		Dirs := []int{-1, 0, 1, 0, -1}
+		for d := range 4 {
+			r, c := r+Dirs[d], c+Dirs[d+1]
+			if 0 <= r && r < len(matrix) && 0 <= c && c < len(matrix[r]) && matrix[r][c] > v {
+				log.Printf("-> . (%d %d)", r, c)
+
+				if D[r][c] == 0 {
+					DFS(r, c)
+				}
+
+				steps = max(D[r][c]+1, steps)
+			}
+		}
+
+		D[r][c] = steps
+	}
+
+	for r := range matrix {
+		for c := range matrix[r] {
+			if D[r][c] == 0 {
+				DFS(r, c)
+			}
+		}
+	}
+
+	log.Print("-> ", D)
+
+	lPath := 0
+	for _, row := range D {
+		lPath = max(slices.Max(row), lPath)
+	}
+	return lPath
+}
+
 // 368m Largest Divisible Subset
 func largestDivisibleSubset(nums []int) []int {
 	slices.Sort(nums)

@@ -376,6 +376,22 @@ func Test312(t *testing.T) {
 	}
 }
 
+func Test329(t *testing.T) {
+	for _, c := range []struct {
+		rst    int
+		matrix [][]int
+	}{
+		{4, [][]int{{9, 9, 4}, {6, 6, 8}, {2, 1, 1}}},
+		{4, [][]int{{3, 4, 5}, {3, 2, 6}, {2, 2, 1}}},
+		{1, [][]int{{1}}},
+	} {
+		log.Print("* ", c.matrix)
+		if c.rst != longestIncreasingPath(c.matrix) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test368(t *testing.T) {
 	for _, c := range []struct {
 		rst, nums []int
@@ -395,6 +411,7 @@ func Test368(t *testing.T) {
 		log.Printf(":: %v   <- %v", c.rst, c.nums)
 	}
 }
+
 func Test377(t *testing.T) {
 	for _, c := range []struct {
 		rst    int
