@@ -379,7 +379,6 @@ func restoreMatrix(rowSum []int, colSum []int) [][]int {
 func longestPalindrome(words []string) int {
 	Hashing := func() int {
 		F := [26][26]int{}
-
 		for _, w := range words {
 			F[w[0]-'a'][w[1]-'a']++
 		}
@@ -388,8 +387,8 @@ func longestPalindrome(words []string) int {
 		lMax, extraAdds := 0, 0
 		for i := range 26 {
 			for j := range 26 {
-				switch i == j {
-				case true:
+				switch i {
+				case j:
 					switch F[i][i] & 1 {
 					case 1:
 						extraAdds = 2
