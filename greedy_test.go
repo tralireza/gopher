@@ -173,6 +173,21 @@ func Test1605(t *testing.T) {
 	}
 }
 
+func Test2131(t *testing.T) {
+	for _, c := range []struct {
+		rst   int
+		words []string
+	}{
+		{6, []string{"lc", "cl", "gg"}},
+		{8, []string{"ab", "ty", "yt", "lc", "cl", "ab"}},
+		{2, []string{"cc", "ll", "xx"}},
+	} {
+		if c.rst != longestPalindrome(c.words) {
+			t.FailNow()
+		}
+	}
+}
+
 // 2202m Maximize the Topmost Element After K Moves
 func Test2202(t *testing.T) {
 	log.Print("5 ?= ", maximumTop([]int{5, 2, 2, 4, 0, 6}, 4))
