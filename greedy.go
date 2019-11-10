@@ -377,6 +377,36 @@ func restoreMatrix(rowSum []int, colSum []int) [][]int {
 
 // 2131m Longest Palindrome by Concatenating Two Letter Words
 func longestPalindrome(words []string) int {
+	Hashing := func() int {
+		F := [26][26]int{}
+
+		for _, w := range words {
+			F[w[0]-'a'][w[1]-'a']++
+		}
+		log.Print("-> ", F)
+
+		lMax, extraAdds := 0, 0
+		for i := range 26 {
+			for j := range 26 {
+				switch i == j {
+				case true:
+					switch F[i][i] & 1 {
+					case 1:
+						extraAdds = 2
+						lMax += F[i][i] - 1
+					default:
+						lMax += F[i][i]
+					}
+				default:
+					lMax += min(F[i][j], F[j][i])
+				}
+			}
+		}
+
+		return lMax<<1 + extraAdds
+	}
+	log.Print(":: ", Hashing())
+
 	M := map[string]int{}
 	for _, word := range words {
 		M[word]++
