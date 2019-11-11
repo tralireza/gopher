@@ -103,6 +103,145 @@ func findWords(board [][]byte, words []string) []string {
 	return R
 }
 
+// 336h Palindrome Pairs
+type Trie336 struct {
+	I     []int
+	Child [26]*Trie336
+}
+
+func (o Trie336) String() string {
+	bfr := slices.Repeat([]byte{'-'}, 26)
+	for i, c := range o.Child {
+		if c != nil {
+			bfr[i] = 'a' + byte(i)
+		}
+	}
+	return fmt.Sprintf("{%s %v}", string(bfr), o.I)
+}
+
+func (o *Trie336) Add(w string, p int) {
+	n := o
+	for i := 0; i < len(w); i++ {
+		c := n.Child[w[i]-'a']
+		if c == nil {
+			c = &Trie336{}
+			n.Child[w[i]-'a'] = c
+		}
+		n = c
+	}
+	n.I = append(n.I, p)
+}
+
+func (o *Trie336) Search(char byte) ([]int, *Trie336) {
+	n := o
+	c := n.Child[char-'a']
+	if c == nil {
+		return []int{}, nil
+	}
+	n = c
+	return n.I, n
+}
+
+func (o *Trie336) AllPrefix() []int {
+	n := o
+	Is := []int{}
+
+	var Lookup func(*Trie336)
+	Lookup = func(n *Trie336) {
+		for _, c := range n.Child {
+			if c != nil {
+				Is = append(Is, c.I...)
+				Lookup(c)
+			}
+		}
+	}
+	Lookup(n)
+
+	return Is
+}
+
+func palindromePairs(words []string) [][]int {
+	trie := &Trie336{}
+
+	for i, w := range words {
+		bfr := []byte(w)
+		slices.Reverse(bfr)
+		trie.Add(string(bfr), i)
+	}
+
+	R := [][]int{}
+
+NEXT_WORD:
+	for i, w := range words {
+		if len(trie.I) > 0 {
+			pdmValid := true
+			for x, y := 0, len(w)-1; x < y && pdmValid; x, y = x+1, y-1 {
+				if w[x] != w[y] {
+					pdmValid = false
+				}
+			}
+			if pdmValid {
+				for _, j := range trie.I {
+					if i != j {
+						R = append(R, []int{i, j})
+					}
+				}
+			}
+		}
+
+		n := trie
+		for p := 0; p < len(w); p++ {
+			jArr, fNode := n.Search(w[p])
+
+			if fNode == nil {
+				continue NEXT_WORD
+			}
+
+			n = fNode
+			if len(jArr) == 0 {
+				continue
+			}
+
+			pdmValid := true
+			for x, y := p+1, len(w)-1; x < y && pdmValid; x, y = x+1, y-1 {
+				if w[x] != w[y] {
+					pdmValid = false
+				}
+			}
+			if pdmValid {
+				for _, j := range jArr {
+					if i != j {
+						R = append(R, []int{i, j})
+					}
+				}
+			}
+		}
+
+		jArr := n.AllPrefix()
+		if len(jArr) > 0 {
+			for _, j := range jArr {
+				if len(words[j]) <= len(w) {
+					continue
+				}
+
+				pdmValid := true
+				for x, y := 0, len(words[j])-len(w)-1; x < y && pdmValid; x, y = x+1, y-1 {
+					if words[j][x] != words[j][y] {
+						pdmValid = false
+					}
+				}
+				if pdmValid {
+					R = append(R, []int{i, j})
+				}
+			}
+		}
+	}
+
+	log.Printf(":: %v %v", trie, R)
+
+	return R
+}
+
 // 440h K-th Smallest in Lexicographical Order
 func findKthNumber(n int, k int) int {
 	v := 1

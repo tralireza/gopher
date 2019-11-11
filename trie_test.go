@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"strconv"
 	"strings"
 	"testing"
@@ -11,6 +12,25 @@ import (
 func Test212(t *testing.T) {
 	log.Printf(`["oath" "eat"] ?= %q`, findWords([][]byte{{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}}, []string{"oath", "pea", "eat", "rain"}))
 	log.Printf(`[] ?= %q`, findWords([][]byte{{'a', 'b'}, {'c', 'd'}}, []string{"abcd"}))
+}
+
+func Test336(t *testing.T) {
+	for _, c := range []struct {
+		rst   [][]int
+		words []string
+	}{
+		{[][]int{{0, 1}, {1, 0}, {2, 4}, {3, 2}}, []string{"abcd", "dcba", "lls", "s", "sssll"}},
+		{[][]int{{0, 1}, {1, 0}}, []string{"bat", "tab", "cat"}},
+		{[][]int{{0, 1}, {1, 0}}, []string{"a", ""}},
+
+		{[][]int{{0, 3}, {2, 3}, {3, 0}, {3, 2}}, []string{"a", "abc", "aba", ""}},
+		{[][]int{{0, 1}, {0, 2}, {1, 0}, {1, 2}, {2, 0}, {2, 1}}, []string{"a", "aa", "aaa"}},
+	} {
+		log.Printf("* %q", c.words)
+		if !reflect.DeepEqual(palindromePairs(c.words), c.rst) {
+			t.FailNow()
+		}
+	}
 }
 
 // 440h K-th Smallest in Lexicographical Order
