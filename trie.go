@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"slices"
 	"strings"
@@ -109,16 +110,6 @@ type Trie336 struct {
 	Child [26]*Trie336
 }
 
-func (o Trie336) String() string {
-	bfr := slices.Repeat([]byte{'-'}, 26)
-	for i, c := range o.Child {
-		if c != nil {
-			bfr[i] = 'a' + byte(i)
-		}
-	}
-	return fmt.Sprintf("{%s %v}", string(bfr), o.I)
-}
-
 func (o *Trie336) Add(w string, p int) {
 	n := o
 	for i := 0; i < len(w); i++ {
@@ -158,6 +149,29 @@ func (o *Trie336) AllPrefix() []int {
 	Lookup(n)
 
 	return Is
+}
+
+func (o *Trie336) Draw(indent string, chr byte, lastOne bool) {
+	fmt.Printf("%s'%c': %v\n", indent, chr, o)
+
+	if lastOne {
+		indent += "   "
+	} else {
+		indent += "|  "
+	}
+
+	count := 0
+	for _, c := range o.Child {
+		if c != nil {
+			count++
+		}
+	}
+	for i, c := range o.Child {
+		if c != nil {
+			count--
+			c.Draw(indent, byte(i)+'a', count == 0)
+		}
+	}
 }
 
 func palindromePairs(words []string) [][]int {
@@ -237,7 +251,8 @@ NEXT_WORD:
 		}
 	}
 
-	log.Printf(":: %v %v", trie, R)
+	log.Printf(":: %v", R)
+	trie.Draw("", '*', true)
 
 	return R
 }

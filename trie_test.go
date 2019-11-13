@@ -1,8 +1,10 @@
 package gopher
 
 import (
+	"fmt"
 	"log"
 	"reflect"
+	"slices"
 	"strconv"
 	"strings"
 	"testing"
@@ -12,6 +14,16 @@ import (
 func Test212(t *testing.T) {
 	log.Printf(`["oath" "eat"] ?= %q`, findWords([][]byte{{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}}, []string{"oath", "pea", "eat", "rain"}))
 	log.Printf(`[] ?= %q`, findWords([][]byte{{'a', 'b'}, {'c', 'd'}}, []string{"abcd"}))
+}
+
+func (o Trie336) String() string {
+	bfr := slices.Repeat([]byte{'-'}, 26)
+	for i, c := range o.Child {
+		if c != nil {
+			bfr[i] = 'a' + byte(i)
+		}
+	}
+	return fmt.Sprintf("{%s %v}", string(bfr), o.I)
 }
 
 func Test336(t *testing.T) {
