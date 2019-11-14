@@ -183,18 +183,21 @@ func palindromePairs(words []string) [][]int {
 		trie.Add(string(bfr), i)
 	}
 
+	IsPalindrome := func(w string) bool {
+		for l, r := 0, len(w)-1; l < r; l, r = l+1, r-1 {
+			if w[l] != w[r] {
+				return false
+			}
+		}
+		return true
+	}
+
 	R := [][]int{}
 
 NEXT_WORD:
 	for i, w := range words {
 		if len(trie.I) > 0 {
-			pdmValid := true
-			for x, y := 0, len(w)-1; x < y && pdmValid; x, y = x+1, y-1 {
-				if w[x] != w[y] {
-					pdmValid = false
-				}
-			}
-			if pdmValid {
+			if IsPalindrome(w) {
 				for _, j := range trie.I {
 					if i != j {
 						R = append(R, []int{i, j})
@@ -216,13 +219,7 @@ NEXT_WORD:
 				continue
 			}
 
-			pdmValid := true
-			for x, y := p+1, len(w)-1; x < y && pdmValid; x, y = x+1, y-1 {
-				if w[x] != w[y] {
-					pdmValid = false
-				}
-			}
-			if pdmValid {
+			if IsPalindrome(w[p+1:]) {
 				for _, j := range jArr {
 					if i != j {
 						R = append(R, []int{i, j})
@@ -238,13 +235,7 @@ NEXT_WORD:
 					continue
 				}
 
-				pdmValid := true
-				for x, y := 0, len(words[j])-len(w)-1; x < y && pdmValid; x, y = x+1, y-1 {
-					if words[j][x] != words[j][y] {
-						pdmValid = false
-					}
-				}
-				if pdmValid {
+				if IsPalindrome(words[j][:len(words[j])-len(w)]) {
 					R = append(R, []int{i, j})
 				}
 			}
