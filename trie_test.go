@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"fmt"
+	"iter"
 	"log"
 	"reflect"
 	"slices"
@@ -26,7 +27,52 @@ func (o Trie336) String() string {
 	return fmt.Sprintf("{%s %v}", string(bfr), o.I)
 }
 
+func Keys336[Map ~map[[2]int]V, V any](m Map) iter.Seq[[]int] {
+	return func(yield func([]int) bool) {
+		for k := range m {
+			if !yield([]int{k[0], k[1]}) {
+				return
+			}
+		}
+	}
+}
+
 func Test336(t *testing.T) {
+	Hashing := func(words []string) [][]int {
+		H := map[string]int{}
+		for j, w := range words {
+			bfr := []byte(w)
+			slices.Reverse(bfr)
+			H[string(bfr)] = j
+		}
+
+		IsPalindrome := func(w string) bool {
+			for l, r := 0, len(w)-1; l < r; l, r = l+1, r-1 {
+				if w[l] != w[r] {
+					return false
+				}
+			}
+			return true
+		}
+
+		M := map[[2]int]struct{}{}
+		for i, word := range words {
+			for p := 0; p <= len(word); p++ {
+				w := word[:p]
+				if j, ok := H[w]; ok && j != i && IsPalindrome(word[p:]) {
+					M[[2]int{i, j}] = struct{}{}
+				}
+
+				v := word[len(word)-p:]
+				if j, ok := H[v]; ok && j != i && IsPalindrome(word[:len(word)-p]) {
+					M[[2]int{j, i}] = struct{}{}
+				}
+			}
+		}
+
+		return slices.Collect(Keys336(M))
+	}
+
 	for _, c := range []struct {
 		rst   [][]int
 		words []string
@@ -42,6 +88,8 @@ func Test336(t *testing.T) {
 		if !reflect.DeepEqual(palindromePairs(c.words), c.rst) {
 			t.FailNow()
 		}
+
+		log.Print(":: ", Hashing(c.words))
 	}
 }
 
