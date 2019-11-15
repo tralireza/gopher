@@ -70,6 +70,8 @@ func Test336(t *testing.T) {
 			}
 		}
 
+		log.Print("-> ", H)
+
 		return slices.Collect(Keys336(M))
 	}
 
