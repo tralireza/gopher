@@ -1190,6 +1190,22 @@ func Test1749(t *testing.T) {
 	}
 }
 
+func Test1857(t *testing.T) {
+	for _, c := range []struct {
+		rst    int
+		colors string
+		edges  [][]int
+	}{
+		{3, "abaca", [][]int{{0, 1}, {0, 2}, {2, 3}, {3, 4}}},
+		{-1, "a", [][]int{{0, 0}}},
+	} {
+		if c.rst != largestPathValue(c.colors, c.edges) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1931(t *testing.T) {
 	for _, c := range []struct {
 		rst, m, n int

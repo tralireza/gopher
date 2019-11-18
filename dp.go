@@ -1206,6 +1206,68 @@ func maxAbsoluteSum(nums []int) int {
 	return xVal
 }
 
+// 1857h Largest Color Value in a Directed Graph
+func largestPathValue(colors string, edges [][]int) int {
+	gAdj := map[int][]int{}
+	for _, edge := range edges {
+		gAdj[edge[0]] = append(gAdj[edge[0]], edge[1])
+	}
+	log.Print("-> ", gAdj)
+
+	D := make([][26]int, len(colors))
+
+	type OpColor int
+	const (
+		NotVisited OpColor = iota
+		Visiting
+		Visited
+	)
+
+	Coloring := make([]OpColor, len(colors))
+
+	var Search func(int) bool
+	Search = func(v int) bool {
+		if Coloring[v] != NotVisited {
+			return true
+		}
+
+		Coloring[v] = Visiting
+
+		for _, u := range gAdj[v] {
+			switch Coloring[u] {
+			case Visiting:
+				return true
+			case NotVisited:
+				if Search(u) {
+					return true
+				}
+			}
+
+			for color := range 26 {
+				D[v][color] = max(D[v][color], D[u][color])
+			}
+		}
+
+		D[v][colors[v]-'a']++
+		Coloring[v] = Visited
+		return false
+	}
+
+	for src := range len(colors) {
+		if Coloring[src] == NotVisited {
+			if Search(src) {
+				return -1
+			}
+		}
+	}
+
+	lMax := 0
+	for r := range D {
+		lMax = max(slices.Max(D[r][:]), lMax)
+	}
+	return lMax
+}
+
 // 1931m Painting a Grid With Three Different Colors
 func colorTheGrid(m int, n int) int {
 	Masks := map[int][]int{}
