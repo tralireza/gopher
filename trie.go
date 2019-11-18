@@ -157,7 +157,7 @@ func (o *Trie336) Draw(indent string, chr byte, lastOne bool) {
 	if lastOne {
 		indent += "   "
 	} else {
-		indent += "|  "
+		indent += " | "
 	}
 
 	count := 0
