@@ -1261,6 +1261,8 @@ func largestPathValue(colors string, edges [][]int) int {
 		}
 	}
 
+	log.Print("-> ", D)
+
 	lMax := 0
 	for r := range D {
 		lMax = max(slices.Max(D[r][:]), lMax)

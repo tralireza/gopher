@@ -1198,6 +1198,9 @@ func Test1857(t *testing.T) {
 	}{
 		{3, "abaca", [][]int{{0, 1}, {0, 2}, {2, 3}, {3, 4}}},
 		{-1, "a", [][]int{{0, 0}}},
+
+		{1, "a", [][]int{}},
+		{1, "abz", [][]int{}},
 	} {
 		if c.rst != largestPathValue(c.colors, c.edges) {
 			t.FailNow()
