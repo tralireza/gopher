@@ -2,6 +2,7 @@
 package gopher
 
 import (
+	"bytes"
 	"log"
 	"slices"
 )
