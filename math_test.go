@@ -220,6 +220,20 @@ func Test2843(t *testing.T) {
 	}
 }
 
+func Test2894(t *testing.T) {
+	for _, c := range []struct {
+		rst, n, m int
+	}{
+		{19, 10, 3},
+		{15, 5, 6},
+		{-15, 5, 1},
+	} {
+		if c.rst != differenceOfSums(c.n, c.m) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test3024(t *testing.T) {
 	for _, c := range []struct {
 		rst  string

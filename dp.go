@@ -1214,6 +1214,62 @@ func largestPathValue(colors string, edges [][]int) int {
 	}
 	log.Print("-> ", gAdj)
 
+	DP := func() int {
+		rgAdj := map[int][]int{}
+		for _, edge := range edges {
+			rgAdj[edge[1]] = append(rgAdj[edge[1]], edge[0])
+		}
+
+		gD := make([]int, len(colors))
+		for _, Nls := range rgAdj {
+			for _, u := range Nls {
+				gD[u]++
+			}
+		}
+
+		D := make([][26]int, len(colors))
+
+		Kahn := []int{}
+		for v := range gD {
+			if gD[v] == 0 {
+				Kahn = append(Kahn, v)
+
+				D[v][colors[v]-'a'] = 1
+			}
+		}
+
+		var v int
+		for len(Kahn) > 0 {
+			log.Print("-> G Deg(in): ", Kahn, gD)
+
+			v, Kahn = Kahn[0], Kahn[1:]
+			for _, u := range rgAdj[v] {
+				gD[u]--
+
+				for color := range 26 {
+					D[u][color] = max(D[u][color], D[v][color])
+				}
+
+				if gD[u] == 0 {
+					Kahn = append(Kahn, u)
+
+					D[u][colors[u]-'a']++
+				}
+			}
+		}
+
+		if slices.Max(gD) > 0 {
+			return -1
+		}
+
+		lMax := 0
+		for _, colors := range D {
+			lMax = max(slices.Max(colors[:]), lMax)
+		}
+		return lMax
+	}
+	log.Print(":: Kahn's Topological Sort: ", DP())
+
 	D := make([][26]int, len(colors))
 
 	type OpColor int

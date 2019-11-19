@@ -429,6 +429,17 @@ func countSymmetricIntegers(low int, high int) int {
 	return count
 }
 
+// 2894 Divisible and Non-divisible Sums Difference
+func differenceOfSums(n int, m int) int {
+	nSum := 0
+	for v := range n {
+		if (v+1)%m != 0 {
+			nSum += v + 1
+		}
+	}
+	return 2*nSum - n*(n+1)/2
+}
+
 // 3024 Type of Triangle
 func triangleType(nums []int) string {
 	slices.Sort(nums)
