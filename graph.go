@@ -1658,3 +1658,78 @@ func minTimeToReachII(moveTime [][]int) int {
 
 	return -1
 }
+
+// 3372m Maximize the Number of Target Nodes After Connecting Trees I
+func maxTargetNodes(edges1 [][]int, edges2 [][]int, k int) []int {
+	MkTree := func(edges [][]int) [][]int {
+		T := make([][]int, len(edges)+1)
+		for _, edge := range edges {
+			v, u := edge[0], edge[1]
+			T[v], T[u] = append(T[v], u), append(T[u], v)
+		}
+
+		return T
+	}
+
+	T1, T2 := MkTree(edges1), MkTree(edges2)
+
+	log.Print("-> ", T1)
+	log.Print("-> ", T2)
+
+	var Search func(v, p, k int, T [][]int, Dist []int)
+	Search = func(v, p, k int, T [][]int, Dist []int) {
+		for _, u := range T[v] {
+			if u != p {
+				Dist[u] = Dist[v] + 1
+				if Dist[u] < k {
+					Search(u, v, k, T, Dist)
+				}
+			}
+		}
+	}
+
+	Trg := []int{}
+	for src := range T2 {
+		Dist := make([]int, len(T2))
+		for v := range Dist {
+			Dist[v] = math.MaxInt
+		}
+
+		Dist[src] = 0
+		Search(src, math.MaxInt, k-1, T2, Dist)
+
+		count := 0
+		for _, d := range Dist {
+			if d <= k-1 {
+				count++
+			}
+		}
+		Trg = append(Trg, count)
+	}
+	log.Print("-> ", Trg)
+
+	R := []int{}
+	xtrg := slices.Max(Trg)
+
+	for src := range T1 {
+		Dist := make([]int, len(T1))
+		for v := range Dist {
+			Dist[v] = math.MaxInt
+		}
+
+		Dist[src] = 0
+		Search(src, math.MaxInt, k, T1, Dist)
+
+		count := 0
+		for _, d := range Dist {
+			if d <= k {
+				count++
+			}
+		}
+		R = append(R, count+xtrg)
+	}
+
+	log.Print(":: ", R)
+
+	return R
+}

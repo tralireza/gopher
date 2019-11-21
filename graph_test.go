@@ -1077,3 +1077,29 @@ func Test3342(t *testing.T) {
 		}
 	}
 }
+
+func Test3372(t *testing.T) {
+	for _, c := range []struct {
+		rst            []int
+		edges1, edges2 [][]int
+		k              int
+	}{
+		{
+			[]int{9, 7, 9, 8, 8},
+			[][]int{{0, 1}, {0, 2}, {2, 3}, {2, 4}},
+			[][]int{{0, 1}, {0, 2}, {0, 3}, {2, 7}, {1, 4}, {4, 5}, {4, 6}},
+			2,
+		},
+		{
+			[]int{6, 3, 3, 3, 3},
+			[][]int{{0, 1}, {0, 2}, {0, 3}, {0, 4}},
+			[][]int{{0, 1}, {1, 2}, {2, 3}},
+			1,
+		},
+	} {
+		log.Print("* ", c.k)
+		if !reflect.DeepEqual(c.rst, maxTargetNodes(c.edges1, c.edges2, c.k)) {
+			t.FailNow()
+		}
+	}
+}
