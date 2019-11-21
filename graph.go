@@ -1688,48 +1688,35 @@ func maxTargetNodes(edges1 [][]int, edges2 [][]int, k int) []int {
 		}
 	}
 
-	Trg := []int{}
-	for src := range T2 {
-		Dist := make([]int, len(T2))
-		for v := range Dist {
-			Dist[v] = math.MaxInt
-		}
+	K := []int{k - 1, k}
+	var Trg []int
 
-		Dist[src] = 0
-		Search(src, math.MaxInt, k-1, T2, Dist)
+	xtrg := 0
+	for i, T := range [][][]int{T2, T1} {
+		k := K[i]
 
-		count := 0
-		for _, d := range Dist {
-			if d <= k-1 {
-				count++
+		Trg = []int{}
+		for src := range T {
+			Dist := make([]int, len(T))
+			for v := range Dist {
+				Dist[v] = math.MaxInt
 			}
-		}
-		Trg = append(Trg, count)
-	}
-	log.Print("-> ", Trg)
 
-	R := []int{}
-	xtrg := slices.Max(Trg)
+			Dist[src] = 0
+			Search(src, math.MaxInt, k, T, Dist)
 
-	for src := range T1 {
-		Dist := make([]int, len(T1))
-		for v := range Dist {
-			Dist[v] = math.MaxInt
-		}
-
-		Dist[src] = 0
-		Search(src, math.MaxInt, k, T1, Dist)
-
-		count := 0
-		for _, d := range Dist {
-			if d <= k {
-				count++
+			count := 0
+			for _, d := range Dist {
+				if d <= k {
+					count++
+				}
 			}
+			Trg = append(Trg, count+xtrg)
 		}
-		R = append(R, count+xtrg)
+		xtrg = slices.Max(Trg)
+
+		log.Printf("-> k: %d => %v", k, Trg)
 	}
 
-	log.Print(":: ", R)
-
-	return R
+	return Trg
 }
