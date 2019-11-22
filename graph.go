@@ -1726,6 +1726,42 @@ func maxTargetNodesII(edges1 [][]int, edges2 [][]int) []int {
 	log.Print("-> ", T1)
 	log.Print("-> ", T2)
 
+	var NodeColor func(v, p, depth int, Color []int, Tree [][]int)
+	NodeColor = func(v, p, depth int, Color []int, Tree [][]int) {
+		Color[v] = depth & 1
+		for _, u := range Tree[v] {
+			if u != p {
+				NodeColor(u, v, depth+1, Color, Tree)
+			}
+		}
+	}
+
+	Color1, Color2 := make([]int, len(T1)), make([]int, len(T2))
+	NodeColor(0, math.MaxInt, 0, Color1, T1)
+	NodeColor(0, math.MaxInt, 0, Color2, T2)
+
+	log.Print("-> Tree Color (1): ", Color1)
+	log.Print("-> Tree Color (2): ", Color2)
+
+	Count1 := [2]int{}
+	for _, color := range Color1 {
+		Count1[0] += color
+		Count1[1] += color ^ 1
+	}
+
+	Count2 := [2]int{}
+	for _, color := range Color2 {
+		Count2[0] += color
+		Count2[1] += color ^ 1
+	}
+
+	Vals := []int{}
+	for v := range T1 {
+		Vals = append(Vals, Count1[Color1[v]^1]+max(Count2[0], Count2[1]))
+	}
+
+	log.Print(":: ", Vals)
+
 	Search := func(src, parity int, Tree [][]int) int {
 		Q := list.New()
 		Q.PushBack([3]int{src, math.MaxInt, parity})
@@ -1767,6 +1803,8 @@ func maxTargetNodesII(edges1 [][]int, edges2 [][]int) []int {
 	for _, even := range Evens {
 		R = append(R, even+xOdd)
 	}
+
+	log.Print(":: (TLE) ", R)
 
 	return R
 }
