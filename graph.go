@@ -1667,7 +1667,6 @@ func maxTargetNodes(edges1 [][]int, edges2 [][]int, k int) []int {
 			v, u := edge[0], edge[1]
 			T[v], T[u] = append(T[v], u), append(T[u], v)
 		}
-
 		return T
 	}
 
@@ -1709,4 +1708,65 @@ func maxTargetNodes(edges1 [][]int, edges2 [][]int, k int) []int {
 	}
 
 	return Trg
+}
+
+// 3373h Maximize the Number of Target Nodes After Connecting Trees II
+func maxTargetNodesII(edges1 [][]int, edges2 [][]int) []int {
+	MkTree := func(edges [][]int) [][]int {
+		T := make([][]int, len(edges)+1)
+		for _, edge := range edges {
+			v, u := edge[0], edge[1]
+			T[v], T[u] = append(T[v], u), append(T[u], v)
+		}
+		return T
+	}
+
+	T1, T2 := MkTree(edges1), MkTree(edges2)
+
+	log.Print("-> ", T1)
+	log.Print("-> ", T2)
+
+	Search := func(src, parity int, Tree [][]int) int {
+		Q := list.New()
+		Q.PushBack([3]int{src, math.MaxInt, parity})
+
+		count := 0
+
+		for Q.Len() > 0 {
+			q := Q.Remove(Q.Front()).([3]int)
+			v, p, parity := q[0], q[1], q[2]
+
+			if parity&1 == 0 {
+				count++
+			}
+
+			for _, u := range Tree[v] {
+				if u != p {
+					Q.PushBack([3]int{u, v, parity ^ 1})
+				}
+			}
+		}
+
+		return count
+	}
+
+	Evens := []int{}
+	for src := range len(T1) {
+		Evens = append(Evens, Search(src, 0, T1))
+	}
+	log.Print("-> ", Evens)
+
+	Odds := []int{}
+	for src := range len(T2) {
+		Odds = append(Odds, Search(src, 1, T2))
+	}
+	log.Print("-> ", Odds)
+	xOdd := slices.Max(Odds)
+
+	R := []int{}
+	for _, even := range Evens {
+		R = append(R, even+xOdd)
+	}
+
+	return R
 }
