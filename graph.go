@@ -1746,14 +1746,14 @@ func maxTargetNodesII(edges1 [][]int, edges2 [][]int) []int {
 	Count1 := [2]int{}
 	for _, color := range Color1 {
 		Count1[0] += color
-		Count1[1] += color ^ 1
 	}
+	Count1[1] = len(Color1) - Count1[0]
 
 	Count2 := [2]int{}
 	for _, color := range Color2 {
 		Count2[0] += color
-		Count2[1] += color ^ 1
 	}
+	Count2[1] = len(Color2) - Count2[0]
 
 	Vals := []int{}
 	for v := range T1 {
