@@ -1676,16 +1676,16 @@ func maxTargetNodes(edges1 [][]int, edges2 [][]int, k int) []int {
 	log.Print("-> ", T1)
 	log.Print("-> ", T2)
 
-	var Search func(v, p, k int, T [][]int) int
-	Search = func(v, p, k int, T [][]int) int {
+	var Search func(v, p, k int, Tree [][]int) int
+	Search = func(v, p, k int, Tree [][]int) int {
 		if k < 0 {
 			return 0
 		}
 
 		count := 1
-		for _, u := range T[v] {
+		for _, u := range Tree[v] {
 			if u != p {
-				count += Search(u, v, k-1, T)
+				count += Search(u, v, k-1, Tree)
 			}
 		}
 		return count
