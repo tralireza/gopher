@@ -704,6 +704,7 @@ func Test2359(t *testing.T) {
 		{2, []int{1, 2, -1}, 0, 2},
 
 		{0, []int{1, 0}, 1, 0},
+		{4, []int{4, 3, 0, 5, 3, -1}, 4, 0},
 	} {
 		log.Print("* ", c.edges)
 		if c.rst != closestMeetingNode(c.edges, c.node1, c.node2) {

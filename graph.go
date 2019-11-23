@@ -1141,18 +1141,36 @@ func closestMeetingNode(edges []int, node1 int, node2 int) int {
 		D1[v], D2[v] = math.MaxInt, math.MaxInt
 	}
 
-	var Distances func(int, []int)
-	Distances = func(v int, D []int) {
+	var DFS func(int, []int)
+	DFS = func(v int, D []int) {
 		u := edges[v]
 		if u != -1 && D[u] == math.MaxInt {
 			D[u] = D[v] + 1
-			Distances(u, D)
+			DFS(u, D)
+		}
+	}
+
+	BFS := func(src int, D []int) {
+		Q := []int{}
+
+		v := src
+		Q = append(Q, v)
+
+		for len(Q) > 0 {
+			v, Q = Q[0], Q[1:]
+
+			u := edges[v]
+			if u != -1 && D[u] == math.MaxInt {
+				D[u] = D[v] + 1
+				Q = append(Q, u)
+			}
 		}
 	}
 
 	D1[node1], D2[node2] = 0, 0
-	Distances(node1, D1)
-	Distances(node2, D2)
+
+	DFS(node1, D1)
+	BFS(node2, D2)
 
 	log.Printf("-> %d ~ %v", node1, D1)
 	log.Printf("-> %d ~ %v", node2, D2)
