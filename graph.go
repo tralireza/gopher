@@ -1134,6 +1134,39 @@ func maximumInvitations(favorite []int) int {
 	return max(longestCycle, twoCycles)
 }
 
+// 2359m Find Closest Node to Given Two Nodes
+func closestMeetingNode(edges []int, node1 int, node2 int) int {
+	D1, D2 := make([]int, len(edges)), make([]int, len(edges))
+	for v := range len(edges) {
+		D1[v], D2[v] = math.MaxInt, math.MaxInt
+	}
+
+	var Distances func(int, []int)
+	Distances = func(v int, D []int) {
+		u := edges[v]
+		if u != -1 && D[u] == math.MaxInt {
+			D[u] = D[v] + 1
+			Distances(u, D)
+		}
+	}
+
+	D1[node1], D2[node2] = 0, 0
+	Distances(node1, D1)
+	Distances(node2, D2)
+
+	log.Printf("-> %d ~ %v", node1, D1)
+	log.Printf("-> %d ~ %v", node2, D2)
+
+	mNode, mDist := -1, math.MaxInt
+	for v := range len(edges) {
+		if mDist > max(D1[v], D2[v]) {
+			mNode, mDist = v, max(D1[v], D2[v])
+		}
+	}
+
+	return mNode
+}
+
 // 2392h Build a Matrix With Conditions
 func buildMatrix(k int, rowConditions [][]int, colConditions [][]int) [][]int {
 	TopoSort := func(edges [][]int) []int {

@@ -694,6 +694,24 @@ func Test2127(t *testing.T) {
 	log.Print("4 ?= ", maximumInvitations([]int{3, 0, 1, 4, 1}))
 }
 
+func Test2359(t *testing.T) {
+	for _, c := range []struct {
+		rst          int
+		edges        []int
+		node1, node2 int
+	}{
+		{2, []int{2, 2, 3, -1}, 0, 1},
+		{2, []int{1, 2, -1}, 0, 2},
+
+		{0, []int{1, 0}, 1, 0},
+	} {
+		log.Print("* ", c.edges)
+		if c.rst != closestMeetingNode(c.edges, c.node1, c.node2) {
+			t.FailNow()
+		}
+	}
+}
+
 // 2392h Build a Matrix With Conditions
 func Test2392(t *testing.T) {
 	// 1 <= Node(labels) <= k
