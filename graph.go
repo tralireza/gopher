@@ -546,23 +546,24 @@ func snakesAndLadders(board [][]int) int {
 
 	throws := 0      // Dice throws...
 	for len(Q) > 0 { // BFS
-		var n int
+		var v int
 		for range len(Q) {
-			n, Q = Q[0], Q[1:]
-			if n == Rows*Cols {
+			v, Q = Q[0], Q[1:]
+			if v == Rows*Cols {
 				return throws
 			}
 
-			for d := 1; d <= 6 && n+d <= Rows*Cols; d++ {
-				r, c := Cord(n + d)
+			for u := v + 1; u <= min(v+6, Rows*Cols); u++ {
+				r, c := Cord(u)
 				if board[r][c] == -1 {
-					Q = append(Q, n+d)
+					Q = append(Q, u)
 				} else if board[r][c] > 0 {
 					Q = append(Q, board[r][c])
 				}
 				board[r][c] = 0 // Done!
 			}
 		}
+
 		throws++
 	}
 
