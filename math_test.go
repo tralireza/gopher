@@ -242,9 +242,11 @@ func Test2929(t *testing.T) {
 		{int64(3), 5, 2},
 		{int64(10), 3, 3},
 	} {
+		log.Print("* ", c.n, c.limit)
 		if c.rst != distributeCandiesII(c.n, c.limit) {
 			t.FailNow()
 		}
+		log.Print(":: ", c.rst)
 	}
 }
 
