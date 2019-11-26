@@ -451,9 +451,30 @@ func distributeCandiesII(n int, limit int) int64 {
 
 			ways += int64(maxCandy2 - minCandy2 + 1)
 
-			log.Printf("-> Candy1: %d | Candy2: %d ~ %d   => Ways: (+%d) %d", candy1, minCandy2, maxCandy2, maxCandy2-minCandy2+1, ways)
+			log.Printf("-> Candy1: %d | Candy2: %d ~ %d   => Ways: (+%d) %d",
+				candy1, minCandy2, maxCandy2,
+				maxCandy2-minCandy2+1,
+				ways)
 		}
 	}
+
+	var Search func(child, leftCandies int) int64
+	Search = func(child, leftCandies int) int64 {
+		if child == 3 {
+			if leftCandies == 0 {
+				return 1
+			}
+			return 0
+		}
+
+		ways := int64(0)
+		for candy := 0; candy <= min(limit, leftCandies); candy++ {
+			ways += Search(child+1, leftCandies-candy)
+		}
+
+		return ways
+	}
+	log.Print(":: DFS Search -> ", Search(0, n))
 
 	return ways
 }
