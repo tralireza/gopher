@@ -550,6 +550,8 @@ func snakesAndLadders(board [][]int) int {
 		for range len(Q) {
 			v, Q = Q[0], Q[1:]
 			if v == Rows*Cols {
+				log.Print("-> ", board)
+
 				return throws
 			}
 
