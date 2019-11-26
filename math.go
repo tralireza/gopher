@@ -440,6 +440,21 @@ func differenceOfSums(n int, m int) int {
 	return 2*nSum - n*(n+1)/2
 }
 
+// 2929m Distribute Candies Among Children II
+// 1 <= N, L <= 10^6
+func distributeCandiesII(n int, limit int) int64 {
+	ways := int64(0)
+	for candy1 := 0; candy1 <= min(n, limit); candy1++ {
+		if n-candy1 <= 2*limit {
+			maxCandy2 := min(n-candy1, limit)
+			minCandy2 := max(0, n-candy1-limit)
+			ways += int64(maxCandy2 - minCandy2 + 1)
+		}
+	}
+
+	return ways
+}
+
 // 3024 Type of Triangle
 func triangleType(nums []int) string {
 	slices.Sort(nums)

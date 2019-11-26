@@ -234,6 +234,20 @@ func Test2894(t *testing.T) {
 	}
 }
 
+func Test2929(t *testing.T) {
+	for _, c := range []struct {
+		rst      int64
+		n, limit int
+	}{
+		{int64(3), 5, 2},
+		{int64(10), 3, 3},
+	} {
+		if c.rst != distributeCandiesII(c.n, c.limit) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test3024(t *testing.T) {
 	for _, c := range []struct {
 		rst  string
