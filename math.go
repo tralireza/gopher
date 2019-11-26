@@ -458,8 +458,15 @@ func distributeCandiesII(n int, limit int) int64 {
 		}
 	}
 
+	M := make([][3]int64, n+1)
+	for r := range M {
+		M[r][0], M[r][1], M[r][2] = -1, -1, -1
+	}
+
+	rCalls, mHits := 0, 0
 	var Search func(child, leftCandies int) int64
 	Search = func(child, leftCandies int) int64 {
+		rCalls++
 		if child == 3 {
 			if leftCandies == 0 {
 				return 1
@@ -467,14 +474,21 @@ func distributeCandiesII(n int, limit int) int64 {
 			return 0
 		}
 
+		if M[leftCandies][child] != -1 {
+			mHits++
+			return M[leftCandies][child]
+		}
+
 		ways := int64(0)
 		for candy := 0; candy <= min(limit, leftCandies); candy++ {
 			ways += Search(child+1, leftCandies-candy)
 		}
 
+		M[leftCandies][child] = ways
 		return ways
 	}
-	log.Print(":: DFS Search -> ", Search(0, n))
+	tStart := time.Now()
+	log.Printf(":: DFS Search -> %d   [@ %v] Calls: %d | Hits: %d", Search(0, n), time.Since(tStart), rCalls, mHits)
 
 	return ways
 }
