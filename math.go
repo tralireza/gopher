@@ -6,6 +6,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // 319m Bulb Switcher
@@ -481,7 +482,9 @@ func distributeCandiesII(n int, limit int) int64 {
 
 		ways := int64(0)
 		for candy := 0; candy <= min(limit, leftCandies); candy++ {
-			ways += Search(child+1, leftCandies-candy)
+			if leftCandies-candy <= (2-child)*limit {
+				ways += Search(child+1, leftCandies-candy)
+			}
 		}
 
 		M[leftCandies][child] = ways
