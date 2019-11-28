@@ -459,39 +459,66 @@ func distributeCandiesII(n int, limit int) int64 {
 		}
 	}
 
-	M := make([][3]int64, n+1)
-	for r := range M {
-		M[r][0], M[r][1], M[r][2] = -1, -1, -1
+	Recursive := func() {
+		M := make([][3]int64, n+1)
+		for r := range M {
+			M[r][0], M[r][1], M[r][2] = -1, -1, -1
+		}
+
+		rCalls, mHits := 0, 0
+		var Search func(child, leftCandies int) int64
+		Search = func(child, leftCandies int) int64 {
+			rCalls++
+			if child == 3 {
+				if leftCandies == 0 {
+					return 1
+				}
+				return 0
+			}
+
+			if M[leftCandies][child] != -1 {
+				mHits++
+				return M[leftCandies][child]
+			}
+
+			ways := int64(0)
+			for candy := 0; candy <= min(limit, leftCandies); candy++ {
+				if leftCandies-candy <= (2-child)*limit {
+					ways += Search(child+1, leftCandies-candy)
+				}
+			}
+
+			M[leftCandies][child] = ways
+			return ways
+		}
+		tStart := time.Now()
+		log.Printf(":: DFS Search -> %d   [@ %v] Calls: %d | Hits: %d", Search(0, n), time.Since(tStart), rCalls, mHits)
 	}
 
-	rCalls, mHits := 0, 0
-	var Search func(child, leftCandies int) int64
-	Search = func(child, leftCandies int) int64 {
-		rCalls++
-		if child == 3 {
-			if leftCandies == 0 {
-				return 1
-			}
-			return 0
-		}
+	DP := func() {
+		tStart := time.Now()
+		D := make([][4]int64, n+1)
+		D[0][3] = 1
 
-		if M[leftCandies][child] != -1 {
-			mHits++
-			return M[leftCandies][child]
-		}
+		for leftCandies := 0; leftCandies <= n; leftCandies++ {
+			for child := 2; child >= 0; child-- {
+				ways := int64(0)
 
-		ways := int64(0)
-		for candy := 0; candy <= min(limit, leftCandies); candy++ {
-			if leftCandies-candy <= (2-child)*limit {
-				ways += Search(child+1, leftCandies-candy)
+				for candy := 0; candy <= min(leftCandies, limit); candy++ {
+					if leftCandies-candy <= (2-child)*limit {
+						ways += D[leftCandies-candy][child+1]
+					}
+				}
+
+				D[leftCandies][child] = ways
 			}
 		}
 
-		M[leftCandies][child] = ways
-		return ways
+		log.Printf(":: DP -> %d   [@ %v]", D[n][0], time.Since(tStart))
 	}
-	tStart := time.Now()
-	log.Printf(":: DFS Search -> %d   [@ %v] Calls: %d | Hits: %d", Search(0, n), time.Since(tStart), rCalls, mHits)
+
+	Recursive()
+	DP()
 
 	return ways
 }

@@ -239,10 +239,10 @@ func Test2929(t *testing.T) {
 		rst      int64
 		n, limit int
 	}{
+		{int64(50025003), 10001, 20001}, // (TLE) 500/958
+
 		{int64(3), 5, 2},
 		{int64(10), 3, 3},
-
-		{int64(50025003), 10001, 20001}, // (TLE) 500/958
 	} {
 		log.Print("* ", c.n, c.limit)
 		if c.rst != distributeCandiesII(c.n, c.limit) {
