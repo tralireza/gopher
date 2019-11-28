@@ -517,6 +517,25 @@ func distributeCandiesII(n int, limit int) int64 {
 	Recursive()
 	DP()
 
+	// Multiset C(n, k) = C(n+k-1, k-1)
+	Combinatorics := func() {
+		Choose_3_1, Choose_3_2, Choose_3_3 := int64(3), int64(3), int64(1)
+		Choose_n_2 := func(n int) int64 {
+			if n < 0 {
+				return int64(0)
+			}
+			return int64(n) * int64(n-1) / 2
+		}
+
+		ways := Choose_n_2(n+2) -
+			Choose_3_1*Choose_n_2(n-(limit+1)+2) +
+			Choose_3_2*Choose_n_2(n-2*(limit+1)+2) +
+			Choose_3_3*Choose_n_2(n-3*(limit+1)+2)
+
+		log.Printf(":: Combinatorics -> %d", ways)
+	}
+	Combinatorics()
+
 	return ways
 }
 
