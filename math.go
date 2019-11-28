@@ -503,11 +503,8 @@ func distributeCandiesII(n int, limit int) int64 {
 		for leftCandies := 0; leftCandies <= n; leftCandies++ {
 			for child := 2; child >= 0; child-- {
 				ways := int64(0)
-
 				for candy := 0; candy <= min(leftCandies, limit); candy++ {
-					if leftCandies-candy <= (2-child)*limit {
-						ways += D[leftCandies-candy][child+1]
-					}
+					ways += D[leftCandies-candy][child+1]
 				}
 
 				D[leftCandies][child] = ways
