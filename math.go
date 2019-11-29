@@ -529,7 +529,7 @@ func distributeCandiesII(n int, limit int) int64 {
 
 		ways := Choose_n_2(n+2) -
 			Choose_3_1*Choose_n_2(n-(limit+1)+2) +
-			Choose_3_2*Choose_n_2(n-2*(limit+1)+2) +
+			Choose_3_2*Choose_n_2(n-2*(limit+1)+2) -
 			Choose_3_3*Choose_n_2(n-3*(limit+1)+2)
 
 		log.Printf(":: Combinatorics -> %d", ways)
