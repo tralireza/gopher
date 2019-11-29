@@ -519,6 +519,8 @@ func distributeCandiesII(n int, limit int) int64 {
 
 	// Multiset C(n, k) = C(n+k-1, k-1)
 	Combinatorics := func() {
+		tStart := time.Now()
+
 		Choose_3_1, Choose_3_2, Choose_3_3 := int64(3), int64(3), int64(1)
 		Choose_n_2 := func(n int) int64 {
 			if n < 0 {
@@ -532,7 +534,7 @@ func distributeCandiesII(n int, limit int) int64 {
 			Choose_3_2*Choose_n_2(n-2*(limit+1)+2) -
 			Choose_3_3*Choose_n_2(n-3*(limit+1)+2)
 
-		log.Printf(":: Combinatorics -> %d", ways)
+		log.Printf(":: Combinatorics -> %d   [@ %v]", ways, time.Since(tStart))
 	}
 	Combinatorics()
 
