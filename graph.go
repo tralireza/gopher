@@ -3,6 +3,7 @@ package gopher
 import (
 	"container/heap"
 	"container/list"
+	"fmt"
 	"log"
 	"math"
 	"slices"
@@ -411,6 +412,8 @@ func crackSafe(n, k int) string {
 		for digit := range k {
 			u := node + string('0'+byte(digit))
 			if _, ok := M[u]; !ok {
+				fmt.Print(" -> ", u)
+
 				M[u] = struct{}{}
 				Search(u[1:])
 
@@ -419,10 +422,12 @@ func crackSafe(n, k int) string {
 		}
 	}
 
+	fmt.Print("-> Hierholzer")
 	Search(string(slices.Repeat([]byte{'0'}, n-1)))
+
 	bfr = append(bfr, slices.Repeat([]byte{'0'}, n-1)...)
 
-	log.Print("-> ", M)
+	log.Print("\n-> ", M)
 	log.Printf(":: %q", bfr)
 
 	return string(bfr)
