@@ -202,6 +202,20 @@ func Test733(t *testing.T) {
 	log.Print(floodFill([][]int{{0, 0, 0}, {0, 0, 0}}, 0, 0, 0))
 }
 
+func Test753(t *testing.T) {
+	for _, c := range []struct {
+		rst  string
+		n, k int
+	}{
+		{"10", 1, 2},
+		{"01100", 2, 2},
+	} {
+		if c.rst != crackSafe(c.n, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 // 802m Find Eventual Safe States
 func Test802(t *testing.T) {
 	Kahn := func(graph [][]int) []int {

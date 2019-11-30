@@ -401,6 +401,30 @@ func floodFill(image [][]int, sr int, sc int, color int) [][]int {
 	return image
 }
 
+// 753h Cracking the Safe
+func crackSafe(n, k int) string {
+	M := map[string]bool{}
+
+	bfr := []byte{}
+	var Search func(string)
+	Search = func(node string) {
+		for digit := range k {
+			u := node + string('0'+byte(digit))
+			if !M[u] {
+				M[u] = true
+				Search(u[1:])
+
+				bfr = append(bfr, '0'+byte(digit))
+			}
+		}
+	}
+
+	Search(string(slices.Repeat([]byte{'0'}, n-1)))
+	log.Printf("-> %q", bfr)
+
+	return string(append(bfr, slices.Repeat([]byte{'0'}, n-1)...))
+}
+
 // 802m Find Eventual Safe States
 func eventualSafeNodes(graph [][]int) []int {
 	N := len(graph)
