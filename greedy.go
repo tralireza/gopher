@@ -146,7 +146,7 @@ func canCompleteCircuit(gas []int, cost []int) int {
 	return p
 }
 
-// 135m Candy
+// 135h Candy
 func candy(ratings []int) int {
 	C := make([]int, len(ratings))
 
@@ -155,9 +155,9 @@ func candy(ratings []int) int {
 			C[i] = C[i-1] + 1
 		}
 	}
-	for i := len(ratings) - 2; i >= 0; i-- {
-		if ratings[i] > ratings[i+1] {
-			C[i] = max(C[i], C[i+1]+1)
+	for i := len(ratings) - 1; i > 0; i-- {
+		if ratings[i-1] > ratings[i] {
+			C[i-1] = max(C[i-1], C[i]+1)
 		}
 	}
 

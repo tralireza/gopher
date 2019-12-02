@@ -46,10 +46,18 @@ func Test134(t *testing.T) {
 	log.Print("-1 ?= ", canCompleteCircuit([]int{2, 3, 4}, []int{3, 4, 3}))
 }
 
-// 135m Candy
 func Test135(t *testing.T) {
-	log.Print("5 ?= ", candy([]int{1, 0, 2}))
-	log.Print("4 ?= ", candy([]int{1, 2, 2}))
+	for _, c := range []struct {
+		rst     int
+		ratings []int
+	}{
+		{5, []int{1, 0, 2}},
+		{4, []int{1, 2, 2}},
+	} {
+		if c.rst != candy(c.ratings) {
+			t.FailNow()
+		}
+	}
 }
 
 // 149h Max Points on a Line
