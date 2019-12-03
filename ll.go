@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"container/list"
 	"log"
 )
 
@@ -273,6 +274,103 @@ func (o *AllOne432) GetMinKey() string {
 		return k
 	}
 	return ""
+}
+
+// 460h LFU Cache
+type LFUCache460 struct {
+	Cap  int
+	fMin int
+
+	Nodes map[int]*list.Element
+	LFU   map[int]*list.List
+}
+
+type Node460 struct {
+	Key, Val int
+	frq      int
+}
+
+func NewLFUCache460(capacity int) LFUCache460 {
+	return LFUCache460{
+		Cap:   capacity,
+		Nodes: map[int]*list.Element{},
+		LFU:   map[int]*list.List{},
+	}
+}
+
+func (o *LFUCache460) Get(key int) int {
+	if _, ok := o.Nodes[key]; !ok {
+		return -1
+	}
+
+	lNode := o.Nodes[key]
+	n := lNode.Value.(*Node460)
+
+	ls := o.LFU[n.frq]
+	ls.Remove(lNode)
+
+	if ls.Len() == 0 {
+		delete(o.LFU, n.frq)
+
+		if o.fMin == n.frq {
+			o.fMin++
+		}
+	}
+
+	n.frq++
+	if _, ok := o.LFU[n.frq]; !ok {
+		o.LFU[n.frq] = list.New()
+	}
+
+	{
+		ls := o.LFU[n.frq]
+		lNode = ls.PushFront(&Node460{
+			Key: n.Key,
+			Val: n.Val,
+			frq: n.frq,
+		})
+		o.Nodes[key] = lNode
+	}
+
+	return n.Val
+}
+
+func (o *LFUCache460) Put(key, value int) {
+	if _, ok := o.Nodes[key]; ok {
+		o.Get(key)
+
+		lNode := o.Nodes[key]
+		n := lNode.Value.(*Node460)
+		n.Val = value
+		return
+	}
+
+	if len(o.Nodes) == o.Cap {
+		ls := o.LFU[o.fMin]
+
+		lNode := ls.Back()
+		ls.Remove(lNode)
+
+		if ls.Len() == 0 {
+			delete(o.LFU, o.fMin)
+		}
+
+		n := lNode.Value.(*Node460)
+		delete(o.Nodes, n.Key)
+	}
+
+	o.fMin = 1
+	if _, ok := o.LFU[1]; !ok {
+		o.LFU[1] = list.New()
+	}
+
+	o.Nodes[key] = o.LFU[1].PushFront(&Node460{
+		Key: key,
+		Val: value,
+		frq: 1,
+	})
+
+	log.Print("-> ", o)
 }
 
 // 641m Design Circular Deque

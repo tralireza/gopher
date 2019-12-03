@@ -136,7 +136,7 @@ func Test92(t *testing.T) {
 	fmt.Print("\n")
 }
 
-// 432h All O'one Data Structure
+// 432h All O'one Data
 func Test432(t *testing.T) {
 	o := NewAllOne432()
 
@@ -147,6 +147,36 @@ func Test432(t *testing.T) {
 	o.Inc("leet")
 	log.Print("hello ?= ", o.GetMaxKey())
 	log.Print("leet ?= ", o.GetMinKey())
+}
+
+func Test460(t *testing.T) {
+	o := NewLFUCache460(2)
+
+	for _, c := range []struct {
+		Key, Value int
+		rst        any
+	}{
+		{1, 1, nil},
+		{2, 2, nil},
+		{1, -1, 1},
+		{3, 3, nil},
+		{2, -1, -1},
+		{3, -1, 3},
+		{4, 4, nil},
+		{1, -1, -1},
+		{3, 1, nil},
+		{3, -1, 1},
+		{4, -1, 4},
+	} {
+		switch c.Value {
+		case -1:
+			if o.Get(c.Key) != c.rst.(int) {
+				t.FailNow()
+			}
+		default:
+			o.Put(c.Key, c.Value)
+		}
+	}
 }
 
 // 641m Design Circular Deque
