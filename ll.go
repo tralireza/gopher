@@ -321,16 +321,13 @@ func (o *LFUCache460) Get(key int) int {
 	if _, ok := o.LFU[n.frq]; !ok {
 		o.LFU[n.frq] = list.New()
 	}
+	o.Nodes[key] = o.LFU[n.frq].PushFront(&Node460{
+		Key: n.Key,
+		Val: n.Val,
+		frq: n.frq,
+	})
 
-	{
-		ls := o.LFU[n.frq]
-		lNode = ls.PushFront(&Node460{
-			Key: n.Key,
-			Val: n.Val,
-			frq: n.frq,
-		})
-		o.Nodes[key] = lNode
-	}
+	log.Print("-> ", o)
 
 	return n.Val
 }
