@@ -386,9 +386,48 @@ func Test1192(t *testing.T) {
 
 // 1267m Count Servers that Communicate
 func Test1267(t *testing.T) {
-	log.Print("0 ?= ", countServers([][]int{{1, 0}, {0, 1}}))
-	log.Print("3 ?= ", countServers([][]int{{1, 0}, {1, 1}}))
-	log.Print("4 ?= ", countServers([][]int{{1, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}))
+	for _, c := range []struct {
+		rst  int
+		grid [][]int
+	}{
+		{0, [][]int{{1, 0}, {0, 1}}},
+		{3, [][]int{{1, 0}, {1, 1}}},
+		{4, [][]int{{1, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}},
+	} {
+		if c.rst != countServers(c.grid) {
+			t.FailNow()
+		}
+	}
+
+}
+
+func Test1298(t *testing.T) {
+	for _, c := range []struct {
+		rst                  int
+		status, candies      []int
+		keys, containedBoxes [][]int
+		initialBoxes         []int
+	}{
+		{
+			16,
+			[]int{1, 0, 1, 0},
+			[]int{7, 5, 4, 100},
+			[][]int{{}, {}, {1}, {}},
+			[][]int{{1, 2}, {3}, {}, {}},
+			[]int{0},
+		},
+		{
+			6,
+			[]int{1, 0, 0, 0, 0, 0},
+			[]int{1, 1, 1, 1, 1, 1},
+			[][]int{{1, 2, 3, 4, 5}, {}, {}, {}, {}, {}},
+			[][]int{{1, 2, 3, 4, 5}, {}, {}, {}, {}, {}},
+			[]int{0}},
+	} {
+		if c.rst != maxCandies(c.status, c.candies, c.keys, c.containedBoxes, c.initialBoxes) {
+			t.FailNow()
+		}
+	}
 }
 
 // 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance

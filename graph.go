@@ -417,6 +417,8 @@ func crackSafe(n, k int) string {
 				M[u] = struct{}{}
 				Search(u[1:])
 
+				fmt.Print("*")
+
 				bfr = append(bfr, '0'+byte(digit))
 			}
 		}
@@ -700,6 +702,57 @@ func countServers(grid [][]int) int {
 	}
 
 	return tServers
+}
+
+// 1298h Maximum Candies You Can Get form Boxes
+func maxCandies(status []int, candies []int, keys [][]int, containedBoxes [][]int, initialBoxes []int) int {
+	N := len(status)
+
+	Got, CanOpen := make([]bool, N), make([]bool, N)
+	for ibox := range CanOpen {
+		CanOpen[ibox] = status[ibox] == 1
+	}
+
+	total := 0
+
+	Q := []int{}
+	for _, ibox := range initialBoxes {
+		Got[ibox] = true
+		if CanOpen[ibox] {
+			Q = append(Q, ibox)
+
+			total += candies[ibox]
+			candies[ibox] = -1
+		}
+	}
+
+	var qbox int
+	for len(Q) > 0 {
+		qbox, Q = Q[0], Q[1:]
+
+		for _, kbox := range keys[qbox] {
+			CanOpen[kbox] = true
+			if Got[kbox] && candies[kbox] != -1 {
+				Q = append(Q, kbox)
+
+				total += candies[kbox]
+				candies[kbox] = -1
+			}
+		}
+
+		for _, gbox := range containedBoxes[qbox] {
+			Got[gbox] = true
+			if CanOpen[gbox] && candies[gbox] != -1 {
+				Q = append(Q, gbox)
+
+				total += candies[gbox]
+				candies[gbox] = -1
+			}
+		}
+	}
+
+	log.Print(":: ", total)
+	return total
 }
 
 // 1368h Minimum Cost to Make at Least One Valid Path in a Grid
