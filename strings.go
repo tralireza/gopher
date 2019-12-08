@@ -194,6 +194,28 @@ func reverseOnlyLetters(s string) string {
 	return string(rs)
 }
 
+// 1163h Last Substring in Lexicographical Order
+func lastSubstring(s string) string {
+	n := len(s)
+
+	i, j := 0, 1
+	for j < n {
+		k := 0
+		for j+k < n && s[i+k] == s[j+k] {
+			k++
+		}
+
+		if j+k < n && s[i+k] < s[j+k] {
+			i, j = j, max(j+1, i+k+1)
+		} else {
+			j += k + 1
+		}
+	}
+
+	log.Print(":: ", s[i:])
+	return s[i:]
+}
+
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	Source, Pattern := strings.Split(sentence1, " "), strings.Split(sentence2, " ")

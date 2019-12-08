@@ -69,6 +69,20 @@ func Test917(t *testing.T) {
 	log.Printf(`"Qedo1ct-eeLg=ntse-T!" ?= %q`, reverseOnlyLetters("Test1ng-Leet=code-Q!"))
 }
 
+func Test1163(t *testing.T) {
+	for _, c := range []struct {
+		rst, s string
+	}{
+		{"bab", "abab"},
+		{"tcode", "leetcode"},
+	} {
+		log.Print("* ", c.s)
+		if c.rst != lastSubstring(c.s) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))
