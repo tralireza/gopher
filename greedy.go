@@ -484,7 +484,7 @@ func robotWithString(s string) string {
 		F[chr-'a']++
 	}
 
-	Bfr, Q := []rune{}, []rune{}
+	Print, Q := []rune{}, []rune{}
 	markerChar := 'a'
 	for _, chr := range s {
 		log.Printf("-> %c %v %q", chr, F, Q)
@@ -496,12 +496,12 @@ func robotWithString(s string) string {
 		}
 
 		for len(Q) > 0 && Q[len(Q)-1] <= markerChar {
-			Bfr = append(Bfr, Q[len(Q)-1])
+			Print = append(Print, Q[len(Q)-1])
 			Q = Q[:len(Q)-1]
 		}
 	}
 
-	return string(Bfr)
+	return string(Print)
 }
 
 // 2900 Longest Unequal Adjacent Groups Subsequences I
