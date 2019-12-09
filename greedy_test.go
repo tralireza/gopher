@@ -218,6 +218,21 @@ func Test2280(t *testing.T) {
 		log.Print(":: ", c.rst)
 	}
 }
+
+func Test2434(t *testing.T) {
+	for _, c := range []struct {
+		rst, s string
+	}{
+		{"azz", "zza"},
+		{"abc", "bac"},
+		{"addb", "bdda"},
+	} {
+		log.Print("* ", c.s)
+		if c.rst != robotWithString(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
 }
 
 func Test2900(t *testing.T) {

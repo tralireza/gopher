@@ -477,6 +477,31 @@ func minimumLines(stockPrices [][]int) int {
 	return t
 }
 
+// 2434m Using a Robot to Print the Lexicographically Smallest String
+func robotWithString(s string) string {
+	F := [26]int{}
+	for _, chr := range s {
+		F[chr-'a']++
+	}
+
+	Bfr, Q := []rune{}, []rune{}
+	markerChar := 'a'
+	for _, chr := range s {
+		Q = append(Q, chr)
+		F[chr-'a']--
+		for markerChar != 'z' && F[markerChar-'a'] == 0 {
+			markerChar++
+		}
+
+		for len(Q) > 0 && Q[len(Q)-1] <= markerChar {
+			Bfr = append(Bfr, Q[len(Q)-1])
+			Q = Q[:len(Q)-1]
+		}
+	}
+
+	return string(Bfr)
+}
+
 // 2900 Longest Unequal Adjacent Groups Subsequences I
 func getLongestSubsequence(words []string, groups []int) []string {
 	Recursive := func() []string {
