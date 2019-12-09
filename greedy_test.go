@@ -228,6 +228,7 @@ func Test2434(t *testing.T) {
 		{"addb", "bdda"},
 
 		{"aabbcuztdc", "cdatazbubc"},
+		{"eekstrlpmomwzqummz", "mmuqezwmomeplrtskz"},
 	} {
 		log.Print("* ", c.s)
 		if c.rst != robotWithString(c.s) {
