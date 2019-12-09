@@ -276,7 +276,17 @@ func Test2918(t *testing.T) {
 
 // 2938m Separate Black and White Balls
 func Test2938(t *testing.T) {
-	log.Print("1 ?= ", minimumSteps("101"))
-	log.Print("2 ?= ", minimumSteps("100"))
-	log.Print("0 ?= ", minimumSteps("0111"))
+	for _, c := range []struct {
+		rst int64
+		s   string
+	}{
+		{int64(1), "101"},
+		{int64(2), "100"},
+		{int64(0), "0111"},
+	} {
+		if c.rst != minimumSteps(c.s) {
+			t.FailNow()
+		}
+	}
+}
 }
