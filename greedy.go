@@ -487,6 +487,8 @@ func robotWithString(s string) string {
 	Bfr, Q := []rune{}, []rune{}
 	markerChar := 'a'
 	for _, chr := range s {
+		log.Printf("-> %c %v %q", chr, F, Q)
+
 		Q = append(Q, chr)
 		F[chr-'a']--
 		for markerChar != 'z' && F[markerChar-'a'] == 0 {
