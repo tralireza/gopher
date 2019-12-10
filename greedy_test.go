@@ -289,4 +289,18 @@ func Test2938(t *testing.T) {
 		}
 	}
 }
+
+func Test3170(t *testing.T) {
+	for _, c := range []struct {
+		rst, s string
+	}{
+		{"aab", "aaba*"},
+		{"abc", "abc"},
+	} {
+		log.Print("* ", c.s)
+		if c.rst != clearStars(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
 }

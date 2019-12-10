@@ -4,6 +4,7 @@ import (
 	"log"
 	"math"
 	"slices"
+	"strings"
 	"time"
 )
 
@@ -632,4 +633,30 @@ func minimumSteps(s string) int64 {
 	}
 
 	return steps
+}
+
+// 3170m Lexicographically Minimum String After Removing Starts
+func clearStars(s string) string {
+	D := [26][]int{}
+
+	B := []rune(s)
+	for i, chr := range s {
+		switch chr {
+		case '*':
+			for i := range 26 {
+				if len(D[i]) > 0 {
+					B[D[i][len(D[i])-1]] = '*'
+					D[i] = D[i][:len(D[i])-1]
+					break
+				}
+			}
+
+		default:
+			D[chr-'a'] = append(D[chr-'a'], i)
+		}
+	}
+
+	log.Printf("-> %q", B)
+
+	return strings.ReplaceAll(string(B), "*", "")
 }
