@@ -296,6 +296,8 @@ func Test3170(t *testing.T) {
 	}{
 		{"aab", "aaba*"},
 		{"abc", "abc"},
+
+		{"yz", "xyz*"},
 	} {
 		log.Print("* ", c.s)
 		if c.rst != clearStars(c.s) {
