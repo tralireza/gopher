@@ -1,6 +1,8 @@
 package gopher
 
 import (
+	"container/heap"
+	"fmt"
 	"log"
 	"math"
 	"slices"
@@ -636,7 +638,56 @@ func minimumSteps(s string) int64 {
 }
 
 // 3170m Lexicographically Minimum String After Removing Starts
+type PQ3170 []Entry3170
+
+func (o PQ3170) Len() int { return len(o) }
+func (o PQ3170) Less(i, j int) bool {
+	if o[i].Chr == o[j].Chr {
+		return o[i].I > o[j].I
+	}
+	return o[i].Chr < o[j].Chr
+}
+func (o PQ3170) Swap(i, j int) {
+	o[i], o[j] = o[j], o[i]
+}
+
+func (o *PQ3170) Push(x any) { *o = append(*o, x.(Entry3170)) }
+func (o *PQ3170) Pop() any {
+	v := (*o)[o.Len()-1]
+	*o = (*o)[:o.Len()-1]
+	return v
+}
+
+type Entry3170 struct {
+	Chr rune
+	I   int
+}
+
+func (o Entry3170) String() string { return fmt.Sprintf("{'%c' %d}", o.Chr, o.I) }
+
 func clearStars(s string) string {
+	PQ := func(s string) string {
+		B := []rune(s)
+
+		pq := PQ3170{}
+		for i, chr := range s {
+			log.Print("-> ", pq)
+
+			switch chr {
+			case '*':
+				if pq.Len() > 0 {
+					B[heap.Pop(&pq).(Entry3170).I] = '*'
+				}
+
+			default:
+				heap.Push(&pq, Entry3170{chr, i})
+			}
+		}
+
+		return strings.ReplaceAll(string(B), "*", "")
+	}
+	log.Print(":: PQ -> ", PQ(s))
+
 	D := [26][]int{}
 
 	B := []rune(s)
