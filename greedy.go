@@ -663,7 +663,7 @@ type Entry3170 struct {
 	I   int
 }
 
-func (o Entry3170) String() string { return fmt.Sprintf("{'%c' %d}", o.Chr, o.I) }
+func (o Entry3170) String() string { return fmt.Sprintf("{%q %d}", o.Chr, o.I) }
 
 func clearStars(s string) string {
 	PQ := func(s string) string {
