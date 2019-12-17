@@ -156,11 +156,20 @@ func Test386(t *testing.T) {
 		return R
 	}
 
-	for _, fn := range []func(int) []int{Recursive, lexicalOrder} {
-		log.Print("[1 10 11 12 13 2 3 4 5 6 7 8 9] ?= ", fn(13))
-		log.Print(" ?= ", fn(23))
-		log.Print(" ?= ", fn(137)[:57], "...")
-		log.Print("--")
+	for _, c := range []struct {
+		rst []int
+		n   int
+	}{
+		{[]int{1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9}, 13},
+		{[]int{1, 2}, 2},
+	} {
+		log.Print("* ", c.n)
+		for _, fn := range []func(int) []int{Recursive, lexicalOrder} {
+			if !reflect.DeepEqual(c.rst, fn(c.n)) {
+				t.FailNow()
+			}
+		}
+		log.Print(":: ", c.rst)
 	}
 }
 
