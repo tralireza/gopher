@@ -431,9 +431,24 @@ func Test1298(t *testing.T) {
 	}
 }
 
-// 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
 func Test1334(t *testing.T) {
 	// 1 <= Weight_i <= 10^4
+
+	find := func(n int, aSP [][]int, threshold int) int {
+		city, reachables := -1, n
+		for v := range n {
+			count := 0
+			for u, dist := range aSP[v] {
+				if u != v && dist <= threshold {
+					count++
+				}
+			}
+			if count <= reachables {
+				city, reachables = v, count
+			}
+		}
+		return city
+	}
 
 	BellmanFord := func(n int, edges [][]int, distanceThreshold int) int {
 		aSP := make([][]int, n)
@@ -471,9 +486,9 @@ func Test1334(t *testing.T) {
 			BellmanFord(s, aSP[s])
 		}
 
-		log.Print("Bellman-Ford: ", aSP)
+		log.Print(":: Bellman-Ford -> ", aSP)
 
-		return 0
+		return find(n, aSP, distanceThreshold)
 	}
 
 	// Shortest-Path-First
@@ -485,8 +500,7 @@ func Test1334(t *testing.T) {
 
 		for _, e := range edges {
 			v, u, w := e[0], e[1], e[2]
-			G[v][u] = w
-			G[u][v] = w
+			G[v][u], G[u][v] = w, w
 		}
 
 		aSP := make([][]int, n)
@@ -522,9 +536,9 @@ func Test1334(t *testing.T) {
 		for s := range n {
 			SPF(s, aSP[s])
 		}
-		log.Print("SPF: ", aSP)
+		log.Print(":: SPF -> ", aSP)
 
-		return 0
+		return find(n, aSP, distanceThreshold)
 	}
 
 	FloydWarshall := func(n int, edges [][]int, distanceThreshold int) int {
@@ -543,8 +557,7 @@ func Test1334(t *testing.T) {
 
 		for _, e := range edges {
 			v, u, w := e[0], e[1], e[2]
-			aSP[v][u] = w
-			aSP[u][v] = w
+			aSP[v][u], aSP[u][v] = w, w
 		}
 
 		for k := range n {
@@ -555,21 +568,26 @@ func Test1334(t *testing.T) {
 			}
 		}
 
-		log.Print("Floyd-Warshall: ", aSP)
+		log.Print(":: Floyd-Warshall -> ", aSP)
 
-		return 0
+		return find(n, aSP, distanceThreshold)
 	}
 
-	for i, f := range []func(int, [][]int, int) int{findTheCity, BellmanFord, SPF, FloydWarshall} {
-		switch i {
-		case 0:
-			log.Print("3 ?= ", f(4, [][]int{{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}}, 4))
-			log.Print("0 ?= ", f(5, [][]int{{0, 1, 2}, {0, 4, 8}, {1, 2, 3}, {1, 4, 2}, {2, 3, 1}, {3, 4, 1}}, 2))
-		default:
-			f(4, [][]int{{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}}, 4)
-			f(5, [][]int{{0, 1, 2}, {0, 4, 8}, {1, 2, 3}, {1, 4, 2}, {2, 3, 1}, {3, 4, 1}}, 2)
+	for _, c := range []struct {
+		rst, n            int
+		edges             [][]int
+		distanceThreshold int
+	}{
+		{3, 4, [][]int{{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}}, 4},
+		{0, 5, [][]int{{0, 1, 2}, {0, 4, 8}, {1, 2, 3}, {1, 4, 2}, {2, 3, 1}, {3, 4, 1}}, 2},
+	} {
+		log.Print("* ", c.n, c.edges, c.distanceThreshold)
+		for _, fn := range []func(int, [][]int, int) int{findTheCity, BellmanFord, SPF, FloydWarshall} {
+			if c.rst != fn(c.n, c.edges, c.distanceThreshold) {
+				t.FailNow()
+			}
 		}
-		log.Print("--")
+		log.Print(":: ", c.rst)
 	}
 }
 

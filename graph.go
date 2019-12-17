@@ -167,85 +167,6 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 	return tSort
 }
 
-// 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
-type E1334 struct{ n, distance int }
-type PQ1334 []E1334
-
-func (h PQ1334) Len() int               { return len(h) }
-func (h PQ1334) Less(i int, j int) bool { return h[i].distance < h[j].distance }
-func (h PQ1334) Swap(i int, j int)      { h[i], h[j] = h[j], h[i] }
-func (h *PQ1334) Push(x any)            { *h = append(*h, x.(E1334)) }
-func (h *PQ1334) Pop() any {
-	v := (*h)[h.Len()-1]
-	*h = (*h)[:h.Len()-1]
-	return v
-}
-
-func findTheCity(n int, edges [][]int, distanceThreshold int) int {
-	G := make([][]int, n)
-	for r := range G {
-		G[r] = make([]int, n)
-	}
-
-	for _, e := range edges {
-		v, u, w := e[0], e[1], e[2]
-		G[v][u] = w
-		G[u][v] = w
-	}
-
-	log.Print("(weighted) Graph: ", G)
-
-	// (all) Shortest-Path between Cities
-	aSP := make([][]int, n)
-	for r := range aSP {
-		aSP[r] = make([]int, n)
-		for c := range aSP[r] {
-			aSP[r][c] = math.MaxInt
-		}
-	}
-
-	type E = E1334
-	type PQ = PQ1334
-
-	Dijkstra := func(s int, SP []int) {
-		h := &PQ{}
-		heap.Push(h, E{s, 0})
-		SP[s] = 0
-
-		for h.Len() > 0 {
-			e := heap.Pop(h).(E)
-			v, d := e.n, e.distance
-			if d <= SP[v] { // closest neighbor to source
-				for u, w := range G[v] { // relaxing of all neighbors to source if possible
-					if w > 0 && d+w < SP[u] {
-						SP[u] = d + w
-						heap.Push(h, E{u, SP[u]})
-					}
-				}
-			}
-		}
-	}
-
-	for s := range n {
-		Dijkstra(s, aSP[s])
-	}
-	log.Print("Dijkstra: ", aSP)
-
-	city, reachables := -1, n
-	for v := range n {
-		t := 0
-		for u, distance := range aSP[v] {
-			if u != v && distance <= distanceThreshold {
-				t++
-			}
-		}
-		if t <= reachables {
-			city, reachables = v, t
-		}
-	}
-	return city
-}
-
 // 433m Minimum Genetic Mutation
 func minMutation(startGene string, endGene string, bank []string) int {
 	Mem := map[string]bool{}
@@ -753,6 +674,84 @@ func maxCandies(status []int, candies []int, keys [][]int, containedBoxes [][]in
 
 	log.Print(":: ", total)
 	return total
+}
+
+// 1334m Find the City With the Smallest Number of Neighbors at a Threshold Distance
+type E1334 struct{ n, distance int }
+type PQ1334 []E1334
+
+func (h PQ1334) Len() int           { return len(h) }
+func (h PQ1334) Less(i, j int) bool { return h[i].distance < h[j].distance }
+func (h PQ1334) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *PQ1334) Push(x any)        { *h = append(*h, x.(E1334)) }
+func (h *PQ1334) Pop() any {
+	v := (*h)[h.Len()-1]
+	*h = (*h)[:h.Len()-1]
+	return v
+}
+
+func findTheCity(n int, edges [][]int, distanceThreshold int) int {
+	G := make([][]int, n)
+	for r := range G {
+		G[r] = make([]int, n)
+	}
+
+	for _, e := range edges {
+		v, u, w := e[0], e[1], e[2]
+		G[v][u], G[u][v] = w, w
+	}
+
+	log.Print("-> (weighted) Graph: ", G)
+
+	// (all) Shortest-Path between Cities
+	aSP := make([][]int, n)
+	for r := range aSP {
+		aSP[r] = make([]int, n)
+		for c := range aSP[r] {
+			aSP[r][c] = math.MaxInt
+		}
+	}
+
+	type E = E1334
+	type PQ = PQ1334
+
+	Dijkstra := func(src int, SP []int) {
+		h := &PQ{}
+		heap.Push(h, E{src, 0})
+		SP[src] = 0
+
+		for h.Len() > 0 {
+			e := heap.Pop(h).(E)
+			v, d := e.n, e.distance
+			if d <= SP[v] { // closest neighbor to source
+				for u, w := range G[v] { // relaxing of all neighbors to source if possible
+					if w > 0 && d+w < SP[u] {
+						SP[u] = d + w
+						heap.Push(h, E{u, SP[u]})
+					}
+				}
+			}
+		}
+	}
+
+	for src := range n {
+		Dijkstra(src, aSP[src])
+	}
+	log.Print("-> Dijkstra: ", aSP)
+
+	city, reachables := -1, n
+	for v := range n {
+		t := 0
+		for u, distance := range aSP[v] {
+			if u != v && distance <= distanceThreshold {
+				t++
+			}
+		}
+		if t <= reachables {
+			city, reachables = v, t
+		}
+	}
+	return city
 }
 
 // 1368h Minimum Cost to Make at Least One Valid Path in a Grid
