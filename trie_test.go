@@ -95,11 +95,20 @@ func Test336(t *testing.T) {
 	}
 }
 
-// 440h K-th Smallest in Lexicographical Order
 func Test440(t *testing.T) {
-	log.Print("10 ?= ", findKthNumber(13, 2))
-	log.Print("1 ?= ", findKthNumber(1, 1))
-	log.Print("104 ?= ", findKthNumber(127, 7))
+	for _, c := range []struct {
+		rst, n, k int
+	}{
+		{10, 13, 2},
+		{1, 1, 1},
+		{104, 127, 7},
+	} {
+		log.Print("* ", c.n, c.k)
+		if c.rst != findKthNumber(c.n, c.k) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
 }
 
 // 1233m Remove Sub-Folders from the Filesystem
