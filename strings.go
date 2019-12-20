@@ -1,6 +1,7 @@
 package gopher
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"math"
@@ -195,7 +196,55 @@ func reverseOnlyLetters(s string) string {
 }
 
 // 1163h Last Substring in Lexicographical Order
+// 1 <= N <= 4*10^5
 func lastSubstring(s string) string {
+	Trie := func(s string) string {
+		type Trie struct {
+			Children [26]*Trie
+		}
+
+		trie := &Trie{}
+
+		Insert := func(s string) {
+			n := trie
+			for i := 0; i < len(s); i++ {
+				c := n.Children[s[i]-'a']
+				if c == nil {
+					c = &Trie{}
+					n.Children[s[i]-'a'] = c
+				}
+				n = c
+			}
+		}
+
+		for i := 0; i < len(s)-1; i++ {
+			Insert(s[i:])
+		}
+
+		GetLargest := func() string {
+			bfr := bytes.Buffer{}
+
+			terminate, n := false, trie
+			for !terminate {
+				terminate = true
+				for i := 25; i >= 0; i-- {
+					c := n.Children[i]
+					if c != nil {
+						bfr.WriteByte('a' + byte(i))
+						n = c
+						terminate = false
+						break
+					}
+				}
+			}
+
+			return bfr.String()
+		}
+
+		return GetLargest()
+	}
+	log.Printf(":: Trie -> %q", Trie(s))
+
 	n := len(s)
 
 	i, j := 0, 1
