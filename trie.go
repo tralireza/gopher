@@ -5,6 +5,7 @@ import (
 	"log"
 	"slices"
 	"strings"
+	"time"
 )
 
 // 212h Word Search II
@@ -249,7 +250,34 @@ NEXT_WORD:
 }
 
 // 440h K-th Smallest in Lexicographical Order
-func findKthNumber(n int, k int) int {
+func findKthNumber(n, k int) int {
+	Recursive := func(n, k int) int {
+		nKth := 0
+
+		var Search func(int)
+		Search = func(v int) {
+			k--
+			if k == 0 {
+				nKth = v
+				return
+			}
+
+			for d := 0; d <= 9 && 10*v+d <= n; d++ {
+				if k > 0 {
+					Search(10*v + d)
+				}
+			}
+		}
+
+		for v := 1; v <= 9 && v <= n; v++ {
+			Search(v)
+		}
+
+		return nKth
+	}
+	tStart := time.Now()
+	log.Printf(":: Recursive -> %d [@ %v]", Recursive(n, k), time.Since(tStart))
+
 	v := 1
 	k--
 

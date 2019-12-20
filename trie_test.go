@@ -102,6 +102,8 @@ func Test440(t *testing.T) {
 		{10, 13, 2},
 		{1, 1, 1},
 		{104, 127, 7},
+
+		{288990744, 719885387, 209989719}, // TLE 42/69
 	} {
 		log.Print("* ", c.n, c.k)
 		if c.rst != findKthNumber(c.n, c.k) {
