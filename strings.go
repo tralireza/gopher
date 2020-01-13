@@ -224,14 +224,14 @@ func lastSubstring(s string) string {
 		GetLargest := func() string {
 			bfr := bytes.Buffer{}
 
+			Chrs := []rune("abcdefghijklmnopqrstuvwxyz")
 			n := trie
 		LOOP:
 			for {
 				for i := 25; i >= 0; i-- {
-					chr := []rune("abcdefghijklmnopqrstuvwxyz")[i]
-					c := n.Children[chr]
+					c := n.Children[Chrs[i]]
 					if c != nil {
-						bfr.WriteRune(chr)
+						bfr.WriteRune(Chrs[i])
 						n = c
 						continue LOOP
 					}
