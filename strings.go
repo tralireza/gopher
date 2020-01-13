@@ -200,18 +200,18 @@ func reverseOnlyLetters(s string) string {
 func lastSubstring(s string) string {
 	Trie := func(s string) string {
 		type Trie struct {
-			Children [26]*Trie
+			Children map[rune]*Trie
 		}
 
-		trie := &Trie{}
+		trie := &Trie{map[rune]*Trie{}}
 
 		Insert := func(s string) {
 			n := trie
-			for i := 0; i < len(s); i++ {
-				c := n.Children[s[i]-'a']
+			for _, chr := range s {
+				c := n.Children[chr]
 				if c == nil {
-					c = &Trie{}
-					n.Children[s[i]-'a'] = c
+					c = &Trie{map[rune]*Trie{}}
+					n.Children[chr] = c
 				}
 				n = c
 			}
@@ -228,9 +228,10 @@ func lastSubstring(s string) string {
 		LOOP:
 			for {
 				for i := 25; i >= 0; i-- {
-					c := n.Children[i]
+					chr := []rune("abcdefghijklmnopqrstuvwxyz")[i]
+					c := n.Children[chr]
 					if c != nil {
-						bfr.WriteByte('a' + byte(i))
+						bfr.WriteRune(chr)
 						n = c
 						continue LOOP
 					}
