@@ -224,18 +224,18 @@ func lastSubstring(s string) string {
 		GetLargest := func() string {
 			bfr := bytes.Buffer{}
 
-			terminate, n := false, trie
-			for !terminate {
-				terminate = true
+			n := trie
+		LOOP:
+			for {
 				for i := 25; i >= 0; i-- {
 					c := n.Children[i]
 					if c != nil {
 						bfr.WriteByte('a' + byte(i))
 						n = c
-						terminate = false
-						break
+						continue LOOP
 					}
 				}
+				break
 			}
 
 			return bfr.String()
