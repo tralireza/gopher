@@ -114,3 +114,17 @@ func Test3042(t *testing.T) {
 	log.Print("2 ?= ", countPrefixSuffixPairs([]string{"pa", "papa", "ma", "mama"}))
 	log.Print("0 ?= ", countPrefixSuffixPairs([]string{"abab", "ab"}))
 }
+
+func Test3442(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+	}{
+		{3, "aaaaabbc"},
+		{1, "abcabcab"},
+	} {
+		if c.rst != maxDifference(c.s) {
+			t.FailNow()
+		}
+	}
+}

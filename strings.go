@@ -358,3 +358,25 @@ func countPrefixSuffixPairs(words []string) int {
 
 	return pairs
 }
+
+// 3442 Maximum Difference Between Even and Odd Frequency I
+func maxDifference(s string) int {
+	F := [26]int{}
+	for i := 0; i < len(s); i++ {
+		F[s[i]-'a']++
+	}
+
+	oMax, eMin := 0, len(s)
+	for _, f := range F {
+		if f > 0 {
+			switch f & 1 {
+			case 1:
+				oMax = max(f, oMax)
+			case 0:
+				eMin = min(f, eMin)
+			}
+		}
+	}
+
+	return oMax - eMin
+}
