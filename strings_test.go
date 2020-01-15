@@ -65,8 +65,18 @@ func Test824(t *testing.T) {
 
 // 917 Reverse Only Letters
 func Test917(t *testing.T) {
-	log.Printf(`"j-Ih-gfE-dCba" ?= %q`, reverseOnlyLetters("a-bC-dEf-ghIj"))
-	log.Printf(`"Qedo1ct-eeLg=ntse-T!" ?= %q`, reverseOnlyLetters("Test1ng-Leet=code-Q!"))
+	for _, c := range []struct {
+		rst, s string
+	}{
+		{"j-Ih-gfE-dCba", "a-bC-dEf-ghIj"},
+		{"Qedo1ct-eeLg=ntse-T!", "Test1ng-Leet=code-Q!"},
+	} {
+		log.Print("* ", c.s)
+		if c.rst != reverseOnlyLetters(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
 }
 
 func Test1163(t *testing.T) {
