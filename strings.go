@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"slices"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -198,6 +200,63 @@ func reverseOnlyLetters(s string) string {
 // 1163h Last Substring in Lexicographical Order
 // 1 <= N <= 4*10^5
 func lastSubstring(s string) string {
+	SuffixArray := func(s string) string {
+		N := len(s)
+
+		P := []int{}
+		for i := 0; i < len(s); i++ {
+			P = append(P, int(s[i]-'a'))
+		}
+
+		L := make([][3]int, N)
+
+		k := 1
+		for (k >> 1) < N {
+			log.Print("-> ", k, P)
+
+			for i := 0; i < N; i++ {
+				L[i][0] = P[i]
+				if i+k < N {
+					L[i][1] = P[i+k]
+				} else {
+					L[i][1] = -1
+				}
+				L[i][2] = i
+			}
+			log.Print("-> ", k, L)
+
+			slices.SortFunc(L, func(a, b [3]int) int {
+				if a[0] == b[0] {
+					return a[1] - b[1]
+				}
+				return a[0] - b[0]
+			})
+			log.Print("-> ", k, L)
+
+			for i := 0; i < N; i++ {
+				if i > 0 && L[i][0] == L[i-1][0] && L[i][1] == L[i-1][1] {
+					P[L[i][2]] = P[L[i-1][2]]
+				} else {
+					P[L[i][2]] = i
+				}
+			}
+			log.Print("-> ", k, P)
+
+			k <<= 1
+		}
+
+		for i := range P {
+			if P[i]+1 == N {
+				return s[i:]
+			}
+		}
+		return ""
+	}
+	{
+		tStart := time.Now()
+		log.Printf(":: Suffix Array -> %q [@ %v]", SuffixArray(s), time.Since(tStart))
+	}
+
 	Trie := func(s string) string {
 		type Trie struct {
 			Children map[rune]*Trie
@@ -244,7 +303,10 @@ func lastSubstring(s string) string {
 
 		return GetLargest()
 	}
-	log.Printf(":: Trie -> %q", Trie(s))
+	{
+		tStart := time.Now()
+		log.Printf(":: Trie -> %q [@ %v]", Trie(s), time.Since(tStart))
+	}
 
 	n := len(s)
 
