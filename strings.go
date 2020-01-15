@@ -211,7 +211,7 @@ func lastSubstring_SuffixArray(s string) string {
 
 	k := 1
 	for (k >> 1) < N {
-		//log.Print("-> ", k, P)
+		log.Print("-> ", k, P)
 
 		for i := 0; i < N; i++ {
 			L[i][0] = P[i]
@@ -222,7 +222,7 @@ func lastSubstring_SuffixArray(s string) string {
 			}
 			L[i][2] = i
 		}
-		//log.Print("-> ", k, L)
+		log.Print("-> ", k, L)
 
 		slices.SortFunc(L, func(a, b [3]int) int {
 			if a[0] == b[0] {
@@ -230,7 +230,7 @@ func lastSubstring_SuffixArray(s string) string {
 			}
 			return a[0] - b[0]
 		})
-		//log.Print("-> ", k, L)
+		log.Print("-> ", k, L)
 
 		for i := 0; i < N; i++ {
 			if i > 0 && L[i][0] == L[i-1][0] && L[i][1] == L[i-1][1] {
@@ -239,7 +239,7 @@ func lastSubstring_SuffixArray(s string) string {
 				P[L[i][2]] = i
 			}
 		}
-		//log.Print("-> ", k, P)
+		log.Print("-> ", k, P)
 
 		k <<= 1
 	}
