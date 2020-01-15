@@ -83,6 +83,8 @@ func Test1163(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string
 	}{
+		{"zab", "zaazaabcdezaazab"},
+
 		{"bab", "abab"},
 		{"tcode", "leetcode"},
 	} {
