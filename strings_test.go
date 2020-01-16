@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"slices"
 	"testing"
 )
 
@@ -83,6 +84,7 @@ func Test1163(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string
 	}{
+		{"zmwrjvfamgpoowncslddrkjhchqswkamnsitrcmnhn", "vmjtxddvzmwrjvfamgpoowncslddrkjhchqswkamnsitrcmnhn"},
 		{"zab", "zaazaabcdezaazab"},
 
 		{"bab", "abab"},
@@ -93,6 +95,28 @@ func Test1163(t *testing.T) {
 			t.FailNow()
 		}
 	}
+
+	RadixSort := func(nums []int) {
+		log.Print("-- RadixSort: ", nums)
+
+		N := slices.Max(nums)
+		r := 1
+		for r <= N {
+			B := [10][]int{}
+			for _, n := range nums {
+				B[n/r%10] = append(B[n/r%10], n)
+			}
+			offset := 0
+			for d := range 10 {
+				copy(nums[offset:], B[d])
+				offset += len(B[d])
+			}
+			r *= 10
+		}
+
+		log.Print(":: RadixSort: ", nums)
+	}
+	RadixSort([]int{325, 7, 457, 657, 1001, 839, 436, 10, 720, 355})
 }
 
 const Input1163 = "jyqxwwxglawjvneegoxztrcyjqlduczzhgdlesnaeyialxfhtcgwkxjcdsllpqwurenryothdqzdbjmppjyvwzxobkvlrxjytmpklararqdqjjnblxaliqhjvtbzysfkbhroccnlwnslpsvkarenxfezocpdocgamvufzcfjkxijwybwgbfmnnwuuunsoupaxbylxggremxxakntirsqjwkyxkldqokrlwevrvoovoekhesvxmbnycclrdhrzzbovalhtnzdhfuyatdgeyazstiovogkiuuvsjvvofvrfwyoxydkgkvhporcxccrlcecgqakknogwyemwcfmokuflsskyevbdkmmumftzcpdonagopprxcmwwuarqxbxglrnprstubwfjmxpwdsribxcglhhzthhajimjawanewsqmwifzndqwojclkdilkisapeegpeixshskpfdnsbmfjiojelllsvuquupkwvnkgfdwreabvhyswnsnsdofccebjqmawlkqbzcrxqcvargeqvruhgypqcfbltnhswzjbjayqglgsyttnvpxrjbbotzcmoscbykzxoqoqkooycfiviewtmpyzzpicglhsydafzdzresxjeqhahsukeprzooumbltzxhmqktoypcjenuqqlkpwtvyscfcxcodnokzxpcjlimqmeltiipawblteiyaftlvefhrglstuwupkfvjzhrlvejljfahcenhnsqmmcfpnbtwrkukzncabvgyvvfqhsairahkulbejckkoapagatvkhceqswlpzijcwddrooijdcircayscwmordpckluyryrguednmhzleeklgggqujqeobgesjdbpuueenraljjecjxssdosskkbhrnykrfvumazfcjalcttxewlxiwtsojrmeakgzkwympgkdrshbiaamlwwwvacewcjgaruzmcpblpgqdyykxjyybhwwgowlcsliiitgffqdfprvrrf"
