@@ -102,11 +102,16 @@ func Test1163(t *testing.T) {
 		N := slices.Max(nums)
 		r := 1
 		for r <= N {
-			B := [10][]int{}
+			E, B := []int{}, [10][]int{}
 			for _, n := range nums {
-				B[n/r%10] = append(B[n/r%10], n)
+				if n < 0 {
+					E = append(E, n)
+				} else {
+					B[n/r%10] = append(B[n/r%10], n)
+				}
 			}
-			offset := 0
+			copy(nums, E)
+			offset := len(E)
 			for d := range 10 {
 				copy(nums[offset:], B[d])
 				offset += len(B[d])
@@ -116,7 +121,7 @@ func Test1163(t *testing.T) {
 
 		log.Print(":: RadixSort: ", nums)
 	}
-	RadixSort([]int{325, 7, 457, 657, 1001, 839, 436, 10, 720, 355})
+	RadixSort([]int{325, 7, 457, 657, -1, 1001, 839, 0, 436, 7, 10, 720, 355, -1})
 }
 
 const Input1163 = "jyqxwwxglawjvneegoxztrcyjqlduczzhgdlesnaeyialxfhtcgwkxjcdsllpqwurenryothdqzdbjmppjyvwzxobkvlrxjytmpklararqdqjjnblxaliqhjvtbzysfkbhroccnlwnslpsvkarenxfezocpdocgamvufzcfjkxijwybwgbfmnnwuuunsoupaxbylxggremxxakntirsqjwkyxkldqokrlwevrvoovoekhesvxmbnycclrdhrzzbovalhtnzdhfuyatdgeyazstiovogkiuuvsjvvofvrfwyoxydkgkvhporcxccrlcecgqakknogwyemwcfmokuflsskyevbdkmmumftzcpdonagopprxcmwwuarqxbxglrnprstubwfjmxpwdsribxcglhhzthhajimjawanewsqmwifzndqwojclkdilkisapeegpeixshskpfdnsbmfjiojelllsvuquupkwvnkgfdwreabvhyswnsnsdofccebjqmawlkqbzcrxqcvargeqvruhgypqcfbltnhswzjbjayqglgsyttnvpxrjbbotzcmoscbykzxoqoqkooycfiviewtmpyzzpicglhsydafzdzresxjeqhahsukeprzooumbltzxhmqktoypcjenuqqlkpwtvyscfcxcodnokzxpcjlimqmeltiipawblteiyaftlvefhrglstuwupkfvjzhrlvejljfahcenhnsqmmcfpnbtwrkukzncabvgyvvfqhsairahkulbejckkoapagatvkhceqswlpzijcwddrooijdcircayscwmordpckluyryrguednmhzleeklgggqujqeobgesjdbpuueenraljjecjxssdosskkbhrnykrfvumazfcjalcttxewlxiwtsojrmeakgzkwympgkdrshbiaamlwwwvacewcjgaruzmcpblpgqdyykxjyybhwwgowlcsliiitgffqdfprvrrf"
