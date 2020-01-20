@@ -202,6 +202,28 @@ func reverseOnlyLetters(s string) string {
 func lastSubstring_SuffixArray(s string) string {
 	N := len(s)
 
+	RadixSort := func(L [][3]int, halfK int) {
+		vMax := slices.MaxFunc(L, func(a, b [3]int) int { return a[halfK] - b[halfK] })
+		N := vMax[halfK]
+		for r := 1; r <= N; r *= 10 {
+			E, B := [][3]int{}, [10][][3]int{}
+			for _, l := range L {
+				if l[halfK] < 0 {
+					E = append(E, l)
+				} else {
+					B[l[halfK]/r%10] = append(B[l[halfK]/r%10], l)
+				}
+
+				copy(L, E)
+				offset := len(E)
+				for d := range 10 {
+					copy(L[offset:], B[d])
+					offset += len(B[d])
+				}
+			}
+		}
+	}
+
 	P := []int{}
 	for i := 0; i < len(s); i++ {
 		P = append(P, int(s[i]-'a'))
@@ -224,13 +246,17 @@ func lastSubstring_SuffixArray(s string) string {
 		}
 		log.Print("-> ", k, L)
 
+		RadixSort(L, 1)
+		RadixSort(L, 0)
+		log.Print("-> (R) ", k, L)
+
 		slices.SortFunc(L, func(a, b [3]int) int {
 			if a[0] == b[0] {
 				return a[1] - b[1]
 			}
 			return a[0] - b[0]
 		})
-		log.Print("-> ", k, L)
+		log.Print("-> (S) ", k, L)
 
 		for i := 0; i < N; i++ {
 			if i > 0 && L[i][0] == L[i-1][0] && L[i][1] == L[i-1][1] {

@@ -86,6 +86,7 @@ func Test1163(t *testing.T) {
 	}{
 		{"zmwrjvfamgpoowncslddrkjhchqswkamnsitrcmnhn", "vmjtxddvzmwrjvfamgpoowncslddrkjhchqswkamnsitrcmnhn"},
 		{"zab", "zaazaabcdezaazab"},
+		{"zrziy", "zrziy"}, // 10/36
 
 		{"bab", "abab"},
 		{"tcode", "leetcode"},
@@ -100,8 +101,7 @@ func Test1163(t *testing.T) {
 		log.Print("-- RadixSort: ", nums)
 
 		N := slices.Max(nums)
-		r := 1
-		for r <= N {
+		for r := 1; r <= N; r *= 10 {
 			E, B := []int{}, [10][]int{}
 			for _, n := range nums {
 				if n < 0 {
@@ -116,12 +116,11 @@ func Test1163(t *testing.T) {
 				copy(nums[offset:], B[d])
 				offset += len(B[d])
 			}
-			r *= 10
 		}
 
 		log.Print(":: RadixSort: ", nums)
 	}
-	RadixSort([]int{325, 7, 457, 657, -1, 1001, 839, 0, 436, 7, 10, 720, 355, -1})
+	RadixSort([]int{325, 7, 457, 657, -1, 1000, 839, 0, 436, 7, 10, 720, 355, -1})
 }
 
 const Input1163 = "jyqxwwxglawjvneegoxztrcyjqlduczzhgdlesnaeyialxfhtcgwkxjcdsllpqwurenryothdqzdbjmppjyvwzxobkvlrxjytmpklararqdqjjnblxaliqhjvtbzysfkbhroccnlwnslpsvkarenxfezocpdocgamvufzcfjkxijwybwgbfmnnwuuunsoupaxbylxggremxxakntirsqjwkyxkldqokrlwevrvoovoekhesvxmbnycclrdhrzzbovalhtnzdhfuyatdgeyazstiovogkiuuvsjvvofvrfwyoxydkgkvhporcxccrlcecgqakknogwyemwcfmokuflsskyevbdkmmumftzcpdonagopprxcmwwuarqxbxglrnprstubwfjmxpwdsribxcglhhzthhajimjawanewsqmwifzndqwojclkdilkisapeegpeixshskpfdnsbmfjiojelllsvuquupkwvnkgfdwreabvhyswnsnsdofccebjqmawlkqbzcrxqcvargeqvruhgypqcfbltnhswzjbjayqglgsyttnvpxrjbbotzcmoscbykzxoqoqkooycfiviewtmpyzzpicglhsydafzdzresxjeqhahsukeprzooumbltzxhmqktoypcjenuqqlkpwtvyscfcxcodnokzxpcjlimqmeltiipawblteiyaftlvefhrglstuwupkfvjzhrlvejljfahcenhnsqmmcfpnbtwrkukzncabvgyvvfqhsairahkulbejckkoapagatvkhceqswlpzijcwddrooijdcircayscwmordpckluyryrguednmhzleeklgggqujqeobgesjdbpuueenraljjecjxssdosskkbhrnykrfvumazfcjalcttxewlxiwtsojrmeakgzkwympgkdrshbiaamlwwwvacewcjgaruzmcpblpgqdyykxjyybhwwgowlcsliiitgffqdfprvrrf"
