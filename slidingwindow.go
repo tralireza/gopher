@@ -190,3 +190,60 @@ func numberOfAlternatingGroups(colors []int, k int) int {
 
 	return groups
 }
+
+// 3445h Maximum Difference Between Even and Odd Frequency II
+// 3 <= N <= 3 * 10^4
+func maxDifference_II(s string, k int) int {
+	dMax := math.MinInt
+
+	for _, a := range []byte("01234") {
+		for _, b := range []byte("01234") {
+			if a == b {
+				continue
+			}
+
+			Best := [4]int{}
+			for i := range 4 {
+				Best[i] = math.MaxInt
+			}
+
+			aCnt, bCnt := 0, 0
+			aPrv, bPrv := 0, 0
+
+			left := -1
+			for right := 0; right < len(s); right++ {
+				switch s[right] {
+				case a:
+					aCnt++
+				case b:
+					bCnt++
+				}
+
+				if right-left >= k && bCnt-bPrv >= 2 {
+					lStat := aPrv&1<<1 | bPrv&1
+					if aPrv-bPrv < Best[lStat] {
+						Best[lStat] = aPrv - bPrv
+					}
+
+					left++
+					switch s[left] {
+					case a:
+						aPrv++
+					case b:
+						bPrv++
+					}
+				}
+
+				rStat := aCnt&1<<1 | bCnt&1
+				if Best[rStat^2] != math.MaxInt {
+					cur := aCnt - bCnt - Best[rStat^2]
+					if cur > dMax {
+						dMax = cur
+					}
+				}
+			}
+		}
+	}
+
+	return dMax
+}

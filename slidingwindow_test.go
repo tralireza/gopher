@@ -128,3 +128,19 @@ func Test3208(t *testing.T) {
 		}
 	}
 }
+
+func Test3445(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+		k   int
+	}{
+		{-1, "12233", 4},
+		{1, "1122211", 3},
+		{-1, "110", 3},
+	} {
+		if c.rst != maxDifference_II(c.s, c.k) {
+			t.FailNow()
+		}
+	}
+}
