@@ -403,3 +403,17 @@ func Test3394(t *testing.T) {
 		log.Printf(":: %t <- %v", rst, rectangles)
 	}
 }
+
+func Test3423(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{3, []int{1, 2, 4}},
+		{5, []int{-5, -10, -5}},
+	} {
+		if c.rst != maxAdjacentDistance(c.nums) {
+			t.FailNow()
+		}
+	}
+}

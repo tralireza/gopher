@@ -1,6 +1,9 @@
 package gopher
 
-import "log"
+import (
+	"log"
+	"math"
+)
 
 // 1358m Number of Substrings Containing All Three Characters
 func numberOfSubstrings(s string) int {
@@ -219,7 +222,7 @@ func maxDifference_II(s string, k int) int {
 					bCnt++
 				}
 
-				if right-left >= k && bCnt-bPrv >= 2 {
+				for right-left >= k && bCnt-bPrv >= 2 {
 					lStat := aPrv&1<<1 | bPrv&1
 					if aPrv-bPrv < Best[lStat] {
 						Best[lStat] = aPrv - bPrv

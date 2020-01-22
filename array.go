@@ -493,3 +493,19 @@ func checkValidCuts(n int, rectangles [][]int) bool {
 	}
 	return Check(0) || Check(1)
 }
+
+// 3423 Maximum Difference Between Adjacent Elements in a Circular Array
+func maxAdjacentDistance(nums []int) int {
+	abs := func(x int) int {
+		if x < 0 {
+			return -x
+		}
+		return x
+	}
+
+	xDiff := abs(nums[0] - nums[len(nums)-1])
+	for i, v := range nums[:len(nums)-1] {
+		xDiff = max(abs(v-nums[i+1]), xDiff)
+	}
+	return xDiff
+}
