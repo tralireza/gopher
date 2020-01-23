@@ -87,6 +87,7 @@ func Test1163(t *testing.T) {
 		{"zmwrjvfamgpoowncslddrkjhchqswkamnsitrcmnhn", "vmjtxddvzmwrjvfamgpoowncslddrkjhchqswkamnsitrcmnhn"},
 		{"zab", "zaazaabcdezaazab"},
 		{"zrziy", "zrziy"}, // 10/36
+		{"aaa", "aaa"},
 
 		{"bab", "abab"},
 		{"tcode", "leetcode"},
@@ -110,6 +111,7 @@ func Test1163(t *testing.T) {
 					B[n/r%10] = append(B[n/r%10], n)
 				}
 			}
+
 			copy(nums, E)
 			offset := len(E)
 			for d := range 10 {
@@ -121,6 +123,27 @@ func Test1163(t *testing.T) {
 		log.Print(":: RadixSort: ", nums)
 	}
 	RadixSort([]int{325, 7, 457, 657, -1, 1000, 839, 0, 436, 7, 10, 720, 355, -1})
+
+	CountingSort := func(nums []int) {
+		log.Print("-- CountingSort: ", nums)
+
+		xVal, mVal := slices.Max(nums), slices.Min(nums)
+		F := make([]int, xVal-mVal+1)
+		for _, n := range nums {
+			F[n-mVal]++
+		}
+
+		i := 0
+		for n, f := range F {
+			for range f {
+				nums[i] = n + mVal
+				i++
+			}
+		}
+
+		log.Print(":: CountingSort: ", nums)
+	}
+	CountingSort([]int{9, 7, 8, 17, 11, 3, 9, 3, 3, 16, 3, 9, 11, 19})
 }
 
 const Input1163 = "jyqxwwxglawjvneegoxztrcyjqlduczzhgdlesnaeyialxfhtcgwkxjcdsllpqwurenryothdqzdbjmppjyvwzxobkvlrxjytmpklararqdqjjnblxaliqhjvtbzysfkbhroccnlwnslpsvkarenxfezocpdocgamvufzcfjkxijwybwgbfmnnwuuunsoupaxbylxggremxxakntirsqjwkyxkldqokrlwevrvoovoekhesvxmbnycclrdhrzzbovalhtnzdhfuyatdgeyazstiovogkiuuvsjvvofvrfwyoxydkgkvhporcxccrlcecgqakknogwyemwcfmokuflsskyevbdkmmumftzcpdonagopprxcmwwuarqxbxglrnprstubwfjmxpwdsribxcglhhzthhajimjawanewsqmwifzndqwojclkdilkisapeegpeixshskpfdnsbmfjiojelllsvuquupkwvnkgfdwreabvhyswnsnsdofccebjqmawlkqbzcrxqcvargeqvruhgypqcfbltnhswzjbjayqglgsyttnvpxrjbbotzcmoscbykzxoqoqkooycfiviewtmpyzzpicglhsydafzdzresxjeqhahsukeprzooumbltzxhmqktoypcjenuqqlkpwtvyscfcxcodnokzxpcjlimqmeltiipawblteiyaftlvefhrglstuwupkfvjzhrlvejljfahcenhnsqmmcfpnbtwrkukzncabvgyvvfqhsairahkulbejckkoapagatvkhceqswlpzijcwddrooijdcircayscwmordpckluyryrguednmhzleeklgggqujqeobgesjdbpuueenraljjecjxssdosskkbhrnykrfvumazfcjalcttxewlxiwtsojrmeakgzkwympgkdrshbiaamlwwwvacewcjgaruzmcpblpgqdyykxjyybhwwgowlcsliiitgffqdfprvrrf"

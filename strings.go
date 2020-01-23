@@ -204,7 +204,7 @@ func lastSubstring_SuffixArray(s string) string {
 
 	RadixSort := func(L [][3]int, halfK int) {
 		vMax := slices.MaxFunc(L, func(a, b [3]int) int { return a[halfK] - b[halfK] })
-		N := vMax[halfK]
+		N := max(1, vMax[halfK])
 		for r := 1; r <= N; r *= 10 {
 			E, B := [][3]int{}, [10][][3]int{}
 			for _, l := range L {
@@ -213,13 +213,13 @@ func lastSubstring_SuffixArray(s string) string {
 				} else {
 					B[l[halfK]/r%10] = append(B[l[halfK]/r%10], l)
 				}
+			}
 
-				copy(L, E)
-				offset := len(E)
-				for d := range 10 {
-					copy(L[offset:], B[d])
-					offset += len(B[d])
-				}
+			copy(L, E)
+			offset := len(E)
+			for d := range 10 {
+				copy(L[offset:], B[d])
+				offset += len(B[d])
 			}
 		}
 	}
