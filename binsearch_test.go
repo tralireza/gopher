@@ -294,6 +294,21 @@ func Test2594(t *testing.T) {
 	}
 }
 
+func Test2616(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+		p    int
+	}{
+		{1, []int{10, 1, 2, 7, 1, 3}, 2},
+		{0, []int{4, 2, 1, 2}, 1},
+	} {
+		if c.rst != minimizeMax(c.nums, c.p) {
+			t.FailNow()
+		}
+	}
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func Test3224(t *testing.T) {
 	// 0 <= Array[i] <= k <= 10^5

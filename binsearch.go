@@ -548,6 +548,35 @@ func repairCars(ranks []int, cars int) int64 {
 	return l
 }
 
+// 2616m Minimize the Maximum Difference of Pairs
+func minimizeMax(nums []int, p int) int {
+	slices.Sort(nums)
+
+	CountPairs := func(m int) int {
+		count := 0
+		for i := 0; i < len(nums)-1; i++ {
+			if nums[i+1]-nums[i] <= m {
+				count++
+				i++
+			}
+		}
+
+		return count
+	}
+
+	l, r := 0, nums[len(nums)-1]-nums[0]
+	for l < r {
+		m := l + (r-l)>>1
+		if CountPairs(m) >= p {
+			r = m
+		} else {
+			l = m + 1
+		}
+	}
+
+	return l
+}
+
 // 3224m Minimum Array Changes to Make Difference Equal
 func minChanges(nums []int, k int) int {
 	M := map[int]int{}
