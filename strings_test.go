@@ -28,6 +28,26 @@ func Test412(t *testing.T) {
 	log.Print(" ?= ", fizzBuzz(15))
 }
 
+func Test466(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s1  string
+		n1  int
+		s2  string
+		n2  int
+	}{
+		{2, "acb", 4, "ab", 2},
+		{1, "acb", 1, "acb", 1},
+
+		{12, "aaa", 20, "aaaaa", 1},
+	} {
+		log.Print("* ", c.s1, c.n1, c.s2, c.n2)
+		if c.rst != getMaxRepetitions(c.s1, c.n1, c.s2, c.n2) {
+			t.FailNow()
+		}
+	}
+}
+
 // 520 Detect Capital
 func Test520(t *testing.T) {
 	log.Print("true ?= ", detectCapitalUse("USA"))

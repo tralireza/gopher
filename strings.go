@@ -63,6 +63,39 @@ func fizzBuzz(n int) []string {
 	return S
 }
 
+// 466h Count The Repetitions
+func getMaxRepetitions(s1 string, n1 int, s2 string, n2 int) int {
+	R, M := make([]int, len(s2)+1), make([]int, len(s2)+1)
+
+	r, m := 0, 0
+	for i := 0; i < n1; i++ {
+		for j := 0; j < len(s1); j++ {
+			if s1[j] == s2[m] {
+				m++
+			}
+			if m == len(s2) {
+				m = 0
+				r++
+			}
+		}
+
+		R[i], M[i] = r, m
+		log.Print("-> ", i, R, M)
+
+		for k := 0; k < i; k++ {
+			if M[k] == m {
+				prv := R[k]
+				pattern := (R[i] - R[k]) * ((n1 - 1 - k) / (i - k))
+				rest := R[k+(n1-1-k)%(i-k)] - R[k]
+
+				return (prv + pattern + rest) / n2
+			}
+		}
+	}
+
+	return R[n1-1] / n2
+}
+
 // 520 Detect Capital
 func detectCapitalUse(word string) bool {
 	return word[1:] == strings.ToLower(word[1:]) || word == strings.ToUpper(word)
