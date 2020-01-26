@@ -381,6 +381,34 @@ func closestPrimes(left int, right int) []int {
 	return R
 }
 
+// 2566 Maximum Difference by Remapping a Digit
+func minMaxDifference(num int) int {
+	s := strconv.Itoa(num)
+
+	for i := 0; i < len(s); i++ {
+		if s[i] != '9' {
+			vMax, vMin := 0, 0
+			for j := 0; j < len(s); j++ {
+				vMax *= 10
+				if s[j] != s[i] {
+					vMax += int(s[j] - '0')
+				} else {
+					vMax += 9
+				}
+
+				vMin *= 10
+				if s[j] != s[0] {
+					vMin += int(s[j] - '0')
+				}
+			}
+
+			return vMax - vMin
+		}
+	}
+
+	return num
+}
+
 // 2579m Count Total Number of Colored Cells
 func coloredCells(n int) int64 {
 	cells := int64(1)

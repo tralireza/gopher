@@ -200,6 +200,22 @@ func Test2523(t *testing.T) {
 	log.Print("[29 31] ?= ", closestPrimes(19, 31))
 }
 
+func Test2566(t *testing.T) {
+	for _, c := range []struct {
+		rst, num int
+	}{
+		{99009, 11891},
+		{99, 90},
+
+		{999, 999},
+		{9, 0},
+	} {
+		if c.rst != minMaxDifference(c.num) {
+			t.FailNow()
+		}
+	}
+}
+
 // 2579m Count Total Number of Colored Cells
 func Test2579(t *testing.T) {
 	log.Print("1 ?= ", coloredCells(1))
