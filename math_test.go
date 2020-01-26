@@ -192,12 +192,21 @@ func Test1998(t *testing.T) {
 	log.Println("true ?= ", gcdSort([]int{10, 5, 9, 3, 15}))
 }
 
-// 2523m Closest Prime Numbers in Range
 func Test2523(t *testing.T) {
-	log.Print("[11 13] ?= ", closestPrimes(10, 19))
-	log.Print("[-1 -1] ?= ", closestPrimes(4, 6))
+	for _, c := range []struct {
+		rst         []int
+		left, right int
+	}{
+		{[]int{11, 13}, 10, 19},
+		{[]int{-1, -1}, 4, 6},
 
-	log.Print("[29 31] ?= ", closestPrimes(19, 31))
+		{[]int{29, 31}, 19, 31},
+	} {
+		log.Print("* ", c.left, c.right)
+		if !reflect.DeepEqual(c.rst, closestPrimes(c.left, c.right)) {
+			t.FailNow()
+		}
+	}
 }
 
 func Test2566(t *testing.T) {
