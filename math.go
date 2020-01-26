@@ -386,24 +386,26 @@ func minMaxDifference(num int) int {
 	s := strconv.Itoa(num)
 
 	for i := 0; i < len(s); i++ {
-		if s[i] != '9' {
-			vMax, vMin := 0, 0
-			for j := 0; j < len(s); j++ {
-				vMax *= 10
-				if s[j] != s[i] {
-					vMax += int(s[j] - '0')
-				} else {
-					vMax += 9
-				}
+		if s[i] == '9' {
+			continue
+		}
 
-				vMin *= 10
-				if s[j] != s[0] {
-					vMin += int(s[j] - '0')
-				}
+		vMax, vMin := 0, 0
+		for j := 0; j < len(s); j++ {
+			vMax *= 10
+			if s[j] != s[i] {
+				vMax += int(s[j] - '0')
+			} else {
+				vMax += 9
 			}
 
-			return vMax - vMin
+			vMin *= 10
+			if s[j] != s[0] {
+				vMin += int(s[j] - '0')
+			}
 		}
+
+		return vMax - vMin
 	}
 
 	return num
