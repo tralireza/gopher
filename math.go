@@ -222,6 +222,62 @@ func findNumbers(nums []int) int {
 	return evens
 }
 
+// 1432m Max Difference You Can Get From Changing an Integer
+func maxDiff(num int) int {
+	darr := []byte(strconv.Itoa(num))
+
+	vMax, vMin := num, 0
+	for i := 0; i < len(darr); i++ {
+		if darr[i] == '9' {
+			continue
+		}
+
+		vMax = 0
+		for j := 0; j < len(darr); j++ {
+			vMax *= 10
+			switch darr[j] {
+			case darr[i]:
+				vMax += 9
+			default:
+				vMax += int(darr[j] - '0')
+			}
+		}
+		break
+	}
+
+	switch darr[0] {
+	case '1':
+		vMin = num
+		for i := 1; i < len(darr); i++ {
+			if darr[i] == '0' || darr[i] == '1' {
+				continue
+			}
+
+			vMin = 1
+			for j := 1; j < len(darr); j++ {
+				vMin *= 10
+				if darr[j] != darr[i] {
+					vMin += int(darr[j] - '0')
+				}
+			}
+			break
+		}
+	default:
+		for j := 0; j < len(darr); j++ {
+			vMin *= 10
+			if darr[j] == darr[0] {
+				vMin += 1
+			} else {
+				vMin += int(darr[j] - '0')
+			}
+		}
+	}
+
+	log.Print("-> ", vMax, vMin)
+
+	return vMax - vMin
+}
+
 // 1780m Check if Number is a Sum of Powers of Three
 func checkPowersOfThree(n int) bool {
 	P := []int{}

@@ -124,6 +124,25 @@ func Test1295(t *testing.T) {
 	}
 }
 
+func Test1432(t *testing.T) {
+	for _, c := range []struct {
+		rst, num int
+	}{
+		{888, 555},
+		{8, 9},
+
+		{820000, 123456},
+		{888, 111},         // 205/211
+		{8808050, 1101057}, // 207/211
+
+	} {
+		log.Print("* ", c.num)
+		if c.rst != maxDiff(c.num) {
+			t.Errorf("~ %d", c.rst)
+		}
+	}
+}
+
 // 1780m Check if Number is a Sum of Powers of Three
 func Test1780(t *testing.T) {
 	// 1 <= N <= 10^7
