@@ -3,6 +3,8 @@ package gopher
 import (
 	"log"
 	"reflect"
+	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -140,6 +142,40 @@ func Test1432(t *testing.T) {
 		if c.rst != maxDiff(c.num) {
 			t.Errorf("~ %d", c.rst)
 		}
+	}
+}
+
+func Benchmark1432(b *testing.B) {
+	for range b.N {
+		maxDiff(18808050)
+	}
+}
+
+func Benchmark1432_Strings(b *testing.B) {
+	Strings := func(num int) int {
+		vMin, vMax := strconv.Itoa(num), strconv.Itoa(num)
+
+		for i := 0; i < len(vMax); i++ {
+			if vMax[i] != '9' {
+				vMax = strings.ReplaceAll(vMax, string(vMax[i]), "9")
+				break
+			}
+		}
+
+		for i := 0; i < len(vMin); i++ {
+			if vMin[i] != '0' && vMin[i] != '1' {
+				vMin = strings.ReplaceAll(vMin, string(vMin[i]), "0")
+				break
+			}
+		}
+
+		x, _ := strconv.Atoi(vMax)
+		m, _ := strconv.Atoi(vMin)
+		return x - m
+	}
+
+	for range b.N {
+		Strings(18808050)
 	}
 }
 

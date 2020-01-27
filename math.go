@@ -224,30 +224,6 @@ func findNumbers(nums []int) int {
 
 // 1432m Max Difference You Can Get From Changing an Integer
 func maxDiff(num int) int {
-	Strings := func(num int) int {
-		vMin, vMax := strconv.Itoa(num), strconv.Itoa(num)
-
-		for i := 0; i < len(vMax); i++ {
-			if vMax[i] != '9' {
-				vMax = strings.ReplaceAll(vMax, string(vMax[i]), "9")
-				break
-			}
-		}
-
-		for i := 0; i < len(vMin); i++ {
-			if vMin[i] != '0' && vMin[i] != '1' {
-				vMin = strings.ReplaceAll(vMin, string(vMin[i]), "0")
-				break
-			}
-		}
-
-		x, _ := strconv.Atoi(vMax)
-		m, _ := strconv.Atoi(vMin)
-		return x - m
-	}
-	tStart := time.Now()
-	log.Printf(":: Strings -> %d [@ %v]", Strings(num), time.Since(tStart))
-
 	darr := []byte(strconv.Itoa(num))
 
 	vMax, vMin := num, 0
@@ -296,8 +272,6 @@ func maxDiff(num int) int {
 			}
 		}
 	}
-
-	log.Print("-> ", vMax, vMin)
 
 	return vMax - vMin
 }
