@@ -8,17 +8,34 @@ import (
 )
 
 func Test493(t *testing.T) {
+	BruteForce := func(nums []int) int {
+		count := 0
+		for i := 0; i < len(nums); i++ {
+			for j := 0; j < i; j++ {
+				if nums[j] > 2*nums[i] {
+					count++
+				}
+			}
+		}
+
+		return count
+	}
+
 	for _, c := range []struct {
 		rst  int
 		nums []int
 	}{
 		{2, []int{1, 3, 2, 3, 1}},
 		{3, []int{2, 4, 3, 5, 1}},
+
+		{0, []int{2147483647, 2147483647, 2147483647, 2147483647, 2147483647, 2147483647}},
 	} {
 		log.Print("* ", c.nums)
 		if c.rst != reversePairs(c.nums) {
 			t.Fail()
 		}
+		log.Print(":: ", c.rst)
+		log.Printf(":: %d (Brute Force)", BruteForce(c.nums))
 	}
 }
 
