@@ -7,6 +7,21 @@ import (
 	"testing"
 )
 
+func Test493(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{2, []int{1, 3, 2, 3, 1}},
+		{3, []int{2, 4, 3, 5, 1}},
+	} {
+		log.Print("* ", c.nums)
+		if c.rst != reversePairs(c.nums) {
+			t.Fail()
+		}
+	}
+}
+
 func Test2179(t *testing.T) {
 	nums := []int{}
 	for range 10 {

@@ -1,6 +1,56 @@
 package gopher
 
-import "log"
+import (
+	"log"
+	"slices"
+)
+
+// 493h Reverse Pairs
+func reversePairs(nums []int) int {
+	sorted := make([]int, len(nums))
+	copy(sorted, nums)
+	slices.Sort(sorted)
+
+	lBSearch := func(t int) int {
+		l, r := 0, len(sorted)
+		for l < r {
+			m := l + (r-l)>>1
+			if sorted[m] < t {
+				l = m + 1
+			} else {
+				r = m
+			}
+		}
+
+		return l
+	}
+
+	fw := make([]int, len(nums)+1)
+	Update := func(i, diff int) {
+		for i > 0 {
+			fw[i] += diff
+			i -= i & (^i + 1)
+		}
+	}
+	Query := func(i int) int {
+		v := 0
+		for i < len(fw) {
+			v += fw[i]
+			i += i & (^i + 1)
+		}
+		return v
+	}
+
+	count := 0
+	for _, n := range nums {
+		log.Print("-> FW: ", fw)
+
+		count += Query(lBSearch(2*n+1) + 1)
+		Update(lBSearch(n)+1, 1)
+	}
+
+	return count
+}
 
 // 2179h Count Good Triplets in an Array
 func NewFenwick2197(size int) BIT2197 {
