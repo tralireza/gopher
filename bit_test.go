@@ -21,6 +21,49 @@ func Test493(t *testing.T) {
 		return count
 	}
 
+	MergeSort := func(nums []int) int {
+		Merge := func(l, m, r int) {
+			lArr, rArr := make([]int, m-l+1), make([]int, r-m)
+			copy(lArr, nums[l:m+1])
+			copy(rArr, nums[m+1:r+1])
+
+			left, right := 0, 0
+			for i := l; i <= r; i++ {
+				if right == len(rArr) || left < len(lArr) && lArr[left] <= rArr[right] {
+					nums[i] = lArr[left]
+					left++
+				} else {
+					nums[i] = rArr[right]
+					right++
+				}
+			}
+		}
+
+		var MSort func(l, r int) int
+		MSort = func(l, r int) int {
+			if l < r {
+				m := l + (r-l)>>1
+				count := MSort(l, m) + MSort(m+1, r)
+
+				j := m + 1
+				for i := l; i <= m; i++ {
+					for j <= r && nums[i] > 2*nums[j] {
+						j++
+					}
+					count += j - (m + 1)
+				}
+
+				Merge(l, m, r)
+
+				return count
+			}
+
+			return 0
+		}
+
+		return MSort(0, len(nums)-1)
+	}
+
 	for _, c := range []struct {
 		rst  int
 		nums []int
@@ -36,6 +79,7 @@ func Test493(t *testing.T) {
 		}
 		log.Print(":: ", c.rst)
 		log.Printf(":: %d (Brute Force)", BruteForce(c.nums))
+		log.Printf(":: %d (Merge Sort)", MergeSort(c.nums))
 	}
 }
 

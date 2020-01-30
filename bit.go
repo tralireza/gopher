@@ -43,7 +43,7 @@ func reversePairs(nums []int) int {
 
 	count := 0
 	for _, n := range nums {
-		log.Print("-> FW: ", fw)
+		log.Print("-> Fenwick: ", fw)
 
 		count += Query(lBSearch(2*n+1) + 1)
 		Update(lBSearch(n)+1, 1)
