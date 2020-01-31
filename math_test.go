@@ -53,6 +53,14 @@ func Test342(t *testing.T) {
 }
 
 func Test587(t *testing.T) {
+	fences := [][]int{{0, 0}, {0, 9}, {9, 0}, {9, 9}}
+	trees := make([][]int, 4)
+	copy(trees, fences)
+
+	for n := range 63 {
+		trees = append(trees, []int{1 + n/8, 1 + n%8})
+	}
+
 	for _, c := range []struct {
 		rst, trees [][]int
 	}{
@@ -67,6 +75,7 @@ func Test587(t *testing.T) {
 			[][]int{{1, 2}, {2, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2}},
 			[][]int{{4, 2}, {6, 2}, {2, 2}, {5, 2}, {1, 2}, {7, 2}},
 		}, // 87/88
+		{fences, trees},
 	} {
 		log.Print("* ", c.trees)
 		if !reflect.DeepEqual(outerTrees(c.trees), c.rst) {
