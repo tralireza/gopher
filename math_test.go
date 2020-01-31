@@ -52,6 +52,23 @@ func Test342(t *testing.T) {
 	log.Print("true ?= ", isPowerOfFour(1))
 }
 
+func Test587(t *testing.T) {
+	for _, c := range []struct {
+		rst, trees [][]int
+	}{
+		{
+			[][]int{{1, 1}, {2, 0}, {2, 4}, {3, 3}, {4, 2}},
+			[][]int{{1, 1}, {2, 2}, {2, 0}, {2, 4}, {3, 3}, {4, 2}},
+		},
+		{[][]int{{1, 2}, {2, 2}, {4, 2}}, [][]int{{1, 2}, {2, 2}, {4, 2}}},
+	} {
+		log.Print("* ", c.trees)
+		if !reflect.DeepEqual(outerTrees(c.trees), c.rst) {
+			t.Error()
+		}
+	}
+}
+
 // 598 Range Addition II
 func Test598(t *testing.T) {
 	log.Print("4 ?= ", maxCount(3, 3, [][]int{{2, 2}, {3, 3}}))

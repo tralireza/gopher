@@ -63,6 +63,55 @@ func isPowerOfFour(n int) bool {
 	return n == 1
 }
 
+// 587h Erect the Fence
+func outerTrees(trees [][]int) [][]int {
+	if len(trees) <= 3 {
+		return trees
+	}
+
+	CrossPrd := func(o, a, b []int) int {
+		return (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0])
+	}
+
+	fCmp := func(a, b []int) int {
+		if a[0] == b[0] {
+			return a[1] - b[1]
+		}
+		return a[0] - b[0]
+	}
+
+	slices.SortFunc(trees, fCmp)
+
+	Lower := [][]int{}
+	for _, p := range trees {
+		for len(Lower) > 1 && CrossPrd(Lower[len(Lower)-2], Lower[len(Lower)-1], p) < 0 {
+			Lower = Lower[:len(Lower)-1]
+		}
+		Lower = append(Lower, p)
+	}
+	log.Print("-> Lower: ", Lower)
+
+	slices.Reverse(trees)
+	Upper := [][]int{}
+	for _, p := range trees {
+		for len(Upper) > 1 && CrossPrd(Upper[len(Upper)-2], Upper[len(Upper)-1], p) < 0 {
+			Upper = Upper[:len(Upper)-1]
+		}
+		Upper = append(Upper, p)
+	}
+	log.Print("-> Upper: ", Upper)
+
+	ConvexHull := make([][]int, len(Upper)-1+len(Lower)-1)
+	copy(ConvexHull, Lower[:len(Lower)-1])
+	copy(ConvexHull[len(Lower)-1:], Upper[:len(Upper)-1])
+
+	slices.SortFunc(ConvexHull, fCmp)
+	ConvexHull = slices.CompactFunc(ConvexHull, func(a, b []int) bool { return fCmp(a, b) == 0 })
+
+	log.Print(":: Convex Hull: ", ConvexHull)
+	return ConvexHull
+}
+
 // 598 Range Addition II
 func maxCount(m int, n int, ops [][]int) int {
 	x, y := m, n
