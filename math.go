@@ -73,14 +73,12 @@ func outerTrees(trees [][]int) [][]int {
 		return (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0])
 	}
 
-	fCmp := func(a, b []int) int {
+	slices.SortFunc(trees, func(a, b []int) int {
 		if a[0] == b[0] {
 			return a[1] - b[1]
 		}
 		return a[0] - b[0]
-	}
-
-	slices.SortFunc(trees, fCmp)
+	})
 
 	Lower := [][]int{}
 	for _, p := range trees {
@@ -105,11 +103,20 @@ func outerTrees(trees [][]int) [][]int {
 	copy(ConvexHull, Lower[:len(Lower)-1])
 	copy(ConvexHull[len(Lower)-1:], Upper[:len(Upper)-1])
 
-	slices.SortFunc(ConvexHull, fCmp)
-	ConvexHull = slices.CompactFunc(ConvexHull, func(a, b []int) bool { return fCmp(a, b) == 0 })
+	Compact := make([][]int, len(ConvexHull))
+	copy(Compact, ConvexHull)
 
-	log.Print(":: Convex Hull: ", ConvexHull)
-	return ConvexHull
+	points, M := 0, map[[2]int]struct{}{}
+	for _, p := range Compact {
+		if _, ok := M[[2]int{p[0], p[1]}]; !ok {
+			M[[2]int{p[0], p[1]}] = struct{}{}
+			ConvexHull[points] = p
+			points++
+		}
+	}
+
+	log.Print(":: Convex Hull: ", ConvexHull[:points])
+	return ConvexHull[:points]
 }
 
 // 598 Range Addition II
