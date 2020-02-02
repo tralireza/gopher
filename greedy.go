@@ -6,6 +6,7 @@ import (
 	"log"
 	"math"
 	"slices"
+	"sort"
 	"strings"
 	"time"
 )
@@ -228,6 +229,8 @@ func twoSum(numbers []int, target int) []int {
 // 630h Course Schedule III
 type PQ630 struct{ sort.IntSlice }
 
+func (o PQ630) Less(i, j int) bool { return o.IntSlice[i] > o.IntSlice[j] }
+
 func (o *PQ630) Push(x any) { o.IntSlice = append(o.IntSlice, x.(int)) }
 func (o *PQ630) Pop() any {
 	v := o.IntSlice[o.Len()-1]
@@ -242,10 +245,10 @@ func scheduleCourse(courses [][]int) int {
 	pq := PQ630{}
 	for _, course := range courses {
 		start += course[0]
-		heap.Push(&pq, -course[0])
+		heap.Push(&pq, course[0])
 
 		if start > course[1] {
-			start += heap.Pop(&pq).(int)
+			start -= heap.Pop(&pq).(int)
 		}
 	}
 
