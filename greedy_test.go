@@ -96,6 +96,7 @@ func Test630(t *testing.T) {
 		if c.rst != scheduleCourse(c.courses) {
 			t.Error()
 		}
+		log.Print(":: ", c.rst)
 	}
 }
 

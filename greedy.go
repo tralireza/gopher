@@ -240,12 +240,15 @@ func (o *PQ630) Pop() any {
 
 func scheduleCourse(courses [][]int) int {
 	slices.SortFunc(courses, func(a, b []int) int { return a[1] - b[1] })
+	log.Print("-> Courses: ", courses)
 
 	start := 0
 	pq := PQ630{}
 	for _, course := range courses {
 		start += course[0]
 		heap.Push(&pq, course[0])
+
+		log.Printf("-> %d %d %v", start, course[1], pq)
 
 		if start > course[1] {
 			start -= heap.Pop(&pq).(int)
