@@ -68,9 +68,19 @@ func Test149(t *testing.T) {
 
 // 167m Two Sum II - Input Array Is Sorted
 func Test167(t *testing.T) {
-	log.Print("[1 2] ?= ", twoSum([]int{2, 7, 11, 15}, 9))
-	log.Print("[1 3] ?= ", twoSum([]int{2, 3, 4}, 6))
-	log.Print("[1 2] ?= ", twoSum([]int{-1, 0}, -1))
+	for _, c := range []struct {
+		rst, numbers []int
+		target       int
+	}{
+		{[]int{1, 2}, []int{2, 7, 11, 15}, 9},
+		{[]int{1, 3}, []int{2, 3, 4}, 6},
+		{[]int{1, 2}, []int{-1, 0}, -1},
+	} {
+		if !reflect.DeepEqual(c.rst, twoSum(c.numbers, c.target)) {
+			t.Error()
+		}
+	}
+}
 }
 
 // 670m Maximum Swap
