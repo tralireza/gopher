@@ -225,6 +225,33 @@ func twoSum(numbers []int, target int) []int {
 	return []int{0, 0}
 }
 
+// 630h Course Schedule III
+type PQ630 struct{ sort.IntSlice }
+
+func (o *PQ630) Push(x any) { o.IntSlice = append(o.IntSlice, x.(int)) }
+func (o *PQ630) Pop() any {
+	v := o.IntSlice[o.Len()-1]
+	o.IntSlice = o.IntSlice[:o.Len()-1]
+	return v
+}
+
+func scheduleCourse(courses [][]int) int {
+	slices.SortFunc(courses, func(a, b []int) int { return a[1] - b[1] })
+
+	start := 0
+	pq := PQ630{}
+	for _, course := range courses {
+		start += course[0]
+		heap.Push(&pq, -course[0])
+
+		if start > course[1] {
+			start += heap.Pop(&pq).(int)
+		}
+	}
+
+	return pq.Len()
+}
+
 // 670m Maximum Swap
 func maximumSwap(num int) int {
 	D := []int{}

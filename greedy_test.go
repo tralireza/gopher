@@ -81,6 +81,20 @@ func Test167(t *testing.T) {
 		}
 	}
 }
+
+func Test630(t *testing.T) {
+	for _, c := range []struct {
+		rst     int
+		courses [][]int
+	}{
+		{3, [][]int{{100, 200}, {200, 1300}, {1000, 1250}, {2000, 3200}}},
+		{1, [][]int{{1, 2}}},
+		{0, [][]int{{3, 2}, {4, 3}}},
+	} {
+		if c.rst != scheduleCourse(c.courses) {
+			t.Error()
+		}
+	}
 }
 
 // 670m Maximum Swap
