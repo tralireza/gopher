@@ -471,7 +471,6 @@ func Test494(t *testing.T) {
 	}
 }
 
-// 516m Longest Palindromic Subsequence
 func Test516(t *testing.T) {
 	DP := func(s string) int {
 		D := make([][]int, len(s)+1)
@@ -492,10 +491,21 @@ func Test516(t *testing.T) {
 		return D[len(s)][len(s)]
 	}
 
-	for _, f := range []func(string) int{longestPalindromeSubseq, DP} {
-		log.Print("4 ?= ", f("bbbab"))
-		log.Print("2 ?= ", f("cbbd"))
-		log.Print("--")
+	for _, c := range []struct {
+		rst int
+		s   string
+	}{
+		{4, "bbbab"},
+		{2, "cbbd"},
+	} {
+		log.Print("* ", c.s)
+		for _, fn := range []func(string) int{longestPalindromeSubseq, DP} {
+			if c.rst != fn(c.s) {
+				t.Error()
+			}
+		}
+	}
+}
 	}
 }
 
