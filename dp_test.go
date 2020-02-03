@@ -506,6 +506,19 @@ func Test516(t *testing.T) {
 		}
 	}
 }
+
+func Test639(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+	}{
+		{9, "*"},
+		{18, "1*"},
+		{15, "2*"},
+	} {
+		if c.rst != numDecodingsII(c.s) {
+			t.Error()
+		}
 	}
 }
 

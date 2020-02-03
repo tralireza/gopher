@@ -654,6 +654,67 @@ func longestPalindromeSubseq(s string) int {
 	return LPS[0][len(s)-1]
 }
 
+// 639h Decode Ways II
+func numDecodingsII(s string) int {
+	Mem := make([]int, len(s))
+	defer log.Print("-> ", Mem)
+
+	const M = 1e9 + 7
+
+	var Search func(int) int
+	Search = func(start int) int {
+		if start < 0 {
+			return 1
+		}
+
+		if Mem[start] > 0 {
+			return Mem[start]
+		}
+
+		count := 0
+
+		switch s[start] {
+		case '*':
+			count += 9 * Search(start-1) % M
+			if start > 0 {
+				switch s[start-1] {
+				case '1':
+					count += 9 * Search(start-2) % M
+				case '2':
+					count += 6 * Search(start-2) % M
+				case '*':
+					count += 15 * Search(start-2) % M
+				}
+			}
+		default:
+			if s[start] != '0' {
+				count += Search(start - 1)
+			}
+			if start > 0 {
+				switch s[start-1] {
+				case '1':
+					count += Search(start - 2)
+				case '2':
+					if s[start] <= '6' {
+						count += Search(start - 2)
+					}
+				case '*':
+					if s[start] <= '6' {
+						count += 2 * Search(start-2) % M
+					} else {
+						count += Search(start - 2)
+					}
+				}
+			}
+		}
+
+		Mem[start] = count % M
+		return count % M
+	}
+
+	return Search(len(s)-1) % M
+}
+
 // 646m Maximum Length of Pair Chain
 func findLongestChain(pairs [][]int) int {
 	slices.SortFunc(pairs, func(a, b []int) int { return a[1] - b[1] })
