@@ -515,6 +515,8 @@ func Test639(t *testing.T) {
 		{9, "*"},
 		{18, "1*"},
 		{15, "2*"},
+
+		{177, "1**"},
 	} {
 		if c.rst != numDecodingsII(c.s) {
 			t.Error()
