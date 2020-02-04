@@ -404,11 +404,21 @@ func Test3272(t *testing.T) {
 	}
 }
 
-// 3312h Sorted GCD Pair Queries
 func Test3312(t *testing.T) {
 	// 1 <= N_i <= 5*10^4, N.length <= 10^5
 
-	log.Print("[1 2 2] ?= ", gcdValues([]int{2, 3, 4}, []int64{0, 2, 2}))
-	log.Print("[4 2 1 1] ?= ", gcdValues([]int{4, 4, 2, 1}, []int64{5, 3, 1, 0}))
-	log.Print("[2 2] ?= ", gcdValues([]int{2, 2}, []int64{0, 0}))
+	for _, c := range []struct {
+		rst, nums []int
+		queries   []int64
+	}{
+		{[]int{1, 2, 2}, []int{2, 3, 4}, []int64{0, 2, 2}},
+		{[]int{4, 2, 1, 1}, []int{4, 4, 2, 1}, []int64{5, 3, 1, 0}},
+		{[]int{2, 2}, []int{2, 2}, []int64{0, 0}},
+	} {
+		log.Print("* ", c.nums, c.queries)
+		if !reflect.DeepEqual(c.rst, gcdValues(c.nums, c.queries)) {
+			t.Error()
+		}
+	}
+}
 }

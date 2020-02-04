@@ -771,7 +771,7 @@ func gcdValues(nums []int, queries []int64) []int {
 		freq[n]++
 	}
 
-	log.Print(" -> frequency :: ", freq)
+	log.Print("-> frequency :: ", freq)
 
 	GCD := make([]int, xVal+1) // count of Pairs: {Ni, Nj} with gcd(Ni, Nj) = GCD[g]
 	for g := xVal; g >= 1; g-- {
@@ -786,14 +786,14 @@ func gcdValues(nums []int, queries []int64) []int {
 		}
 	}
 
-	log.Print(" -> GCD[g] :: ", GCD)
+	log.Print("-> GCD[g] :: ", GCD)
 
 	pSum := make([]int64, xVal+1)
 	for g := 1; g <= xVal; g++ {
 		pSum[g] = pSum[g-1] + int64(GCD[g])
 	}
 
-	log.Print(" -> Sigma GCD[g] :: ", pSum)
+	log.Print("-> Sigma GCD[g] :: ", pSum)
 
 	R := []int{}
 	for _, q := range queries {
