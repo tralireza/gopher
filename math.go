@@ -810,3 +810,40 @@ func gcdValues(nums []int, queries []int64) []int {
 	}
 	return R
 }
+
+// 3405h Count the Number of Arrays with K Matching Adjacent Elements
+func countGoodArrays(n, m, k int) int {
+	const M = 1e9 + 7
+
+	mPower := func(b, e int) int {
+		power := 1
+		for e > 0 {
+			if e&1 == 1 {
+				power = power * b % M
+			}
+			b = b * b % M
+			e >>= 1
+		}
+		return power
+	}
+
+	Facts, iFacts := make([]int, n), make([]int, n)
+
+	Facts[0] = 1
+	for i := 1; i < n; i++ {
+		Facts[i] = i * Facts[i-1] % M
+	}
+	log.Print("-> Facts: ", Facts)
+
+	iFacts[n-1] = mPower(Facts[n-1], M-2)
+	for i := n - 1; i > 0; i-- {
+		iFacts[i-1] = i * iFacts[i] % M
+	}
+	log.Print("-> Inv. Facts: ", iFacts)
+
+	nCk := func(n, k int) int {
+		return Facts[n] * iFacts[k] % M * iFacts[n-k] % M
+	}
+
+	return m * nCk(n-1, k) % M * mPower(m-1, n-k-1) % M
+}

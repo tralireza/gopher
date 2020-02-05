@@ -421,4 +421,18 @@ func Test3312(t *testing.T) {
 		}
 	}
 }
+
+func Test3405(t *testing.T) {
+	for _, c := range []struct {
+		rst, n, m, k int
+	}{
+		{4, 3, 2, 1},
+		{6, 4, 2, 2},
+		{2, 5, 2, 0},
+	} {
+		log.Print("* ", c.n, c.m, c.k)
+		if c.rst != countGoodArrays(c.n, c.m, c.k) {
+			t.Error()
+		}
+	}
 }
