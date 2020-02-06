@@ -246,6 +246,22 @@ func Test2280(t *testing.T) {
 	}
 }
 
+func Test2294(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+		k    int
+	}{
+		{2, []int{3, 6, 1, 2, 5}, 2},
+		{2, []int{1, 2, 3}, 1},
+		{3, []int{2, 2, 4, 5}, 0},
+	} {
+		if c.rst != partitionArray(c.nums, c.k) {
+			t.Error()
+		}
+	}
+}
+
 func Test2434(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string

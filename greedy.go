@@ -513,6 +513,21 @@ func minimumLines(stockPrices [][]int) int {
 	return t
 }
 
+// 2294m Partition Array Such That Maximum Difference Is K
+func partitionArray(nums []int, k int) int {
+	parts := 0
+
+	start := nums[0]
+	for _, n := range nums[1:] {
+		if n-start > k {
+			start = n
+			parts++
+		}
+	}
+
+	return parts + 1
+}
+
 // 2434m Using a Robot to Print the Lexicographically Smallest String
 func robotWithString(s string) string {
 	F := [26]int{}
