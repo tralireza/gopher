@@ -847,3 +847,34 @@ func countGoodArrays(n, m, k int) int {
 
 	return m * nCk(n-1, k) % M * mPower(m-1, n-k-1) % M
 }
+
+// 3443m Maximum Manhattan Distance After K Changes
+func maxDistance(s string, k int) int {
+	xDist := 0
+
+	abs := func(x int) int {
+		if x < 0 {
+			return -x
+		}
+		return x
+	}
+
+	lat, long := 0, 0
+
+	for i, dir := range s {
+		switch dir {
+		case 'N':
+			lat++
+		case 'S':
+			lat--
+		case 'W':
+			long++
+		case 'E':
+			long--
+		}
+
+		xDist = max(min(abs(lat)+abs(long)+2*k, i+1), xDist)
+	}
+
+	return xDist
+}

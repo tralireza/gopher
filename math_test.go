@@ -436,3 +436,18 @@ func Test3405(t *testing.T) {
 		}
 	}
 }
+
+func Test3443(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+		k   int
+	}{
+		{3, "NWSE", 1},
+		{6, "NSWWEW", 3},
+	} {
+		if c.rst != maxDistance(c.s, c.k) {
+			t.Error()
+		}
+	}
+}
