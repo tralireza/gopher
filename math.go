@@ -835,7 +835,7 @@ func countGoodArrays(n, m, k int) int {
 	}
 	log.Print("-> Facts: ", Facts)
 
-	iFacts[n-1] = mPower(Facts[n-1], M-2)
+	iFacts[n-1] = mPower(Facts[n-1], M-1-1) // a^(p-1) = 1 (mod p)
 	for i := n - 1; i > 0; i-- {
 		iFacts[i-1] = i * iFacts[i] % M
 	}
