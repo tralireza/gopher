@@ -332,6 +332,24 @@ func Test2938(t *testing.T) {
 	}
 }
 
+func Test3085(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		word string
+		k    int
+	}{
+		{3, "aabcaba", 0},
+		{2, "dabdcbdcdcd", 2},
+		{1, "aaabaaa", 2},
+	} {
+
+		if c.rst != minimumDeletions_KSpecial(c.word, c.k) {
+			t.Error()
+		}
+	}
+
+}
+
 func Test3170(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string

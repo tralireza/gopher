@@ -685,6 +685,34 @@ func minimumSteps(s string) int64 {
 	return steps
 }
 
+// 3085m Minimum Deletions to Make String K-Special
+func minimumDeletions_KSpecial(word string, k int) int {
+	F := [26]int{}
+	for i := 0; i < len(word); i++ {
+		F[word[i]-'a']++
+	}
+
+	mDels := len(word)
+	for _, f := range F {
+		if f > 0 {
+			dels := 0
+			for x := range 26 {
+				switch {
+				case f > F[x]:
+					dels += F[x]
+				case f+k < F[x]:
+					dels += F[x] - (f + k)
+				}
+			}
+
+			mDels = min(dels, mDels)
+		}
+	}
+
+	log.Print(":: ", mDels)
+	return mDels
+}
+
 // 3170m Lexicographically Minimum String After Removing Starts
 type PQ3170 []Entry3170
 
