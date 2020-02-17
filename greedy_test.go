@@ -317,7 +317,6 @@ func Test2918(t *testing.T) {
 	}
 }
 
-// 2938m Separate Black and White Balls
 func Test2938(t *testing.T) {
 	for _, c := range []struct {
 		rst int64
