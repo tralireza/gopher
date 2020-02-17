@@ -694,19 +694,17 @@ func minimumDeletions_KSpecial(word string, k int) int {
 
 	mDels := len(word)
 	for _, f := range F {
-		if f > 0 {
-			dels := 0
-			for x := range 26 {
-				switch {
-				case f > F[x]:
-					dels += F[x]
-				case f+k < F[x]:
-					dels += F[x] - (f + k)
-				}
+		dels := 0
+		for x := range 26 {
+			switch {
+			case f > F[x]:
+				dels += F[x]
+			case f+k < F[x]:
+				dels += F[x] - (f + k)
 			}
-
-			mDels = min(dels, mDels)
 		}
+
+		mDels = min(dels, mDels)
 	}
 
 	log.Print(":: ", mDels)
