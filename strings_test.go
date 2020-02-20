@@ -180,6 +180,23 @@ func Benchmark1163_SuffixArray(b *testing.B) {
 	}
 }
 
+func Test1668(t *testing.T) {
+	// 1 <= L(s), L(w) <= 100
+
+	for _, c := range []struct {
+		rst            int
+		sequence, word string
+	}{
+		{2, "ababc", "ab"},
+		{1, "ababc", "ba"},
+		{0, "ababc", "ac"},
+	} {
+		if c.rst != maxRepeating(c.sequence, c.word) {
+			t.Error()
+		}
+	}
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))

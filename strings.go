@@ -389,6 +389,26 @@ func lastSubstring(s string) string {
 	return s[i:]
 }
 
+// 1668 Maximum Repeating Substring
+func maxRepeating(sequence string, word string) int {
+	xRepeat := 0
+	for i := 0; i <= len(sequence)-len(word); i++ {
+		cur := 0
+		start := i
+		for i < len(sequence) && sequence[i] == word[(i-start)%len(word)] {
+			i++
+			if (i-start)%len(word) == 0 {
+				cur++
+			}
+		}
+
+		xRepeat = max(cur, xRepeat)
+		i = start
+	}
+
+	return xRepeat
+}
+
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	Source, Pattern := strings.Split(sentence1, " "), strings.Split(sentence2, " ")
