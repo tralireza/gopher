@@ -406,6 +406,12 @@ func maxRepeating(sequence string, word string) int {
 		i = start
 	}
 
+	repeats := 0
+	for p := word; strings.Contains(sequence, p); p += word {
+		repeats++
+	}
+	log.Printf(":: %d ~ %d", repeats, xRepeat)
+
 	return xRepeat
 }
 

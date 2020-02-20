@@ -190,6 +190,8 @@ func Test1668(t *testing.T) {
 		{2, "ababc", "ab"},
 		{1, "ababc", "ba"},
 		{0, "ababc", "ac"},
+
+		{5, "aaabaaaabaaabaaaabaaaabaaaabaaaaba", "aaaba"}, // 205/212
 	} {
 		if c.rst != maxRepeating(c.sequence, c.word) {
 			t.Error()
