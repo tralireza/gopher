@@ -270,13 +270,21 @@ func Test1922(t *testing.T) {
 	}
 }
 
-// 1998h GCD Sort of an Array
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4
 
-	log.Println("true ?= ", gcdSort([]int{7, 21, 3}))
-	log.Println("false ?= ", gcdSort([]int{5, 2, 6, 2}))
-	log.Println("true ?= ", gcdSort([]int{10, 5, 9, 3, 15}))
+	for _, c := range []struct {
+		rst  bool
+		nums []int
+	}{
+		{true, []int{7, 21, 3}},
+		{false, []int{5, 2, 6, 2}},
+		{true, []int{10, 5, 9, 3, 15}},
+	} {
+		if c.rst != gcdSort(c.nums) {
+			t.Error()
+		}
+	}
 }
 
 func Test2523(t *testing.T) {
