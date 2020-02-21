@@ -90,10 +90,10 @@ func Test715(t *testing.T) {
 		}
 
 		if lastOne {
-			log.Printf("%s+- {%d..%d %t}", indent, n.left, n.right, n.nVal)
+			log.Printf("%s!- {%d..%d %t}", indent, n.left, n.right, n.nVal)
 			indent += "   "
 		} else {
-			log.Printf("%s|- {%d..%d %t}", indent, n.left, n.right, n.nVal)
+			log.Printf("%s+- {%d..%d %t}", indent, n.left, n.right, n.nVal)
 			indent += "|  "
 		}
 
