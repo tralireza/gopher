@@ -78,6 +78,50 @@ func Test307(t *testing.T) {
 	log.Print("7 ?= ", o.SumRange(1, 2))
 }
 
+func Test715(t *testing.T) {
+	// 1 <= left < right <= 10^9
+
+	type Node = STNode715
+
+	var Draw func(*Node, string, bool)
+	Draw = func(n *Node, indent string, lastOne bool) {
+		if n == nil {
+			return
+		}
+
+		if lastOne {
+			log.Printf("%s!- {%d..%d %t}", indent, n.left, n.right, n.nVal)
+			indent += "   "
+		} else {
+			log.Printf("%s+- {%d..%d %t}", indent, n.left, n.right, n.nVal)
+			indent += "|  "
+		}
+
+		Draw(n.lNode, indent, false)
+		Draw(n.rNode, indent, true)
+	}
+
+	o := NewRangeModule()
+
+	o.AddRange(10, 20)
+	o.RemoveRange(14, 16)
+
+	Draw(o.rtSeg, "", true)
+
+	for _, c := range []struct {
+		rst         bool
+		left, right int
+	}{
+		{true, 10, 14},
+		{false, 13, 15},
+		{true, 16, 17},
+	} {
+		if c.rst != o.QueryRange(c.left, c.right) {
+			t.Error()
+		}
+	}
+}
+
 // 731m My Calendar II
 func Test731(t *testing.T) {
 	// 0 <= Event(start, end) <= 10^9
