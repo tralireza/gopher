@@ -451,6 +451,52 @@ func gcdSort(nums []int) bool {
 	return true
 }
 
+// 2081h Sum of k-Mirror Numbers
+func kMirror(k int, n int) int64 {
+	kmSum := int64(0)
+
+	kPalindrome := func(n, k int64) bool {
+		p, t := int64(0), n
+		for t > 0 {
+			p *= k
+			p += t % k
+			t /= k
+		}
+		return p == n
+	}
+
+	for start := int64(1); ; start *= 10 {
+		for evenOdd := range 2 {
+			for v := start; v < start*10; v++ {
+				p, t := v, v
+
+				switch evenOdd {
+				case 0:
+					t /= 10
+				}
+
+				for t > 0 {
+					p *= 10
+					p += t % 10
+					t /= 10
+				}
+
+				if kPalindrome(p, int64(k)) {
+					log.Printf("-> [%d]  %d   %v", n, p, kPalindrome(p, int64(k)))
+
+					n--
+					kmSum += p
+					if n == 0 {
+						return kmSum
+					}
+				}
+			}
+		}
+	}
+
+	return -1
+}
+
 // 2523m Closest Prime Numbers in Range
 func closestPrimes(left int, right int) []int {
 	Sieve := make([]int, right+1)

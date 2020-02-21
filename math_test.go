@@ -287,6 +287,22 @@ func Test1998(t *testing.T) {
 	}
 }
 
+func Test2081(t *testing.T) {
+	for _, c := range []struct {
+		rst  int64
+		k, n int
+	}{
+		{25, 2, 5},
+		{499, 3, 7},
+		{20379000, 7, 17},
+	} {
+		log.Print("* ", c.k, c.n)
+		if c.rst != kMirror(c.k, c.n) {
+			t.Error()
+		}
+	}
+}
+
 func Test2523(t *testing.T) {
 	for _, c := range []struct {
 		rst         []int
