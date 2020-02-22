@@ -138,12 +138,10 @@ func (o *STNode715) Query(left, right int) bool {
 		return true
 	}
 
-	l, r := o.nVal, o.nVal
 	if o.lNode != nil && o.rNode != nil {
-		l = o.lNode.Query(left, right)
-		r = o.rNode.Query(left, right)
+		return o.lNode.Query(left, right) && o.rNode.Query(left, right)
 	}
-	return l && r
+	return o.nVal
 }
 
 func (o *RangeModule) AddRange(left, right int) {
