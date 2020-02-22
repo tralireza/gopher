@@ -86,6 +86,21 @@ func Test1920(t *testing.T) {
 	}
 }
 
+func Test2200(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums []int
+		key, k    int
+	}{
+		{[]int{1, 2, 3, 4, 5, 6}, []int{3, 4, 9, 1, 3, 9, 5}, 9, 1},
+		{[]int{0, 1, 2, 3, 4}, []int{2, 2, 2, 2, 2}, 2, 2},
+	} {
+		log.Print("* ", c.nums, c.key, c.k)
+		if !reflect.DeepEqual(c.rst, findKDistantIndices(c.nums, c.key, c.k)) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2033(t *testing.T) {
 	TwoPointers := func(grid [][]int, x int) int {
 		nums := make([]int, 0, len(grid)*len(grid[0]))

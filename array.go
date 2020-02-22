@@ -231,6 +231,24 @@ func buildArray(nums []int) []int {
 	return R
 }
 
+// 2200 Find All K-Distant Indices in an Array
+func findKDistantIndices(nums []int, key int, k int) []int {
+	kDists := []int{}
+
+	l := 0
+	for r, n := range nums {
+		if n == key {
+			for i := max(r-k, l); i <= min(r+k, len(nums)-1); i++ {
+				kDists = append(kDists, i)
+			}
+			l = r + k + 1
+		}
+	}
+
+	log.Print(":: ", kDists)
+	return kDists
+}
+
 // 2033m Minimum Operations to Make a Uni-Value Grid
 func minOperations_UniValue(grid [][]int, x int) int {
 	nums := make([]int, 0, len(grid)*len(grid[0]))
