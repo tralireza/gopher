@@ -86,7 +86,6 @@ type RangeModule struct {
 func NewRangeModule() RangeModule {
 	return RangeModule{
 		&STNode715{
-			nVal:  false,
 			left:  1,        // [left ...
 			right: int(1e9), // ... right]
 		},
@@ -130,12 +129,12 @@ func (o *STNode715) Update(left, right int, nVal bool) bool {
 	return o.nVal
 }
 func (o *STNode715) Query(left, right int) bool {
-	if left <= o.left && o.right < right {
+	if left <= o.left && o.right <= right {
 		return o.nVal
 	}
 
 	if right <= o.left || o.right <= left {
-		return true
+		return true // identity for this Monoid binary operation: Any && true = Any
 	}
 
 	if o.lNode != nil && o.rNode != nil {

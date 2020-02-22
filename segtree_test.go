@@ -78,6 +78,14 @@ func Test307(t *testing.T) {
 	log.Print("7 ?= ", o.SumRange(1, 2))
 }
 
+func (o STNode715) String() string {
+	nVal := ' '
+	if o.nVal {
+		nVal = '*'
+	}
+	return fmt.Sprintf("{%d..%d %c}", o.left, o.right, nVal)
+}
+
 func Test715(t *testing.T) {
 	// 1 <= left < right <= 10^9
 
@@ -90,10 +98,10 @@ func Test715(t *testing.T) {
 		}
 
 		if lastOne {
-			log.Printf("%s!- {%d..%d %t}", indent, n.left, n.right, n.nVal)
+			log.Printf("%s!- %v", indent, n)
 			indent += "   "
 		} else {
-			log.Printf("%s+- {%d..%d %t}", indent, n.left, n.right, n.nVal)
+			log.Printf("%s+- %v", indent, n)
 			indent += "|  "
 		}
 
@@ -120,6 +128,11 @@ func Test715(t *testing.T) {
 			t.Error()
 		}
 	}
+
+	log.Print("---")
+	o.AddRange(15, 17)
+	o.AddRange(2, 6)
+	Draw(o.rtSeg, "", true)
 }
 
 // 731m My Calendar II
