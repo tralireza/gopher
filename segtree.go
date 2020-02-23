@@ -86,8 +86,8 @@ type RangeModule struct {
 func NewRangeModule() RangeModule {
 	return RangeModule{
 		&STNode715{
-			left:  1,        // [left ...
-			right: int(1e9), // ... right]
+			left:  1,            // [left ...
+			right: int(1e5) + 1, // ... right)
 		},
 	}
 }
@@ -100,13 +100,15 @@ type STNode715 struct {
 }
 
 func (o *STNode715) Update(left, right int, nVal bool) bool {
-	if left <= o.left && o.right <= right {
+	//time.Sleep(100 * time.Millisecond)
+
+	if left <= o.left && o.right <= right+1 {
 		o.nVal = nVal
 		o.lNode, o.rNode = nil, nil
 		return o.nVal
 	}
 
-	if o.left >= right || left >= o.right {
+	if right <= o.left || o.right <= left {
 		return o.nVal
 	}
 
@@ -129,7 +131,7 @@ func (o *STNode715) Update(left, right int, nVal bool) bool {
 	return o.nVal
 }
 func (o *STNode715) Query(left, right int) bool {
-	if left <= o.left && o.right <= right {
+	if left <= o.left && o.right <= right+1 {
 		return o.nVal
 	}
 

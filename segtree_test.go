@@ -83,7 +83,7 @@ func (o STNode715) String() string {
 	if o.nVal {
 		nVal = '*'
 	}
-	return fmt.Sprintf("{%d..%d %c}", o.left, o.right, nVal)
+	return fmt.Sprintf("[%d..%d) %c}", o.left, o.right, nVal)
 }
 
 func Test715(t *testing.T) {
@@ -125,13 +125,15 @@ func Test715(t *testing.T) {
 		{true, 16, 17},
 	} {
 		if c.rst != o.QueryRange(c.left, c.right) {
-			t.Error()
+			t.FailNow()
 		}
 	}
 
 	log.Print("---")
-	o.AddRange(15, 17)
-	o.AddRange(2, 6)
+	o.AddRange(1, int(1e5))
+	Draw(o.rtSeg, "", true)
+	log.Print("---")
+	o.RemoveRange(26, 62)
 	Draw(o.rtSeg, "", true)
 }
 
