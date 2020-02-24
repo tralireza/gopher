@@ -353,6 +353,49 @@ func chalkReplacer(chalk []int, k int) int {
 	return r
 }
 
+// 2040h Kth Smallest Product of Two Sorted Array
+func kthSmallestProduct(nums1 []int, nums2 []int, k int64) int64 {
+	countSmaller := func(v int64) int64 {
+		count := int64(0)
+		for _, n := range nums1 {
+			l, r := 0, len(nums2)-1
+			for l <= r {
+				m := l + (r-l)>>1
+				p := int64(n) * int64(nums2[m])
+				if n >= 0 && p <= v || n < 0 && p > v {
+					l = m + 1
+				} else {
+					r = m - 1
+				}
+			}
+
+			if n >= 0 {
+				count += int64(l)
+			} else {
+				count += int64(len(nums2) - l)
+			}
+		}
+
+		return count
+	}
+
+	l, r := -int64(1e10), int64(1e10)
+	for l <= r {
+		m := l + (r-l)>>1
+
+		log.Print("-> ", l, m, r)
+
+		if countSmaller(m) < k {
+			l = m + 1
+		} else {
+			r = m - 1
+		}
+	}
+
+	log.Print(":: ", l)
+	return l
+}
+
 // 2071h Maximum Number of Tasks You Can Assign
 func maxTaskAssign(tasks, workers []int, pills, strength int) int {
 	slices.Sort(tasks)

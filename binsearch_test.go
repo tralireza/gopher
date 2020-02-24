@@ -187,6 +187,23 @@ func Test1894(t *testing.T) {
 	log.Print("1 ?= ", chalkReplacer([]int{3, 4, 1, 2}, 25))
 }
 
+func Test2040(t *testing.T) {
+	for _, c := range []struct {
+		rst          int64
+		nums1, nums2 []int
+		k            int64
+	}{
+		{int64(8), []int{2, 5}, []int{3, 4}, int64(2)},
+		{int64(0), []int{-4, -2, 0, 3}, []int{2, 4}, int64(6)},
+		{int64(-6), []int{-2, -1, 0, 1, 2}, []int{-3, -1, 2, 4, 5}, int64(3)},
+	} {
+		log.Print("* ", c.nums1, c.nums2, c.k)
+		if c.rst != kthSmallestProduct(c.nums1, c.nums2, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2071(t *testing.T) {
 	for _, c := range []struct {
 		rst             int
