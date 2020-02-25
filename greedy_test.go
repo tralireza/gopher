@@ -262,6 +262,22 @@ func Test2294(t *testing.T) {
 	}
 }
 
+func Test2311(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+		k   int
+	}{
+		{5, "1001010", 5},
+		{6, "00101001", 1},
+	} {
+		log.Print("* ", c.s, c.k)
+		if c.rst != longestSubsequence(c.s, c.k) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2434(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string

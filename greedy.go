@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"math/bits"
 	"slices"
 	"sort"
 	"strings"
@@ -526,6 +527,29 @@ func partitionArray(nums []int, k int) int {
 	}
 
 	return parts + 1
+}
+
+// 2311m Longest Binary Subsequence Less Than or Equal to K
+func longestSubsequence(s string, k int) int {
+	longest := 0
+
+	curOne := 1
+	bits := bits.Len(uint(k))
+	sVal := 0
+	for i := 0; i < len(s); i++ {
+		switch s[len(s)-1-i] {
+		case '1':
+			if i < bits && sVal+curOne <= k {
+				sVal += curOne
+				longest++
+			}
+		default:
+			longest++
+		}
+		curOne <<= 1
+	}
+
+	return longest
 }
 
 // 2434m Using a Robot to Print the Lexicographically Smallest String
