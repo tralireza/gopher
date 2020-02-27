@@ -208,6 +208,22 @@ func Test1605(t *testing.T) {
 	}
 }
 
+func Test2099(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums []int
+		k         int
+	}{
+		{[]int{3, 3}, []int{2, 1, 3, 3}, 2},
+		{[]int{-1, 3, 4}, []int{-1, -2, 3, 4}, 3},
+		{[]int{3, 4}, []int{3, 4, 3, 3}, 2},
+	} {
+		log.Print("* ", c.nums, c.k)
+		if !reflect.DeepEqual(c.rst, maxSubsequence(c.nums, c.k)) {
+			t.FailNow()
+		}
+	}
+}
+
 func Test2131(t *testing.T) {
 	for _, c := range []struct {
 		rst   int

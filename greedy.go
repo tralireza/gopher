@@ -412,6 +412,28 @@ func restoreMatrix(rowSum []int, colSum []int) [][]int {
 	return M
 }
 
+// 2099 Find Subsequence of Length K With the Largest Sum
+func maxSubsequence(nums []int, k int) []int {
+	Q := [][2]int{}
+	for i, n := range nums {
+		Q = append(Q, [2]int{i, n})
+	}
+
+	slices.SortFunc(Q, func(a, b [2]int) int { return b[1] - a[1] })
+	log.Print("-> ", Q)
+
+	slices.SortFunc(Q[:k], func(a, b [2]int) int { return a[0] - b[0] })
+	log.Print("-> ", Q)
+
+	kS := []int{}
+	for i := range Q[:k] {
+		kS = append(kS, Q[i][1])
+	}
+
+	log.Print(":: ", kS)
+	return kS
+}
+
 // 2131m Longest Palindrome by Concatenating Two Letter Words
 func longestPalindrome(words []string) int {
 	Hashing := func() int {
