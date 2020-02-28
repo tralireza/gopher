@@ -320,13 +320,20 @@ func numSubseq(nums []int, target int) int {
 	}
 
 	TwoPointers := func(nums []int, target int) int {
+		Powers := make([]int, len(nums))
+		Powers[0] = 1
+		for i := range Powers[:len(Powers)-1] {
+			Powers[i+1] = (2 * Powers[i]) % M
+		}
+		log.Print("-> Mod Powers: ", Powers)
+
 		slices.Sort(nums)
 
 		count := 0
 		l, r := 0, len(nums)-1
 		for l <= r {
 			if nums[l]+nums[r] <= target {
-				count = (count + mPower(2, r-l)) % M
+				count = (count + Powers[r-l]) % M
 				l++
 			} else {
 				r--
