@@ -341,19 +341,17 @@ func numSubseq(nums []int, target int) int {
 	slices.Sort(nums)
 	for p := 0; p < len(nums); p++ {
 		l, r := p, len(nums)-1
-		x := -1
 		for l <= r {
 			m := l + (r-l)>>1
 			if nums[m] <= target-nums[p] {
-				x = m
 				l = m + 1
 			} else {
 				r = m - 1
 			}
 		}
 
-		if x != -1 {
-			count += mPower(2, x-p)
+		if r >= p {
+			count += mPower(2, r-p)
 			count %= M
 		}
 	}
