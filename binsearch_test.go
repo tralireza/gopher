@@ -139,6 +139,24 @@ func Test1351(t *testing.T) {
 	}
 }
 
+func Test1498(t *testing.T) {
+	for _, c := range []struct {
+		rst    int
+		nums   []int
+		target int
+	}{
+		{4, []int{3, 5, 6, 7}, 9},
+		{6, []int{3, 3, 6, 8}, 10},
+		{61, []int{2, 3, 3, 4, 6, 7}, 12},
+	} {
+		log.Print("* ", c.nums, c.target)
+		if c.rst != numSubseq(c.nums, c.target) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1760m Minimum Limit of Balls in a Bag
 func Test1760(t *testing.T) {
 	log.Print("3 ?= ", minimumSize([]int{9}, 2))

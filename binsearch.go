@@ -303,6 +303,47 @@ func countNegatives(grid [][]int) int {
 	return negs
 }
 
+// 1498m Number of Subsequences That Satisfy the Given Sum Condition
+func numSubseq(nums []int, target int) int {
+	const M = int(1e9) + 7
+
+	mPower := func(base, exponent int) int {
+		power := 1
+		for exponent > 0 {
+			if exponent&1 == 1 {
+				power = (base * power) % M
+			}
+			base = (base * base) % M
+			exponent >>= 1
+		}
+		return power
+	}
+
+	count := 0
+	slices.Sort(nums)
+	for p := 0; p < len(nums); p++ {
+		l, r := p, len(nums)-1
+		x := -1
+		for l <= r {
+			m := l + (r-l)>>1
+			if nums[m] <= target-nums[p] {
+				x = m
+				l = m + 1
+			} else {
+				r = m - 1
+			}
+		}
+
+		if x != -1 {
+			count += mPower(2, x-p)
+			count %= M
+		}
+	}
+
+	log.Print(":? ", count)
+	return count
+}
+
 // 1760m Minimum Limit of Balls in a Bag
 func minimumSize(nums []int, maxOperations int) int {
 	Possible := func(m int) bool {
