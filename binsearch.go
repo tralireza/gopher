@@ -319,6 +319,24 @@ func numSubseq(nums []int, target int) int {
 		return power
 	}
 
+	TwoPointers := func(nums []int, target int) int {
+		slices.Sort(nums)
+
+		count := 0
+		l, r := 0, len(nums)-1
+		for l <= r {
+			if nums[l]+nums[r] <= target {
+				count = (count + mPower(2, r-l)) % M
+				l++
+			} else {
+				r--
+			}
+		}
+
+		return count
+	}
+	log.Print(":? Two Pointers -> ", TwoPointers(nums, target))
+
 	count := 0
 	slices.Sort(nums)
 	for p := 0; p < len(nums); p++ {
