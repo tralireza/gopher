@@ -5,6 +5,23 @@ import (
 	"math"
 )
 
+// 594 Longest Harmonious Subsequence
+func findLHS(nums []int) int {
+	F := map[int]int{}
+	for _, n := range nums {
+		F[n]++
+	}
+
+	lhs := 0
+	for n, f := range F {
+		if fNext, ok := F[n+1]; ok {
+			lhs = max(f+fNext, lhs)
+		}
+	}
+
+	return lhs
+}
+
 // 1358m Number of Substrings Containing All Three Characters
 func numberOfSubstrings(s string) int {
 	count := 0

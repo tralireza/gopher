@@ -5,6 +5,23 @@ import (
 	"testing"
 )
 
+func Test594(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{5, []int{1, 3, 2, 2, 5, 2, 3, 7}},
+		{2, []int{1, 2, 3, 4}},
+		{0, []int{1, 1, 1, 1}},
+	} {
+		log.Print("* ", c.nums)
+		if c.rst != findLHS(c.nums) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1358m Number of Substrings Containing All Three Characters
 func Test1358(t *testing.T) {
 	SlidingWindow := func(s string) int {
