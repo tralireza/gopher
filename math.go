@@ -130,6 +130,23 @@ func maxCount(m int, n int, ops [][]int) int {
 	return x * y
 }
 
+// 780h Reaching Point
+func reachingPoints(sx int, sy int, tx int, ty int) bool {
+	var Search func(x, y int) bool
+	Search = func(x, y int) bool {
+		if x == tx && y == ty {
+			return true
+		}
+		if x > tx || y > ty {
+			return false
+		}
+
+		return Search(x+y, y) || Search(x, x+y)
+	}
+
+	return Search(sx, sy)
+}
+
 // 838m Push Dominoes
 func pushDominoes(dominoes string) string {
 	log.Print(":> ", strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(dominoes, "R.L", "R|L"), ".L", "LL"), "R.", "RR"))
