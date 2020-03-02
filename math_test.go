@@ -100,7 +100,8 @@ func Test780(t *testing.T) {
 		{false, 1, 1, 2, 2},
 		{true, 1, 1, 1, 1},
 
-		{true, 35, 13, 455955547, 420098884}, // 103/196
+		{false, 35, 13, 455955547, 420098884}, // 103/196
+		{false, 3, 7, 3, 4},                   // 195/196
 	} {
 		if c.rst != reachingPoints(c.sx, c.sy, c.tx, c.ty) {
 			t.FailNow()
