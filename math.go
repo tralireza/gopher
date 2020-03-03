@@ -132,19 +132,29 @@ func maxCount(m int, n int, ops [][]int) int {
 
 // 780h Reaching Point
 func reachingPoints(sx int, sy int, tx int, ty int) bool {
-	var Search func(x, y int) bool
-	Search = func(x, y int) bool {
-		if x == tx && y == ty {
-			return true
-		}
-		if x > tx || y > ty {
+	// Euclidean Algorithm: https://en.wikipedia.org/wiki/Euclidean_algorithm
+
+	var Search func(x, y, tx, ty int) bool
+	Search = func(x, y, tx, ty int) bool {
+		if x > tx {
 			return false
 		}
 
-		return Search(x+y, y) || Search(x, x+y)
+		if x == tx {
+			return ((ty - y) % x) == 0
+		}
+
+		return Search(y, x, ty%tx, tx)
 	}
 
-	return Search(sx, sy)
+	if sx > tx || sy > ty {
+		return false
+	}
+
+	if tx < ty {
+		return Search(sx, sy, tx, ty)
+	}
+	return Search(sy, sx, ty, tx)
 }
 
 // 838m Push Dominoes
