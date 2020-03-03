@@ -91,6 +91,22 @@ func Test598(t *testing.T) {
 	log.Print("9 ?= ", maxCount(3, 3, [][]int{}))
 }
 
+func Test780(t *testing.T) {
+	for _, c := range []struct {
+		rst            bool
+		sx, sy, tx, ty int
+	}{
+		{true, 1, 1, 3, 5},
+		{false, 1, 1, 2, 2},
+		{true, 1, 1, 1, 1},
+	} {
+		if c.rst != reachingPoints(c.sx, c.sy, c.tx, c.ty) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test838(t *testing.T) {
 	for _, c := range []struct {
 		rst, dominoes string
