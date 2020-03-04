@@ -327,7 +327,7 @@ func preimageSizeFZF(k int) int {
 	}
 
 	l, r := lSearch(k), rSearch(k)
-	log.Print("-> ", l, r)
+	log.Printf("-> %d %d   lSearch(+1): %d", l, r, lSearch(k+1))
 
 	return r - l + 1
 }
