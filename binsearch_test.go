@@ -122,6 +122,24 @@ func Test704(t *testing.T) {
 	}
 }
 
+func Test793(t *testing.T) {
+	for _, c := range []struct {
+		rst, k int
+	}{
+		{5, 0},
+		{0, 5},
+		{5, 3},
+
+		{5, 1000000000}, // 43/44
+	} {
+		log.Print("* ", c.k)
+		if c.rst != preimageSizeFZF(c.k) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1351 Count Negative Numbers in a Sorted Matrix
 func Test1351(t *testing.T) {
 	for _, c := range []struct {

@@ -280,6 +280,58 @@ func search(nums []int, target int) int {
 	return -1
 }
 
+// 793h Preimage Size of Factorial Zeroes Function
+// 0 <= k <= 10^9
+func preimageSizeFZF(k int) int {
+	fzf := func(x int) int {
+		fzCount := 0
+		for x/5 > 0 {
+			fzCount += x / 5
+			x /= 5
+		}
+		return fzCount
+	}
+
+	f, x := 1, 0
+	for x <= 15 {
+		log.Printf("-> %d! = %d  fzf: %d", x, f, fzf(x))
+		x++
+		f *= x
+	}
+	log.Printf("-> fzf(%d) = %d", 52, fzf(52))
+	log.Printf("-> fzf(1e9) = %d", fzf(int(1e9)))
+
+	lSearch := func(target int) int { // Left-Most BinSearch
+		l, r := 0, math.MaxInt
+		for l < r {
+			m := l + (r-l)>>1
+			if fzf(m) < target {
+				l = m + 1
+			} else {
+				r = m
+			}
+		}
+		return l
+	}
+	rSearch := func(target int) int { // Right-Most BinSearch
+		l, r := 0, math.MaxInt
+		for l < r {
+			m := l + (r-l)>>1
+			if fzf(m) > target {
+				r = m
+			} else {
+				l = m + 1
+			}
+		}
+		return r - 1
+	}
+
+	l, r := lSearch(k), rSearch(k)
+	log.Print("-> ", l, r)
+
+	return r - l + 1
+}
+
 // 1351 Count Negative Numbers in a Sorted Matrix
 func countNegatives(grid [][]int) int {
 	BSRight := func(nums []int, t int) int {
