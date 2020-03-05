@@ -231,6 +231,23 @@ func Test3042(t *testing.T) {
 	log.Print("0 ?= ", countPrefixSuffixPairs([]string{"abab", "ab"}))
 }
 
+func Test3330(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		word string
+	}{
+		{5, "abbcccc"},
+		{1, "abcd"},
+		{4, "aaaa"},
+	} {
+		log.Print("* ", c.word)
+		if c.rst != possibleStringCount(c.word) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test3442(t *testing.T) {
 	for _, c := range []struct {
 		rst int
