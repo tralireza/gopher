@@ -27,6 +27,22 @@ func Test485(t *testing.T) {
 	log.Print("2 ?= ", findMaxConsecutiveOnes([]int{1, 0, 1, 1, 0, 1}))
 }
 
+func Test798(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{3, []int{2, 3, 1, 4, 0}},
+		{0, []int{1, 3, 0, 2, 4}},
+	} {
+		log.Print("* ", c.nums)
+		if c.rst != bestRotation(c.nums) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1437 Check If All 1's Are at Least Length K Places Away
 func Test1437(t *testing.T) {
 	log.Print("true ?= ", kLengthApart([]int{1, 0, 0, 0, 1, 0, 0, 1}, 2))

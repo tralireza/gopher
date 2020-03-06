@@ -71,6 +71,33 @@ func findMaxConsecutiveOnes(nums []int) int {
 	return tMax
 }
 
+// 798h Smallest Rotation with Highest Score
+func bestRotation(nums []int) int {
+	N := len(nums)
+
+	Scores := make([]int, N)
+	for i, n := range nums {
+		left, right := (N+i-n+1)%N, (i+1)%N
+		Scores[left]--
+		Scores[right]++
+		if left > right {
+			Scores[0]--
+		}
+	}
+
+	best, cur := -N, 0
+	x := 0
+	for i, score := range Scores {
+		cur += score
+		if cur > best {
+			best = cur
+			x = i
+		}
+	}
+
+	return x
+}
+
 // 1437 Check If All 1's Are at Least Length K Places Away
 func kLengthApart(nums []int, k int) bool {
 	dist := k
