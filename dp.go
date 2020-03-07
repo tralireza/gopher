@@ -1795,6 +1795,57 @@ func maximumValueSum_3068(nums []int, k int, edges [][]int) int64 {
 	return xVal
 }
 
+// 3333h Find the Original Typed String II
+func possibleStringCountII(word string, k int) int {
+	const M = int(1e9) + 7
+
+	G := []int{}
+	gCount := 1
+	for i := 1; i < len(word); i++ {
+		if word[i] == word[i-1] {
+			gCount++
+		} else {
+			G = append(G, gCount)
+			gCount = 1
+		}
+	}
+	G = append(G, gCount)
+
+	total := 1
+	for _, f := range G {
+		total = total * f % M
+	}
+	log.Print("-> ", total, G)
+
+	if len(G) >= k {
+		return total
+	}
+
+	// f(i, j) = Zigma[x: 1..G[i] f(i-1, j-x)
+	D := make([][]int, len(G)+1)
+	for i := range D {
+		D[i] = make([]int, k)
+	}
+
+	D[0][0] = 1 // word: No letter & Zero length
+	for i, g := range G {
+		for j := 1; j < k; j++ {
+			for x := 1; x <= g; x++ {
+				if j-x >= 0 {
+					D[i+1][j] = (D[i+1][j] + D[i][j-x]) % M
+				}
+			}
+		}
+	}
+
+	log.Print("-> ", D)
+
+	for j := 0; j < k; j++ {
+		total = (total - D[len(G)][j] + M) % M
+	}
+	return total
+}
+
 // 3335m Total Characters in String After Transformations I
 func lengthAfterTransformations(s string, t int) int {
 	const M = 1000_000_007

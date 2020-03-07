@@ -1453,6 +1453,29 @@ func Test3068(t *testing.T) {
 	}
 }
 
+func Test3333(t *testing.T) {
+	// 1 <= N <= 10^5
+	// 1 <= k <= 2000
+	for _, c := range []struct {
+		rst  int
+		word string
+		k    int
+	}{
+		{5, "aabbccdd", 7},
+		{1, "aabbccdd", 8},
+		{8, "aaabbb", 3},
+
+		{3, "ammma", 3}, // 669/846
+		{23761, "bbbbbyyyyyyyyyyccccccccyyyqqqqhffffhhhhhhhhsswwwwvvvvvlllldddddddddnnnnnnvr", 69}, // 770/846
+	} {
+		log.Printf("* %q %d", c.word, c.k)
+		if c.rst != possibleStringCountII(c.word, c.k) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test3335(t *testing.T) {
 	for _, c := range []struct {
 		rst int
