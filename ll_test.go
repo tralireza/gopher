@@ -300,6 +300,33 @@ func Test641(t *testing.T) {
 	Draw(&dlQ)
 }
 
+func Test706(t *testing.T) {
+	// 0 <= Key,Value <= 10^6
+	o := NewMyHashMap706()
+	o.Put(1, 1)
+	o.Put(2, 2)
+	if o.Get(1) != 1 {
+		t.FailNow()
+	}
+	if o.Get(3) != -1 {
+		t.FailNow()
+	}
+
+	o.Put(5, 5)
+	o.Put(15, 15)
+	o.Remove(5)
+	if o.Get(15) != 15 {
+		t.FailNow()
+	}
+
+	o.Put(15, 5)
+	if o.Get(15) != 5 {
+		t.FailNow()
+	}
+
+	log.Print(o)
+}
+
 // 725m Split Linked List in Parts
 func Test725(t *testing.T) {
 	type L = ListNode

@@ -452,6 +452,77 @@ func (o *CircularDeque641) GetLast() int {
 	return o.vals[o.last]
 }
 
+// 706 Design HashMap
+type MyHashMap706 struct {
+	data  []*Node706
+	fHash func(int) int
+}
+
+type Node706 struct {
+	Key, Value int
+	Next       *Node706
+}
+
+func NewMyHashMap706() MyHashMap706 {
+	N := 10
+	return MyHashMap706{
+		data:  make([]*Node706, N),
+		fHash: func(k int) int { return k % N },
+	}
+}
+
+func (o *MyHashMap706) Put(key, value int) {
+	n := o.data[o.fHash(key)]
+	if n == nil {
+		o.data[o.fHash(key)] = &Node706{
+			Key:   key,
+			Value: value,
+		}
+		return
+	}
+
+	p := &Node706{}
+	for n != nil {
+		if n.Key == key {
+			n.Value = value
+			return
+		}
+		p = n
+		n = n.Next
+	}
+
+	p.Next = &Node706{
+		Key:   key,
+		Value: value,
+	}
+}
+
+func (o *MyHashMap706) Get(key int) int {
+	n := o.data[o.fHash(key)]
+	for n != nil {
+		if n.Key == key {
+			return n.Value
+		}
+		n = n.Next
+	}
+	return -1
+}
+
+func (o *MyHashMap706) Remove(key int) {
+	dummy := &Node706{
+		Next: o.data[o.fHash(key)],
+	}
+
+	p := dummy
+	for n := p.Next; n != nil; n = n.Next {
+		if n.Key == key {
+			p.Next = n.Next
+			o.data[o.fHash(key)] = dummy.Next
+			return
+		}
+	}
+}
+
 // 725m Split Linked List in Parts
 func splitListToParts(head *ListNode, k int) []*ListNode {
 	lZ := 0
