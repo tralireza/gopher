@@ -836,6 +836,23 @@ func countGoodIntegers(n int, k int) int64 {
 	return count
 }
 
+// 3307h Find the K-th Character in String Game II
+func kthCharacterII(k int64, operations []int) byte {
+	offset := 0
+	for k != 1 {
+		t := bits.Len64(uint64(k)) - 1
+		if 1<<t == k {
+			t--
+		}
+		k -= 1 << t
+		if operations[t] == 1 {
+			offset++
+		}
+	}
+
+	return 'a' + byte(offset%26)
+}
+
 // 3312h Sorted GCD Pair Queries
 func gcdValues(nums []int, queries []int64) []int {
 	xVal := slices.Max(nums)

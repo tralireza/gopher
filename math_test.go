@@ -447,6 +447,23 @@ func Test3272(t *testing.T) {
 	}
 }
 
+func Test3307(t *testing.T) {
+	for _, c := range []struct {
+		rst        byte
+		k          int64
+		operations []int
+	}{
+		{'a', int64(5), []int{0, 0, 0}},
+		{'b', int64(10), []int{0, 1, 0, 1}},
+	} {
+		log.Print("* ", c.k, c.operations)
+		if c.rst != kthCharacterII(c.k, c.operations) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test3312(t *testing.T) {
 	// 1 <= N_i <= 5*10^4, N.length <= 10^5
 
