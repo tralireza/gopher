@@ -460,7 +460,7 @@ func Test3307(t *testing.T) {
 		if c.rst != kthCharacterII(c.k, c.operations) {
 			t.FailNow()
 		}
-		log.Print(":: ", c.rst)
+		log.Printf(":: %q", c.rst)
 	}
 }
 

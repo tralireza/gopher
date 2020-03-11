@@ -3,6 +3,7 @@ package gopher
 import (
 	"log"
 	"math"
+	"math/bits"
 	"slices"
 	"strconv"
 	"strings"
@@ -838,6 +839,19 @@ func countGoodIntegers(n int, k int) int64 {
 
 // 3307h Find the K-th Character in String Game II
 func kthCharacterII(k int64, operations []int) byte {
+	BitMath := func(k int64, operations []int) byte {
+		offset := 0
+		k--
+		for p := bits.Len64(uint64(k)) - 1; p >= 0; p-- {
+			if (k>>p)&1 == 1 {
+				offset += operations[p]
+			}
+		}
+
+		return 'a' + byte(offset%26)
+	}
+	log.Printf(":? Bit Math: %q", BitMath(k, operations))
+
 	offset := 0
 	for k != 1 {
 		t := bits.Len64(uint64(k)) - 1
