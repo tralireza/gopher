@@ -43,6 +43,23 @@ func Test798(t *testing.T) {
 	}
 }
 
+func Test1394(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		arr []int
+	}{
+		{2, []int{2, 2, 3, 4}},
+		{3, []int{1, 2, 2, 3, 3, 3}},
+		{-1, []int{2, 2, 2, 3, 3}},
+	} {
+		log.Print("* ", c.arr)
+		if c.rst != findLucky(c.arr) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1437 Check If All 1's Are at Least Length K Places Away
 func Test1437(t *testing.T) {
 	log.Print("true ?= ", kLengthApart([]int{1, 0, 0, 0, 1, 0, 0, 1}, 2))

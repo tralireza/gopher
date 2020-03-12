@@ -100,6 +100,21 @@ func bestRotation(nums []int) int {
 	return x
 }
 
+// 1394 Find Lucky Integer in an Array
+func findLucky(arr []int) int {
+	F := [500 + 1]int{}
+	for _, n := range arr {
+		F[n]++
+	}
+
+	for n := 500; n > 0; n-- {
+		if n == F[n] {
+			return n
+		}
+	}
+	return -1
+}
+
 // 1437 Check If All 1's Are at Least Length K Places Away
 func kLengthApart(nums []int, k int) bool {
 	dist := k
