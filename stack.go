@@ -86,15 +86,46 @@ type Node589 struct {
 }
 
 func preorder(root *Node589) []int {
-	if root == nil {
-		return []int{}
+	type N = Node589
+
+	Iterative := func(root *N) []int {
+		if root == nil {
+			return []int{}
+		}
+
+		W := []int{}
+
+		Q := []*N{root}
+		var n *N
+		for len(Q) > 0 {
+			n, Q = Q[len(Q)-1], Q[:len(Q)-1]
+			W = append(W, n.Val)
+
+			for i := len(n.Children) - 1; i >= 0; i-- {
+				if n.Children[i] != nil {
+					Q = append(Q, n.Children[i])
+				}
+			}
+		}
+
+		return W
+	}
+	log.Print(":? ", Iterative(root))
+
+	var Walk func(*N) []int
+	Walk = func(n *N) []int {
+		if n == nil {
+			return []int{}
+		}
+
+		W := []int{n.Val}
+		for _, c := range n.Children {
+			W = append(W, Walk(c)...)
+		}
+		return W
 	}
 
-	W := []int{root.Val}
-	for _, n := range root.Children {
-		W = append(W, preorder(n)...)
-	}
-	return W
+	return Walk(root)
 }
 
 // 921m Minimum Add to Make Parentheses Valid
