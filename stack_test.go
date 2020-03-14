@@ -3,6 +3,7 @@ package gopher
 import (
 	"bytes"
 	"log"
+	"reflect"
 	"slices"
 	"testing"
 )
@@ -52,6 +53,32 @@ func Test503(t *testing.T) {
 		log.Print("[2 -1 2] ?= ", fn([]int{1, 2, 1}))
 		log.Print("[2 3 4 -1 4] ?= ", fn([]int{1, 2, 3, 4, 3}))
 		log.Print("--")
+	}
+}
+
+func Test589(t *testing.T) {
+	type N = Node589
+	for _, c := range []struct {
+		rst  []int
+		root *Node589
+	}{
+		{
+			[]int{1, 3, 5, 6, 2, 4},
+			&N{1, []*N{
+				&N{3, []*N{
+					&N{Val: 5},
+					&N{Val: 6}},
+				},
+				&N{Val: 2},
+				&N{Val: 4},
+			}},
+		},
+	} {
+		log.Print("*")
+		if !reflect.DeepEqual(c.rst, preorder(c.root)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
 	}
 }
 

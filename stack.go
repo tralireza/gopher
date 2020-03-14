@@ -79,6 +79,24 @@ func nextGreaterElements(nums []int) []int {
 	return R
 }
 
+// 589 N-ary Tree Preorder Traversal
+type Node589 struct {
+	Val      int
+	Children []*Node589
+}
+
+func preorder(root *Node589) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	W := []int{root.Val}
+	for _, n := range root.Children {
+		W = append(W, preorder(n)...)
+	}
+	return W
+}
+
 // 921m Minimum Add to Make Parentheses Valid
 func minAddToMakeValid(s string) int {
 	qSize, ops := 0, 0
