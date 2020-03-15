@@ -156,6 +156,21 @@ func findTilt(root *TreeNode) int {
 	return tilt
 }
 
+// 617 Merge Two Binary Trees
+func mergeTrees(root1, root2 *TreeNode) *TreeNode {
+	if root1 == nil {
+		return root2
+	}
+	if root2 == nil {
+		return root1
+	}
+
+	n := &TreeNode{Val: root1.Val + root2.Val}
+	n.Left = mergeTrees(root1.Left, root2.Left)
+	n.Right = mergeTrees(root1.Right, root2.Right)
+	return n
+}
+
 // 865m Smallest Subtree
 func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
 	var Depth func(*TreeNode) int

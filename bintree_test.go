@@ -163,6 +163,40 @@ func Test865(t *testing.T) {
 	}
 }
 
+func Test617(t *testing.T) {
+	type T = TreeNode
+
+	var Check func(root1, root2 *T) bool
+	Check = func(root1, root2 *T) bool {
+		if root1 == nil && root2 == nil {
+			return true
+		}
+		if root1 == nil || root2 == nil {
+			return false
+		}
+
+		return root1.Val == root2.Val &&
+			Check(root1.Left, root2.Left) &&
+			Check(root1.Right, root2.Right)
+	}
+
+	for _, c := range []struct {
+		rst, root1, root2 *TreeNode
+	}{
+		{
+			&T{3, &T{4, &T{Val: 5}, &T{Val: 4}}, &T{5, nil, &T{Val: 7}}},
+			&T{1, &T{3, &T{Val: 5}, nil}, &T{Val: 2}},
+			&T{2, &T{1, nil, &T{Val: 4}}, &T{3, nil, &T{Val: 7}}},
+		},
+	} {
+		log.Print("* ")
+		if !Check(c.rst, mergeTrees(c.root1, c.root2)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 889 Construct Binary Tree from Preorder and Postorder Traversal
 func Test889(t *testing.T) {
 	Recursive := func(preorder []int, postorder []int) *TreeNode {
