@@ -260,6 +260,35 @@ func NewHashMap1590(capacity int) HashMap1590 {
 	}
 }
 
+func Test1865(t *testing.T) {
+	// 1 <= N1 <= 1000, 1 <= N1_i <= 10^9
+	// 1 <= N2 <= 10^5, 1 <= N2_i <= 10^5
+	// 1 <= total <= 10^9
+
+	assert := func(left, right int) {
+		if left != right {
+			t.FailNow()
+		}
+	}
+
+	nums1, nums2 := []int{1, 1, 2, 2, 2, 3}, []int{1, 4, 5, 2, 5, 4}
+
+	o := NewFindSumPairs(nums1, nums2)
+	log.Print("* ", o)
+
+	assert(o.Count(7), 8)
+	o.Add(3, 2)
+	log.Print("-> ", o)
+	assert(o.Count(8), 2)
+	assert(o.Count(4), 1)
+	o.Add(0, 1)
+	log.Print("-> ", o)
+	o.Add(1, 1)
+	assert(o.Count(7), 11)
+
+	log.Print(":: ", o)
+}
+
 // 1930m Unique Length-3 Palindromic Subsequences
 func Test1930(t *testing.T) {
 	log.Print("3 ?= ", countPalindromicSubsequence("aabca"))

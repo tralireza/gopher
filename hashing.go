@@ -368,6 +368,40 @@ func minSubarray(nums []int, p int) int {
 	return nVal
 }
 
+// 1865m Finding Pairs With a Certain Sum
+type FindSumPairs struct {
+	nums1, nums2 []int
+	m            map[int]int
+}
+
+func NewFindSumPairs(nums1, nums2 []int) FindSumPairs {
+	m := map[int]int{}
+	for _, n := range nums2 {
+		m[n]++
+	}
+
+	return FindSumPairs{
+		nums1: nums1,
+		nums2: nums2,
+		m:     m,
+	}
+}
+
+func (o *FindSumPairs) Add(index, val int) {
+	o.m[o.nums2[index]]--
+	o.nums2[index] += val
+	o.m[o.nums2[index]]++
+}
+
+func (o *FindSumPairs) Count(total int) int {
+	count := 0
+	for _, n := range o.nums1 {
+		count += o.m[total-n]
+	}
+
+	return count
+}
+
 // 1930m Unique Length-3 Palindromic Subsequences
 func countPalindromicSubsequence(s string) int {
 	Left, Right := [26]int{}, [26]int{}
