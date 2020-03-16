@@ -171,6 +171,26 @@ func mergeTrees(root1, root2 *TreeNode) *TreeNode {
 	return n
 }
 
+// 653 Two Sum IV - Input is a BST
+func findTarget(root *TreeNode, k int) bool {
+	M := map[int]struct{}{}
+
+	var Walk func(*TreeNode) bool
+	Walk = func(n *TreeNode) bool {
+		if n == nil {
+			return false
+		}
+
+		if _, ok := M[k-n.Val]; ok {
+			return true
+		}
+		M[n.Val] = struct{}{}
+		return Walk(n.Left) || Walk(n.Right)
+	}
+
+	return Walk(root)
+}
+
 // 865m Smallest Subtree
 func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
 	var Depth func(*TreeNode) int

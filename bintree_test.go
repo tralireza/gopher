@@ -197,6 +197,24 @@ func Test617(t *testing.T) {
 	}
 }
 
+func Test653(t *testing.T) {
+	type T = TreeNode
+	for _, c := range []struct {
+		rst  bool
+		root *TreeNode
+		k    int
+	}{
+		{true, &T{5, &T{3, &T{Val: 2}, &T{Val: 4}}, &T{6, nil, &T{Val: 7}}}, 9},
+		{false, &T{5, &T{3, &T{Val: 2}, &T{Val: 4}}, &T{6, nil, &T{Val: 7}}}, 28},
+	} {
+		log.Print("* ", c.root, c.k)
+		if c.rst != findTarget(c.root, c.k) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 889 Construct Binary Tree from Preorder and Postorder Traversal
 func Test889(t *testing.T) {
 	Recursive := func(preorder []int, postorder []int) *TreeNode {
