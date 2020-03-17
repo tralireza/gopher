@@ -71,6 +71,31 @@ func findMaxConsecutiveOnes(nums []int) int {
 	return tMax
 }
 
+// 661 Image Smoother
+func imageSmoother(img [][]int) [][]int {
+	imgSm := make([][]int, len(img))
+
+	for r := 0; r < len(img); r++ {
+		for c := 0; c < len(img[r]); c++ {
+			v, n := 0, 0
+
+			for x := r - 1; x <= r+1; x++ {
+				for y := c - 1; y <= c+1; y++ {
+					if 0 <= x && x < len(img) && 0 <= y && y < len(img[r]) {
+						v += img[x][y]
+						n++
+					}
+				}
+			}
+
+			imgSm[r] = append(imgSm[r], v/n)
+		}
+	}
+
+	log.Print(":? ", imgSm)
+	return imgSm
+}
+
 // 798h Smallest Rotation with Highest Score
 func bestRotation(nums []int) int {
 	// N_i <= i -> +1 score

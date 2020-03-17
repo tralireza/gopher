@@ -27,6 +27,23 @@ func Test485(t *testing.T) {
 	log.Print("2 ?= ", findMaxConsecutiveOnes([]int{1, 0, 1, 1, 0, 1}))
 }
 
+func Test661(t *testing.T) {
+	for _, c := range []struct {
+		rst, img [][]int
+	}{
+		{
+			[][]int{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+			[][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}},
+		},
+	} {
+		log.Print("* ", c.img)
+		if !reflect.DeepEqual(c.rst, imageSmoother(c.img)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test798(t *testing.T) {
 	for _, c := range []struct {
 		rst  int
