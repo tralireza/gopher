@@ -215,6 +215,24 @@ func Test653(t *testing.T) {
 	}
 }
 
+func Test671(t *testing.T) {
+	type T = TreeNode
+
+	for _, c := range []struct {
+		rst  int
+		root *TreeNode
+	}{
+		{5, &T{2, &T{Val: 2}, &T{5, &T{Val: 5}, &T{Val: 7}}}},
+		{-1, &T{2, &T{Val: 2}, &T{Val: 2}}},
+	} {
+		log.Print("* ", c.root)
+		if c.rst != findSecondMinimumValue(c.root) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 889 Construct Binary Tree from Preorder and Postorder Traversal
 func Test889(t *testing.T) {
 	Recursive := func(preorder []int, postorder []int) *TreeNode {

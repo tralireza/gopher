@@ -191,6 +191,32 @@ func findTarget(root *TreeNode, k int) bool {
 	return Walk(root)
 }
 
+// 671 Second Minimum Node in a Binary Tree
+func findSecondMinimumValue(root *TreeNode) int {
+	mVal, rVal := root.Val, math.MaxInt
+
+	var Walk func(*TreeNode)
+	Walk = func(n *TreeNode) {
+		if n == nil {
+			return
+		}
+
+		if n.Val != mVal && n.Val < rVal {
+			rVal = n.Val
+		} else {
+			Walk(n.Left)
+			Walk(n.Right)
+		}
+	}
+
+	Walk(root)
+
+	if rVal != math.MaxInt {
+		return rVal
+	}
+	return -1
+}
+
 // 865m Smallest Subtree
 func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
 	var Depth func(*TreeNode) int
