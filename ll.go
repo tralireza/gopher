@@ -464,9 +464,10 @@ type Node705 struct {
 }
 
 func NewMyHashSet() MyHashSet {
+	N := 1000
 	return MyHashSet{
-		make([]*Node705, 1000),
-		func(k int) int { return k % 1000 },
+		make([]*Node705, N),
+		func(k int) int { return k % N },
 	}
 }
 
