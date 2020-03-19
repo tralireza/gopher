@@ -471,23 +471,24 @@ func NewMyHashSet() MyHashSet {
 }
 
 func (o *MyHashSet) Add(key int) {
-	dummy := &Node705{Next: o.data[o.fHash(key)]}
-	for n := dummy.Next; n != nil; n = n.Next {
+	nSentinel := &Node705{Next: o.data[o.fHash(key)]}
+
+	for n := nSentinel.Next; n != nil; n = n.Next {
 		if n.Key == key {
 			return
 		}
 	}
-	o.data[o.fHash(key)] = &Node705{Key: key, Next: dummy.Next}
+	o.data[o.fHash(key)] = &Node705{Key: key, Next: nSentinel.Next}
 }
 
 func (o *MyHashSet) Remove(key int) {
-	dummy := &Node705{Next: o.data[o.fHash(key)]}
+	nSentinel := &Node705{Next: o.data[o.fHash(key)]}
 
-	p := dummy
-	for n := dummy.Next; n != nil; n = n.Next {
+	p := nSentinel
+	for n := nSentinel.Next; n != nil; n = n.Next {
 		if n.Key == key {
 			p.Next = n.Next
-			o.data[o.fHash(key)] = dummy.Next
+			o.data[o.fHash(key)] = nSentinel.Next
 			return
 		}
 		p = n
