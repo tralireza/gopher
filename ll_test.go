@@ -300,6 +300,24 @@ func Test641(t *testing.T) {
 	Draw(&dlQ)
 }
 
+func Test705(t *testing.T) {
+	assert := func(left, right bool) {
+		if left != right {
+			t.FailNow()
+		}
+	}
+
+	o := NewMyHashSet()
+	o.Add(1)
+	o.Add(2)
+	assert(o.Contains(1), true)
+	assert(o.Contains(3), false)
+	o.Add(2)
+	assert(o.Contains(2), true)
+	o.Remove(2)
+	assert(o.Contains(2), false)
+}
+
 func Test706(t *testing.T) {
 	// 0 <= Key,Value <= 10^6
 	o := NewMyHashMap706()

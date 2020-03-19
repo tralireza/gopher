@@ -452,6 +452,57 @@ func (o *CircularDeque641) GetLast() int {
 	return o.vals[o.last]
 }
 
+// 705 Design HashSet
+type MyHashSet struct {
+	data  []*Node705
+	fHash func(int) int
+}
+
+type Node705 struct {
+	Key  int
+	Next *Node705
+}
+
+func NewMyHashSet() MyHashSet {
+	return MyHashSet{
+		make([]*Node705, 1000),
+		func(k int) int { return k % 1000 },
+	}
+}
+
+func (o *MyHashSet) Add(key int) {
+	dummy := &Node705{Next: o.data[o.fHash(key)]}
+	for n := dummy.Next; n != nil; n = n.Next {
+		if n.Key == key {
+			return
+		}
+	}
+	o.data[o.fHash(key)] = &Node705{Key: key, Next: dummy.Next}
+}
+
+func (o *MyHashSet) Remove(key int) {
+	dummy := &Node705{Next: o.data[o.fHash(key)]}
+
+	p := dummy
+	for n := dummy.Next; n != nil; n = n.Next {
+		if n.Key == key {
+			p.Next = n.Next
+			o.data[o.fHash(key)] = dummy.Next
+			return
+		}
+		p = n
+	}
+}
+
+func (o *MyHashSet) Contains(key int) bool {
+	for n := o.data[o.fHash(key)]; n != nil; n = n.Next {
+		if n.Key == key {
+			return true
+		}
+	}
+	return false
+}
+
 // 706 Design HashMap
 type MyHashMap706 struct {
 	data  []*Node706
