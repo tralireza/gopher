@@ -506,7 +506,7 @@ func (o *MyHashSet) Contains(key int) bool {
 }
 
 // 706 Design HashMap
-type MyHashMap706 struct {
+type MyHashMap struct {
 	data  []*Node706
 	fHash func(int) int
 }
@@ -516,15 +516,15 @@ type Node706 struct {
 	Next       *Node706
 }
 
-func NewMyHashMap706() MyHashMap706 {
+func NewMyHashMap() MyHashMap {
 	N := 10
-	return MyHashMap706{
+	return MyHashMap{
 		data:  make([]*Node706, N),
 		fHash: func(k int) int { return k % N },
 	}
 }
 
-func (o *MyHashMap706) Put(key, value int) {
+func (o *MyHashMap) Put(key, value int) {
 	n := o.data[o.fHash(key)]
 	if n == nil {
 		o.data[o.fHash(key)] = &Node706{
@@ -550,7 +550,7 @@ func (o *MyHashMap706) Put(key, value int) {
 	}
 }
 
-func (o *MyHashMap706) Get(key int) int {
+func (o *MyHashMap) Get(key int) int {
 	n := o.data[o.fHash(key)]
 	for n != nil {
 		if n.Key == key {
@@ -561,16 +561,16 @@ func (o *MyHashMap706) Get(key int) int {
 	return -1
 }
 
-func (o *MyHashMap706) Remove(key int) {
-	dummy := &Node706{
+func (o *MyHashMap) Remove(key int) {
+	nSentinel := &Node706{
 		Next: o.data[o.fHash(key)],
 	}
 
-	p := dummy
+	p := nSentinel
 	for n := p.Next; n != nil; n = n.Next {
 		if n.Key == key {
 			p.Next = n.Next
-			o.data[o.fHash(key)] = dummy.Next
+			o.data[o.fHash(key)] = nSentinel.Next
 			return
 		}
 	}

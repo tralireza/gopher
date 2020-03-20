@@ -320,7 +320,7 @@ func Test705(t *testing.T) {
 
 func Test706(t *testing.T) {
 	// 0 <= Key,Value <= 10^6
-	o := NewMyHashMap706()
+	o := NewMyHashMap()
 	o.Put(1, 1)
 	o.Put(2, 2)
 	if o.Get(1) != 1 {
