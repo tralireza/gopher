@@ -171,8 +171,8 @@ Next:
 		}
 		log.Print("-> ", W)
 
-		for r := 'a'; r <= 'z'; r++ {
-			if P[r] > W[r] {
+		for r, f := range P {
+			if f > W[r] {
 				continue Next
 			}
 		}
