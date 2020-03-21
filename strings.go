@@ -147,6 +147,44 @@ func countBinarySubstrings(s string) int {
 	return count + min(prv, cur)
 }
 
+// 748 Shortest Completing Word
+func shortestCompletingWord(licensePlate string, words []string) string {
+	P := map[rune]int{}
+	for _, r := range licensePlate {
+		if r >= '0' && r <= '9' || r == ' ' {
+			continue
+		}
+		if r >= 'A' && r <= 'Z' {
+			r = 'a' + (r - 'A')
+		}
+		P[r]++
+	}
+	log.Print("-> ", P)
+
+	mWord, lMin := "", math.MaxInt
+
+Next:
+	for _, word := range words {
+		W := map[rune]int{}
+		for _, r := range word {
+			W[r]++
+		}
+		log.Print("-> ", W)
+
+		for r := 'a'; r <= 'z'; r++ {
+			if P[r] > W[r] {
+				continue Next
+			}
+		}
+
+		if len(word) < lMin {
+			mWord, lMin = word, len(word)
+		}
+	}
+
+	return mWord
+}
+
 // 806 Number of Lines To Write String
 func numberOfLines(widths []int, s string) []int {
 	lw, l := 0, 1

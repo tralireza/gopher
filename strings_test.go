@@ -66,6 +66,22 @@ func Test696(t *testing.T) {
 	log.Print("4 ?= ", countBinarySubstrings("10101"))
 }
 
+func Test748(t *testing.T) {
+	for _, c := range []struct {
+		rst, licensePlate string
+		words             []string
+	}{
+		{"steps", "1s3 PSt", []string{"step", "steps", "stripe", "stepple"}},
+		{"pest", "1s3 456", []string{"looks", "pest", "stew", "show"}},
+	} {
+		log.Printf("* %q %q", c.licensePlate, c.words)
+		if c.rst != shortestCompletingWord(c.licensePlate, c.words) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 806 Number of Lines To Write String
 func Test806(t *testing.T) {
 	log.Print("[3 60] ?= ", numberOfLines([]int{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "abcdefghijklmnopqrstuvwxyz"))
