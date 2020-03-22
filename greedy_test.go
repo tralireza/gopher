@@ -174,6 +174,22 @@ func Test1007(t *testing.T) {
 	}
 }
 
+func Test1353(t *testing.T) {
+	for _, c := range []struct {
+		rst    int
+		events [][]int
+	}{
+		{3, [][]int{{1, 2}, {2, 3}, {3, 4}}},
+		{4, [][]int{{1, 2}, {2, 3}, {3, 4}, {1, 2}}},
+	} {
+		log.Print("* ", c.events)
+		if c.rst != maxEvents(c.events) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func Test1605(t *testing.T) {
 	Optimized := func(rowSum []int, colSum []int) [][]int {
@@ -279,6 +295,9 @@ func Test2294(t *testing.T) {
 }
 
 func Test2311(t *testing.T) {
+	// 1 <= N <= 1000
+	// 1 <= k <= 10^9
+
 	for _, c := range []struct {
 		rst int
 		s   string
@@ -287,7 +306,7 @@ func Test2311(t *testing.T) {
 		{5, "1001010", 5},
 		{6, "00101001", 1},
 	} {
-		log.Print("* ", c.s, c.k)
+		log.Printf("* %q %d", c.s, c.k)
 		if c.rst != longestSubsequence(c.s, c.k) {
 			t.FailNow()
 		}

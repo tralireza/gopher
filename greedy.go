@@ -388,6 +388,43 @@ LOOP:
 	return r
 }
 
+// 1353m Maximum Number of Events That Can Be Attended
+type PQ1353 struct{ sort.IntSlice }
+
+func (o *PQ1353) Push(x any) { o.IntSlice = append(o.IntSlice, x.(int)) }
+func (o *PQ1353) Pop() any {
+	v := o.IntSlice[o.Len()-1]
+	o.IntSlice = o.IntSlice[:o.Len()-1]
+	return v
+}
+
+func maxEvents(events [][]int) int {
+	slices.SortFunc(events, func(a, b []int) int { return a[0] - b[0] })
+	log.Print("-> ", events)
+
+	pq := PQ1353{}
+	count, fDay := 0, slices.MaxFunc(events, func(a, b []int) int { return a[1] - b[1] })[1]
+
+	p := 0
+	for day := 1; day <= fDay; day++ {
+		for p < len(events) && events[p][0] <= day {
+			heap.Push(&pq, events[p][1])
+			p++
+		}
+
+		for pq.Len() > 0 && pq.IntSlice[0] < day {
+			heap.Pop(&pq)
+		}
+
+		if pq.Len() > 0 {
+			heap.Pop(&pq)
+			count++
+		}
+	}
+
+	return count
+}
+
 // 1605m Find Valid Matrix Given Row and Column Sums
 func restoreMatrix(rowSum []int, colSum []int) [][]int {
 	M := make([][]int, len(rowSum))
@@ -553,6 +590,35 @@ func partitionArray(nums []int, k int) int {
 
 // 2311m Longest Binary Subsequence Less Than or Equal to K
 func longestSubsequence(s string, k int) int {
+	Recursive := func(s string, k int) int {
+		lMax := 0
+
+		var Search func(start, lCur, sVal int)
+		Search = func(start, lCur, sVal int) {
+			log.Print(start, lCur, sVal)
+			if start == len(s) {
+				lMax = max(lCur, lMax)
+				return
+			}
+
+			switch s[start] {
+			case '1':
+				Search(start+1, lCur, sVal)
+				if sVal<<1+1 <= k {
+					Search(start+1, lCur+1, sVal<<1+1)
+				} else {
+					lMax = max(lCur, lMax)
+				}
+			default:
+				Search(start+1, lCur+1, sVal<<1)
+			}
+		}
+
+		Search(0, 0, 0)
+		return lMax
+	}
+	log.Print(":: ", Recursive(s, k))
+
 	longest := 0
 
 	curOne := 1
