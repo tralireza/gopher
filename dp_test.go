@@ -1215,6 +1215,27 @@ func Test1749(t *testing.T) {
 	}
 }
 
+func Test1751(t *testing.T) {
+	// 1 <= Start_i, End_i <= 10^9
+	// 1 <= Value_i, k * N <= 10^6
+
+	for _, c := range []struct {
+		rst    int
+		events [][]int
+		k      int
+	}{
+		{7, [][]int{{1, 2, 4}, {3, 4, 3}, {2, 3, 1}}, 2},
+		{10, [][]int{{1, 2, 4}, {3, 4, 3}, {2, 3, 10}}, 2},
+		{9, [][]int{{1, 1, 1}, {2, 2, 2}, {3, 3, 3}, {4, 4, 4}}, 3},
+	} {
+		log.Print("* ", c.events, c.k)
+		if c.rst != maxValue(c.events, c.k) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1857(t *testing.T) {
 	for _, c := range []struct {
 		rst    int

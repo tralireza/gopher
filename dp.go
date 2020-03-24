@@ -1267,6 +1267,28 @@ func maxAbsoluteSum(nums []int) int {
 	return xVal
 }
 
+// 1751h Maximum Number of Events That Can be Attended
+func maxValue(events [][]int, k int) int {
+	slices.SortFunc(events, func(a, b []int) int { return a[0] - b[0] })
+	log.Print("-> ", events)
+
+	var Search func(start, k int) int
+	Search = func(start, k int) int {
+		if k == 0 || start >= len(events) {
+			return 0
+		}
+
+		x := start + 1
+		for x < len(events) && events[x][0] <= events[start][1] {
+			x++
+		}
+
+		return max(events[start][2]+Search(x, k-1), Search(start+1, k))
+	}
+
+	return Search(0, k)
+}
+
 // 1857h Largest Color Value in a Directed Graph
 func largestPathValue(colors string, edges [][]int) int {
 	gAdj := map[int][]int{}
