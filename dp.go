@@ -1285,6 +1285,23 @@ func maxValue(events [][]int, k int) int {
 		return l
 	}
 
+	DP := func(events [][]int, k int) int {
+		D := make([][]int, k+1)
+		for k := range D {
+			D[k] = make([]int, len(events)+1)
+		}
+
+		for start := len(events) - 1; start >= 0; start-- {
+			x := rSearch(events[start][1])
+			for y := 1; y <= k; y++ {
+				D[y][start] = max(D[y][start+1], D[y-1][x]+events[start][2])
+			}
+		}
+
+		return D[k][0]
+	}
+	log.Print(":? DP ", DP(events, k))
+
 	D := make([][]int, k+1)
 	defer log.Print("-> ", D)
 
@@ -1303,10 +1320,6 @@ func maxValue(events [][]int, k int) int {
 		}
 
 		x := rSearch(events[start][1])
-		x = start + 1
-		for x < len(events) && events[x][0] <= events[start][1] {
-			x++
-		}
 
 		D[k][start] = max(events[start][2]+Search(x, k-1), Search(start+1, k))
 		return D[k][start]
