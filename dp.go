@@ -1272,18 +1272,39 @@ func maxValue(events [][]int, k int) int {
 	slices.SortFunc(events, func(a, b []int) int { return a[0] - b[0] })
 	log.Print("-> ", events)
 
+	rSearch := func(target int) int {
+		l, r := 0, len(events)
+		for l < r {
+			m := l + (r-l)>>1
+			if events[m][0] <= target {
+				l = m + 1
+			} else {
+				r = m
+			}
+		}
+		return l
+	}
+
+	D := make([][]int, k+1)
+	defer log.Print("-> ", D)
+
+	for x := range D {
+		D[x] = make([]int, len(events))
+	}
+
 	var Search func(start, k int) int
 	Search = func(start, k int) int {
 		if k == 0 || start >= len(events) {
 			return 0
 		}
 
-		x := start + 1
-		for x < len(events) && events[x][0] <= events[start][1] {
-			x++
+		if D[k][start] != 0 {
+			return D[k][start]
 		}
 
-		return max(events[start][2]+Search(x, k-1), Search(start+1, k))
+		x := rSearch(events[start][1])
+		D[k][start] = max(events[start][2]+Search(x, k-1), Search(start+1, k))
+		return D[k][start]
 	}
 
 	return Search(0, k)
