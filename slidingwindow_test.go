@@ -146,6 +146,24 @@ func Test3208(t *testing.T) {
 	}
 }
 
+func Test3439(t *testing.T) {
+	for _, c := range []struct {
+		rst                int
+		eventTime, k       int
+		startTime, endTime []int
+	}{
+		{2, 5, 1, []int{1, 3}, []int{2, 5}},
+		{6, 10, 1, []int{0, 2, 9}, []int{1, 4, 10}},
+		{0, 5, 2, []int{0, 1, 2, 3, 4}, []int{1, 2, 3, 4, 5}},
+	} {
+		log.Print("* ", c.eventTime, c.k, c.startTime, c.endTime)
+		if c.rst != maxFreeTime(c.eventTime, c.k, c.startTime, c.endTime) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test3445(t *testing.T) {
 	for _, c := range []struct {
 		rst int

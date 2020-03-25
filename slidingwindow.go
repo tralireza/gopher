@@ -211,6 +211,37 @@ func numberOfAlternatingGroups(colors []int, k int) int {
 	return groups
 }
 
+// 3439m Reschedule Meetings for Maximum Free Time I
+func maxFreeTime(eventTime int, k int, startTime []int, endTime []int) int {
+	N := len(startTime) & len(endTime)
+	lenSum := make([]int, N+1)
+	for i := 0; i < N; i++ {
+		lenSum[i+1] = lenSum[i] + endTime[i] - startTime[i]
+	}
+	log.Print("-> ", lenSum)
+
+	xFree := 0
+
+	var l, r int
+	for i := k - 1; i < N; i++ {
+		if i == N-1 {
+			r = eventTime
+		} else {
+			r = startTime[i+1]
+		}
+
+		if i == k-1 {
+			l = 0
+		} else {
+			l = endTime[i-k]
+		}
+
+		xFree = max(r-l-(lenSum[i+1]-lenSum[i+1-k]), xFree)
+	}
+
+	return xFree
+}
+
 // 3445h Maximum Difference Between Even and Odd Frequency II
 // 3 <= N <= 3 * 10^4
 func maxDifference_II(s string, k int) int {
