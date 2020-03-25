@@ -1303,6 +1303,11 @@ func maxValue(events [][]int, k int) int {
 		}
 
 		x := rSearch(events[start][1])
+		x = start + 1
+		for x < len(events) && events[x][0] <= events[start][1] {
+			x++
+		}
+
 		D[k][start] = max(events[start][2]+Search(x, k-1), Search(start+1, k))
 		return D[k][start]
 	}
