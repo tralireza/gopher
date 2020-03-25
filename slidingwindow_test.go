@@ -155,6 +155,8 @@ func Test3439(t *testing.T) {
 		{2, 5, 1, []int{1, 3}, []int{2, 5}},
 		{6, 10, 1, []int{0, 2, 9}, []int{1, 4, 10}},
 		{0, 5, 2, []int{0, 1, 2, 3, 4}, []int{1, 2, 3, 4, 5}},
+
+		{45, 96, 3, []int{4, 11, 16, 53}, []int{11, 16, 27, 77}}, // 479/689
 	} {
 		log.Print("* ", c.eventTime, c.k, c.startTime, c.endTime)
 		if c.rst != maxFreeTime(c.eventTime, c.k, c.startTime, c.endTime) {
