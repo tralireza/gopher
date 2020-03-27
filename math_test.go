@@ -91,6 +91,21 @@ func Test598(t *testing.T) {
 	log.Print("9 ?= ", maxCount(3, 3, [][]int{}))
 }
 
+func Test762(t *testing.T) {
+	for _, c := range []struct {
+		rst, left, right int
+	}{
+		{4, 6, 10},
+		{5, 10, 15},
+	} {
+		log.Print("* ", c.left, c.right)
+		if c.rst != countPrimeSetBits(c.left, c.right) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test780(t *testing.T) {
 	for _, c := range []struct {
 		rst            bool

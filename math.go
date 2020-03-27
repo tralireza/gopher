@@ -131,6 +131,25 @@ func maxCount(m int, n int, ops [][]int) int {
 	return x * y
 }
 
+// 762 Prime Number of Set Bits in Binary Representation
+func countPrimeSetBits(left, right int) int {
+	count := 0
+	for x := left; x <= right; x++ {
+		bits := 0
+		for n := x; n > 0; n >>= 1 {
+			bits += n & 1
+		}
+
+		for _, p := range []int{2, 3, 5, 7, 11, 13, 17, 19} {
+			if p == bits {
+				count++
+			}
+		}
+	}
+
+	return count
+}
+
 // 780h Reaching Point
 func reachingPoints(sx int, sy int, tx int, ty int) bool {
 	// Euclidean Algorithm: https://en.wikipedia.org/wiki/Euclidean_algorithm
