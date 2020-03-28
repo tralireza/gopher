@@ -96,6 +96,19 @@ func imageSmoother(img [][]int) [][]int {
 	return imgSm
 }
 
+// 766 Toeplitz Matrix
+func isToeplitzMatrix(matrix [][]int) bool {
+	for r := len(matrix) - 1; r > 0; r-- {
+		for c := 1; c < len(matrix[r]); c++ {
+			if matrix[r][c] != matrix[r-1][c-1] {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
 // 798h Smallest Rotation with Highest Score
 func bestRotation(nums []int) int {
 	// N_i <= i -> +1 score

@@ -47,6 +47,22 @@ func Test661(t *testing.T) {
 	}
 }
 
+func Test766(t *testing.T) {
+	for _, c := range []struct {
+		rst    bool
+		matrix [][]int
+	}{
+		{true, [][]int{{1, 2, 3, 4}, {5, 1, 2, 3}, {9, 5, 1, 2}}},
+		{false, [][]int{{1, 2}, {2, 2}}},
+	} {
+		log.Print("* ", c.matrix)
+		if c.rst != isToeplitzMatrix(c.matrix) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test798(t *testing.T) {
 	for _, c := range []struct {
 		rst  int
