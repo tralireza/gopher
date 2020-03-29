@@ -185,6 +185,21 @@ Next:
 	return mWord
 }
 
+// 771 Jewels and Stones
+func numJewelsInStones(jewels, stones string) int {
+	M := map[rune]int{}
+	for _, r := range stones {
+		M[r]++
+	}
+
+	count := 0
+	for _, r := range jewels {
+		count += M[r]
+	}
+
+	return count
+}
+
 // 806 Number of Lines To Write String
 func numberOfLines(widths []int, s string) []int {
 	lw, l := 0, 1

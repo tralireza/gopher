@@ -82,6 +82,22 @@ func Test748(t *testing.T) {
 	}
 }
 
+func Test771(t *testing.T) {
+	for _, c := range []struct {
+		rst            int
+		jewels, stones string
+	}{
+		{3, "aA", "aAAbbbb"},
+		{0, "z", "ZZ"},
+	} {
+		log.Printf("* %q %q", c.jewels, c.stones)
+		if c.rst != numJewelsInStones(c.jewels, c.stones) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 806 Number of Lines To Write String
 func Test806(t *testing.T) {
 	log.Print("[3 60] ?= ", numberOfLines([]int{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "abcdefghijklmnopqrstuvwxyz"))
