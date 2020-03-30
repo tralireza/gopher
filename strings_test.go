@@ -98,6 +98,22 @@ func Test771(t *testing.T) {
 	}
 }
 
+func Test804(t *testing.T) {
+	for _, c := range []struct {
+		rst   int
+		words []string
+	}{
+		{2, []string{"gin", "zen", "gig", "msg"}},
+		{1, []string{"a"}},
+	} {
+		log.Printf("* %q", c.words)
+		if c.rst != uniqueMorseRepresentations(c.words) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 806 Number of Lines To Write String
 func Test806(t *testing.T) {
 	log.Print("[3 60] ?= ", numberOfLines([]int{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "abcdefghijklmnopqrstuvwxyz"))

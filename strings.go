@@ -200,6 +200,24 @@ func numJewelsInStones(jewels, stones string) int {
 	return count
 }
 
+// 804 Unique Morse Code Words
+func uniqueMorseRepresentations(words []string) int {
+	Morse := []string{".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."}
+
+	M := map[string]struct{}{}
+	for _, w := range words {
+		mCode := ""
+		for i := 0; i < len(w); i++ {
+			mCode += Morse[w[i]-'a']
+		}
+
+		M[mCode] = struct{}{}
+	}
+
+	log.Printf("-> %q", M)
+	return len(M)
+}
+
 // 806 Number of Lines To Write String
 func numberOfLines(widths []int, s string) []int {
 	lw, l := 0, 1
