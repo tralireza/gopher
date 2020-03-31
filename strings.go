@@ -242,6 +242,14 @@ func mostCommonWord(paragraph string, banned []string) string {
 		B[w] = true
 	}
 
+	log.Printf("-> %q", strings.FieldsFunc(paragraph, func(r rune) bool {
+		switch r {
+		case ' ', '!', '?', '\'', ',', ';', '.':
+			return true
+		}
+		return false
+	}))
+
 	F := map[string]int{}
 	w := strings.Builder{}
 
