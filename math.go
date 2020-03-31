@@ -177,6 +177,25 @@ func reachingPoints(sx int, sy int, tx int, ty int) bool {
 	return Search(sy, sx, ty, tx)
 }
 
+// 812 Largest Triangle Area
+func largestTriangleArea(points [][]int) float64 {
+	xArea := 0
+	for i, a := range points[:len(points)-2] {
+		for j, b := range points[i+1 : len(points)-1] {
+			for _, c := range points[j+1:] {
+				area := a[0]*b[1] + b[0]*c[1] + c[0]*a[1] - a[1]*b[0] - b[1]*c[0] - c[1]*a[0]
+				if area < 0 {
+					area *= -1
+				}
+
+				xArea = max(area, xArea)
+			}
+		}
+	}
+
+	return float64(xArea) / float64(2)
+}
+
 // 838m Push Dominoes
 func pushDominoes(dominoes string) string {
 	log.Print(":> ", strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(dominoes, "R.L", "R|L"), ".L", "LL"), "R.", "RR"))

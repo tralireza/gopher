@@ -125,6 +125,24 @@ func Test780(t *testing.T) {
 	}
 }
 
+func Test812(t *testing.T) {
+    // 3 <= N < 50
+
+	for _, c := range []struct {
+		rst    float64
+		points [][]int
+	}{
+		{float64(2), [][]int{{0, 0}, {0, 1}, {1, 0}, {0, 2}, {2, 0}}},
+		{float64(.5), [][]int{{1, 0}, {0, 0}, {0, 1}}},
+	} {
+		log.Print("* ", c.points)
+		if c.rst != largestTriangleArea(c.points) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test838(t *testing.T) {
 	for _, c := range []struct {
 		rst, dominoes string
