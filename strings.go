@@ -235,6 +235,48 @@ func numberOfLines(widths []int, s string) []int {
 	return []int{l, lw}
 }
 
+// 819 Most Common Word
+func mostCommonWord(paragraph string, banned []string) string {
+	B := map[string]bool{}
+	for _, w := range banned {
+		B[w] = true
+	}
+
+	F := map[string]int{}
+	w := strings.Builder{}
+
+	for _, chr := range paragraph {
+		switch chr {
+		case ' ', '!', '?', '\'', ',', ';', '.':
+			if w.Len() > 0 {
+				F[w.String()]++
+			}
+			w.Reset()
+
+		default:
+			if chr >= 'A' && chr <= 'Z' {
+				chr = 'a' + (chr - 'A')
+			}
+			w.WriteRune(chr)
+		}
+	}
+
+	if w.Len() > 0 {
+		F[w.String()]++
+	}
+
+	log.Print("-> ", F)
+
+	xF, xW := 0, ""
+	for w, f := range F {
+		if f > xF && !B[w] {
+			xW, xF = w, f
+		}
+	}
+
+	return xW
+}
+
 // 824 Goat Latin
 func toGoatLatin(sentence string) string {
 	W := []string{}

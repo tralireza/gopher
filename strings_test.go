@@ -120,6 +120,22 @@ func Test806(t *testing.T) {
 	log.Print("[2 4] ?= ", numberOfLines([]int{4, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "bbbcccdddaaa"))
 }
 
+func Test819(t *testing.T) {
+	for _, c := range []struct {
+		rst, paragraph string
+		banned         []string
+	}{
+		{"ball", "Bob hit a ball, the hit BALL flew far after it was hit.", []string{"hit"}},
+		{"a", "a.", []string{}},
+	} {
+		log.Printf("* %q %q", c.paragraph, c.banned)
+		if c.rst != mostCommonWord(c.paragraph, c.banned) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 824 Goat Latin
 func Test824(t *testing.T) {
 	// 1 <= S.Length
