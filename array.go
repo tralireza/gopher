@@ -138,6 +138,32 @@ func bestRotation(nums []int) int {
 	return x
 }
 
+// 821 Shortest Distance to a Character
+func shortestToChar(s string, c byte) []int {
+	D := make([]int, len(s))
+	for i := range D {
+		D[i] = len(s)
+	}
+
+	if s[0] == c {
+		D[0] = 0
+	}
+
+	for i := 1; i < len(s); i++ {
+		switch s[i] {
+		case c:
+			D[i] = 0
+		default:
+			D[i] = D[i-1] + 1
+		}
+	}
+	for i := len(s) - 2; i >= 0; i-- {
+		D[i] = min(D[i+1]+1, D[i])
+	}
+
+	return D
+}
+
 // 1394 Find Lucky Integer in an Array
 func findLucky(arr []int) int {
 	F := [500 + 1]int{}

@@ -79,6 +79,23 @@ func Test798(t *testing.T) {
 	}
 }
 
+func Test821(t *testing.T) {
+	for _, c := range []struct {
+		rst []int
+		s   string
+		chr byte
+	}{
+		{[]int{3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0}, "loveleetcode", 'e'},
+		{[]int{3, 2, 1, 0}, "aaab", 'b'},
+	} {
+		log.Printf("* %q %q", c.s, c.chr)
+		if !reflect.DeepEqual(c.rst, shortestToChar(c.s, c.chr)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1394(t *testing.T) {
 	for _, c := range []struct {
 		rst int
