@@ -96,6 +96,23 @@ func Test821(t *testing.T) {
 	}
 }
 
+func Test830(t *testing.T) {
+	for _, c := range []struct {
+		rst [][]int
+		s   string
+	}{
+		{[][]int{{3, 6}}, "abbxxxxzzy"},
+		{[][]int{}, "abc"},
+		{[][]int{{3, 5}, {6, 9}, {12, 14}}, "abcdddeeeeaabbbcd"},
+	} {
+		log.Printf("* %q", c.s)
+		if !reflect.DeepEqual(c.rst, largeGroupPositions(c.s)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1394(t *testing.T) {
 	for _, c := range []struct {
 		rst int

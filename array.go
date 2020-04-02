@@ -164,6 +164,30 @@ func shortestToChar(s string, c byte) []int {
 	return D
 }
 
+// 830 Positions of Large Groups
+func largeGroupPositions(s string) [][]int {
+	G := [][]int{}
+
+	gCount := 1
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			gCount++
+		} else {
+			if gCount >= 3 {
+				G = append(G, []int{i - gCount, i - 1})
+			}
+			gCount = 1
+		}
+	}
+
+	if gCount >= 3 {
+		G = append(G, []int{len(s) - gCount, len(s) - 1})
+	}
+
+	log.Print(":? ", G)
+	return G
+}
+
 // 1394 Find Lucky Integer in an Array
 func findLucky(arr []int) int {
 	F := [500 + 1]int{}
