@@ -248,6 +248,27 @@ func fractionAddition(expression string) string {
 	return expOut
 }
 
+// 832 Flipping an Image
+func flipAndInvertImage(image [][]int) [][]int {
+	D := make([][]int, len(image))
+	for r := range D {
+		D[r] = make([]int, len(image[r]))
+	}
+
+	for r := range D {
+		left, right := 0, len(D[r])-1
+		for left <= right {
+			D[r][left], D[r][right] = image[r][right]^1, image[r][left]^1
+
+			left++
+			right--
+		}
+	}
+
+	log.Print(":? ", D)
+	return D
+}
+
 // 840m Magic Squares In Grid
 func numMagicSquaresInside(grid [][]int) int {
 	t := 0

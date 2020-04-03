@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"testing"
 )
 
@@ -43,6 +44,20 @@ func Test592(t *testing.T) {
 	log.Print("0/1 ?= ", fractionAddition("-1/2+1/2"))
 	log.Print("1/3 ?= ", fractionAddition("-1/2+1/2+1/3"))
 	log.Print("-1/6 ?= ", fractionAddition("1/3-1/2"))
+}
+
+func Test832(t *testing.T) {
+	for _, c := range []struct {
+		rst, image [][]int
+	}{
+		{[][]int{{1, 1, 0}, {1, 0, 1}, {0, 0, 0}}, [][]int{{1, 0, 0}, {0, 1, 0}, {1, 1, 1}}},
+	} {
+		log.Print("* ", c.image)
+		if !reflect.DeepEqual(c.rst, flipAndInvertImage(c.image)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
 }
 
 // 840m Magic Squares In Grid
