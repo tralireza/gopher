@@ -82,6 +82,23 @@ func Test589(t *testing.T) {
 	}
 }
 
+func Test844(t *testing.T) {
+	for _, c := range []struct {
+		rst  bool
+		s, t string
+	}{
+		{true, "ab#c", "ad#c"},
+		{true, "ab##", "c#d#"},
+		{false, "a#c", "b"},
+	} {
+		log.Printf("* %q %q", c.s, c.t)
+		if c.rst != backspaceCompare(c.s, c.t) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 921m Minimum Add to Make Parentheses Valid
 func Test921(t *testing.T) {
 	log.Print("1 ?= ", minAddToMakeValid("())"))

@@ -128,6 +128,27 @@ func preorder(root *Node589) []int {
 	return Walk(root)
 }
 
+// 844 Backtrace String Compare
+func backspaceCompare(s string, t string) bool {
+    Walk := func(s string) string {
+        Q := []byte{}
+        for i := 0; i < len(s); i++ {
+            switch s[i] {
+            case '#':
+                if len(Q) > 0 {
+                    Q = Q[:len(Q)-1]
+                }
+            default:
+                Q = append(Q, s[i])
+            }
+        }
+
+        return string(Q)
+    }
+
+    return Walk(s) == Walk(t)
+}
+
 // 921m Minimum Add to Make Parentheses Valid
 func minAddToMakeValid(s string) int {
 	qSize, ops := 0, 0
