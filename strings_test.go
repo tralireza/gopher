@@ -148,6 +148,23 @@ func Test824(t *testing.T) {
 	}
 }
 
+func Test859(t *testing.T) {
+	for _, c := range []struct {
+		rst     bool
+		s, goal string
+	}{
+		{true, "ab", "ba"},
+		{false, "ab", "ab"},
+		{true, "aa", "aa"},
+	} {
+		log.Printf("* %q %q", c.s, c.goal)
+		if c.rst != buddyStrings(c.s, c.goal) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 917 Reverse Only Letters
 func Test917(t *testing.T) {
 	for _, c := range []struct {

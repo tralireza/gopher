@@ -330,6 +330,41 @@ func toGoatLatin(sentence string) string {
 	return string(bfr[:len(bfr)-1])
 }
 
+// 859 Buddy Strings
+func buddyStrings(s string, goal string) bool {
+	if len(s) != len(goal) {
+		return false
+	}
+
+	Diffs := [][2]byte{}
+	for i := 0; i < len(s); i++ {
+		if s[i] != goal[i] {
+			Diffs = append(Diffs, [2]byte{s[i], goal[i]})
+		}
+	}
+	log.Printf("-> %c", Diffs)
+
+	if len(Diffs) == 0 {
+		if len(s) > 26 {
+			return true
+		}
+
+		for i := 0; i < len(s)-1; i++ {
+			for j := i + 1; j < len(s); j++ {
+				if s[i] == s[j] { // NoOp Swap!
+					return true
+				}
+			}
+		}
+
+		return false
+	}
+
+	return len(Diffs) == 2 &&
+		Diffs[0][1] == Diffs[1][0] &&
+		Diffs[0][0] == Diffs[1][1]
+}
+
 // 917 Reverse Only Letters
 func reverseOnlyLetters(s string) string {
 	rs := []rune(s)
