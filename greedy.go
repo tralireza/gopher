@@ -897,3 +897,57 @@ func clearStars(s string) string {
 
 	return strings.ReplaceAll(string(B), "*", "")
 }
+
+// 3440m Reschedule Meetings for Maximum Free Time II
+func maxFreeTimeII(eventTime int, startTime []int, endTime []int) int {
+	N := len(startTime) & len(endTime)
+
+	Gaps := make([]bool, N)
+
+	lGap, rGap := 0, 0
+	for i := 0; i < N; i++ {
+		if endTime[i]-startTime[i] <= lGap {
+			Gaps[i] = true
+		}
+
+		if i == 0 {
+			lGap = startTime[i]
+		} else {
+			lGap = max(startTime[i]-endTime[i-1], lGap)
+		}
+
+		j := N - 1 - i
+		if endTime[j]-startTime[j] <= rGap {
+			Gaps[j] = true
+		}
+
+		if j == N-1 {
+			rGap = eventTime - endTime[j]
+		} else {
+			rGap = max(startTime[j+1]-endTime[j], rGap)
+		}
+	}
+	log.Print("-> ", Gaps)
+
+	xFree := 0
+	for i := 0; i < N; i++ {
+		left := 0
+		if i > 0 {
+			left = endTime[i-1]
+		}
+
+		right := eventTime
+		if i < N-1 {
+			right = startTime[i+1]
+		}
+
+		if Gaps[i] {
+			xFree = max(right-left, xFree)
+		} else {
+			xFree = max(right-left-(endTime[i]-startTime[i]), xFree)
+		}
+	}
+
+	log.Print(":? ", xFree)
+	return xFree
+}
