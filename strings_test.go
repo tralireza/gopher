@@ -287,6 +287,21 @@ func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Eating right now", "Eating"))
 }
 
+func Test1832(t *testing.T) {
+	for _, c := range []struct {
+		rst      bool
+		sentence string
+	}{
+		{true, "thequickbrownfoxjumpsoverthelazydog"},
+	} {
+		log.Printf("* %q", c.sentence)
+		if c.rst != checkIfPangram(c.sentence) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 2185 Counting Words With a Given Prefix
 func Test2185(t *testing.T) {
 	log.Print("2 ?= ", prefixCount([]string{"pay", "attention", "practice", "attend"}, "at"))
