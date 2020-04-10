@@ -330,6 +330,24 @@ func maxSubarraySumCircular(nums []int) int {
 	return max(kX, tSum-kM)
 }
 
+// 942 DI String Match
+func diStringMatch(s string) []int {
+	P := []int{}
+	low, high := 0, len(s)
+	for i := 0; i < len(s); i++ {
+		switch s[i] {
+		case 'D':
+			P = append(P, high)
+			high--
+		case 'I':
+			P = append(P, low)
+			low++
+		}
+	}
+
+	return append(P, low)
+}
+
 // 1007m Minimum Domino Rotations For Equal Row
 func minDominoRotations(tops, bottoms []int) int {
 	Greedy := func(tops, bottoms []int) int {

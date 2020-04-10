@@ -160,6 +160,21 @@ func Test918(t *testing.T) {
 	log.Print("-2 ?= ", maxSubarraySumCircular([]int{-3, -2, -3}))
 }
 
+func Test942(t *testing.T) {
+	for _, c := range []struct {
+		rst []int
+		s   string
+	}{
+		{[]int{0, 4, 1, 3, 2}, "IDID"},
+	} {
+		log.Print("* ", c.s)
+		if !reflect.DeepEqual(c.rst, diStringMatch(c.s)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1007(t *testing.T) {
 	for _, c := range []struct {
 		rst           int
