@@ -293,6 +293,7 @@ func Test1832(t *testing.T) {
 		sentence string
 	}{
 		{true, "thequickbrownfoxjumpsoverthelazydog"},
+		{false, "pangram"},
 	} {
 		log.Printf("* %q", c.sentence)
 		if c.rst != checkIfPangram(c.sentence) {
