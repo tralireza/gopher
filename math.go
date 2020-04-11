@@ -250,6 +250,25 @@ func pushDominoes(dominoes string) string {
 	return sb.String()
 }
 
+// 883 Projection Area of 3D Shapes
+func projectionArea(grid [][]int) int {
+	tArea := 0
+
+	for r := range grid {
+		xRow, xCol := 0, 0
+		for c := range grid[r] {
+			if grid[r][c] > 0 {
+				tArea++
+			}
+
+			xRow, xCol = max(xRow, grid[r][c]), max(xCol, grid[c][r])
+		}
+		tArea += xRow + xCol
+	}
+
+	return tArea
+}
+
 // 908 Smallest Range I
 func smallestRangeI(nums []int, k int) int {
 	return max(0, slices.Max(nums)-slices.Min(nums)-2*k)

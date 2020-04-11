@@ -126,7 +126,7 @@ func Test780(t *testing.T) {
 }
 
 func Test812(t *testing.T) {
-    // 3 <= N < 50
+	// 3 <= N < 50
 
 	for _, c := range []struct {
 		rst    float64
@@ -153,6 +153,22 @@ func Test838(t *testing.T) {
 		if c.rst != pushDominoes(c.dominoes) {
 			t.FailNow()
 		}
+	}
+}
+
+func Test883(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		grid [][]int
+	}{
+		{17, [][]int{{1, 2}, {3, 4}}},
+		{5, [][]int{{2}}},
+	} {
+		log.Print("* ", c.grid)
+		if c.rst != projectionArea(c.grid) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
 	}
 }
 
