@@ -215,6 +215,29 @@ func robotSim(commands []int, obstacles [][]int) int {
 	return dist
 }
 
+// 888 Fair Candy Swap
+func fairCandySwap(aliceSizes []int, bobSizes []int) []int {
+	A := 0
+	for _, x := range aliceSizes {
+		A += x
+	}
+
+	B := 0
+	for _, x := range bobSizes {
+		B += x
+	}
+
+	for _, a := range aliceSizes {
+		for _, b := range bobSizes {
+			if A-a+b == B-b+a {
+				return []int{a, b}
+			}
+		}
+	}
+
+	panic("?")
+}
+
 // 1128 Number of Equivalent Domino Pairs
 func numEquivDominoPairs(dominoes [][]int) int {
 	WithMap := func(dominoes [][]int) int {

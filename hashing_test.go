@@ -167,6 +167,22 @@ func Test874(t *testing.T) {
 	log.Print("36 ?= ", robotSim([]int{6, -1, -1, 6}, [][]int{}))
 }
 
+func Test888(t *testing.T) {
+	for _, c := range []struct {
+		rst, aliceSizes, bobSizes []int
+	}{
+		{[]int{1, 2}, []int{1, 1}, []int{2, 2}},
+		{[]int{1, 2}, []int{1, 2}, []int{2, 3}},
+		{[]int{2, 3}, []int{2}, []int{1, 3}},
+	} {
+		log.Print("* ", c.aliceSizes, c.bobSizes)
+		if !reflect.DeepEqual(c.rst, fairCandySwap(c.aliceSizes, c.bobSizes)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1128(t *testing.T) {
 	for _, c := range []struct {
 		rst      int
