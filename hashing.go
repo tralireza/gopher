@@ -222,14 +222,14 @@ func fairCandySwap(aliceSizes []int, bobSizes []int) []int {
 		A += x
 	}
 
-	M := map[int]struct{}{}
-	for _, x := range bobSizes {
-		M[x] = struct{}{}
-	}
-
 	B := 0
 	for _, x := range bobSizes {
 		B += x
+	}
+
+	M := map[int]struct{}{}
+	for _, x := range bobSizes {
+		M[x] = struct{}{}
 	}
 
 	for _, a := range aliceSizes {
