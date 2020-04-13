@@ -222,14 +222,23 @@ func fairCandySwap(aliceSizes []int, bobSizes []int) []int {
 		A += x
 	}
 
+	M := map[int]struct{}{}
+	for _, x := range bobSizes {
+		M[x] = struct{}{}
+	}
+
 	B := 0
 	for _, x := range bobSizes {
 		B += x
 	}
 
 	for _, a := range aliceSizes {
+		if _, ok := M[(B-A+2*a)/2]; ok {
+			log.Print(":? ", []int{a, (B - A + 2*a) / 2})
+		}
+
 		for _, b := range bobSizes {
-			if A-a+b == B-b+a {
+			if A-a+b == B-b+a { // b ?= (B-A+2a)/2
 				return []int{a, b}
 			}
 		}
