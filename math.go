@@ -269,6 +269,33 @@ func projectionArea(grid [][]int) int {
 	return tArea
 }
 
+// 892 Surface Area of 3D Shapes
+func surfaceArea(grid [][]int) int {
+	N := len(grid)
+	Dirs := [5]int{-1, 0, 1, 0, -1}
+
+	tArea := 0
+	for r := range N {
+		for c := range N {
+			if grid[r][c] > 0 {
+				tArea += 2 // Top & Bottom of Cube
+			}
+
+			area := grid[r][c]
+			for d := range 4 { // Sides of Cube
+				r, c := r+Dirs[d], c+Dirs[d+1]
+				if 0 <= r && r < N && 0 <= c && c < N {
+					tArea += max(area-grid[r][c], 0)
+				} else {
+					tArea += area
+				}
+			}
+		}
+	}
+
+	return tArea
+}
+
 // 908 Smallest Range I
 func smallestRangeI(nums []int, k int) int {
 	return max(0, slices.Max(nums)-slices.Min(nums)-2*k)

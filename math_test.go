@@ -172,6 +172,22 @@ func Test883(t *testing.T) {
 	}
 }
 
+func Test892(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		grid [][]int
+	}{
+		{34, [][]int{{1, 2}, {3, 4}}},
+		{32, [][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}}},
+	} {
+		log.Print("* ", c.grid)
+		if c.rst != surfaceArea(c.grid) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 908 Smallest Range I
 func Test908(t *testing.T) {
 	log.Print("0 ?= ", smallestRangeI([]int{1}, 0))
