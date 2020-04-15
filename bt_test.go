@@ -99,6 +99,32 @@ func Test352(t *testing.T) {
 	Draw(o.bstVals, "", true)
 }
 
+func Test897(t *testing.T) {
+	type N = TreeNode
+
+	var Check func(r1, r2 *N) bool
+	Check = func(r1, r2 *N) bool {
+		if r1 == nil && r2 == nil {
+			return true
+		}
+		if r1 == nil || r2 == nil {
+			return false
+		}
+		return r1.Val == r2.Val && Check(r1.Left, r2.Left) && Check(r1.Right, r2.Right)
+	}
+
+	for _, c := range []struct {
+		rst, root *TreeNode
+	}{
+		{&N{1, nil, &N{5, nil, &N{Val: 7}}}, &N{5, &N{Val: 1}, &N{Val: 7}}},
+	} {
+		log.Print("*")
+		if !Check(c.rst, increasingBST(c.root)) {
+			t.FailNow()
+		}
+	}
+}
+
 // 1110m Delete Nodes And Return Forest
 func Test1110(t *testing.T) {
 	Draw := func(n *TreeNode) {

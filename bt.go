@@ -130,6 +130,29 @@ func (o *TreeNode) Insert352(v int) *TreeNode {
 	return o
 }
 
+// 897 Increasing Order Search Tree
+func increasingBST(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+
+	left, right := increasingBST(root.Left), increasingBST(root.Right)
+
+	if left != nil {
+		prv := left
+		for n := left; n != nil; n = n.Right {
+			prv = n
+		}
+		prv.Right = root
+
+		root.Left, root.Right = nil, right
+		return left
+	}
+
+	root.Left, root.Right = nil, right
+	return root
+}
+
 // 1110m Delete Nodes And Return Forest
 func delNodes(root *TreeNode, to_delete []int) []*TreeNode {
 	// 1 <= n.Val, length(to_delete) <= 1000
