@@ -117,6 +117,18 @@ func Test897(t *testing.T) {
 		rst, root *TreeNode
 	}{
 		{&N{1, nil, &N{5, nil, &N{Val: 7}}}, &N{5, &N{Val: 1}, &N{Val: 7}}},
+		{
+			&N{1, nil, &N{2, nil, &N{3, nil, &N{4, nil, &N{5, nil, &N{6, nil, &N{7, nil, &N{8, nil, &N{Val: 9}}}}}}}}},
+			&N{5,
+				&N{3,
+					&N{2, &N{Val: 1}, nil},
+					&N{Val: 4},
+				},
+				&N{6, nil,
+					&N{8, &N{Val: 7}, &N{Val: 9}},
+				},
+			},
+		},
 	} {
 		log.Print("*")
 		if !Check(c.rst, increasingBST(c.root)) {
