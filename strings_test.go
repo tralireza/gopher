@@ -190,6 +190,9 @@ func Test927(t *testing.T) {
 	}{
 		{true, "alex", "aaleex"},
 		{false, "saeed", "ssaaedd"},
+
+		{false, "alex", "aaleexa"},
+		{false, "alexd", "ale"},
 	} {
 		log.Printf("* %q %q", c.name, c.typed)
 		if c.rst != isLongPressedName(c.name, c.typed) {
