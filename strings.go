@@ -386,6 +386,35 @@ func reverseOnlyLetters(s string) string {
 	return string(rs)
 }
 
+// 925 Long Pressed Name
+func isLongPressedName(name string, typed string) bool {
+	if name[0] != typed[0] {
+		return false
+	}
+
+	n, t := 0, 0
+	for n < len(name) {
+		for t < len(typed) && name[n] != typed[n] && typed[t-1] == typed[t] {
+			t++
+		}
+
+		if t == len(typed) {
+			return false
+		}
+		if name[n] != typed[t] {
+			return false
+		}
+
+		n++
+		t++
+	}
+
+	for t < len(typed) && typed[t-1] == typed[t] {
+		t++
+	}
+	return t == len(typed)
+}
+
 // 1163h Last Substring in Lexicographical Order
 // 1 <= N <= 4*10^5
 func lastSubstring_SuffixArray(s string) string {

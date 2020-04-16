@@ -181,6 +181,24 @@ func Test917(t *testing.T) {
 	}
 }
 
+func Test927(t *testing.T) {
+	// 1 <= N, T <= 1000
+
+	for _, c := range []struct {
+		rst         bool
+		name, typed string
+	}{
+		{true, "alex", "aaleex"},
+		{false, "saeed", "ssaaedd"},
+	} {
+		log.Printf("* %q %q", c.name, c.typed)
+		if c.rst != isLongPressedName(c.name, c.typed) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1163(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string
