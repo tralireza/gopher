@@ -627,17 +627,17 @@ func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 
 // 1832 Check if Sentence Is Pangram
 func checkIfPangram(sentence string) bool {
-    F := [26]int{}
-    for i := 0; i < len(sentence); i++ {
-        F[sentence[i]-'a']++
-    }
+	F := [26]int{}
+	for i := 0; i < len(sentence); i++ {
+		F[sentence[i]-'a']++
+	}
 
-    for _, f := range F {
-        if f == 0 {
-            return false
-        }
-    }
-    return true
+	for _, f := range F {
+		if f == 0 {
+			return false
+		}
+	}
+	return true
 }
 
 // 2185 Counting Words With a Given Prefix
