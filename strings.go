@@ -415,6 +415,27 @@ func isLongPressedName(name string, typed string) bool {
 	return t == len(typed)
 }
 
+// 929 Unique Email Addresses
+func numUniqueEmails(emails []string) int {
+	U := map[string]struct{}{}
+
+	for _, email := range emails {
+		parts := strings.SplitN(email, "@", 2)
+
+		local := []byte{}
+		for i := 0; i < len(parts[0]) && parts[0][i] != '+'; i++ {
+			if parts[0][i] != '.' {
+				local = append(local, parts[0][i])
+			}
+		}
+
+		U[string(local)+"@"+parts[1]] = struct{}{}
+	}
+
+	log.Printf("-> %q", U)
+	return len(U)
+}
+
 // 1163h Last Substring in Lexicographical Order
 // 1 <= N <= 4*10^5
 func lastSubstring_SuffixArray(s string) string {

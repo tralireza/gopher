@@ -202,6 +202,22 @@ func Test927(t *testing.T) {
 	}
 }
 
+func Test929(t *testing.T) {
+	for _, c := range []struct {
+		rst    int
+		emails []string
+	}{
+		{2, []string{"test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com", "testemail+david@lee.tcode.com"}},
+		{3, []string{"a@leetcode.com", "b@leetcode.com", "c@leetcode.com"}},
+	} {
+		log.Print("* ", c.emails)
+		if c.rst != numUniqueEmails(c.emails) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1163(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string
