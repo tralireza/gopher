@@ -188,6 +188,19 @@ func largeGroupPositions(s string) [][]int {
 	return G
 }
 
+// 961 N-Repeated Element in Size 2N Array
+func repeatedNTimes(nums []int) int {
+    M := map[int]struct{}{}
+    for _, n := range nums {
+        if _, ok := M[n]; ok {
+            return n
+        }
+        M[n] = struct{}{}
+    }
+
+    panic("")
+}
+
 // 1394 Find Lucky Integer in an Array
 func findLucky(arr []int) int {
 	F := [500 + 1]int{}

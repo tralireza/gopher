@@ -113,6 +113,23 @@ func Test830(t *testing.T) {
 	}
 }
 
+func Test961(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{3, []int{1, 2, 3, 3}},
+		{2, []int{2, 1, 2, 5, 3, 2}},
+		{5, []int{5, 1, 5, 2, 5, 3, 5, 4}},
+	} {
+		log.Print("* ", c.nums)
+		if c.rst != repeatedNTimes(c.nums) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1394(t *testing.T) {
 	for _, c := range []struct {
 		rst int
