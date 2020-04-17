@@ -225,6 +225,8 @@ func Test953(t *testing.T) {
 		order string
 	}{
 		{true, []string{"hello", "leetcode"}, "hlabcdefgijkmnopqrstuvwxyz"},
+		{false, []string{"word", "world", "row"}, "worldabcefghijkmnpqstuvxyz"},
+		{false, []string{"apple", "app"}, "abcdefghijklmnopqrstuvwxyz"},
 	} {
 		log.Printf("* %q %q", c.words, c.order)
 		if c.rst != isAlienSorted(c.words, c.order) {
