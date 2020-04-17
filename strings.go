@@ -436,6 +436,34 @@ func numUniqueEmails(emails []string) int {
 	return len(U)
 }
 
+// 953 Verifying an Alien Dictionary
+func isAlienSorted(words []string, order string) bool {
+	Order := [26]int{}
+	for x := range 26 {
+		Order[order[x]-'a'] = x
+	}
+
+NEXT:
+	for w := 0; w < len(words)-w; w++ {
+		cur, nextWord := words[w], words[w+1]
+
+		for i := 0; i < len(cur); i++ {
+			if i >= len(nextWord) {
+				return false
+			}
+
+			if cur[i] != nextWord[i] {
+				if Order[cur[i]-'a'] > Order[nextWord[i]-'a'] {
+					return false
+				}
+				continue NEXT
+			}
+		}
+	}
+
+	return true
+}
+
 // 1163h Last Substring in Lexicographical Order
 // 1 <= N <= 4*10^5
 func lastSubstring_SuffixArray(s string) string {

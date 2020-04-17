@@ -218,6 +218,22 @@ func Test929(t *testing.T) {
 	}
 }
 
+func Test953(t *testing.T) {
+	for _, c := range []struct {
+		rst   bool
+		words []string
+		order string
+	}{
+		{true, []string{"hello", "leetcode"}, "hlabcdefgijkmnopqrstuvwxyz"},
+	} {
+		log.Printf("* %q %q", c.words, c.order)
+		if c.rst != isAlienSorted(c.words, c.order) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1163(t *testing.T) {
 	for _, c := range []struct {
 		rst, s string
