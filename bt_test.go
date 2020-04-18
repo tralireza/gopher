@@ -137,6 +137,24 @@ func Test897(t *testing.T) {
 	}
 }
 
+func Test993(t *testing.T) {
+	type T = TreeNode
+
+	for _, c := range []struct {
+		rst  bool
+		root *TreeNode
+		x, y int
+	}{
+		{false, &T{1, &T{2, &T{Val: 4}, nil}, &T{Val: 3}}, 4, 3},
+	} {
+		log.Print("*")
+		if c.rst != isCousins(c.root, c.x, c.y) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1110m Delete Nodes And Return Forest
 func Test1110(t *testing.T) {
 	Draw := func(n *TreeNode) {

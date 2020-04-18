@@ -153,6 +153,46 @@ func increasingBST(root *TreeNode) *TreeNode {
 	return root
 }
 
+// 993 Cousins in Binary Tree
+func isCousins(root *TreeNode, x, y int) bool {
+	Q := [][2]*TreeNode{}
+
+	for _, n := range []*TreeNode{root.Left, root.Right} {
+		if n != nil {
+			Q = append(Q, [2]*TreeNode{n, root})
+		}
+	}
+
+	for len(Q) > 0 {
+		fX, fY := false, false
+		var pX, pY *TreeNode
+		var q [2]*TreeNode
+
+		for range len(Q) {
+			q, Q = Q[0], Q[1:]
+			node, parent := q[0], q[1]
+			if node.Val == x {
+				fX, pX = true, parent
+			}
+			if node.Val == y {
+				fY, pY = true, parent
+			}
+
+			if fX && fY && pX != pY {
+				return true
+			}
+
+			for _, n := range []*TreeNode{node.Left, node.Right} {
+				if n != nil {
+					Q = append(Q, [2]*TreeNode{n, node})
+				}
+			}
+		}
+	}
+
+	return false
+}
+
 // 1110m Delete Nodes And Return Forest
 func delNodes(root *TreeNode, to_delete []int) []*TreeNode {
 	// 1 <= n.Val, length(to_delete) <= 1000
