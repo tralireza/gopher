@@ -146,6 +146,8 @@ func Test993(t *testing.T) {
 		x, y int
 	}{
 		{false, &T{1, &T{2, &T{Val: 4}, nil}, &T{Val: 3}}, 4, 3},
+		{true, &T{1, &T{2, nil, &T{Val: 4}}, &T{3, nil, &T{Val: 5}}}, 5, 4},
+		{false, &T{1, &T{2, nil, &T{Val: 4}}, &T{Val: 3}}, 2, 3},
 	} {
 		log.Print("*")
 		if c.rst != isCousins(c.root, c.x, c.y) {

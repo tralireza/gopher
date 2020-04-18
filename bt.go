@@ -164,7 +164,7 @@ func isCousins(root *TreeNode, x, y int) bool {
 	}
 
 	for len(Q) > 0 {
-		fX, fY := false, false
+		foundX, foundY := false, false
 		var pX, pY *TreeNode
 		var q [2]*TreeNode
 
@@ -172,13 +172,13 @@ func isCousins(root *TreeNode, x, y int) bool {
 			q, Q = Q[0], Q[1:]
 			node, parent := q[0], q[1]
 			if node.Val == x {
-				fX, pX = true, parent
+				foundX, pX = true, parent
 			}
 			if node.Val == y {
-				fY, pY = true, parent
+				foundY, pY = true, parent
 			}
 
-			if fX && fY && pX != pY {
+			if foundX && foundY && pX != pY {
 				return true
 			}
 
@@ -187,6 +187,10 @@ func isCousins(root *TreeNode, x, y int) bool {
 					Q = append(Q, [2]*TreeNode{n, node})
 				}
 			}
+		}
+
+		if foundX || foundY {
+			return false
 		}
 	}
 
