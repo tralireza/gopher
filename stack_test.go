@@ -156,6 +156,22 @@ func Test962(t *testing.T) {
 	}
 }
 
+func Test1021(t *testing.T) {
+	for _, c := range []struct {
+		rst, s string
+	}{
+		{"()()()", "(()())(())"},
+		{"()()()()(())", "(()())(())(()(()))"},
+		{"", "()()"},
+	} {
+		log.Printf("* %q", c.s)
+		if c.rst != removeOuterParentheses(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1081m Smallest Subsequence of Distinct Characters
 func Test1081(t *testing.T) {
 	log.Print("abc ?= ", smallestSubsequence("bcabc"))

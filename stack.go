@@ -130,23 +130,23 @@ func preorder(root *Node589) []int {
 
 // 844 Backtrace String Compare
 func backspaceCompare(s string, t string) bool {
-    Walk := func(s string) string {
-        Q := []byte{}
-        for i := 0; i < len(s); i++ {
-            switch s[i] {
-            case '#':
-                if len(Q) > 0 {
-                    Q = Q[:len(Q)-1]
-                }
-            default:
-                Q = append(Q, s[i])
-            }
-        }
+	Walk := func(s string) string {
+		Q := []byte{}
+		for i := 0; i < len(s); i++ {
+			switch s[i] {
+			case '#':
+				if len(Q) > 0 {
+					Q = Q[:len(Q)-1]
+				}
+			default:
+				Q = append(Q, s[i])
+			}
+		}
 
-        return string(Q)
-    }
+		return string(Q)
+	}
 
-    return Walk(s) == Walk(t)
+	return Walk(s) == Walk(t)
 }
 
 // 921m Minimum Add to Make Parentheses Valid
@@ -191,6 +191,27 @@ func maxWidthRamp(nums []int) int {
 		i = min(j, i)
 	}
 	return xWid
+}
+
+// 1021 Remove Outermost Parentheses
+func removeOuterParentheses(s string) string {
+	Prims := []string{}
+
+	start, stack := 0, 0
+	for i := 0; i < len(s); i++ {
+		switch s[i] {
+		case '(':
+			stack++
+		case ')':
+			stack--
+			if stack == 0 {
+				Prims = append(Prims, s[start+1:i])
+				start = i + 1
+			}
+		}
+	}
+
+	return strings.Join(Prims, "")
 }
 
 // 1081m Smallest Subsequence of Distinct Characters
