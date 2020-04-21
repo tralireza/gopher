@@ -165,6 +165,7 @@ func Test1022(t *testing.T) {
 		root *TreeNode
 	}{
 		{22, &T{1, &T{0, &T{Val: 0}, &T{Val: 1}}, &T{1, &T{Val: 0}, &T{Val: 1}}}},
+		{0, &T{Val: 0}},
 	} {
 		log.Print("*")
 		if c.rst != sumRootToLeaf(c.root) {
