@@ -157,6 +157,23 @@ func Test993(t *testing.T) {
 	}
 }
 
+func Test1022(t *testing.T) {
+	type T = TreeNode
+
+	for _, c := range []struct {
+		rst  int
+		root *TreeNode
+	}{
+		{22, &T{1, &T{0, &T{Val: 0}, &T{Val: 1}}, &T{1, &T{Val: 0}, &T{Val: 1}}}},
+	} {
+		log.Print("*")
+		if c.rst != sumRootToLeaf(c.root) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1110m Delete Nodes And Return Forest
 func Test1110(t *testing.T) {
 	Draw := func(n *TreeNode) {

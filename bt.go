@@ -197,6 +197,23 @@ func isCousins(root *TreeNode, x, y int) bool {
 	return false
 }
 
+// 1022 Sum of Root To Leaf Binary Numbers
+func sumRootToLeaf(root *TreeNode) int {
+	var Search func(*TreeNode, int) int
+	Search = func(n *TreeNode, cSum int) int {
+		if n == nil {
+			return 0
+		}
+
+		if n.Left == nil && n.Right == nil {
+			return cSum<<1 | n.Val
+		}
+		return Search(n.Left, cSum<<1|n.Val) + Search(n.Right, cSum<<1|n.Val)
+	}
+
+	return Search(root, 0)
+}
+
 // 1110m Delete Nodes And Return Forest
 func delNodes(root *TreeNode, to_delete []int) []*TreeNode {
 	// 1 <= n.Val, length(to_delete) <= 1000
