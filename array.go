@@ -210,6 +210,24 @@ func allCellsDistOrder(rows int, cols int, rCenter int, cCenter int) [][]int {
 		return x
 	}
 
+	Sorting := func(rows, cols, rCenter, cCenter int) [][]int {
+		P := [][]int{}
+		for r := range rows {
+			for c := range cols {
+				P = append(P, []int{r, c})
+			}
+		}
+
+		slices.SortFunc(P, func(x, y []int) int {
+			distX := abs(x[0]-rCenter) + abs(x[1]-cCenter)
+			distY := abs(y[0]-rCenter) + abs(y[1]-cCenter)
+			return distX - distY
+		})
+
+		return P
+	}
+	log.Print(":? ", Sorting(rows, cols, rCenter, cCenter))
+
 	M := map[int][][]int{}
 	for r := 0; r < rows; r++ {
 		for c := 0; c < cols; c++ {
