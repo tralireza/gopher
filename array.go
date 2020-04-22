@@ -220,9 +220,7 @@ func allCellsDistOrder(rows int, cols int, rCenter int, cCenter int) [][]int {
 
 	P := [][]int{}
 	for dist := range rows + cols - 1 {
-		for _, point := range M[dist] {
-			P = append(P, point)
-		}
+		P = append(P, M[dist]...)
 	}
 	return P
 }
