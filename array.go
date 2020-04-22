@@ -190,15 +190,41 @@ func largeGroupPositions(s string) [][]int {
 
 // 961 N-Repeated Element in Size 2N Array
 func repeatedNTimes(nums []int) int {
-    M := map[int]struct{}{}
-    for _, n := range nums {
-        if _, ok := M[n]; ok {
-            return n
-        }
-        M[n] = struct{}{}
-    }
+	M := map[int]struct{}{}
+	for _, n := range nums {
+		if _, ok := M[n]; ok {
+			return n
+		}
+		M[n] = struct{}{}
+	}
 
-    panic("")
+	panic("")
+}
+
+// 1030 Matrix Cells in Distance Order
+func allCellsDistOrder(rows int, cols int, rCenter int, cCenter int) [][]int {
+	abs := func(x int) int {
+		if x < 0 {
+			return -x
+		}
+		return x
+	}
+
+	M := map[int][][]int{}
+	for r := 0; r < rows; r++ {
+		for c := 0; c < cols; c++ {
+			dist := abs(r-rCenter) + abs(c-cCenter)
+			M[dist] = append(M[dist], []int{r, c})
+		}
+	}
+
+	P := [][]int{}
+	for dist := range rows + cols - 1 {
+		for _, point := range M[dist] {
+			P = append(P, point)
+		}
+	}
+	return P
 }
 
 // 1394 Find Lucky Integer in an Array

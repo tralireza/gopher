@@ -130,6 +130,23 @@ func Test961(t *testing.T) {
 	}
 }
 
+func Test1030(t *testing.T) {
+	for _, c := range []struct {
+		rst                          [][]int
+		rows, cols, rCenter, cCenter int
+	}{
+		{[][]int{{0, 0}, {0, 1}}, 1, 2, 0, 0},
+		{[][]int{{0, 1}, {0, 0}, {1, 1}, {1, 0}}, 2, 2, 0, 1},
+		{[][]int{{1, 2}, {0, 2}, {1, 1}, {0, 1}, {1, 0}, {0, 0}}, 2, 3, 1, 2},
+	} {
+		log.Print("* ", c.rows, c.cols, c.rCenter, c.cCenter)
+		if !reflect.DeepEqual(c.rst, allCellsDistOrder(c.rows, c.cols, c.rCenter, c.cCenter)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1394(t *testing.T) {
 	for _, c := range []struct {
 		rst int
