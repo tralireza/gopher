@@ -203,28 +203,27 @@ func smallestRange(nums [][]int) []int {
 
 // 1046 Last Stone Weight
 func lastStoneWeight(stones []int) int {
-   for len(stones) > 1 {
-        slices.Sort(stones)
+	for len(stones) > 1 {
+		slices.Sort(stones)
 
-        w, w0 := stones[len(stones)-1], stones[len(stones)-2]
-        stones = stones[:len(stones)-2]
-        if w > w0 {
-            stones = append(stones, w-w0)
-        }
-    }
+		w, w0 := stones[len(stones)-1], stones[len(stones)-2]
+		stones = stones[:len(stones)-2]
+		if w > w0 {
+			stones = append(stones, w-w0)
+		}
+	}
 
-    return append(stones, 0)[0]
+	return append(stones, 0)[0]
 }
 
 // 1405m Longest Happy String
+type PQ1405 []Letter1405
 type Letter1405 struct {
 	chr   byte
 	count int
 }
 
 func (o Letter1405) String() string { return fmt.Sprintf("{%q %d}", o.chr, o.count) }
-
-type PQ1405 []Letter1405
 
 func (h PQ1405) Len() int           { return len(h) }
 func (h PQ1405) Less(i, j int) bool { return h[i].count > h[j].count }
