@@ -214,6 +214,20 @@ func removeOuterParentheses(s string) string {
 	return strings.Join(Prims, "")
 }
 
+// 1047 Remove All Adjacent Duplicates In String
+func removeDuplicates(s string) string {
+    Q := []rune{}
+    for _, chr := range s {
+        if len(Q)>0 && Q[len(Q)-1] == chr {
+            Q = Q[:len(Q)-1]
+        } else {
+            Q = append(Q, chr)
+        }
+    }
+
+    return string(Q)
+}
+
 // 1081m Smallest Subsequence of Distinct Characters
 func smallestSubsequence(s string) string {
 	lPos := [26]int{}
