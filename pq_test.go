@@ -73,6 +73,22 @@ func Test632(t *testing.T) {
 	}
 }
 
+func Test1046(t *testing.T) {
+	for _, c := range []struct {
+		rst    int
+		stones []int
+	}{
+		{1, []int{2, 7, 4, 1, 8, 1}},
+		{1, []int{1}},
+	} {
+		log.Print("* ", c.stones)
+		if c.rst != lastStoneWeight(c.stones) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1405m Longest Happy String
 func Test1405(t *testing.T) {
 	log.Printf(`"ccaccbcc" ?= %q`, longestDiverseString(1, 1, 7))

@@ -201,6 +201,21 @@ func smallestRange(nums [][]int) []int {
 	return []int{start, end}
 }
 
+// 1046 Last Stone Weight
+func lastStoneWeight(stones []int) int {
+   for len(stones) > 1 {
+        slices.Sort(stones)
+
+        w, w0 := stones[len(stones)-1], stones[len(stones)-2]
+        stones = stones[:len(stones)-2]
+        if w > w0 {
+            stones = append(stones, w-w0)
+        }
+    }
+
+    return append(stones, 0)[0]
+}
+
 // 1405m Longest Happy String
 type Letter1405 struct {
 	chr   byte
