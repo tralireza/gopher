@@ -202,7 +202,39 @@ func smallestRange(nums [][]int) []int {
 }
 
 // 1046 Last Stone Weight
+type PQ1046 struct{ sort.IntSlice }
+
+func (o PQ1046) Less(i, j int) bool { return o.IntSlice[j] < o.IntSlice[i] }
+func (o *PQ1046) Push(x any)        { o.IntSlice = append(o.IntSlice, x.(int)) }
+func (o *PQ1046) Pop() any {
+	v := o.IntSlice[o.Len()-1]
+	o.IntSlice = o.IntSlice[:o.Len()-1]
+	return v
+}
+
 func lastStoneWeight(stones []int) int {
+	PQ := func(stones []int) int {
+		pq := PQ1046{}
+		for _, stone := range stones {
+			heap.Push(&pq, stone)
+		}
+
+		for pq.Len() > 1 {
+			log.Print("-> PQ ", pq)
+
+			w, w0 := heap.Pop(&pq).(int), heap.Pop(&pq).(int)
+			if w > w0 {
+				heap.Push(&pq, w-w0)
+			}
+		}
+
+		if pq.Len() > 0 {
+			return heap.Pop(&pq).(int)
+		}
+		return 0
+	}
+	log.Print(":? ", PQ(stones))
+
 	for len(stones) > 1 {
 		slices.Sort(stones)
 
