@@ -381,6 +381,26 @@ func spiralMatrixIII(rows int, cols int, rStart int, cStart int) [][]int {
 	return M
 }
 
+// 1103 Distribute Candies to People
+func distributeCandies_1103(candies int, num_people int) []int {
+	Candy := make([]int, num_people)
+
+	p, tCandy := 0, 1
+	for candies >= tCandy {
+		Candy[p] += tCandy
+		candies -= tCandy
+		tCandy++
+
+		p = (p + 1) % num_people
+	}
+
+	if candies > 0 {
+		Candy[p] += candies
+	}
+
+	return Candy
+}
+
 // 1380 Lucky Numbers in a Matrix
 func luckyNumbers(matrix [][]int) []int {
 	// 1 <= matrix[i][j] <= 10^5
