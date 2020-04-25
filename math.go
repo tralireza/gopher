@@ -374,6 +374,41 @@ func dayOfYear(date string) int {
 	return dy
 }
 
+// 1175 Prime Arrangements
+func numPrimeArrangements(n int) int {
+    P := make([]int, n+1)
+    for p := range P {
+        P[p] = p
+    }
+
+    for p := 2; p < len(P); p++ {
+        if P[p] == p {
+            for m := p*p; m < len(P); m+=p {
+                P[m] = p
+            }
+        }
+    }
+
+    primes := 0
+    for p := 2; p < len(P); p++ {
+        if P[p] == p {
+            primes++
+        }
+    }
+
+    const M = int(1e9)+7
+    factMod := func(n int) int {
+        f := 1
+        for n > 1 {
+            f = f*n % M
+            n--
+        }
+        return f
+    }
+
+    return factMod(n-primes) * factMod(primes) % M
+}
+
 // 1295 Find Numbers with Even Number of Digits
 func findNumbers(nums []int) int {
 	evens := 0

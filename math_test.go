@@ -228,6 +228,21 @@ func Test1154(t *testing.T) {
 	log.Print("41 ?= ", dayOfYear("2019-02-10"))
 }
 
+func Test1175(t *testing.T) {
+	for _, c := range []struct {
+		rst, n int
+	}{
+		{12, 5},
+		{682289015, 100},
+	} {
+		log.Print("* ", c.n)
+		if c.rst != numPrimeArrangements(c.n) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1295(t *testing.T) {
 	for _, c := range []struct {
 		rst  int
