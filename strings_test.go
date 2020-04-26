@@ -316,6 +316,22 @@ func Benchmark1163_SuffixArray(b *testing.B) {
 	}
 }
 
+func Test1189(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		text string
+	}{
+		{1, "nlaebolko"},
+		{2, "loonbalxballpoon"},
+	} {
+		log.Printf("* %q", c.text)
+		if c.rst != maxNumberOfBalloons(c.text) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1668(t *testing.T) {
 	// 1 <= L(s), L(w) <= 100
 

@@ -623,6 +623,25 @@ func lastSubstring(s string) string {
 	return s[i:]
 }
 
+// 1189 Maximum Number of Ballons
+func maxNumberOfBalloons(text string) int {
+    F := [26]int{}
+    for i := 0; i < len(text); i++ {
+        F[text[i]-'a']++
+    }
+
+    for _, x := range []byte{'l', 'o'} {
+        F[x-'a'] /= 2
+    }
+
+    count := math.MaxInt
+    for _, x := range []byte{'b', 'a', 'l', 'o', 'n'} {
+        count = min(F[x-'a'], count)
+    }
+
+    return count
+}
+
 // 1668 Maximum Repeating Substring
 func maxRepeating(sequence string, word string) int {
 	xRepeat := 0
