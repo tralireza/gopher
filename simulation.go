@@ -401,6 +401,26 @@ func distributeCandies_1103(candies int, num_people int) []int {
 	return Candy
 }
 
+// 1260 Shift 2D Grid
+func shiftGrid(grid [][]int, k int) [][]int {
+	rows, cols := len(grid), len(grid[0])
+
+	M := make([][]int, rows)
+	for r := range M {
+		M[r] = make([]int, cols)
+	}
+
+	for r := 0; r < rows; r++ {
+		for c := 0; c < cols; c++ {
+			index := (r*cols + c + k) % (rows * cols)
+			M[index/cols][index%cols] = grid[r][c]
+		}
+	}
+
+	log.Print(":? ", M)
+	return M
+}
+
 // 1380 Lucky Numbers in a Matrix
 func luckyNumbers(matrix [][]int) []int {
 	// 1 <= matrix[i][j] <= 10^5

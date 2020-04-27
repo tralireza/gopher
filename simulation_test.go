@@ -94,6 +94,22 @@ func Test1103(t *testing.T) {
 	}
 }
 
+func Test1260(t *testing.T) {
+	for _, c := range []struct {
+		rst, grid [][]int
+		k         int
+	}{
+		{[][]int{{9, 1, 2}, {3, 4, 5}, {6, 7, 8}}, [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, 1},
+		{[][]int{{9, 1, 2}, {3, 4, 5}, {6, 7, 8}}, [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, 10},
+	} {
+		log.Print("* ", c.grid, c.k)
+		if !reflect.DeepEqual(c.rst, shiftGrid(c.grid, c.k)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1380 Lucky Numbers in a Matrix
 func Test1380(t *testing.T) {
 	log.Print("[15] ?= ", luckyNumbers([][]int{{3, 7, 8}, {9, 11, 13}, {15, 16, 17}}))
