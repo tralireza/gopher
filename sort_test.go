@@ -108,6 +108,20 @@ func Test922(t *testing.T) {
 	log.Print(" ?= ", sortArrayByParityII([]int{2, 3}))
 }
 
+func Test1356(t *testing.T) {
+	for _, c := range []struct {
+		rst, arr []int
+	}{
+		{[]int{0, 1, 2, 4, 8, 3, 5, 6, 7}, []int{0, 1, 2, 3, 4, 5, 6, 7, 8}},
+	} {
+		log.Print("* ", c.arr)
+		if !reflect.DeepEqual(c.rst, sortByBits(c.arr)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 2191m Sort the Jumbled Numbers
 func Test2191(t *testing.T) {
 	BucketSort := func(mapping []int, nums []int) []int {

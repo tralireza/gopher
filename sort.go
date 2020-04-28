@@ -282,6 +282,28 @@ func sortArrayByParityII(nums []int) []int {
 	return R
 }
 
+// 1356 Sort Integers by The Number of 1 Bits
+func sortByBits(arr []int) []int {
+    countSetBits := func(n int) int {
+        count := 0
+        for n > 0 {
+            count += n & 1
+            n >>= 1
+        }
+        return count
+    }
+    
+    slices.SortFunc(arr, func(a, b int) int {
+        x, y := countSetBits(a), countSetBits(b)
+        if x == y {
+            return a-b
+        }
+        return x-y
+    })
+
+    return arr
+}
+
 // 2191m Sort the Jumbled Numbers
 func sortJumbled(mapping []int, nums []int) []int {
 	// 0 <= nums[i] < 10^9
