@@ -117,6 +117,20 @@ func Test1380(t *testing.T) {
 	log.Print("[7] ?= ", luckyNumbers([][]int{{7, 8}, {1, 2}}))
 }
 
+func Test1389(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums, index []int
+	}{
+		{[]int{0, 4, 1, 3, 2}, []int{0, 1, 2, 3, 4}, []int{0, 1, 2, 2, 1}},
+	} {
+		log.Print("* ", c.nums, c.index)
+		if !reflect.DeepEqual(c.rst, createTargetArray(c.nums, c.index)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1945 Sum of Digits of String After Convert
 func Test1945(t *testing.T) {
 	log.Print("36 ?= ", getLucky("iiii", 1))

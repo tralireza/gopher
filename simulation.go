@@ -451,6 +451,19 @@ func luckyNumbers(matrix [][]int) []int {
 	return R
 }
 
+// 1389 Create Target Array in the Given Order
+func createTargetArray(nums []int, index []int) []int {
+	A := make([]int, len(nums))
+	for x, n := range nums {
+		i := index[x]
+
+		copy(A[i+1:], A[i:])
+		A[i] = n
+	}
+
+	return A
+}
+
 // 1945 Sum of Digits of String After Convert
 func getLucky(s string, k int) int {
 	t := ""
