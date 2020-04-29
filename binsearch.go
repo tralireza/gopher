@@ -355,6 +355,29 @@ func countNegatives(grid [][]int) int {
 	return negs
 }
 
+// 1385 Find the Distance Value Between Two Arrays
+func findTheDistanceValue(arr1 []int, arr2 []int, d int) int {
+	abs := func(x int) int {
+		if x < 0 {
+			return -x
+		}
+		return x
+	}
+
+	count := 0
+NEXT:
+	for _, s := range arr1 {
+		for _, t := range arr2 {
+			if abs(s-t) <= d {
+				continue NEXT
+			}
+		}
+		count++
+	}
+
+	return count
+}
+
 // 1498m Number of Subsequences That Satisfy the Given Sum Condition
 func numSubseq(nums []int, target int) int {
 	const M = int(1e9) + 7

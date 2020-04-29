@@ -157,6 +157,24 @@ func Test1351(t *testing.T) {
 	}
 }
 
+func Test1385(t *testing.T) {
+	for _, c := range []struct {
+		rst        int
+		arr1, arr2 []int
+		d          int
+	}{
+		{2, []int{4, 5, 8}, []int{10, 9, 1, 8}, 2},
+		{2, []int{1, 4, 2, 3}, []int{-4, -3, 6, 10, 20, 30}, 3},
+		{1, []int{2, 1100, 3}, []int{-5, -2, 10, -3, 7}, 6},
+	} {
+		log.Print("* ", c.arr1, c.arr2, c.d)
+		if c.rst != findTheDistanceValue(c.arr1, c.arr2, c.d) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1498(t *testing.T) {
 	for _, c := range []struct {
 		rst    int
