@@ -357,6 +357,24 @@ func countNegatives(grid [][]int) int {
 
 // 1385 Find the Distance Value Between Two Arrays
 func findTheDistanceValue(arr1 []int, arr2 []int, d int) int {
+	BinarySearch := func(arr1, arr2 []int, d int) int {
+		slices.Sort(arr2)
+
+		count := 0
+		for _, x := range arr1 {
+			left, right := x-d, x+d
+			i, _ := slices.BinarySearch(arr2, left)
+			if i < len(arr2) && arr2[i] <= right {
+				continue
+			}
+
+			count++
+		}
+
+		return count
+	}
+	log.Print(":? ", BinarySearch(arr1, arr2, d))
+
 	abs := func(x int) int {
 		if x < 0 {
 			return -x
