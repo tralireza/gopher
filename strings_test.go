@@ -332,6 +332,21 @@ func Test1189(t *testing.T) {
 	}
 }
 
+func Test1446(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+	}{
+		{5, "abbcccddddeeeeedcba"},
+	} {
+		log.Printf("* %q", c.s)
+		if c.rst != maxPower(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1668(t *testing.T) {
 	// 1 <= L(s), L(w) <= 100
 

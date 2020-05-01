@@ -642,6 +642,23 @@ func maxNumberOfBalloons(text string) int {
     return count
 }
 
+// 1446 Consecutive Characters
+func maxPower(s string) int {
+    power := 1
+
+    powerCur := 1
+    for i := 1; i < len(s); i++ {
+        if s[i] == s[i-1] {
+            powerCur++
+            power = max(powerCur, power)
+        } else {
+            powerCur = 1
+        }
+    }
+
+    return power
+}
+
 // 1668 Maximum Repeating Substring
 func maxRepeating(sequence string, word string) int {
 	xRepeat := 0
