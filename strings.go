@@ -625,38 +625,54 @@ func lastSubstring(s string) string {
 
 // 1189 Maximum Number of Ballons
 func maxNumberOfBalloons(text string) int {
-    F := [26]int{}
-    for i := 0; i < len(text); i++ {
-        F[text[i]-'a']++
-    }
+	F := [26]int{}
+	for i := 0; i < len(text); i++ {
+		F[text[i]-'a']++
+	}
 
-    for _, x := range []byte{'l', 'o'} {
-        F[x-'a'] /= 2
-    }
+	for _, x := range []byte{'l', 'o'} {
+		F[x-'a'] /= 2
+	}
 
-    count := math.MaxInt
-    for _, x := range []byte{'b', 'a', 'l', 'o', 'n'} {
-        count = min(F[x-'a'], count)
-    }
+	count := math.MaxInt
+	for _, x := range []byte{'b', 'a', 'l', 'o', 'n'} {
+		count = min(F[x-'a'], count)
+	}
 
-    return count
+	return count
 }
 
 // 1446 Consecutive Characters
 func maxPower(s string) int {
-    power := 1
+	power := 1
 
-    powerCur := 1
-    for i := 1; i < len(s); i++ {
-        if s[i] == s[i-1] {
-            powerCur++
-            power = max(powerCur, power)
-        } else {
-            powerCur = 1
-        }
-    }
+	powerCur := 1
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			powerCur++
+			power = max(powerCur, power)
+		} else {
+			powerCur = 1
+		}
+	}
 
-    return power
+	return power
+}
+
+// 1470 Shuffle the Array
+func shuffle(nums []int, n int) []int {
+	A := make([]int, 2*n)
+
+	rdr, wtr := 0, 0
+	for range n {
+		A[wtr] = nums[rdr]
+		A[wtr+1] = nums[rdr+n]
+
+		rdr += 1
+		wtr += 2
+	}
+
+	return A
 }
 
 // 1668 Maximum Repeating Substring

@@ -2,6 +2,7 @@ package gopher
 
 import (
 	"log"
+	"reflect"
 	"slices"
 	"testing"
 )
@@ -341,6 +342,22 @@ func Test1446(t *testing.T) {
 	} {
 		log.Printf("* %q", c.s)
 		if c.rst != maxPower(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
+func Test1470(t *testing.T) {
+	for _, c := range []struct {
+		rst, nums []int
+		n         int
+	}{
+		{[]int{2, 3, 5, 4, 1, 7}, []int{2, 5, 1, 3, 4, 7}, 3},
+		{[]int{1, 4, 2, 3, 3, 2, 4, 1}, []int{1, 2, 3, 4, 4, 3, 2, 1}, 4},
+	} {
+		log.Print("* ", c.nums, c.n)
+		if !reflect.DeepEqual(c.rst, shuffle(c.nums, c.n)) {
 			t.FailNow()
 		}
 		log.Print(":: ", c.rst)
