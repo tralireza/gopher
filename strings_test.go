@@ -364,6 +364,22 @@ func Test1470(t *testing.T) {
 	}
 }
 
+func Test1556(t *testing.T) {
+	for _, c := range []struct {
+		rst string
+		n   int
+	}{
+		{"987", 987},
+		{"1.234", 1234},
+	} {
+		log.Print("* ", c.n)
+		if c.rst != thousandSeparator(c.n) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1668(t *testing.T) {
 	// 1 <= L(s), L(w) <= 100
 

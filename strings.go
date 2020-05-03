@@ -675,6 +675,26 @@ func shuffle(nums []int, n int) []int {
 	return A
 }
 
+// 1556 Thousand Separator
+func thousandSeparator(n int) string {
+	if n == 0 {
+		return "0"
+	}
+
+	s := ""
+	for n > 0 {
+		p := fmt.Sprintf("%03d", n%1000)
+		if len(s) > 0 {
+			s = p + "." + s
+		} else {
+			s = p
+		}
+		n /= 1000
+	}
+
+	return strings.TrimLeft(s, "0")
+}
+
 // 1668 Maximum Repeating Substring
 func maxRepeating(sequence string, word string) int {
 	xRepeat := 0
