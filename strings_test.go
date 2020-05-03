@@ -371,6 +371,9 @@ func Test1556(t *testing.T) {
 	}{
 		{"987", 987},
 		{"1.234", 1234},
+
+		{"0", 0},
+		{"51.040", 51040},
 	} {
 		log.Print("* ", c.n)
 		if c.rst != thousandSeparator(c.n) {
