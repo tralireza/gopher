@@ -203,6 +203,22 @@ func Test1550(t *testing.T) {
 	}
 }
 
+func Test1582(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		mat [][]int
+	}{
+		{1, [][]int{{1, 0, 0}, {0, 0, 1}, {1, 0, 0}}},
+		{3, [][]int{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}},
+	} {
+		log.Print("* ", c.mat)
+		if c.rst != numSpecial(c.mat) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func Test1752(t *testing.T) {
 	log.Print("true ?= ", check([]int{3, 4, 5, 1, 2}))

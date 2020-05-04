@@ -379,6 +379,29 @@ func threeConsecutiveOdds(arr []int) bool {
 	return false
 }
 
+// 1582 Special Positions in a Binary Matrix
+func numSpecial(mat [][]int) int {
+	Rows, Cols := make([]int, len(mat)), make([]int, len(mat[0]))
+
+	for r := 0; r < len(mat); r++ {
+		for c := 0; c < len(mat[r]); c++ {
+			Rows[r] += mat[r][c]
+			Cols[c] += mat[r][c]
+		}
+	}
+
+	specials := 0
+	for r := 0; r < len(mat); r++ {
+		for c := 0; c < len(mat[r]); c++ {
+			if mat[r][c] == 1 && Rows[r] == 1 && Cols[c] == 1 {
+				specials++
+			}
+		}
+	}
+
+	return specials
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func check(nums []int) bool {
 	inversions := 0
