@@ -402,6 +402,22 @@ func numSpecial(mat [][]int) int {
 	return specials
 }
 
+// 1588 Sum of All Odd Length Subarrays
+func sumOddLengthSubarrays(arr []int) int {
+	olSum := 0
+	for l := 0; l < len(arr); l++ {
+		for r := l; r < len(arr); r++ {
+			if (r-l+1)&1 == 1 {
+				for x := l; x <= r; x++ {
+					olSum += arr[x]
+				}
+			}
+		}
+	}
+
+	return olSum
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func check(nums []int) bool {
 	inversions := 0

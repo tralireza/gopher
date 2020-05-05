@@ -219,6 +219,22 @@ func Test1582(t *testing.T) {
 	}
 }
 
+func Test1588(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		arr []int
+	}{
+		{58, []int{1, 4, 2, 5, 3}},
+		{3, []int{1, 2}},
+	} {
+		log.Print("* ", c.arr)
+		if c.rst != sumOddLengthSubarrays(c.arr) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1752 Check If Array Is Sorted and Rotated
 func Test1752(t *testing.T) {
 	log.Print("true ?= ", check([]int{3, 4, 5, 1, 2}))
