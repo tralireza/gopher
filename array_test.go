@@ -226,6 +226,7 @@ func Test1588(t *testing.T) {
 	}{
 		{58, []int{1, 4, 2, 5, 3}},
 		{3, []int{1, 2}},
+		{66, []int{10, 11, 12}},
 	} {
 		log.Print("* ", c.arr)
 		if c.rst != sumOddLengthSubarrays(c.arr) {
