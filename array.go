@@ -404,6 +404,22 @@ func numSpecial(mat [][]int) int {
 
 // 1588 Sum of All Odd Length Subarrays
 func sumOddLengthSubarrays(arr []int) int {
+	RunningSum := func(arr []int) int {
+		olSum := 0
+		for l := 0; l < len(arr); l++ {
+			pfxSum := 0
+			for r := l; r < len(arr); r++ {
+				pfxSum += arr[r]
+				if (r-l+1)&1 == 1 {
+					olSum += pfxSum
+				}
+			}
+		}
+
+		return olSum
+	}
+	log.Print(":? ", RunningSum(arr))
+
 	olSum := 0
 	for l := 0; l < len(arr); l++ {
 		for r := l; r < len(arr); r++ {
