@@ -400,6 +400,31 @@ func minSubarray(nums []int, p int) int {
 	return nVal
 }
 
+// 1640 Check Array Formation Through Concatenation
+func canFormArray(arr []int, pieces [][]int) bool {
+	M := map[int][]int{}
+	defer log.Print("-> ", M)
+
+	for _, P := range pieces {
+		M[P[0]] = P
+	}
+
+	A := []int{}
+	for _, n := range arr {
+		A = append(A, M[n]...)
+	}
+
+	if len(A) != len(arr) {
+		return false
+	}
+	for i, n := range A {
+		if arr[i] != n {
+			return false
+		}
+	}
+	return true
+}
+
 // 1865m Finding Pairs With a Certain Sum
 type FindSumPairs struct {
 	nums1, nums2 []int

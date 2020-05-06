@@ -276,6 +276,24 @@ func NewHashMap1590(capacity int) HashMap1590 {
 	}
 }
 
+func Test1640(t *testing.T) {
+	for _, c := range []struct {
+		rst    bool
+		arr    []int
+		pieces [][]int
+	}{
+		{true, []int{15, 88}, [][]int{{88}, {15}}},
+		{false, []int{49, 18, 16}, [][]int{{16, 18, 49}}},
+		{true, []int{91, 4, 64, 78}, [][]int{{78}, {4, 64}, {91}}},
+	} {
+		log.Print("* ", c.arr, c.pieces)
+		if c.rst != canFormArray(c.arr, c.pieces) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1865(t *testing.T) {
 	// 1 <= N1 <= 1000, 1 <= N1_i <= 10^9
 	// 1 <= N2 <= 10^5, 1 <= N2_i <= 10^5
