@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"log"
 	"maps"
+	"reflect"
 	"slices"
 	"strings"
 )
@@ -413,6 +414,8 @@ func canFormArray(arr []int, pieces [][]int) bool {
 	for _, n := range arr {
 		A = append(A, M[n]...)
 	}
+
+	log.Print(":? ", reflect.DeepEqual(A, arr))
 
 	if len(A) != len(arr) {
 		return false
