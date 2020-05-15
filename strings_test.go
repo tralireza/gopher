@@ -383,6 +383,23 @@ func Test1556(t *testing.T) {
 	}
 }
 
+func Test1662(t *testing.T) {
+	for _, c := range []struct {
+		rst          bool
+		word1, word2 []string
+	}{
+		{true, []string{"ab", "c"}, []string{"a", "bc"}},
+		{false, []string{"a", "cb"}, []string{"ab", "c"}},
+		{true, []string{"abc", "d", "defg"}, []string{"abcddefg"}},
+	} {
+		log.Printf("* %q %q", c.word1, c.word2)
+		if c.rst != arrayStringsAreEqual(c.word1, c.word2) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1668(t *testing.T) {
 	// 1 <= L(s), L(w) <= 100
 

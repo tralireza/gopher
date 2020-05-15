@@ -695,6 +695,44 @@ func thousandSeparator(n int) string {
 	return strings.TrimLeft(s, "0")
 }
 
+// 1662 Check If Two String Array are Equivalent
+func arrayStringsAreEqual(word1, word2 []string) bool {
+	ConstantSpace := func(word1, word2 []string) bool {
+		x, i := 0, 0
+		y, j := 0, 0
+
+		for {
+			if word1[x][i] != word2[y][j] {
+				return false
+			}
+
+			i++
+			if i == len(word1[x]) {
+				i = 0
+				x++
+			}
+
+			j++
+			if j == len(word2[y]) {
+				j = 0
+				y++
+			}
+
+			if x == len(word1) && y == len(word2) {
+				return true
+			}
+			if x == len(word1) || y == len(word2) {
+				return false
+			}
+		}
+
+		return true
+	}
+	log.Print(":? ", ConstantSpace(word1, word2))
+
+	return strings.Join(word1, "") == strings.Join(word2, "")
+}
+
 // 1668 Maximum Repeating Substring
 func maxRepeating(sequence string, word string) int {
 	xRepeat := 0
