@@ -419,6 +419,22 @@ func Test1668(t *testing.T) {
 	}
 }
 
+func Test1725(t *testing.T) {
+	for _, c := range []struct {
+		rst        int
+		rectangles [][]int
+	}{
+		{3, [][]int{{5, 8}, {3, 9}, {5, 12}, {16, 5}}},
+		{3, [][]int{{2, 3}, {3, 7}, {4, 3}, {3, 7}}},
+	} {
+		log.Print("* ", c.rectangles)
+		if c.rst != countGoodRectangle(c.rectangles) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 1813m Sentence Similarity III
 func Test1813(t *testing.T) {
 	log.Print("true ?= ", areSentencesSimilar("Hello Jane", "Hello my name is Jane"))

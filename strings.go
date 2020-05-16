@@ -759,6 +759,39 @@ func maxRepeating(sequence string, word string) int {
 	return xRepeat
 }
 
+// 1725 Number of Rectangles That Can Form The Largest Square
+func countGoodRectangle(rectangles [][]int) int {
+	OnePass := func(rectangles [][]int) int {
+		count, xSide := 0, 0
+		for _, r := range rectangles {
+			if min(r[0], r[1]) > xSide {
+				xSide, count = min(r[0], r[1]), 1
+			} else if min(r[0], r[1]) == xSide {
+				count++
+			}
+		}
+
+		return count
+	}
+	log.Print(":? ", OnePass(rectangles))
+
+	R := []int{}
+	for _, r := range rectangles {
+		R = append(R, min(r[0], r[1]))
+	}
+
+	xSide := slices.Max(R)
+
+	count := 0
+	for _, side := range R {
+		if side == xSide {
+			count++
+		}
+	}
+
+	return count
+}
+
 // 1813m Sentence Similarity III
 func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 	Source, Pattern := strings.Split(sentence1, " "), strings.Split(sentence2, " ")
