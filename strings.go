@@ -832,6 +832,29 @@ func checkIfPangram(sentence string) bool {
 	return true
 }
 
+// 1880 Check if Word Equals Summation of Two Words
+func isSumEqual(firstWord string, secondWord string, targetWord string) bool {
+	lSum := func(s string) int {
+		lSum := 0
+		for i := 0; i < len(s); i++ {
+			lSum = 10*lSum + int(s[i]-'a')
+		}
+		return lSum
+	}
+	log.Print(":? ", lSum(firstWord)+lSum(secondWord) == lSum(targetWord))
+
+	lVals := []int{}
+	for _, w := range []string{firstWord, secondWord, targetWord} {
+		lVal := 0
+		for i := 0; i < len(w); i++ {
+			lVal = 10*lVal + int(w[i]-'a')
+		}
+		lVals = append(lVals, lVal)
+	}
+
+	return lVals[0]+lVals[1] == lVals[2]
+}
+
 // 2185 Counting Words With a Given Prefix
 func prefixCount(words []string, pref string) int {
 	count := 0

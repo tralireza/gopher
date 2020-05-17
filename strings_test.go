@@ -458,6 +458,23 @@ func Test1832(t *testing.T) {
 	}
 }
 
+func Test1880(t *testing.T) {
+	for _, c := range []struct {
+		rst                               bool
+		firstWord, secondWord, targetWord string
+	}{
+		{true, "acb", "cba", "cdb"},
+		{false, "aaa", "a", "aab"},
+		{true, "aaa", "a", "aaaa"},
+	} {
+		log.Printf("* %q %q %q", c.firstWord, c.secondWord, c.targetWord)
+		if c.rst != isSumEqual(c.firstWord, c.secondWord, c.targetWord) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 2185 Counting Words With a Given Prefix
 func Test2185(t *testing.T) {
 	log.Print("2 ?= ", prefixCount([]string{"pay", "attention", "practice", "attend"}, "at"))
