@@ -496,6 +496,22 @@ func Test2269(t *testing.T) {
 	}
 }
 
+func Test2315(t *testing.T) {
+	for _, c := range []struct {
+		rst int
+		s   string
+	}{
+		{0, "iamprogrammer"},
+		{5, "yo|uar|e**|b|e***au|tifu|l"},
+	} {
+		log.Printf("* %q", c.s)
+		if c.rst != countAsterisks(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 2379 Minimum Recolors to Get K Consecutive Black Blocks
 func Test2379(t *testing.T) {
 	log.Print("3 ?= ", minimumRecolors("WBBWWBBWBW", 7))

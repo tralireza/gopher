@@ -882,6 +882,40 @@ func divisorSubstrings(num, k int) int {
 	return count
 }
 
+// 2315 Count Asterisks
+func countAsterisks(s string) int {
+	Count := func(s string) int {
+		count := 0
+		isValid := true
+		for _, chr := range s {
+			switch chr {
+			case '*':
+				if isValid {
+					count++
+				}
+			case '|':
+				isValid = !isValid
+			}
+		}
+
+		return count
+	}
+	log.Print(":? ", Count(s))
+
+	count := 0
+	for i, pair := range strings.Split(s, "|") {
+		if i&1 == 0 {
+			for _, chr := range pair {
+				if chr == '*' {
+					count++
+				}
+			}
+		}
+	}
+
+	return count
+}
+
 // 2379 Minimum Recolors to Get K Consecutive Black Blocks
 func minimumRecolors(blocks string, k int) int {
 	recolors, cur := math.MaxInt, 0
