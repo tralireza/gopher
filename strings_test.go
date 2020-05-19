@@ -481,6 +481,21 @@ func Test2185(t *testing.T) {
 	log.Print("0 ?= ", prefixCount([]string{"leetcode", "win", "loops", "success"}, "code"))
 }
 
+func Test2269(t *testing.T) {
+	for _, c := range []struct {
+		rst, num, k int
+	}{
+		{2, 240, 2},
+		{2, 430043, 2},
+	} {
+		log.Print("* ", c.num, c.k)
+		if c.rst != divisorSubstrings(c.num, c.k) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 2379 Minimum Recolors to Get K Consecutive Black Blocks
 func Test2379(t *testing.T) {
 	log.Print("3 ?= ", minimumRecolors("WBBWWBBWBW", 7))

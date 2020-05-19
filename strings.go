@@ -867,6 +867,21 @@ func prefixCount(words []string, pref string) int {
 	return count
 }
 
+// 2269 Find the K-Beauty of a Number
+func divisorSubstrings(num, k int) int {
+	s := strconv.Itoa(num)
+
+	count := 0
+	for i := 0; i <= len(s)-k; i++ {
+		n, _ := strconv.Atoi(s[i : i+k])
+		if n != 0 && num%n == 0 {
+			count++
+		}
+	}
+
+	return count
+}
+
 // 2379 Minimum Recolors to Get K Consecutive Black Blocks
 func minimumRecolors(blocks string, k int) int {
 	recolors, cur := math.MaxInt, 0
