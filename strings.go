@@ -867,6 +867,18 @@ func prefixCount(words []string, pref string) int {
 	return count
 }
 
+// 2196 Cells in a Range on an Excel Sheet
+func cellsInRange(s string) []string {
+	S := []string{}
+	for c := s[0]; c <= s[3]; c++ {
+		for r := s[1]; r <= s[4]; r++ {
+			S = append(S, string([]byte{c, r}))
+		}
+	}
+
+	return S
+}
+
 // 2269 Find the K-Beauty of a Number
 func divisorSubstrings(num, k int) int {
 	s := strconv.Itoa(num)

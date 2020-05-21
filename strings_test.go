@@ -481,6 +481,22 @@ func Test2185(t *testing.T) {
 	log.Print("0 ?= ", prefixCount([]string{"leetcode", "win", "loops", "success"}, "code"))
 }
 
+func Test2196(t *testing.T) {
+	for _, c := range []struct {
+		rst []string
+		s   string
+	}{
+		{[]string{"K1", "K2", "L1", "L2"}, "K1:L2"},
+		{[]string{"A1", "B1", "C1", "D1", "E1", "F1"}, "A1:F1"},
+	} {
+		log.Print("* ", c.s)
+		if !reflect.DeepEqual(c.rst, cellsInRange(c.s)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test2269(t *testing.T) {
 	for _, c := range []struct {
 		rst, num, k int
