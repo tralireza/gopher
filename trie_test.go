@@ -243,6 +243,27 @@ func Test1233(t *testing.T) {
 	}
 }
 
+func Test1948(t *testing.T) {
+	for _, c := range []struct {
+		rst, paths [][]string
+	}{
+		{
+			[][]string{{"d"}, {"d", "a"}},
+			[][]string{{"a"}, {"c"}, {"d"}, {"a", "b"}, {"c", "b"}, {"d", "a"}},
+		},
+		{
+			[][]string{{"a"}, {"a", "b"}, {"c"}, {"c", "b"}},
+			[][]string{{"a"}, {"c"}, {"a", "b"}, {"c", "b"}, {"a", "b", "x"}, {"a", "b", "x", "y"}, {"w"}, {"w", "y"}},
+		},
+	} {
+		log.Print("* ", c.paths)
+		if !reflect.DeepEqual(c.rst, deleteDuplicateFolder(c.paths)) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 // 2416h Sum of Prefix Score of Strings
 func Test2416(t *testing.T) {
 	log.Print("[5 4 3 2] ?= ", sumPrefixScores([]string{"abc", "ab", "bc", "b"}))

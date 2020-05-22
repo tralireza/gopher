@@ -317,6 +317,78 @@ func removeSubfolders(folder []string) []string {
 	return R
 }
 
+// 1948h Delete Duplicate Folders in System
+type Trie1948 struct {
+	dataStr string
+	Child   map[string]*Trie1948
+}
+
+func deleteDuplicateFolder(paths [][]string) [][]string {
+	type Trie = Trie1948
+
+	trie := &Trie{
+		Child: map[string]*Trie{},
+	}
+
+	for _, p := range paths {
+		n := trie
+		for _, dir := range p {
+			if _, ok := n.Child[dir]; !ok {
+				n.Child[dir] = &Trie{
+					Child: map[string]*Trie{},
+				}
+			}
+			n = n.Child[dir]
+		}
+	}
+
+	F := map[string]int{}
+
+	var Build func(*Trie)
+	Build = func(n *Trie) {
+		if len(n.Child) == 0 {
+			return
+		}
+
+		R := []string{}
+		for dir, c := range n.Child {
+			Build(c)
+			R = append(R, dir+"("+c.dataStr+")")
+		}
+		slices.Sort(R)
+		n.dataStr = strings.Join(R, "")
+
+		F[n.dataStr]++
+	}
+
+	Build(trie)
+	log.Print("-> ", F)
+
+	R := [][]string{}
+
+	P := []string{}
+	var Delete func(*Trie)
+	Delete = func(n *Trie) {
+		if F[n.dataStr] > 1 {
+			return
+		}
+
+		if len(P) > 0 {
+			R = append(R, append([]string{}, P...))
+		}
+
+		for dir, c := range n.Child {
+			P = append(P, dir)
+			Delete(c)
+			P = P[:len(P)-1]
+		}
+	}
+
+	Delete(trie)
+
+	return R
+}
+
 // 2416h Sum of Prefix Score of Strings
 func sumPrefixScores(words []string) []int {
 	type Trie struct {
