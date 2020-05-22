@@ -619,6 +619,19 @@ func countSubarrays_KScore(nums []int, k int64) int64 {
 	return count
 }
 
+// 2319 Check if Matrix Is X-Matrix
+func checkXMatrix(grid [][]int) bool {
+	for r := 0; r < len(grid); r++ {
+		for c := 0; c < len(grid); c++ {
+			if (r == c || r+c == len(grid)-1) != (grid[r][c] != 0) {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
 // 2780m Minimum Index of a Valid Split
 func minimumIndex(nums []int) int {
 	F := map[int]int{}

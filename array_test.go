@@ -397,6 +397,22 @@ func Test2302(t *testing.T) {
 	}
 }
 
+func Test2319(t *testing.T) {
+	for _, c := range []struct {
+		rst  bool
+		grid [][]int
+	}{
+		{true, [][]int{{2, 0, 0, 1}, {0, 3, 1, 0}, {0, 5, 2, 0}, {4, 0, 0, 2}}},
+		{false, [][]int{{5, 7, 0}, {0, 3, 1}, {0, 5, 0}}},
+	} {
+		log.Print("* ", c.grid)
+		if c.rst != checkXMatrix(c.grid) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test2780(t *testing.T) {
 	// 1 <= N_i <= 10^9
 
