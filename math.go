@@ -503,6 +503,53 @@ func checkPowersOfThree(n int) bool {
 	return false
 }
 
+// 1886 Determine Whether Matrix Can Be Obtained By Rotation
+func findRotation(mat [][]int, target [][]int) bool {
+	N := len(mat)
+
+NEXT:
+	for range 4 {
+		// 90 Rotation: Transpose M + Row Reverse
+		for r := 0; r < N; r++ {
+			for c := r; c < N; c++ {
+				mat[r][c], mat[c][r] = mat[c][r], mat[r][c]
+			}
+		}
+		for r := range mat {
+			if r == 0 {
+				log.Print("-> T ", mat[r])
+			} else {
+				log.Print("     ", mat[r])
+			}
+		}
+
+		for r := 0; r < N; r++ {
+			for c := 0; c < N/2; c++ {
+				mat[r][c], mat[r][N-c-1] = mat[r][N-c-1], mat[r][c]
+			}
+		}
+		for r := range mat {
+			if r == 0 {
+				log.Print("-> R ", mat[r])
+			} else {
+				log.Print("     ", mat[r])
+			}
+		}
+
+		for r := 0; r < N; r++ {
+			for c := 0; c < N; c++ {
+				if mat[r][c] != target[r][c] {
+					continue NEXT
+				}
+			}
+		}
+
+		return true
+	}
+
+	return false
+}
+
 // 1922m Count Good Numbers
 func countGoodNumbers(n int64) int {
 	const M = 1e9 + 7

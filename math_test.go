@@ -351,6 +351,23 @@ func Test1780(t *testing.T) {
 	}
 }
 
+func Test1886(t *testing.T) {
+	for _, c := range []struct {
+		rst         bool
+		mat, target [][]int
+	}{
+		{true, [][]int{{0, 1}, {1, 0}}, [][]int{{1, 0}, {0, 1}}},
+		{false, [][]int{{0, 1}, {1, 1}}, [][]int{{1, 0}, {0, 1}}},
+		{true, [][]int{{0, 0, 0}, {0, 1, 0}, {1, 1, 1}}, [][]int{{1, 1, 1}, {0, 1, 0}, {0, 0, 0}}},
+	} {
+		log.Print("* ", c.mat, c.target)
+		if c.rst != findRotation(c.mat, c.target) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1922(t *testing.T) {
 	for _, c := range []struct {
 		rst int
