@@ -386,6 +386,23 @@ func Test1922(t *testing.T) {
 	}
 }
 
+func Test1995(t *testing.T) {
+	for _, c := range []struct {
+		rst  int
+		nums []int
+	}{
+		{1, []int{1, 2, 3, 6}},
+		{0, []int{3, 3, 6, 4, 5}},
+		{4, []int{1, 1, 1, 3, 5}},
+	} {
+		log.Print("* ", c.nums)
+		if c.rst != countQuadruplets(c.nums) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1998(t *testing.T) {
 	// 2 <= N_i <= 10^5, N.length <= 3*10^4
 

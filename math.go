@@ -569,6 +569,44 @@ func countGoodNumbers(n int64) int {
 	return int(MPower(5, (n+1)/2) * MPower(4, n/2) % M)
 }
 
+// 1995 Count Special Quadruples
+func countQuadruplets(nums []int) int {
+	Hashing := func(nums []int) int {
+		M := map[int]int{}
+
+		count := 0
+		for c := 1; c < len(nums)-1; c++ {
+			for d := c + 1; d < len(nums); d++ {
+				if pCount, ok := M[nums[d]-nums[c]]; ok {
+					count += pCount
+				}
+			}
+
+			for a := 0; a < c; a++ {
+				M[nums[a]+nums[c]]++
+			}
+		}
+
+		return count
+	}
+	log.Print(":? ", Hashing(nums))
+
+	count := 0
+	for a := 0; a < len(nums)-3; a++ {
+		for b := a + 1; b < len(nums)-2; b++ {
+			for c := b + 1; c < len(nums)-1; c++ {
+				for d := c + 1; d < len(nums); d++ {
+					if nums[d] == nums[a]+nums[b]+nums[c] {
+						count++
+					}
+				}
+			}
+		}
+	}
+
+	return count
+}
+
 // 1998h GCD Sort of an Array
 func gcdSort(nums []int) bool {
 	xVal := slices.Max(nums)
