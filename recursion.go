@@ -730,6 +730,79 @@ func constructDistancedSequence(n int) []int {
 	return R
 }
 
+// 1764 Longest Nice Substring
+func longestNiceSubstring(s string) string {
+	DivideAndConquer := func(s string) string {
+		var Search func(string) string
+		Search = func(s string) string {
+			log.Printf("-> %q", s)
+
+			M := map[rune]struct{}{}
+			for _, r := range s {
+				M[r] = struct{}{}
+			}
+
+			for i, r := range s {
+				var lower, upper bool
+				switch {
+				case 'a' <= r && r <= 'z':
+					_, lower = M[r]
+					_, upper = M[r-'a'+'A']
+				default:
+					_, upper = M[r]
+					_, lower = M[r-'A'+'a']
+				}
+
+				if !lower || !upper {
+					left, right := Search(s[:i]), Search(s[i+1:])
+					if len(right) > len(left) {
+						return right
+					}
+					return left
+				}
+			}
+
+			return s
+		}
+
+		return Search(s)
+	}
+	log.Printf(":? %q", DivideAndConquer(s))
+
+	lNice := ""
+
+	for l := 0; l < len(s); l++ {
+	NEXT:
+		for r := l; r < len(s); r++ {
+			M := map[byte]struct{}{}
+			for x := l; x <= r; x++ {
+				M[s[x]] = struct{}{}
+			}
+
+			log.Printf("-> %q", M)
+
+			for r := range M {
+				switch {
+				case 'a' <= r && r <= 'z':
+					if _, ok := M[r-'a'+'A']; !ok {
+						continue NEXT
+					}
+				default:
+					if _, ok := M[r-'A'+'a']; !ok {
+						continue NEXT
+					}
+				}
+			}
+
+			if len(s[l:r+1]) > len(lNice) {
+				lNice = s[l : r+1]
+			}
+		}
+	}
+
+	return lNice
+}
+
 // 1980m Find Unique Binary String
 func findDifferentBinaryString(nums []string) string {
 	numSize := len(nums[0])

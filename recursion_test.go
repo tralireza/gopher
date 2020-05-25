@@ -337,6 +337,22 @@ func Test1718(t *testing.T) {
 	log.Print("[5 3 1 4 3 5 2 4 2] ?= ", constructDistancedSequence(5))
 }
 
+func Test1764(t *testing.T) {
+	for _, c := range []struct {
+		rst, s string
+	}{
+		{"aAa", "YazaAay"},
+		{"Bb", "Bb"},
+		{"", "C"},
+	} {
+		log.Printf("* %q", c.s)
+		if c.rst != longestNiceSubstring(c.s) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test1980(t *testing.T) {
 	// 1 <= N <= 16
 
