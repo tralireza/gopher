@@ -788,6 +788,23 @@ func Test2127(t *testing.T) {
 	log.Print("4 ?= ", maximumInvitations([]int{3, 0, 1, 4, 1}))
 }
 
+func Test2322(t *testing.T) {
+	for _, c := range []struct {
+		rst   int
+		nums  []int
+		edges [][]int
+	}{
+		{9, []int{1, 5, 5, 4, 11}, [][]int{{0, 1}, {1, 2}, {1, 3}, {3, 4}}},
+		{0, []int{5, 5, 2, 4, 4, 2}, [][]int{{0, 1}, {1, 2}, {5, 2}, {4, 3}, {1, 3}}},
+	} {
+		log.Print("* ", c.nums, c.edges)
+		if c.rst != minimumScore(c.nums, c.edges) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}
+
 func Test2359(t *testing.T) {
 	for _, c := range []struct {
 		rst          int

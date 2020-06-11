@@ -1221,6 +1221,61 @@ func maximumInvitations(favorite []int) int {
 	return max(longestCycle, twoCycles)
 }
 
+// 2322h Minimum Score After Removals on a Tree
+func minimumScore(nums []int, edges [][]int) int {
+	N := len(nums)
+
+	gAdj := make([][]int, N)
+	for _, edge := range edges {
+		v, u := edge[0], edge[1]
+		gAdj[v], gAdj[u] = append(gAdj[v], u), append(gAdj[u], v)
+	}
+
+	Vis := make([][2]int, N)
+	Sum := make([]int, N)
+
+	time := 0
+	var PreOrder func(v, p int)
+	PreOrder = func(v, p int) {
+		Vis[v][0] = time
+		time++
+
+		Sum[v] = nums[v]
+		for _, u := range gAdj[v] {
+			if u == p {
+				continue
+			}
+			PreOrder(u, v)
+			Sum[v] ^= Sum[u]
+		}
+		Vis[v][1] = time
+		time++
+	}
+
+	PreOrder(0, -1)
+	log.Print("-> Visits: ", Vis)
+
+	Score := func(s1, s2, s3 int) int {
+		return max(s1, s2, s3) - min(s1, s2, s3)
+	}
+
+	mScore := math.MaxInt
+	for v := 1; v < N; v++ {
+		for u := v + 1; u < N; u++ {
+			switch {
+			case Vis[u][0] > Vis[v][0] && Vis[u][0] < Vis[v][1]:
+				mScore = min(Score(Sum[0]^Sum[v], Sum[v]^Sum[u], Sum[u]), mScore)
+			case Vis[v][0] > Vis[u][0] && Vis[v][0] < Vis[u][1]:
+				mScore = min(Score(Sum[0]^Sum[u], Sum[u]^Sum[v], Sum[v]), mScore)
+			default:
+				mScore = min(Score(Sum[0]^Sum[v]^Sum[u], Sum[u], Sum[v]), mScore)
+			}
+		}
+	}
+
+	return mScore
+}
+
 // 2359m Find Closest Node to Given Two Nodes
 func closestMeetingNode(edges []int, node1 int, node2 int) int {
 	D1, D2 := make([]int, len(edges)), make([]int, len(edges))
