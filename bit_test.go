@@ -113,3 +113,20 @@ func Test2179(t *testing.T) {
 		}
 	}
 }
+
+func Test3480(t *testing.T) {
+	for _, c := range []struct {
+		rst               int64
+		n                 int
+		conflicting_pairs [][]int
+	}{
+		{9, 4, [][]int{{2, 3}, {1, 4}}},
+		{12, 5, [][]int{{1, 2}, {2, 5}, {3, 5}}},
+	} {
+		log.Print("* ", c.n, c.conflicting_pairs)
+		if c.rst != maxSubarrays(c.n, c.conflicting_pairs) {
+			t.FailNow()
+		}
+		log.Print(":: ", c.rst)
+	}
+}

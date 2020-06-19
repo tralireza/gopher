@@ -108,3 +108,10 @@ func goodTriplets(nums1 []int, nums2 []int) int64 {
 
 	return count
 }
+
+// 3480h Maximize Subarrays After Removing One Conflicting Pair
+func maxSubarrays(n int, conflictingPairs [][]int) int64 {
+	subarrays := int64(0)
+
+	return subarrays
+}
