@@ -122,6 +122,8 @@ func Test3480(t *testing.T) {
 	}{
 		{9, 4, [][]int{{2, 3}, {1, 4}}},
 		{12, 5, [][]int{{1, 2}, {2, 5}, {3, 5}}},
+
+		{209, 25, [][]int{{4, 18}, {7, 13}, {9, 17}, {16, 25}, {9, 10}, {9, 23}}}, // 637/642
 	} {
 		log.Print("* ", c.n, c.conflicting_pairs)
 		if c.rst != maxSubarrays(c.n, c.conflicting_pairs) {
