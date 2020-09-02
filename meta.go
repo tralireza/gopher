@@ -16,10 +16,8 @@ func getMinCodeEntryTime(N int32, M int32, C []int32) int64 {
 		code--
 		for u, dist := range curState {
 			for _, u := range [][2]int32{[2]int32{u[0], u[1]}, [2]int32{u[1], u[0]}} {
-				u0, u1 := u[0], u[1]
-
-				v := [2]int32{min(code, u1), max(code, u1)}
-				weight := min((N+u0-code)%N, (N+code-u0)%N)
+				v := [2]int32{min(code, u[1]), max(code, u[1])}
+				weight := min((N+u[0]-code)%N, (N+code-u[0])%N)
 
 				if distV, ok := nState[v]; ok {
 					if dist+int64(weight) < distV {
