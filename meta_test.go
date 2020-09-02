@@ -11,8 +11,8 @@ func Test_RotaryLock2(t *testing.T) {
 		N, M int32
 		C    []int32
 	}{
-		{int64(2), int32(3), int32(3), []int32{1, 2, 3}},
-		{int64(6), int32(10), int32(4), []int32{9, 4, 4, 8}},
+		{2, 3, 3, []int32{1, 2, 3}},
+		{6, 10, 4, []int32{9, 4, 4, 8}},
 	} {
 		log.Print("* ", c.N, c.M, c.C)
 		if c.rst != getMinCodeEntryTime(c.N, c.M, c.C) {
